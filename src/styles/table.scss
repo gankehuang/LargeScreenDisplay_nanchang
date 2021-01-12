@@ -1,0 +1,41 @@
+/deep/.el-table th {
+  background: transparent !important;
+  color: #fff;
+}
+/deep/.el-table--enable-row-transition .el-table__body td {
+  background: #1a4870 !important;
+  font-size: 16px;
+}
+/deep/.el-table--striped .el-table__body tr.el-table__row--striped td {
+  background: #09375f !important;
+  font-size: 16px;
+}
+/deep/.el-table tr {
+  background: linear-gradient(269deg, #46aef7, #1ed5e6) !important;
+  height: 36px;
+  line-height: 36px;
+  font-size: 18px;
+}
+/deep/.has-gutter {
+  border-radius: 4px;
+}
+/deep/.btn-prev {
+  background-color: transparent !important;
+}
+/deep/.btn-next {
+  background-color: transparent !important;
+}
+/deep/.el-pager li {
+  background-color: transparent !important;
+  color: #fff;
+  margin: 0 5px;
+}
+/deep/.el-pager li.active {
+  background: #023690 !important;
+}
+/deep/.el-input__inner {
+  background: #12508a;
+}
+/deep/.el-table__row {
+  cursor: pointer;
+}
