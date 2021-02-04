@@ -1,9 +1,12 @@
 <template>
-  <div class="page-bg" @contextmenu.prevent="toRouter">
+  <div
+    class="page-bg"
+    @contextmenu.prevent="toRouter"
+  >
     <video-player
       class="vjs-custom-skin"
       :options="playerOptions"
-    ></video-player>
+    />
   </div>
 </template>
 
@@ -13,7 +16,7 @@ export default {
   components: {
     videoPlayer
   },
-  data() {
+  data () {
     return {
       playerOptions: {
         playbackRates: [0.7, 1.0, 1.5, 2.0], // 播放速度
@@ -36,7 +39,7 @@ export default {
     }
   },
   methods: {
-    toRouter() {
+    toRouter () {
       this.$router.push('/smartData/dataView?socialGovernment=true')
     }
   }

@@ -1,19 +1,19 @@
 <template>
   <div class="page-left">
-    <CountInfo />
+    <PersonnelProfile />
     <SpreadInfo />
   </div>
 </template>
 
 <script>
-import CountInfo from './CountInfo'
+import PersonnelProfile from './PersonnelProfile'
 import SpreadInfo from './SpreadInfo'
 export default {
   components: {
-    CountInfo,
+    PersonnelProfile,
     SpreadInfo
   },
-  data() {
+  data () {
     return {}
   }
 }

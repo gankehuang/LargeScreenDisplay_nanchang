@@ -2,17 +2,26 @@
   <div class="model">
     <div class="model-box">
       <el-scrollbar style="height:100%;width:100%;">
-        <div class="list-container" v-if="ids">
-          <div class="list-item" v-for="(item, index) in list" :key="index">
+        <div
+          v-if="ids"
+          class="list-container"
+        >
+          <div
+            v-for="(item, index) in list"
+            :key="index"
+            class="list-item"
+          >
             <div class="left-box">
               <div class="img">
                 <el-image
                   style="height:100%;width:100%;"
                   :src="item.snapImageUrl"
                   :preview-src-list="[item.snapImageUrl]"
-                ></el-image>
+                />
               </div>
-              <div class="text">现场抓拍图片</div>
+              <div class="text">
+                现场抓拍图片
+              </div>
             </div>
             <div class="right-info">
               <div class="item-p">
@@ -24,17 +33,26 @@
             </div>
           </div>
         </div>
-        <div class="list-container" v-else>
-          <div class="list-item" v-for="(item, index) in list" :key="index">
+        <div
+          v-else
+          class="list-container"
+        >
+          <div
+            v-for="(item, index) in list"
+            :key="index"
+            class="list-item"
+          >
             <div class="left-box">
               <div class="img">
                 <el-image
                   style="height:100%;width:100%;"
                   :src="item.bkgUrl"
                   :preview-src-list="[item.bkgUrl]"
-                ></el-image>
+                />
               </div>
-              <div class="text">现场抓拍图片</div>
+              <div class="text">
+                现场抓拍图片
+              </div>
             </div>
             <div class="right-info">
               <div class="item-p">
@@ -73,17 +91,20 @@ export default {
       type: String
     }
   },
-  data() {
+  data () {
     return {
       ids: false,
       list: []
     }
   },
+  created () {
+    this.queryAlarmRecord()
+  },
   methods: {
-    submitClick() {
+    submitClick () {
       this.$emit('submitEvent', this.form)
     },
-    queryAlarmRecord() {
+    queryAlarmRecord () {
       if (this.id === '925644860') {
         const objects = {
           beginTime: '2020-01-01 00:00:00',
@@ -112,9 +133,6 @@ export default {
         })
       }
     }
-  },
-  created() {
-    this.queryAlarmRecord()
   }
 }
 </script>

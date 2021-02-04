@@ -1,19 +1,19 @@
 <template>
   <div class="page-right">
-    <WatchInfo />
-    <ListInfo />
+    <VisitSituation />
+    <EarlyWarningList />
   </div>
 </template>
 
 <script>
-import WatchInfo from './WatchInfo'
-import ListInfo from './ListInfo'
+import VisitSituation from './VisitSituation'
+import EarlyWarningList from './EarlyWarningList'
 export default {
   components: {
-    WatchInfo,
-    ListInfo
+    VisitSituation,
+    EarlyWarningList
   },
-  data() {
+  data () {
     return {}
   }
 }

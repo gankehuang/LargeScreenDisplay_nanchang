@@ -1,39 +1,73 @@
 <template>
   <div class="detail-recorcontainer">
-    <el-row class="record-info" v-for="(item, index) in actions" :key="index">
-      <el-col :span="5" class="status-section">
+    <el-row
+      v-for="(item, index) in actions"
+      :key="index"
+      class="record-info"
+    >
+      <el-col
+        :span="5"
+        class="status-section"
+      >
         <div class="status">
-          <div class="action">{{ item.action }}</div>
-          <div class="actioner">（{{ item.actioner }}）</div>
+          <div class="action">
+            {{ item.action }}
+          </div>
+          <div class="actioner">
+            （{{ item.actioner }}）
+          </div>
         </div>
         <div class="det-rec-circular">
-          <div class="det-rec-circular-inside">{{ item.index }}</div>
+          <div class="det-rec-circular-inside">
+            {{ item.index }}
+          </div>
         </div>
-        <div class="record-line"></div>
+        <div class="record-line" />
       </el-col>
-      <el-col :span="19" style="padding-right:20px">
+      <el-col
+        :span="19"
+        style="padding-right:20px"
+      >
         <div class="record-detail">
           <el-form :label-width="labelWidth">
             <el-row>
               <el-col :span="12">
-                <el-form-item label="上报人：" v-if="index === 0">
-                  <el-input readonly value="监控设备" />
+                <el-form-item
+                  v-if="index === 0"
+                  label="上报人："
+                >
+                  <el-input
+                    readonly
+                    value="监控设备"
+                  />
                 </el-form-item>
-                <el-form-item label="负责人：" v-else>
-                  <el-input readonly v-model="item.detailForm.principal" />
+                <el-form-item
+                  v-else
+                  label="负责人："
+                >
+                  <el-input
+                    v-model="item.detailForm.principal"
+                    readonly
+                  />
                 </el-form-item>
                 <el-form-item label="联系电话：">
-                  <el-input readonly v-model="item.detailForm.phone" />
+                  <el-input
+                    v-model="item.detailForm.phone"
+                    readonly
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="处理时间：">
-                  <el-input readonly v-model="item.detailForm.time" />
+                  <el-input
+                    v-model="item.detailForm.time"
+                    readonly
+                  />
                 </el-form-item>
                 <el-form-item label="超时状态：">
                   <el-input
-                    readonly
                     v-model="item.detailForm.statusText"
+                    readonly
                     :class="
                       item.detailForm.status === 1
                         ? 'status-success'
@@ -45,7 +79,10 @@
             </el-row>
             <el-row>
               <el-form-item label="上报说明：">
-                <el-input readonly v-model="item.detailForm.explain" />
+                <el-input
+                  v-model="item.detailForm.explain"
+                  readonly
+                />
               </el-form-item>
             </el-row>
           </el-form>
@@ -58,7 +95,7 @@
                 :src="img"
                 :preview-src-list="[img]"
                 fit="fit"
-              ></el-image>
+              />
             </template>
 
             <template v-else>
@@ -69,7 +106,7 @@
                 :src="img"
                 :preview-src-list="[img]"
                 fit="fit"
-              ></el-image>
+              />
             </template>
           </div>
         </div>
@@ -84,50 +121,7 @@ export default {
   props: {
     data: Object
   },
-  watch: {
-    data(val) {
-      if (val) {
-        this.actions[0].detailForm.time = this.data.happenedTime
-        this.actions[0].detailForm.explain = this.data.description || '暂无'
-        // 未受理
-        if (val.status - 0 <= 1) {
-          this.actions = this.actions.slice(0, 1)
-        }
-
-        // 已派发
-        if (val.status - 0 <= 2) {
-          this.actions = this.actions.slice(0, 2)
-        }
-
-        if (val.status - 0 === 3) {
-          this.actions = this.actions.slice(0, 4)
-        }
-
-        if (val.status - 0 === 4) {
-          // 事件超时
-          if (this.data.assignGroupList) {
-            this.actions = this.actions.slice(0, 2)
-            this.actions[0].detailForm.statusText = '超时'
-            this.actions[1].detailForm.statusText = '超时'
-          } else {
-            this.actions = this.actions.slice(0, 1)
-            this.actions[0].detailForm.statusText = '超时'
-            this.actions[1].detailForm.statusText = '超时'
-          }
-        }
-
-        if (val.status - 0 === 5) {
-          // 事件催单
-          if (this.data.assignGroupList) {
-            this.actions = this.actions.slice(0, 2)
-          } else {
-            this.actions = this.actions.slice(0, 1)
-          }
-        }
-      }
-    }
-  },
-  data() {
+  data () {
     return {
       labelWidth: '100px',
       actions: [
@@ -218,8 +212,51 @@ export default {
       ]
     }
   },
+  watch: {
+    data (val) {
+      if (val) {
+        this.actions[0].detailForm.time = this.data.happenedTime
+        this.actions[0].detailForm.explain = this.data.description || '暂无'
+        // 未受理
+        if (val.status - 0 <= 1) {
+          this.actions = this.actions.slice(0, 1)
+        }
+
+        // 已派发
+        if (val.status - 0 <= 2) {
+          this.actions = this.actions.slice(0, 2)
+        }
+
+        if (val.status - 0 === 3) {
+          this.actions = this.actions.slice(0, 4)
+        }
+
+        if (val.status - 0 === 4) {
+          // 事件超时
+          if (this.data.assignGroupList) {
+            this.actions = this.actions.slice(0, 2)
+            this.actions[0].detailForm.statusText = '超时'
+            this.actions[1].detailForm.statusText = '超时'
+          } else {
+            this.actions = this.actions.slice(0, 1)
+            this.actions[0].detailForm.statusText = '超时'
+            this.actions[1].detailForm.statusText = '超时'
+          }
+        }
+
+        if (val.status - 0 === 5) {
+          // 事件催单
+          if (this.data.assignGroupList) {
+            this.actions = this.actions.slice(0, 2)
+          } else {
+            this.actions = this.actions.slice(0, 1)
+          }
+        }
+      }
+    }
+  },
   methods: {
-    setDefaultTime() {
+    setDefaultTime () {
       const t = new Date(this.data.processingTime).getTime() + 1200000
       const d = new Date(t)
       let theMonth = d.getMonth() + 1

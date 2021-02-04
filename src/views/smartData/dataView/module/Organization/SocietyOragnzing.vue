@@ -1,23 +1,22 @@
 <template>
   <div class="society-oragnzing-container">
-    <div class="title">社会组织</div>
+    <div class="title">
+      社会组织
+    </div>
     <ul>
       <li>
         <p class="connected">
-          <span class="unit">心防组织</span
-          ><strong class="num">{{ count }}<span>个</span></strong>
+          <span class="unit">心防组织</span><strong class="num">{{ count }}<span>个</span></strong>
         </p>
       </li>
       <li>
         <p class="connected">
-          <span class="unit">法律援助组织</span
-          ><strong class="num">{{ count1 }}<span>个</span></strong>
+          <span class="unit">法律援助组织</span><strong class="num">{{ count1 }}<span>个</span></strong>
         </p>
       </li>
       <li>
         <p class="connected">
-          <span class="unit">人民调解组织</span
-          ><strong class="num">{{ count2 }}<span>个</span></strong>
+          <span class="unit">人民调解组织</span><strong class="num">{{ count2 }}<span>个</span></strong>
         </p>
       </li>
     </ul>
@@ -27,7 +26,7 @@
 <script>
 import { getCommunityOrg } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       code: '3601',
       count: 0,
@@ -35,10 +34,10 @@ export default {
       count2: 0
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  async mounted() {
+  async mounted () {
     await this.handleGetCommunityOrg()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -46,7 +45,7 @@ export default {
     })
   },
   methods: {
-    async handleGetCommunityOrg() {
+    async handleGetCommunityOrg () {
       try {
         const { status, data } = await getCommunityOrg({ gridCode: this.code })
         if (status === 200) {
@@ -54,9 +53,9 @@ export default {
             (total, cur) => total + cur,
             0
           )
-          this.count = data['xf']
-          this.count1 = data['fl']
-          this.count2 = data['tj']
+          this.count = data.xf
+          this.count1 = data.fl
+          this.count2 = data.tj
         }
       } catch (error) {}
     }

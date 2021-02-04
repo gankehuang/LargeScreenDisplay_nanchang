@@ -1,14 +1,17 @@
 <template>
-  <div class="modal" v-if="visible">
+  <div
+    v-if="visible"
+    class="modal"
+  >
     <img
       class="btn-close"
       src="@/assets/image/common/close-btn.png"
       @click="bindBtnClose"
-    />
+    >
     <div class="player-container">
       <HKVideoPlay
         v-if="info"
-        :cameraIndexCode="info.cameraIndexCode"
+        :camera-index-code="info.cameraIndexCode"
         layout="2x2"
       />
     </div>
@@ -26,17 +29,17 @@ export default {
     info: Object,
     visible: Boolean
   },
-  data() {
+  data () {
     return {}
   },
   watch: {
-    info() {
+    info () {
       console.log(this.info.cameraIndexCode)
     }
   },
-  mounted() {},
+  mounted () {},
   methods: {
-    bindBtnClose() {
+    bindBtnClose () {
       this.$emit('update:visible', false)
     }
   }

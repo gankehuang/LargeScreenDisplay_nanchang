@@ -1,12 +1,18 @@
 <template>
-  <div class="mask-container" v-if="visible">
-    <div class="mask"></div>
+  <div
+    v-if="visible"
+    class="mask-container"
+  >
+    <div class="mask" />
     <div class="conflict-modal-container">
-      <div class="close" @click="close"></div>
+      <div
+        class="close"
+        @click="close"
+      />
       <iframe
         :src="url"
         style="width:1300px;height:780px;margin:20px 25px 0;"
-      ></iframe>
+      />
     </div>
   </div>
 </template>
@@ -27,11 +33,11 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {}
   },
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     }
   }

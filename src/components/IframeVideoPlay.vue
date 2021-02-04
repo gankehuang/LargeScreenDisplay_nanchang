@@ -7,7 +7,7 @@
       frameborder="0"
       allowfullscreen
       allow="autoplay; fullscreen"
-    ></iframe>
+    />
   </div>
 </template>
 
@@ -32,7 +32,7 @@ export default {
       default: '100%'
     }
   },
-  data() {
+  data () {
     return {
       token: '',
       needUrl: ''
@@ -41,13 +41,13 @@ export default {
   watch: {
     cameraIndexCode: {
       immediate: true,
-      handler() {
+      handler () {
         this.queryToken()
       }
     }
   },
   methods: {
-    queryToken() {
+    queryToken () {
       getToken().then(res => {
         const { status, data } = res
         if (status === 200) {

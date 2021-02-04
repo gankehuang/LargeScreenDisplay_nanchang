@@ -1,27 +1,43 @@
 <template>
   <div class="thing-handle-container">
-    <div class="title">事件处置</div>
+    <div class="title">
+      事件处置
+    </div>
     <ul>
-      <li v-for="(item, index) in dataList" :key="index">
+      <li
+        v-for="(item, index) in dataList"
+        :key="index"
+      >
         <div class="label-container">
-          <svg-icon :icon-class="item.icon" class="icon" />
+          <svg-icon
+            :icon-class="item.icon"
+            class="icon"
+          />
           <span class="label">{{ item.label }}</span>
         </div>
         <div class="data">
-          <CountTo :startVal="0" :endVal="item.number" :duration="300" />
+          <CountTo
+            :start-val="0"
+            :end-val="item.number"
+            :duration="300"
+          />
           <!-- <span>{{item.number}}</span> -->
           <span>{{ item.unit }}</span>
         </div>
       </li>
     </ul>
     <ul class="ul">
-      <li v-for="(item, index) in bottomDataList" :key="index" class="li">
+      <li
+        v-for="(item, index) in bottomDataList"
+        :key="index"
+        class="li"
+      >
         <RingPerChart
           :number="item.number"
           :total="item.total"
           :color="item.color"
-          :isPerBool="false"
-          :styleObj="item.styleObj"
+          :is-per-bool="false"
+          :style-obj="item.styleObj"
         >
           <div class="data">
             <div>{{ item.label }}</div>
@@ -40,7 +56,7 @@ export default {
   components: {
     RingPerChart
   },
-  data() {
+  data () {
     return {
       code: '3601',
       dataList: [
@@ -84,28 +100,28 @@ export default {
       ]
     }
   },
-  mounted() {
+  mounted () {
     this.getAsyncData()
-    this.$EventBus.$on('update:dataViewSeleItem', async({ code }) => {
+    this.$EventBus.$on('update:dataViewSeleItem', async ({ code }) => {
       this.code = code
       await this.getAsyncData()
     })
   },
   methods: {
-    async getAsyncData() {
+    async getAsyncData () {
       try {
         const { status, data } = await queryEventHandle({
           gridCode: this.code
         })
         if (status === 200) {
-          this.dataList[0].number = data['complete']
-          this.dataList[1].number = data['unComplete']
-          this.dataList[2].number = data['overdue']
-          this.bottomDataList[0].number = data['complete']
-          this.bottomDataList[0].total = data['complete'] + data['unComplete']
-          this.bottomDataList[1].number = data['overdue']
+          this.dataList[0].number = data.complete
+          this.dataList[1].number = data.unComplete
+          this.dataList[2].number = data.overdue
+          this.bottomDataList[0].number = data.complete
+          this.bottomDataList[0].total = data.complete + data.unComplete
+          this.bottomDataList[1].number = data.overdue
           this.bottomDataList[1].total =
-            data['overdue'] + data['unComplete'] + data['complete']
+            data.overdue + data.unComplete + data.complete
         }
       } catch (error) {}
     }

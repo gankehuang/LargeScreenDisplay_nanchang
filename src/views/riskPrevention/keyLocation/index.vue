@@ -1,6 +1,10 @@
 <template>
   <div class="page-container">
-    <Tabs :tab-list="tabList" width="600px" :cur-index="3" />
+    <Tabs
+      :tab-list="tabList"
+      width="600px"
+      :cur-index="3"
+    />
 
     <SimpleMap @mapInit="mapInit">
       <el-amap-marker
@@ -8,7 +12,7 @@
         :vid="eventInfo.id"
         :position="[eventInfo.longitude, eventInfo.latitude]"
         :offset="[-27, -40]"
-        :topWhenClick="true"
+        :top-when-click="true"
       >
         <div
           v-if="eventInfo.typeText === '政治安全'"
@@ -16,7 +20,7 @@
           @click="showEventDetail(eventInfo)"
         >
           <p>{{ eventInfo.typeText }}</p>
-          <div class="zz-twinkle"></div>
+          <div class="zz-twinkle" />
         </div>
 
         <div
@@ -25,7 +29,7 @@
           @click="showEventDetail(eventInfo)"
         >
           <p>{{ eventInfo.typeText }}</p>
-          <div class="sh-twinkle"></div>
+          <div class="sh-twinkle" />
         </div>
 
         <div
@@ -34,7 +38,7 @@
           @click="showEventDetail(eventInfo)"
         >
           <p>{{ eventInfo.typeText }}</p>
-          <div class="md-twinkle"></div>
+          <div class="md-twinkle" />
         </div>
 
         <div
@@ -43,7 +47,7 @@
           @click="showEventDetail(eventInfo)"
         >
           <p>{{ eventInfo.typeText }}</p>
-          <div class="gg-twinkle"></div>
+          <div class="gg-twinkle" />
         </div>
 
         <div
@@ -52,7 +56,7 @@
           @click="showEventDetail(eventInfo)"
         >
           <p>{{ eventInfo.typeText }}</p>
-          <div class="wl-twinkle"></div>
+          <div class="wl-twinkle" />
         </div>
       </el-amap-marker>
     </SimpleMap>
@@ -60,29 +64,48 @@
     <locationType @focusKeyAreas="focusKeyAreas" />
 
     <div class="search-btn">
-      <el-input v-model="searchItem" placeholder="请输入" @change="toSearch" />
-      <div class="searchIcon" @click="toSearch"></div>
+      <el-input
+        v-model="searchItem"
+        placeholder="请输入"
+        @change="toSearch"
+      />
+      <div
+        class="searchIcon"
+        @click="toSearch"
+      />
     </div>
-    <div class="hdhw" v-if="ifHuaduo" @click="toHuaduo"></div>
+    <div
+      v-if="ifHuaduo"
+      class="hdhw"
+      @click="toHuaduo"
+    />
 
-    <transition name="ani-left" mode="out-in" appear>
+    <transition
+      name="ani-left"
+      mode="out-in"
+      appear
+    >
       <div class="page-left">
         <component
           :is="leftOne"
-          :clientDetails="clientDetails"
           v-if="update"
-        ></component>
-        <timeVideo :videoList="videoList" />
+          :client-details="clientDetails"
+        />
+        <timeVideo :video-list="videoList" />
       </div>
     </transition>
 
-    <transition name="ani-right" mode="out-in" appear>
+    <transition
+      name="ani-right"
+      mode="out-in"
+      appear
+    >
       <div class="page-right">
-        <component :is="rightOne"></component>
-        <component :is="rightTwo"></component>
+        <component :is="rightOne" />
+        <component :is="rightTwo" />
         <EventInfo
-          :eventAllList="eventList"
-          :isGas="isGas"
+          :event-all-list="eventList"
+          :is-gas="isGas"
           @focusEvent="focusEvent"
           @detailsEvent="detailsEvent"
         />
@@ -110,7 +133,7 @@
     <EventHandleModal
       v-if="modal === 'deal'"
       :event-id="needEventId"
-      :gridCode="gridCode"
+      :grid-code="gridCode"
       @onShowToast="onShowToast"
       @closeModal="modal = 'event'"
     />
@@ -128,7 +151,6 @@ import commonMixin from '../commonMixin'
 import eventMixin from './evenModule/eventMixin'
 
 import EventInfo from './EventInfo'
-import SimpleMap from '@/components/SimpleMap'
 import locationType from './locationType'
 import TimeVideo from './TimeVideo'
 import leftOneSchool from './leftOne/school'
@@ -149,9 +171,7 @@ import rightTwoRiverCrossingBridge from './rightTwo/riverCrossingBridge'
 
 import { getKeySafetyLocationList } from '@/api/riskPrevention/KeyThrong'
 export default {
-  mixins: [commonMixin, eventMixin],
   components: {
-    SimpleMap,
     locationType,
     TimeVideo,
     leftOneSchool,
@@ -171,7 +191,8 @@ export default {
     rightTwoRiverCrossingBridge,
     EventInfo
   },
-  data() {
+  mixins: [commonMixin, eventMixin],
+  data () {
     return {
       ifHuaduo: true, // 或多护卫
       isType: '全部',
@@ -204,27 +225,27 @@ export default {
   },
   methods: {
     // 跳转到护卫花朵
-    toHuaduo() {
+    toHuaduo () {
       window.open('http://172.118.210.201:9020/hdhw', '_blank')
     },
-    mapInit(map) {
+    mapInit (map) {
       this.map = map
       this.map.setCenter([115.880886, 28.676192])
       this.map.setZoom(14)
       this.getKeySafetyLocationList()
     },
     // 聚焦地图中心点
-    _focusMap(pos, zoom) {
+    _focusMap (pos, zoom) {
       this.map.setCenter(pos)
       this.map.setZoom(zoom)
     },
     // 搜索框
-    toSearch() {
+    toSearch () {
       this.markList.searchList = []
       this.markList.searchList.push(
         ...this.isMarhList.filter(item =>
-          item['w'].extData.name
-            ? item['w'].extData.name.indexOf(this.searchItem) > -1
+          item.w.extData.name
+            ? item.w.extData.name.indexOf(this.searchItem) > -1
             : false
         )
       )
@@ -234,7 +255,7 @@ export default {
             item.show()
             if (index === 0) {
               this._focusMap(
-                [item['w'].extData.longitude, [item['w'].extData.latitude]],
+                [item.w.extData.longitude, [item.w.extData.latitude]],
                 12
               )
             }
@@ -242,7 +263,7 @@ export default {
           : this.markList[key].forEach(item => item.hide())
       }
     },
-    conreload() {
+    conreload () {
       // 移除组件
       this.update = false
       // 在组件移除后，重新渲染组件
@@ -252,7 +273,7 @@ export default {
       })
     },
     // 聚焦当前类型地图标记点
-    focusKeyAreas(curItem) {
+    focusKeyAreas (curItem) {
       this._resetMapMarker()
       this.markList[curItem.icon + 'List'].forEach(item => item.show())
       switch (curItem.icon) {
@@ -378,7 +399,7 @@ export default {
         })
         : this.getAllEventList({})
     },
-    _handleFocusResult(
+    _handleFocusResult (
       videoList,
       leftOne,
       rightOne,
@@ -398,7 +419,7 @@ export default {
       this._focusMap(pos, zoom)
     },
     // 重置隐藏地图标记点
-    _resetMapMarker() {
+    _resetMapMarker () {
       this.eventInfo = null
       for (const markListKey in this.markList) {
         if (markListKey !== 'searchList') {
@@ -406,7 +427,7 @@ export default {
         }
       }
     },
-    createMarker(icon, pos, types, item) {
+    createMarker (icon, pos, types, item) {
       const marker = new window.AMap.Marker({
         icon: icon,
         position: pos,
@@ -446,7 +467,7 @@ export default {
       return marker
     },
     // 重置删除地图标记点
-    _removeMapMarker() {
+    _removeMapMarker () {
       if (this.map) {
         for (const markListKey in this.markList) {
           if (markListKey !== 'searchList') {
@@ -457,7 +478,7 @@ export default {
       }
     },
     // 查询类型点列表
-    getKeySafetyLocationList() {
+    getKeySafetyLocationList () {
       this._removeMapMarker()
       getKeySafetyLocationList().then(res => {
         if (res.status === 200) {
@@ -536,9 +557,9 @@ export default {
             }
           }
 
-          this.markList['schoolList'].forEach(item => item.show())
-          this.isMarhList = this.markList['schoolList']
-          this.clientDetails = this.markList['schoolList'].length
+          this.markList.schoolList.forEach(item => item.show())
+          this.isMarhList = this.markList.schoolList
+          this.clientDetails = this.markList.schoolList.length
         }
       })
     }

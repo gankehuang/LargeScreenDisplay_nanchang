@@ -2,20 +2,21 @@
   <div class="model-view">
     <el-scrollbar>
       <ul>
-        <li v-for="(item, index) in itemView" :key="index">
+        <li
+          v-for="(item, index) in itemView"
+          :key="index"
+        >
           <div class="view">
             <h1><strong>模型名称</strong>{{ item.name }}</h1>
             <h1><strong>模型类型</strong>重点人群</h1>
           </div>
           <div class="view">
             <h1>
-              <strong>启用状态</strong
-              ><el-switch
+              <strong>启用状态</strong><el-switch
                 v-model="item.enable"
                 active-color="#13ce66"
                 inactive-color="#ff4949"
-              >
-              </el-switch>
+              />
             </h1>
             <h1>
               <strong>启用时间</strong>{{ "2020-10-2" + index + " 12:03:15" }}
@@ -25,32 +26,56 @@
             <h1><strong>启用数量</strong>{{ 6 + index }}</h1>
           </div>
           <div class="view btns">
-            <div class="btn" @click="resultClick(item.id)">研判结果</div>
-            <div class="btn" @click="ruleClick(item.name)">研判规则</div>
+            <div
+              class="btn"
+              @click="resultClick(item.id)"
+            >
+              研判结果
+            </div>
+            <div
+              class="btn"
+              @click="ruleClick(item.name)"
+            >
+              研判规则
+            </div>
           </div>
         </li>
       </ul>
     </el-scrollbar>
-    <div class="dialog-view" v-if="addDialog">
+    <div
+      v-if="addDialog"
+      class="dialog-view"
+    >
       <div class="modal-dialog">
         <div class="modal-title">
           研判规则
         </div>
         <div class="modal-close">
-          <svg-icon icon-class="closed" class="svg-icon" @click="closeModal" />
+          <svg-icon
+            icon-class="closed"
+            class="svg-icon"
+            @click="closeModal"
+          />
         </div>
-        <readRule :dataList="dataList"></readRule>
+        <readRule :data-list="dataList" />
       </div>
     </div>
-    <div class="dialog-view" v-if="bigDialog">
+    <div
+      v-if="bigDialog"
+      class="dialog-view"
+    >
       <div class="modal-dialog big">
         <div class="modal-title">
           研判结果
         </div>
         <div class="modal-close">
-          <svg-icon icon-class="closed" class="svg-icon" @click="closeModal1" />
+          <svg-icon
+            icon-class="closed"
+            class="svg-icon"
+            @click="closeModal1"
+          />
         </div>
-        <readResult :id="id"></readResult>
+        <readResult :id="id" />
       </div>
     </div>
   </div>
@@ -69,7 +94,7 @@ export default {
       type: Array
     }
   },
-  data() {
+  data () {
     return {
       id: null,
       value: true,
@@ -79,11 +104,11 @@ export default {
     }
   },
   methods: {
-    resultClick(data) {
+    resultClick (data) {
       this.bigDialog = true
       this.id = data
     },
-    ruleClick(data) {
+    ruleClick (data) {
       this.addDialog = true
       if (data.indexOf('单独出现在学校') > -1) {
         this.dataList = [
@@ -154,10 +179,10 @@ export default {
         ]
       }
     },
-    closeModal() {
+    closeModal () {
       this.addDialog = false
     },
-    closeModal1() {
+    closeModal1 () {
       this.bigDialog = false
     }
   }

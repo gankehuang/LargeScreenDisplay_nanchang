@@ -14,8 +14,7 @@
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          >
-          </el-option>
+          />
         </el-select>
         <el-select
           v-model="monthValue"
@@ -28,19 +27,21 @@
             :key="item.value"
             :label="item.label"
             :value="item.value"
-          >
-          </el-option>
+          />
         </el-select>
       </div>
     </div>
-    <v-chart id="nanChang" style="width:100%;height:100%" :options="options" />
+    <v-chart
+      id="nanChang"
+      style="width:100%;height:100%"
+      :options="options"
+    />
   </div>
 </template>
 
 <script>
 import ECharts from 'echarts'
 import nanChangMap from './nanChang.json'
-ECharts.registerMap('nanChang', nanChangMap)
 
 import { buttonList, initTotalData } from '../mock'
 import {
@@ -48,9 +49,10 @@ import {
   querySecurityAssessInfo,
   monthDataList
 } from '@/api/intelligentDecisionMaking/comprehensive'
+ECharts.registerMap('nanChang', nanChangMap)
 
 export default {
-  data() {
+  data () {
     return {
       yearOptions: [
         {
@@ -117,13 +119,8 @@ export default {
       monthNumber: new Date().getMonth()
     }
   },
-  watch: {
-    selectedItem(item) {
-      this.handleMonthDataList()
-    }
-  },
   computed: {
-    options() {
+    options () {
       return {
         geo: {
           type: 'map',
@@ -195,7 +192,7 @@ export default {
                 fontSize: 16,
                 color: '#fff'
               },
-              formatter: function(params) {
+              formatter: function (params) {
                 return params.name + '\n' + params.value
               },
               emphasis: {
@@ -211,7 +208,12 @@ export default {
       }
     }
   },
-  async created() {
+  watch: {
+    selectedItem (item) {
+      this.handleMonthDataList()
+    }
+  },
+  async created () {
     await this.handleQuerySecurityAssessList()
     await this.handleQuerySecurityAssessInfo()
     await this.handleMonthDataList()
@@ -220,7 +222,7 @@ export default {
   },
   methods: {
     // 初始化地图添加点击事件
-    initMapClick() {
+    initMapClick () {
       const that = this
       that.$nextTick(() => {
         that.nanChangMapEchart = ECharts.init(
@@ -233,7 +235,7 @@ export default {
       })
     },
     // 整合地图分数后端联调数据
-    handleBackenddata(data, buttonList) {
+    handleBackenddata (data, buttonList) {
       this.buttonList = data.map(item => {
         for (let index = 0; index < buttonList.length; index++) {
           const element = buttonList[index]
@@ -247,7 +249,7 @@ export default {
       })
     },
     // 整合指数详情后端联调数据
-    handleBackendAssessInfodata(data, buttonList) {
+    handleBackendAssessInfodata (data, buttonList) {
       const flagArr = [
         '政治安全',
         '治安安全',
@@ -275,7 +277,7 @@ export default {
       }
     },
     // 地图选中
-    handleSelectedByMapClick(data) {
+    handleSelectedByMapClick (data) {
       const that = this
       this.buttonList = this.buttonList.map(item => {
         if (item.code === data.code && item.code !== that.selectedItem.code) {
@@ -292,7 +294,7 @@ export default {
       })
     },
     // 切换数据
-    async changeData(item) {
+    async changeData (item) {
       if (item.name === this.selectedItem.name) {
         this.selectedItem = initTotalData
       } else {
@@ -303,7 +305,7 @@ export default {
       this.$EventBus.$emit('selectedItemCode', this.selectedItem.code)
     },
     // 获取各县区得分
-    async handleQuerySecurityAssessList() {
+    async handleQuerySecurityAssessList () {
       try {
         const { status, data } = await querySecurityAssessList({
           indicatorName: '综合',
@@ -315,7 +317,7 @@ export default {
       } catch (error) {}
     },
     // 获取各县区安全指数统计详情
-    async handleQuerySecurityAssessInfo() {
+    async handleQuerySecurityAssessInfo () {
       try {
         const { status, data } = await querySecurityAssessInfo({
           code: this.selectedItem.code
@@ -326,7 +328,7 @@ export default {
       } catch (error) {}
     },
     // 安全评分按按月变化情况
-    async handleMonthDataList() {
+    async handleMonthDataList () {
       try {
         const { status, data } = await monthDataList({
           code: this.selectedItem.code,

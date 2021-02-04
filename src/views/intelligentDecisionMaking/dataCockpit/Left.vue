@@ -2,21 +2,37 @@
   <div class="page-left data-cockpit-left">
     <!-- 维稳态势 -->
     <div class="dwts-container">
-      <div class="title">维稳态势</div>
+      <div class="title">
+        维稳态势
+      </div>
       <div class="case-info">
         <div class="info-one">
-          <v-chart :options="oneInfoOption" style="width: 77px;height: 77px" />
+          <v-chart
+            :options="oneInfoOption"
+            style="width: 77px;height: 77px"
+          />
           <div class="info-block">
-            <div class="label">{{ oneInfo.blockLabel }}</div>
-            <div class="number">{{ oneInfo.blockNumber }}</div>
+            <div class="label">
+              {{ oneInfo.blockLabel }}
+            </div>
+            <div class="number">
+              {{ oneInfo.blockNumber }}
+            </div>
           </div>
         </div>
         <div class="info-two">
           <div class="info-block">
-            <div class="label">{{ twoInfo.blockLabel }}</div>
-            <div class="number">{{ twoInfo.blockNumber }}</div>
+            <div class="label">
+              {{ twoInfo.blockLabel }}
+            </div>
+            <div class="number">
+              {{ twoInfo.blockNumber }}
+            </div>
           </div>
-          <v-chart :options="twoInfoOption" style="width: 77px;height: 77px" />
+          <v-chart
+            :options="twoInfoOption"
+            style="width: 77px;height: 77px"
+          />
         </div>
       </div>
       <div class="case-tab">
@@ -24,27 +40,31 @@
           class="tab-item"
           :class="{ active: tabName === '涉稳' }"
           @click="tab('涉稳')"
-          >涉稳</span
-        >
+        >涉稳</span>
         <span
           class="tab-item"
           :class="{ active: tabName === '信访' }"
           @click="tab('信访')"
-          >信访</span
-        >
+        >信访</span>
       </div>
       <div class="case-list">
         <div class="case-list-th-container">
           <div class="case-frist-th" />
-          <div class="case-list-th">突出问题</div>
-          <div class="case-list-th">数量</div>
-          <div class="case-list-th">占比</div>
+          <div class="case-list-th">
+            突出问题
+          </div>
+          <div class="case-list-th">
+            数量
+          </div>
+          <div class="case-list-th">
+            占比
+          </div>
         </div>
         <el-scrollbar style="height:100px">
           <div
-            class="case-list-tr"
             v-for="(item, index) in dwtsList"
             :key="index"
+            class="case-list-tr"
           >
             <div
               :class="[
@@ -54,19 +74,30 @@
                 { 'td-third': index === 2 }
               ]"
             />
-            <div class="case-list-td">{{ item.label }}</div>
-            <div class="case-list-td">{{ item.number }}件</div>
-            <div class="case-list-td fourth">{{ item.percentage }}%</div>
+            <div class="case-list-td">
+              {{ item.label }}
+            </div>
+            <div class="case-list-td">
+              {{ item.number }}件
+            </div>
+            <div class="case-list-td fourth">
+              {{ item.percentage }}%
+            </div>
           </div>
         </el-scrollbar>
       </div>
     </div>
     <!-- 治安态势 -->
     <div class="zats-container">
-      <div class="title">治安态势</div>
+      <div class="title">
+        治安态势
+      </div>
       <div class="total-info">
-        <div class="icon"></div>
-        <div class="info" @click="handleVisible">
+        <div class="icon" />
+        <div
+          class="info"
+          @click="handleVisible"
+        >
           <span class="label">案件总数</span>
           <span class="number">
             <span>{{ zatsTotal.number }}</span>
@@ -81,15 +112,21 @@
       <div class="case-list">
         <div class="case-list-th-container">
           <div class="case-frist-th" />
-          <div class="case-list-th">突出问题</div>
-          <div class="case-list-th">数量</div>
-          <div class="case-list-th">占比</div>
+          <div class="case-list-th">
+            突出问题
+          </div>
+          <div class="case-list-th">
+            数量
+          </div>
+          <div class="case-list-th">
+            占比
+          </div>
         </div>
         <el-scrollbar style="height:100px">
           <div
-            class="case-list-tr"
             v-for="(item, index) in zatsList"
             :key="index"
+            class="case-list-tr"
           >
             <div
               :class="[
@@ -99,16 +136,24 @@
                 { 'td-third': index === 2 }
               ]"
             />
-            <div class="case-list-td">{{ item.label }}</div>
-            <div class="case-list-td">{{ item.number }}件</div>
-            <div class="case-list-td fourth">{{ item.percentage }}%</div>
+            <div class="case-list-td">
+              {{ item.label }}
+            </div>
+            <div class="case-list-td">
+              {{ item.number }}件
+            </div>
+            <div class="case-list-td fourth">
+              {{ item.percentage }}%
+            </div>
           </div>
         </el-scrollbar>
       </div>
     </div>
     <!-- 教转救助 -->
     <div class="zjjz-container">
-      <div class="title">教转救助</div>
+      <div class="title">
+        教转救助
+      </div>
       <div class="box">
         <div class="info-block">
           <span class="label">
@@ -117,7 +162,7 @@
           <img
             style="margin-top:5px;width:106px;height:43px"
             :src="require('@/assets/image/dataCockpit/组 154 (1).png')"
-          />
+          >
           <div class="data-block">
             <div class="row">
               <!--              <svg-icon icon-class="menu-icon" class="svg-icon" />-->
@@ -138,7 +183,7 @@
           <img
             style="margin-top:5px;width:106px;height:43px"
             :src="require('@/assets/image/dataCockpit/组 154 (1).png')"
-          />
+          >
           <div class="data-block">
             <div class="row row-2">
               <!--              <svg-icon icon-class="menu-icon" class="svg-icon" />-->
@@ -162,7 +207,7 @@
     <ColumnsAnimationModal
       :visible.sync="columnsAnimationModal.visible"
       :info="columnsAnimationModal.info"
-      pageType="visitInfo"
+      page-type="visitInfo"
     />
   </div>
 </template>
@@ -174,7 +219,7 @@ export default {
   components: {
     ColumnsAnimationModal
   },
-  data() {
+  data () {
     return {
       columnsAnimationModal: {
         visible: false,
@@ -215,7 +260,7 @@ export default {
     }
   },
   computed: {
-    oneInfoOption() {
+    oneInfoOption () {
       return {
         color: ['#3B9AFE', '#00FFFF'],
         tooltip: {
@@ -253,7 +298,7 @@ export default {
         ]
       }
     },
-    twoInfoOption() {
+    twoInfoOption () {
       return {
         color: ['#3B9AFE', '#00FFFF'],
         tooltip: {
@@ -293,7 +338,7 @@ export default {
     }
   },
   methods: {
-    tab(tabName) {
+    tab (tabName) {
       this.tabName = tabName
       switch (tabName) {
         case '涉稳':
@@ -307,7 +352,7 @@ export default {
       }
     },
     // 打开弹窗
-    handleVisible() {
+    handleVisible () {
       this.columnsAnimationModal.visible = true
       this.columnsAnimationModal.info = {
         title: '警情数量变化趋势',

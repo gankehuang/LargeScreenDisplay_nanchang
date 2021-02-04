@@ -1,7 +1,11 @@
 <template>
   <div class="index-map-contianer">
-    <SimpleMap class="map" ref="AMap" @mapInit="mapInit" :zIndex="999">
-    </SimpleMap>
+    <SimpleMap
+      ref="AMap"
+      class="map"
+      :z-index="999"
+      @mapInit="mapInit"
+    />
   </div>
 </template>
 
@@ -9,12 +13,8 @@
 import { buttonList } from './mock'
 import { queryGridThreeLine } from '@/api/smartData/gridView'
 import { alertDistribution } from '@/api/intelligentDecisionMaking/special'
-import SimpleMap from '@/components/SimpleMap'
 export default {
-  components: {
-    SimpleMap
-  },
-  data() {
+  data () {
     return {
       map: null,
       buttonList: buttonList,
@@ -28,7 +28,7 @@ export default {
     }
   },
   methods: {
-    async mapInit(map) {
+    async mapInit (map) {
       this.map = map
       await this.handleQuerySecurityAssessList()
       await this.renderGrid()
@@ -36,7 +36,7 @@ export default {
       this.map.setZoom(10)
     },
     // 获取各县区得分
-    async handleQuerySecurityAssessList() {
+    async handleQuerySecurityAssessList () {
       try {
         const { status, data } = await alertDistribution({})
         if (status === 200) {
@@ -47,7 +47,7 @@ export default {
       } catch (error) {}
     },
     // 整合地图分数后端联调数据
-    handleBackenddata(data, buttonList) {
+    handleBackenddata (data, buttonList) {
       this.buttonList = data.map(item => {
         for (let index = 0; index < buttonList.length; index++) {
           const element = buttonList[index]
@@ -62,7 +62,7 @@ export default {
       })
     },
     // 绘制地图 初始化图层
-    async renderGrid() {
+    async renderGrid () {
       let gridArr = []
       const polygons = []
       const { status, data } = await queryGridThreeLine()
@@ -183,7 +183,7 @@ export default {
       this.map.add(this.textList)
     },
     // 处理地区颜色
-    handleColor(total) {
+    handleColor (total) {
       if (total >= 370000) {
         return this.colorLegend[0].color
       } else if (total < 220000 && total >= 150000) {
@@ -197,7 +197,7 @@ export default {
       }
     },
     // 悬浮处理
-    handleAmapText(flag) {
+    handleAmapText (flag) {
       if (!flag) {
         this.textList.forEach(item => {
           item.hide()

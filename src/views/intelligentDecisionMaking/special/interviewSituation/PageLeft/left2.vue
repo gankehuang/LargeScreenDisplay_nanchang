@@ -1,24 +1,26 @@
 <template>
   <div class="win-info">
-    <div class="title">月度信访事件排行</div>
+    <div class="title">
+      月度信访事件排行
+    </div>
     <div class="legand">
       <div class="item">
-        <span></span>
+        <span />
         已办结
       </div>
       <div class="item">
-        <span></span>
+        <span />
         信访数量
       </div>
     </div>
     <div class="processlist">
       <div
-        class="list-item"
         v-for="(item, index) in this.datalist"
         :key="index"
+        class="list-item"
       >
         <span class="item-name">{{ item.area }}</span>
-        <div style="flex: 0 0 calc(100% - 70px); display: flex">
+        <div style="flex: 0 0 calc(100% - 70px);display:flex;">
           <el-progress
             :style="{ width: widthList(item) + 'px' }"
             :text-inside="true"
@@ -26,7 +28,7 @@
             :title="percentageList(item) + '%'"
             :percentage="percentageList(item)"
             color="#3B9AFE"
-          ></el-progress>
+          />
           <span class="item-total">{{ item.num }}</span>
         </div>
       </div>
@@ -143,53 +145,53 @@
   </div>
 </template>
 <script>
-import { monthlyVisits } from "@/api/intelligentDecisionMaking/mood";
+import { monthlyVisits } from '@/api/intelligentDecisionMaking/mood'
 export default {
-  data() {
+  data () {
     return {
       tab: 0,
       datalist: [],
-      processedList: [7, 6, 14, 13, 40, 39, 41, 38, 58, 63, 79, 126],
-    };
+      processedList: [7, 6, 14, 13, 40, 39, 41, 38, 58, 63, 79, 126]
+    }
+  },
+  created () {
+    this.monthlyVisits()
   },
   methods: {
-    monthlyVisits() {
+    monthlyVisits () {
       const objects = {
-        date: "2020-10",
-      };
-      this.datalist = [];
-      monthlyVisits(objects).then((res) => {
+        date: '2020-10'
+      }
+      this.datalist = []
+      monthlyVisits(objects).then(res => {
         if (res.status === 200) {
-          const newArr = res.data.sort(this._compare("num"));
+          const newArr = res.data.sort(this._compare('num'))
           newArr.forEach((item, index) => {
-            const one = {};
-            one.area = item.area;
-            one.num = item.num;
-            one.processed = this.processedList[index];
-            this.datalist.unshift(one);
-          });
+            const one = {}
+            one.area = item.area
+            one.num = item.num
+            one.processed = this.processedList[index]
+            this.datalist.unshift(one)
+          })
         }
-      });
+      })
     },
-    percentageList(item) {
-      return Number(((item.processed / item.num) * 100).toFixed(2));
+    percentageList (item) {
+      return Number(((item.processed / item.num) * 100).toFixed(2))
     },
-    widthList(item) {
-      return Number(parseInt((item.num / this.datalist[0].num) * 280));
+    widthList (item) {
+      return Number(parseInt((item.num / this.datalist[0].num) * 280))
     },
 
-    _compare(property) {
+    _compare (property) {
       return function (a, b) {
-        const value1 = a[property];
-        const value2 = b[property];
-        return value1 - value2;
-      };
-    },
-  },
-  created() {
-    this.monthlyVisits();
-  },
-};
+        const value1 = a[property]
+        const value2 = b[property]
+        return value1 - value2
+      }
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .win-info {

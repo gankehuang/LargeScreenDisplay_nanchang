@@ -1,33 +1,53 @@
 <template>
   <div class="win-info">
-    <div class="title">群体活动度</div>
+    <div class="title">
+      群体活动度
+    </div>
     <div class="drop">
       <el-dropdown>
         <span class="el-dropdown-link">
-          {{ level }}<i class="el-icon-arrow-down el-icon--right"></i>
+          {{ level }}<i class="el-icon-arrow-down el-icon--right" />
         </span>
         <el-dropdown-menu
           slot="dropdown"
           style="width: 109px;text-align: center;line-height: 36px;background: none;border-radius: 6px;border: 1px solid #559AF6;"
         >
           <el-dropdown-item
-            @click.native="tabLevel(item)"
             v-for="(item, index) in levelList"
             :key="index"
-            >{{ item }}</el-dropdown-item
+            @click.native="tabLevel(item)"
           >
+            {{ item }}
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <v-chart :options="options" class="echarts" v-loading="loading" />
+    <v-chart
+      v-loading="loading"
+      :options="options"
+      class="echarts"
+    />
   </div>
 </template>
 
 <script>
 import { queryReleasedWarningTrend } from '@/api/riskPrevention/importPeople'
 export default {
+  data () {
+    return {
+      data: false,
+      loading: false,
+      level: '中华情',
+      levelList: ['中华情', '老庆祥', '金三江', '农校委培生'],
+      dataList: [0, 0, 3, 65, 70, 40, 35, 27, 55, 30, 8],
+      dataList1: [0, 0, 1, 65, 70, 40, 35, 27, 55, 30, 8],
+      dataList2: [0, 0, 2, 4, 6, 2, 8, 9, 7, 10, 12, 16],
+      dataList3: [0, 0, 1, 4, 1, 1, 2, 10, 12, 10, 2, 4],
+      dataList4: [0, 0, 1, 4, 1, 1, 2, 10, 12, 10, 2, 4]
+    }
+  },
   computed: {
-    options() {
+    options () {
       return {
         name: '群体活动',
         type: 'line',
@@ -134,24 +154,11 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      data: false,
-      loading: false,
-      level: '中华情',
-      levelList: ['中华情', '老庆祥', '金三江', '农校委培生'],
-      dataList: [0, 0, 3, 65, 70, 40, 35, 27, 55, 30, 8],
-      dataList1: [0, 0, 1, 65, 70, 40, 35, 27, 55, 30, 8],
-      dataList2: [0, 0, 2, 4, 6, 2, 8, 9, 7, 10, 12, 16],
-      dataList3: [0, 0, 1, 4, 1, 1, 2, 10, 12, 10, 2, 4],
-      dataList4: [0, 0, 1, 4, 1, 1, 2, 10, 12, 10, 2, 4]
-    }
-  },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       this.loading = true
       queryReleasedWarningTrend().then(res => {
         if (res.status === 200) {
@@ -159,7 +166,7 @@ export default {
         }
       })
     },
-    tabLevel(level) {
+    tabLevel (level) {
       this.level = level
       switch (level) {
         case '中华情':

@@ -4,12 +4,15 @@
       <v-chart :options="gaugeOption" />
     </div>
     <div
-      class="pie-item"
-      :class="`pie-item-${index}`"
       v-for="(item, index) in pieList"
       :key="index"
+      class="pie-item"
+      :class="`pie-item-${index}`"
     >
-      <v-chart :options="item.option" class="v-chart" />
+      <v-chart
+        :options="item.option"
+        class="v-chart"
+      />
     </div>
   </div>
 </template>
@@ -74,7 +77,7 @@ const setOptions = (name, value, color) => {
   }
 }
 export default {
-  data() {
+  data () {
     return {
       pieList: [
         {
@@ -124,7 +127,7 @@ export default {
     }
   },
   computed: {
-    gaugeOption() {
+    gaugeOption () {
       return {
         tooltip: {
           show: false,
@@ -198,10 +201,10 @@ export default {
       }
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:datCocMapItem')
   },
-  mounted() {
+  mounted () {
     this.handleQuerySecurityAssessInfo({})
     this.$EventBus.$on('update:datCocMapItem', item => {
       // console.log('----------', item)
@@ -211,7 +214,7 @@ export default {
   // 获取县区六大指标分、总分
   methods: {
     // 获取各县区安全指数统计详情
-    async handleQuerySecurityAssessInfo(item) {
+    async handleQuerySecurityAssessInfo (item) {
       try {
         const { status, data } = await querySecurityAssessInfo({
           code: item.code || '3601'
@@ -222,11 +225,11 @@ export default {
       } catch (error) {}
     },
     // 处理各县区安全指数同合计后台数据
-    handleBackendAssessInfodata(data) {
-      this.totalScore = data['totalScore']
-      for (const key in data['detail']) {
-        if (data['detail'].hasOwnProperty(key)) {
-          const value = data['detail'][key]
+    handleBackendAssessInfodata (data) {
+      this.totalScore = data.totalScore
+      for (const key in data.detail) {
+        if (data.detail.hasOwnProperty(key)) {
+          const value = data.detail[key]
           switch (key) {
             case '矛盾纠纷':
               this.pieList[0].option = setOptions('矛盾纠纷', value, [

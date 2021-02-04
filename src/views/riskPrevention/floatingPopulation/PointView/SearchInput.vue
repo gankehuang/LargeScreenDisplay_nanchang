@@ -2,24 +2,26 @@
   <div class="search-btns">
     <el-input
       v-model="keyWords"
+      placeholder="请输入"
       @focus="keyWords = ''"
       @change="searchByKeyWords"
-      placeholder="请输入"
-    >
-    </el-input>
-    <div class="searchIcon" @click="searchByKeyWords"></div>
+    />
+    <div
+      class="searchIcon"
+      @click="searchByKeyWords"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       keyWords: ''
     }
   },
   methods: {
-    searchByKeyWords() {
+    searchByKeyWords () {
       this.$emit('searchByKeyWords', this.keyWords)
     }
   }

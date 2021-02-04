@@ -3,13 +3,16 @@
     <div class="title">
       信访渠道
     </div>
-    <v-chart :options="amountOptions" class="echarts" />
+    <v-chart
+      :options="amountOptions"
+      class="echarts"
+    />
   </div>
 </template>
 <script>
 import { queryPetitionByChannel } from '@/api/intelligentDecisionMaking/mood'
 export default {
-  data() {
+  data () {
     return {
       amountOptions: {
         tooltip: {
@@ -113,11 +116,11 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.queryPetitionByChannel()
   },
   methods: {
-    queryPetitionByChannel() {
+    queryPetitionByChannel () {
       queryPetitionByChannel().then(res => {
         console.log(res)
         if (res.status === 200) {
@@ -135,8 +138,8 @@ export default {
         // ]
       })
     },
-    _compare(property) {
-      return function(a, b) {
+    _compare (property) {
+      return function (a, b) {
         const value1 = a[property]
         const value2 = b[property]
         return value1 - value2

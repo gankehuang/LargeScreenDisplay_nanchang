@@ -1,27 +1,35 @@
 <template>
   <div class="grid-management">
-    <div class="title">网格管理</div>
+    <div class="title">
+      网格管理
+    </div>
     <ul>
       <li>
         <div class="icon" />
         <div class="data">
           <span>{{ gridMembers }}</span>
         </div>
-        <div class="label">网格员</div>
+        <div class="label">
+          网格员
+        </div>
       </li>
       <li>
         <div class="icon" />
         <div class="data">
           <span>{{ grid }}</span>
         </div>
-        <div class="label">网格总数</div>
+        <div class="label">
+          网格总数
+        </div>
       </li>
       <li>
         <div class="icon" />
         <div class="data">
           <span>{{ gridMixs }}</span>
         </div>
-        <div class="label">网格融入</div>
+        <div class="label">
+          网格融入
+        </div>
       </li>
     </ul>
   </div>
@@ -30,7 +38,7 @@
 <script>
 import { queryGridGeneral } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       grid: 0,
       gridMembers: 0,
@@ -38,10 +46,10 @@ export default {
       code: '3601'
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  mounted() {
+  mounted () {
     this.handleQueryOrgGeneral()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -49,7 +57,7 @@ export default {
     })
   },
   methods: {
-    async handleQueryOrgGeneral() {
+    async handleQueryOrgGeneral () {
       try {
         const { status, data } = await queryGridGeneral({
           gridCode: this.code

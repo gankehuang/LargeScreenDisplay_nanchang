@@ -1,39 +1,73 @@
 <template>
   <div class="page-box">
-    <Tabs :tab-list="tabList" width="600px" :cur-index="5" />
+    <Tabs
+      :tab-list="tabList"
+      width="600px"
+      :cur-index="5"
+    />
     <div class="custom-model">
       <el-input
-        placeholder="自定义模型名称"
         v-model="customInput"
+        placeholder="自定义模型名称"
         prefix-icon="el-icon-edit-outline"
         class="input-with-select"
       >
         <el-select
-          v-model="selectItem"
           slot="prepend"
+          v-model="selectItem"
           placeholder="请选择"
           class="select-style"
           @change="selectChange"
         >
-          <el-option label="重点人群" value="1"></el-option>
-          <el-option label="重点区域" value="2"></el-option>
-          <el-option label="重点部位" value="3"></el-option>
-          <el-option label="重点水域" value="4"></el-option>
-          <el-option label="政法舆情" value="5"></el-option>
-          <el-option label="流动人口" value="6"></el-option>
-          <el-option label="出租房屋" value="7"></el-option>
-          <el-option label="矛盾排调" value="8"></el-option>
-          <el-option label="政法舆情" value="9"></el-option>
+          <el-option
+            label="重点人群"
+            value="1"
+          />
+          <el-option
+            label="重点区域"
+            value="2"
+          />
+          <el-option
+            label="重点部位"
+            value="3"
+          />
+          <el-option
+            label="重点水域"
+            value="4"
+          />
+          <el-option
+            label="政法舆情"
+            value="5"
+          />
+          <el-option
+            label="流动人口"
+            value="6"
+          />
+          <el-option
+            label="出租房屋"
+            value="7"
+          />
+          <el-option
+            label="矛盾排调"
+            value="8"
+          />
+          <el-option
+            label="政法舆情"
+            value="9"
+          />
         </el-select>
       </el-input>
     </div>
     <div class="content">
       <div class="annulus-box">
-        <div class="annulus" @click="toggleAlert">
-          <div class="torus"></div>
+        <div
+          class="annulus"
+          @click="toggleAlert"
+        >
+          <div class="torus" />
           <h1><span>模型加载</span></h1>
           <div class="line">
-            <div class="line-box"></div>
+            <div class="line-box" />
             <div class="line-list">
               <ul>
                 <li
@@ -41,7 +75,9 @@
                   :key="index"
                   :class="setClass(index)"
                 >
-                  <div class="lines">{{ item.name }}</div>
+                  <div class="lines">
+                    {{ item.name }}
+                  </div>
                 </li>
               </ul>
             </div>
@@ -57,12 +93,17 @@
                 <li
                   v-for="(item, index) in judgeList"
                   :key="index"
-                  @click="itemClick1(item, index)"
                   :class="item.current ? 'current' : ''"
+                  @click="itemClick1(item, index)"
                 >
                   {{ item.name }}
                 </li>
-                <li class="add" @click="addClick(1)">+</li>
+                <li
+                  class="add"
+                  @click="addClick(1)"
+                >
+                  +
+                </li>
               </ul>
             </el-scrollbar>
           </div>
@@ -73,17 +114,22 @@
                 <li
                   v-for="(item, index) in behaviorList"
                   :key="index"
-                  @click="itemClick2(item, index)"
                   :class="item.current ? 'current' : ''"
+                  @click="itemClick2(item, index)"
                 >
                   {{ item.name }}
                 </li>
-                <li class="add" @click="addClick(2)">+</li>
+                <li
+                  class="add"
+                  @click="addClick(2)"
+                >
+                  +
+                </li>
               </ul>
             </el-scrollbar>
           </div>
         </div>
-        <div class="center"></div>
+        <div class="center" />
         <div class="right">
           <div class="box-right-one">
             <h1>时空准则</h1>
@@ -92,12 +138,17 @@
                 <li
                   v-for="(item, index) in spaceTimeList"
                   :key="index"
-                  @click="itemClick3(item, index)"
                   :class="item.current ? 'current' : ''"
+                  @click="itemClick3(item, index)"
                 >
                   {{ item.name }}
                 </li>
-                <li class="add" @click="addClick(3)">+</li>
+                <li
+                  class="add"
+                  @click="addClick(3)"
+                >
+                  +
+                </li>
               </ul>
             </el-scrollbar>
           </div>
@@ -108,66 +159,84 @@
                 <li
                   v-for="(item, index) in managementList"
                   :key="index"
-                  @click="itemClick4(item, index)"
                   :class="item.current ? 'current' : ''"
+                  @click="itemClick4(item, index)"
                 >
                   {{ item.name }}
                 </li>
-                <li class="add" @click="addClick(4)">+</li>
+                <li
+                  class="add"
+                  @click="addClick(4)"
+                >
+                  +
+                </li>
               </ul>
             </el-scrollbar>
           </div>
         </div>
       </div>
       <div class="options">
-        <div class="model" @click="addClick(5)"></div>
-        <div class="reset" @click="resetClick"></div>
+        <div
+          class="model"
+          @click="addClick(5)"
+        />
+        <div
+          class="reset"
+          @click="resetClick"
+        />
       </div>
     </div>
-    <div class="dialog-view" v-if="addDialog">
+    <div
+      v-if="addDialog"
+      class="dialog-view"
+    >
       <div :class="isBig ? 'modal-dialog big' : 'modal-dialog'">
         <div class="modal-title">
           {{ modelData.name }}
         </div>
         <div class="modal-close">
-          <svg-icon icon-class="closed" class="svg-icon" @click="closeModal" />
+          <svg-icon
+            icon-class="closed"
+            class="svg-icon"
+            @click="closeModal"
+          />
         </div>
         <crowdBasicPrinciples
           v-if="modelData.active == 1 && selectItem == 1"
           @submitEvent="submitEvent"
-        ></crowdBasicPrinciples>
+        />
         <crowdBehavior
           v-if="modelData.active == 2 && selectItem == 1"
           @submitEvent="submitEvent"
-        ></crowdBehavior>
+        />
         <crowdSpaceTime
           v-if="modelData.active == 3 && selectItem == 1"
           @submitEvent="submitEvent"
-        ></crowdSpaceTime>
+        />
         <crowdDispose
           v-if="modelData.active == 4 && selectItem == 1"
           @submitEvent="submitEvent"
-        ></crowdDispose>
+        />
         <areaBasicPrinciples
           v-if="modelData.active == 1 && selectItem == 2"
           @submitEvent="submitEvent"
-        ></areaBasicPrinciples>
+        />
         <areaBehavior
           v-if="modelData.active == 2 && selectItem == 2"
           @submitEvent="submitEvent"
-        ></areaBehavior>
+        />
         <areaSpaceTime
           v-if="modelData.active == 3 && selectItem == 2"
           @submitEvent="submitEvent"
-        ></areaSpaceTime>
+        />
         <areaDispose
           v-if="modelData.active == 4 && selectItem == 2"
           @submitEvent="submitEvent"
-        ></areaDispose>
+        />
         <modelView
-          :itemView="itemView"
           v-if="modelData.active == 5"
-        ></modelView>
+          :item-view="itemView"
+        />
       </div>
     </div>
   </div>
@@ -186,7 +255,6 @@ import areaSpaceTime from './area/spaceTime'
 import areaDispose from './area/dispose'
 import modelView from './model/index'
 export default {
-  mixins: [commonMixin],
   components: {
     crowdBasicPrinciples,
     crowdBehavior,
@@ -198,7 +266,8 @@ export default {
     areaDispose,
     modelView
   },
-  data() {
+  mixins: [commonMixin],
+  data () {
     return {
       customInput: '',
       selectItem: '1',
@@ -375,14 +444,14 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.queryAlarmRecord()
   },
   methods: {
-    closeModal() {
+    closeModal () {
       this.addDialog = false
     },
-    selectChange(data) {
+    selectChange (data) {
       this.selectList = []
       if (data === '1') {
         this.judgeList = [
@@ -655,19 +724,19 @@ export default {
         ]
       }
     },
-    resetClick() {
+    resetClick () {
       this.selectList = []
       this.resetFun(this.judgeList)
       this.resetFun(this.behaviorList)
       this.resetFun(this.spaceTimeList)
       this.resetFun(this.managementList)
     },
-    resetFun(data) {
+    resetFun (data) {
       for (let i = 0; i < data.length; i++) {
         data[i].current = false
       }
     },
-    addClick(data) {
+    addClick (data) {
       this.isBig = false
       this.addDialog = true
       this.modelData.active = data
@@ -719,7 +788,7 @@ export default {
         }
       }
     },
-    submitEvent(data) {
+    submitEvent (data) {
       if (this.modelData.active === 1) {
         this.judgeList.push(data)
       }
@@ -734,7 +803,7 @@ export default {
       }
       this.addDialog = false
     },
-    itemClick1(data, index) {
+    itemClick1 (data, index) {
       for (let i = 0; i < this.judgeList.length; i++) {
         if (this.judgeList[i].id === data.id) {
           if (!this.judgeList[i].current) {
@@ -750,7 +819,7 @@ export default {
         }
       }
     },
-    itemClick2(data, index) {
+    itemClick2 (data, index) {
       for (let i = 0; i < this.behaviorList.length; i++) {
         if (this.behaviorList[i].id === data.id) {
           if (!this.behaviorList[i].current) {
@@ -766,7 +835,7 @@ export default {
         }
       }
     },
-    itemClick3(data, index) {
+    itemClick3 (data, index) {
       for (let i = 0; i < this.spaceTimeList.length; i++) {
         if (this.spaceTimeList[i].id === data.id) {
           if (!this.spaceTimeList[i].current) {
@@ -782,7 +851,7 @@ export default {
         }
       }
     },
-    itemClick4(data, index) {
+    itemClick4 (data, index) {
       for (let i = 0; i < this.managementList.length; i++) {
         if (this.managementList[i].id === data.id) {
           if (!this.managementList[i].current) {
@@ -798,26 +867,26 @@ export default {
         }
       }
     },
-    setClass(data) {
+    setClass (data) {
       return 'line' + data
     },
-    toggleAlert() {
+    toggleAlert () {
       this.$message({
         message: '模型加载成功！',
         type: 'success'
       })
     },
-    bindBtnClose() {
+    bindBtnClose () {
       this.isShowAlert = false
     },
-    bindShowDetail() {
+    bindShowDetail () {
       this.modal = 'event'
       this.eventInfo = this.eventList[0]
       this.eventInfo.happenedTime = this.alertInfo.alarmTime
       this.eventInfo.location = this.alertInfo.cameraName
       this.eventInfo.snapImageUrl = this.alertInfo.bkgUrl
     },
-    queryAlarmRecord() {
+    queryAlarmRecord () {
       queryAlarmRecord({
         name: '徐荣华',
         beginTime: '2019-08-11 10:00:20',

@@ -1,7 +1,7 @@
 <template>
   <div
-    class="form-page"
     v-loading="isLoading"
+    class="form-page"
     element-loading-text="加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba( 0, 0, 0, 0.7)"
@@ -17,8 +17,9 @@
           icon="el-icon-delete"
           :disabled="!selection.length"
           @click="del(selection)"
-          >批量删除</el-button
         >
+          批量删除
+        </el-button>
       </div>
       <div class="right">
         <el-input
@@ -27,13 +28,27 @@
           clearable
           class="search-input"
         />
-        <el-button type="primary" @click="searchForm">查询</el-button>
-        <el-button plain @click="advancedSearchShow = true">高级搜索</el-button>
+        <el-button
+          type="primary"
+          @click="searchForm"
+        >
+          查询
+        </el-button>
+        <el-button
+          plain
+          @click="advancedSearchShow = true"
+        >
+          高级搜索
+        </el-button>
       </div>
     </div>
 
     <search-advance v-show="advancedSearchShow">
-      <el-form ref="advancedForm" :model="advancedForm" label-width="140px">
+      <el-form
+        ref="advancedForm"
+        :model="advancedForm"
+        label-width="140px"
+      >
         <el-form-item label="县区">
           <el-select
             v-model="advancedForm.superviseRegion"
@@ -45,8 +60,7 @@
               :key="item.value"
               :label="item.name"
               :value="item.value"
-            >
-            </el-option>
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="事件状态">
@@ -55,12 +69,30 @@
             placeholder="请选择"
             clearable
           >
-            <el-option label="未受理" value="1"></el-option>
-            <el-option label="已派发" value="2"></el-option>
-            <el-option label="已处置" value="3"></el-option>
-            <el-option label="超时" value="4"></el-option>
-            <el-option label="催单" value="5"></el-option>
-            <el-option label="已归档" value="6"></el-option>
+            <el-option
+              label="未受理"
+              value="1"
+            />
+            <el-option
+              label="已派发"
+              value="2"
+            />
+            <el-option
+              label="已处置"
+              value="3"
+            />
+            <el-option
+              label="超时"
+              value="4"
+            />
+            <el-option
+              label="催单"
+              value="5"
+            />
+            <el-option
+              label="已归档"
+              value="6"
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="督导时间">
@@ -72,18 +104,32 @@
             range-separator="至"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
-          >
-          </el-date-picker>
+          />
         </el-form-item>
         <el-form-item class="buttons">
-          <el-button type="primary" @click="searchAdvance">查询</el-button>
-          <el-button type="primary" @click="resetSearchForm">重置</el-button>
-          <el-button plain @click="advancedSearchShow = false">取消</el-button>
+          <el-button
+            type="primary"
+            @click="searchAdvance"
+          >
+            查询
+          </el-button>
+          <el-button
+            type="primary"
+            @click="resetSearchForm"
+          >
+            重置
+          </el-button>
+          <el-button
+            plain
+            @click="advancedSearchShow = false"
+          >
+            取消
+          </el-button>
         </el-form-item>
       </el-form>
     </search-advance>
 
-    <div class="control-bar"></div>
+    <div class="control-bar" />
 
     <el-table
       v-loading="false"
@@ -93,36 +139,74 @@
       height="100%"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" fixed="left" />
-      <el-table-column label="事件名称" prop="eventName" />
-      <el-table-column label="督导县区" prop="superviseRegion" />
-      <el-table-column label="督导指标名称" prop="indicatorName" width="120" />
-      <el-table-column label="督导内容" prop="superviseContent" width="680" />
-      <el-table-column label="督导时间" prop="createTime" width="160" />
-      <el-table-column label="督导时指标" prop="originIndex" />
-      <el-table-column label="现在指标" prop="originIndex" />
-      <el-table-column label="整改情况" prop="processingDesc">
+      <el-table-column
+        type="selection"
+        width="55"
+        fixed="left"
+      />
+      <el-table-column
+        label="事件名称"
+        prop="eventName"
+      />
+      <el-table-column
+        label="督导县区"
+        prop="superviseRegion"
+      />
+      <el-table-column
+        label="督导指标名称"
+        prop="indicatorName"
+        width="120"
+      />
+      <el-table-column
+        label="督导内容"
+        prop="superviseContent"
+        width="680"
+      />
+      <el-table-column
+        label="督导时间"
+        prop="createTime"
+        width="160"
+      />
+      <el-table-column
+        label="督导时指标"
+        prop="originIndex"
+      />
+      <el-table-column
+        label="现在指标"
+        prop="originIndex"
+      />
+      <el-table-column
+        label="整改情况"
+        prop="processingDesc"
+      >
         <template slot-scope="scope">
           {{ scope.row.processingDesc ? scope.row.processingDesc : "--" }}
         </template>
       </el-table-column>
-      <el-table-column label="事件状态" prop="statusText" />
+      <el-table-column
+        label="事件状态"
+        prop="statusText"
+      />
       <el-table-column label="评价">
         <template>
           无内容
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="200" fixed="right">
+      <el-table-column
+        label="操作"
+        width="200"
+        fixed="right"
+      >
         <template slot-scope="scope">
           <td-btn
-            content="指派"
             v-if="scope.row.status === '1' || scope.row.status === '4'"
+            content="指派"
             icon="el-icon-bicycle"
             @click="handleEvent(scope.row, '指派')"
           />
           <td-btn
-            content="处置"
             v-if="scope.row.status !== '3' && scope.row.status !== '6'"
+            content="处置"
             icon="el-icon-wind-power"
             @click="handleEvent(scope.row, '处置')"
           />
@@ -177,8 +261,8 @@
     <CheckModal
       v-if="modal === 'check'"
       :event-id="needEventId"
-      :processingDesc="processingDesc"
-      :processingTime="processingTime"
+      :processing-desc="processingDesc"
+      :processing-time="processingTime"
       @onShowToast="onCheckModal"
       @closeModal="modal = ''"
     />
@@ -194,12 +278,12 @@
 
 <script>
 import { queryEventList } from '@/api/intelligentService/regionSupervision'
-import { deleteEvent } from '@/api/intelligentService/earlyWarningDisposal'
-import { eventReminder } from '@/api/intelligentService/earlyWarningDisposal'
+import { deleteEvent, eventReminder } from '@/api/intelligentService/earlyWarningDisposal'
+
 import eventMixin from '../../evenModule/eventMixin'
 export default {
   mixins: [eventMixin],
-  data() {
+  data () {
     return {
       dataList: [],
       isLoading: false,
@@ -236,15 +320,15 @@ export default {
       ]
     }
   },
-  created() {
+  created () {
     this.getList()
   },
   methods: {
     // 查询
-    searchForm() {
+    searchForm () {
       this.getList()
     },
-    async getList() {
+    async getList () {
       try {
         if (this.dataList && this.dataList.length > 0) {
           this.advancedForm.startTime = this.dataList[0] + ' 00:00:00'
@@ -265,22 +349,22 @@ export default {
       } catch (error) {}
       this.$emit('mapInit', this.pagination.total)
     },
-    resetSearchForm() {
+    resetSearchForm () {
       this.dataList = []
       this.advancedForm = this.$options.data().advancedForm
       this.getList()
     },
-    searchAdvance() {
+    searchAdvance () {
       this.getList()
       this.advancedSearchShow = false
     },
-    handleSelectionChange(val) {
+    handleSelectionChange (val) {
       this.selection = []
       val.forEach(element => {
         this.selection.push(element.id)
       })
     },
-    handleEvent(curRow, type) {
+    handleEvent (curRow, type) {
       switch (type) {
         case '上报':
           this.modal = 'report'
@@ -321,7 +405,7 @@ export default {
           break
       }
     },
-    del(arr) {
+    del (arr) {
       this.$confirm('删除该事件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

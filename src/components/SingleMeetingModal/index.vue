@@ -1,60 +1,69 @@
 <template>
   <div
-    class="single-meeting-modal"
     v-if="visible"
+    class="single-meeting-modal"
   >
     <div
       class="popup-close"
       @click="close"
     ></div>
-    <div style="visibility: hidden;" id="me"></div>
     <div
+      style="visibility: hidden;width:0;height:0;"
+      id="me"
+    ></div>
+    <div
+      v-if="gridMemberInfo.callType===1"
       class="video-content"
       style="width:100%;height:100%"
-      v-if="gridMemberInfo.callType===1"
     >
       <div
         :id="gridMemberInfo.divId"
+        :ref="gridMemberInfo.divId"
         style="width:100%;height:80%"
       />
-      <div class="time-record">{{videoTimer}}</div>
+      <div class="time-record">
+        {{ videoTimer }}
+      </div>
       <div class="edit-block">
         <div class="info">
           <svg-icon
             icon-class="population-people"
             class="icon"
           />
-          <span class="name">{{gridMemberInfo.name}}</span>
+          <span class="name">{{ gridMemberInfo.name }}</span>
           <span class="name">专职网格员</span>
         </div>
         <div class="edit">
           <div
             class="fullscreen"
+            @click="handleFullScreen"
             :class="{'fullscreen-none':!gridMemberInfo.fullscreen }"
           />
           <div
             class="camera"
-            @click="handleRemoteCamera(gridMemberInfo)"
             :class="{'camera-none':!gridMemberInfo.camera }"
-          ></div>
+            @click="handleRemoteCamera(gridMemberInfo)"
+          />
           <div
             class="mic"
-            @click="handleRemoteMic(gridMemberInfo)"
             :class="{'mic-none':!gridMemberInfo.mic }"
-          ></div>
+            @click="handleRemoteMic(gridMemberInfo)"
+          />
         </div>
       </div>
     </div>
     <div
-      class="audio-content"
       v-if="gridMemberInfo.callType===0"
+      class="audio-content"
     >
       <div class="mic-content-bg" />
       <div
         :id="gridMemberInfo.divId"
         style="visibility: hidden;"
-      ></div>
-      <div class="time-record">{{micTimer}}</div>
+      />
+      <div class="time-record">
+        {{ micTimer }}
+      </div>
     </div>
   </div>
 </template>
@@ -89,7 +98,7 @@ export default {
       default: () => { }
     }
   },
-  data() {
+  data () {
     return {
       client: null,
       localStream: null,
@@ -102,14 +111,14 @@ export default {
     }
   },
   computed: {
-    remoteStreams() {
+    remoteStreams () {
       return []
     }
   },
   watch: {
-    async visible(bool) {
+    async visible (bool) {
       if (bool) {
-        this.gridMemberInfo.divId = 'join' + this.gridMemberInfo['id']
+        this.gridMemberInfo.divId = 'join' + this.gridMemberInfo.id
         this.gridMemberInfo.camera = true
         this.gridMemberInfo.mic = true
         this.gridMemberInfo.fullscreen = true
@@ -122,11 +131,20 @@ export default {
     }
   },
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     },
+    // Dom全屏操作
+    handleFullScreen() {
+      const girMemRef = this.$refs[this.gridMemberInfo.divId]
+
+      girMemRef.requestFullscreen().then((res) => {
+      }, () => {
+        this.$message.error('该浏览器不支持全屏api')
+      })
+    },
     // 控制远端摄像头
-    handleRemoteCamera(item) {
+    handleRemoteCamera (item) {
       const remoteStreamObj = this.remoteStreams.find((cur) => {
         return cur.divId === item.divId
       })
@@ -140,7 +158,7 @@ export default {
       this.joinList.splice(seleIndex, 1, item)
     },
     // 控制远端麦克风
-    handleRemoteMic(item) {
+    handleRemoteMic (item) {
       const remoteStreamObj = this.remoteStreams.find((cur) => {
         return cur.divId === item.divId
       })
@@ -154,7 +172,7 @@ export default {
       this.joinList.splice(seleIndex, 1, item)
     },
     // 加入房间
-    joinRoom(client, roomId) {
+    joinRoom (client, roomId) {
       client
         .join({ roomId })
         .catch((error) => {
@@ -169,7 +187,7 @@ export default {
         })
     },
     // 创建本地音视频流
-    createStream(userId, callType) {
+    createStream (userId, callType) {
       const localStream = TRTC.createStream({
         userId,
         audio: true,
@@ -191,7 +209,7 @@ export default {
         })
     },
     // 发布本地音视频流
-    publishStream(localStream, client) {
+    publishStream (localStream, client) {
       client
         .publish(localStream)
         .catch((error) => {
@@ -202,7 +220,7 @@ export default {
         })
     },
     // 订阅远端流--加入房间之前
-    subscribeStream(client) {
+    subscribeStream (client) {
       client.on('stream-added', (event) => {
         const remoteStream = event.stream
         this.remoteStreams.push({
@@ -224,7 +242,7 @@ export default {
       })
     },
     // 播放远端流
-    playStream(client) {
+    playStream (client) {
       client.on('stream-subscribed', (event) => {
         const remoteStream = event.stream
         console.log('远端流订阅成功：' + remoteStream.getId())
@@ -232,7 +250,7 @@ export default {
       })
     },
     // 退出音视频
-    leaveRoom(client) {
+    leaveRoom (client) {
       this.handleInitTimer()
       if (!client) return
       client
@@ -257,7 +275,7 @@ export default {
         })
     },
     // 通话计时器
-    beginS(type) {
+    beginS (type) {
       // 计算秒
       x++
       if (x < 10) {
@@ -293,7 +311,7 @@ export default {
       }
     },
     // 初始化计时器
-    handleInitTimer() {
+    handleInitTimer () {
       x = 0
       a = 0
       b = 0
@@ -302,7 +320,7 @@ export default {
       clearInterval(this.setIntervalId)
     },
     // 创建通话客户端
-    async createClient(userId) {
+    async createClient (userId) {
       const resultBool = await checkTRTC()
       if (!resultBool) {
         return this.$message.error('该浏览器不支持webRTC')
@@ -328,7 +346,7 @@ export default {
       this.joinRoom(this.client, this.roomId)
     },
     // 呼叫通知栏通知
-    async handleNotification() {
+    async handleNotification () {
       const params = { clientId: this.clientId }
       switch (this.gridMemberInfo.callType) {
         case 0:
@@ -348,7 +366,7 @@ export default {
       }
     },
     // 呼叫透传通知
-    async handleTransmission() {
+    async handleTransmission () {
       const master = {
         name: '市综治中心',
         callType: this.gridMemberInfo.callType
@@ -363,7 +381,7 @@ export default {
       this.handleNotification()
     },
     // 挂断透传通知
-    async handleHangupTransmission() {
+    async handleHangupTransmission () {
       const master = {
         isHangup: true
       }

@@ -5,11 +5,11 @@
 
     <Alert
       v-if="alert.display"
-      :alertInfo="alert.info"
+      :alert-info="alert.info"
       @bindBtnClose="alert.display = false"
       @bindShowDetail="lookEventDetail"
     />
-    <AuthorityModal :visible.sync="authority"></AuthorityModal>
+    <AuthorityModal :visible.sync="authority" />
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
     Alert,
     AuthorityModal
   },
-  data() {
+  data () {
     return {
       alert: {
         display: false,
@@ -40,13 +40,13 @@ export default {
       authority: false
     }
   },
-  mounted() {
+  mounted () {
     this.initEnterEvent()
     // this.startEventPolling()
   },
   methods: {
     // 轮询事件列表
-    startEventPolling() {
+    startEventPolling () {
       const worker = new Worker('../pollingWorker.js')
       worker.onmessage = ({ data }) => {
         const event = data[0]
@@ -67,7 +67,7 @@ export default {
       })
     },
     // 点击查看详情
-    lookEventDetail(info) {
+    lookEventDetail (info) {
       this.$router.push({
         path: '/riskPrevention/warning',
         query: {
@@ -77,8 +77,8 @@ export default {
       // 点击查看详情后，报警框消失
       this.alert.display = false
     },
-    initEnterEvent() {
-      document.onkeydown = function(e) {
+    initEnterEvent () {
+      document.onkeydown = function (e) {
         // console.log(e.keyCode)
         const e1 = e || event || window.event
         if (e1 && e1.keyCode === 65) {
@@ -244,7 +244,7 @@ export default {
         // }
       }
     },
-    showAuthority() {
+    showAuthority () {
       this.authority = true
     }
   }

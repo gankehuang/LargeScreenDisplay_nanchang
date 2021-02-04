@@ -1,26 +1,31 @@
 <template>
   <div class="vision-box">
-    <div class="vision-title">视联网</div>
-<!--    <img-->
-<!--      class="close-btn"-->
-<!--      v-if="isShowVideo"-->
-<!--      src="@/assets/image/common/close-btn.png"-->
-<!--      @click="stopVisonVideo"-->
-<!--    />-->
+    <div class="vision-title">
+      视联网
+    </div>
+    <!--    <img-->
+    <!--      class="close-btn"-->
+    <!--      v-if="isShowVideo"-->
+    <!--      src="@/assets/image/common/close-btn.png"-->
+    <!--      @click="stopVisonVideo"-->
+    <!--    />-->
 
-<!--    <div-->
-<!--      class="vision-content"-->
-<!--      v-if="!isShowVideo"-->
-<!--      @click="startFlvVideo"-->
-<!--    ></div>-->
+    <!--    <div-->
+    <!--      class="vision-content"-->
+    <!--      v-if="!isShowVideo"-->
+    <!--      @click="startFlvVideo"-->
+    <!--    ></div>-->
 
-    <RtmpPlayer src="rtmp://172.11.16.245/live/0" :mute="false" />
-<!--    <FlvPlayer-->
-<!--      v-else-->
-<!--      :id="visionVideo.videoId"-->
-<!--      :src="visionVideo.playSrc"-->
-<!--      class="flvPlayer"-->
-<!--    />-->
+    <RtmpPlayer
+      src="rtmp://172.11.16.245/live/0"
+      :mute="false"
+    />
+    <!--    <FlvPlayer-->
+    <!--      v-else-->
+    <!--      :id="visionVideo.videoId"-->
+    <!--      :src="visionVideo.playSrc"-->
+    <!--      class="flvPlayer"-->
+    <!--    />-->
   </div>
 </template>
 
@@ -33,7 +38,7 @@ export default {
     // FlvPlayer,
     RtmpPlayer
   },
-  data() {
+  data () {
     return {
       isShowVideo: false,
       visionVideo: {
@@ -44,7 +49,7 @@ export default {
   },
   methods: {
     // 开启视联网视频
-    async startFlvVideo() {
+    async startFlvVideo () {
       this.isShowVideo = true
       // const { status, data, message } = await startFlvVideo(20000)
       // if (status === 200) {
@@ -55,7 +60,7 @@ export default {
       // }
     },
     // 关闭视联网视频
-    stopVisonVideo() {
+    stopVisonVideo () {
       this.isShowVideo = false
       // this.visionVideo.playSrc = ''
       // this.visionVideo.videoId = ''

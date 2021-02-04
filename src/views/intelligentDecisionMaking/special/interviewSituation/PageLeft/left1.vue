@@ -23,7 +23,7 @@ export default {
       default: null
     }
   },
-  data() {
+  data () {
     return {
       count: {
         postureNum: '-',
@@ -31,11 +31,11 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.numberData()
   },
   methods: {
-    numberData() {
+    numberData () {
       const objects = {
         gridCode: '3601'
       }

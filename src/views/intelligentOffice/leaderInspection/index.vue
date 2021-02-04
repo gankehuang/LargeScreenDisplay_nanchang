@@ -6,7 +6,11 @@
       :cur-index="4"
     /> -->
     <div class="search-box">
-      <el-input v-model="advancedForm.name" placeholder="领导姓名" clearable />
+      <el-input
+        v-model="advancedForm.name"
+        placeholder="领导姓名"
+        clearable
+      />
       <el-date-picker
         v-model="dataList"
         format="yyyy-MM-dd"
@@ -15,10 +19,15 @@
         range-separator="至"
         start-placeholder="开始日期"
         end-placeholder="结束日期"
+      />
+      <el-button
+        class="search-btn"
+        @click="search()"
       >
-      </el-date-picker>
-      <el-button class="search-btn" @click="search()">
-        <svg-icon icon-class="search" class="svg-icon" />搜索轨迹
+        <svg-icon
+          icon-class="search"
+          class="svg-icon"
+        />搜索轨迹
       </el-button>
     </div>
     <el-scrollbar style="width:95%;height:890px;margin:0 auto">
@@ -26,22 +35,28 @@
         v-if="list.length > 1"
         class="line"
         :style="{ height: list.length * 400 + 'px' }"
-      ></div>
+      />
       <div
         v-else
         class="line"
         :style="{ height: (list.length + 2) * 400 + 'px' }"
-      ></div>
+      />
       <div class="lea-spe-list">
         <div class="lea-spe-start" />
-        <div class="lea-spe-item" :key="index" v-for="(item, index) in list">
+        <div
+          v-for="(item, index) in list"
+          :key="index"
+          class="lea-spe-item"
+        >
           <div class="item-left leader">
             <h1>{{ subString(item.time) }}</h1>
             <h1>{{ item.name }}</h1>
-            <p style="font-size:16px">{{ item.info }}</p>
+            <p style="font-size:16px">
+              {{ item.info }}
+            </p>
           </div>
           <div class="timeline">
-            <div class="item-dot"></div>
+            <div class="item-dot" />
           </div>
           <div class="item-right image">
             <div class="image-container">
@@ -49,17 +64,20 @@
                 style="width:95%;height:85%"
                 :src="item.picture"
                 :preview-src-list="[item.picture]"
-              ></el-image>
+              />
             </div>
           </div>
           <div class="sub-item-list">
             <div
-              class="sub-item"
-              :key="index"
               v-for="(item, index) in item.subList"
+              :key="index"
+              class="sub-item"
             >
-              <span class="dot"></span>
-              <svg-icon icon-class="location" class="icon"></svg-icon>
+              <span class="dot" />
+              <svg-icon
+                icon-class="location"
+                class="icon"
+              />
               <span class="info">
                 <!-- <span class="name">{{item.name}}</span> -->
                 <span class="action">{{ item.address }}</span>
@@ -78,7 +96,7 @@ import commonMixin from '../commonMixin'
 import { leadershipInspectPage } from '@/api/adminIntelligentOffice/leaderInspection'
 export default {
   mixins: [commonMixin],
-  data() {
+  data () {
     return {
       list: [],
       dataList: [], // 时间选择
@@ -89,17 +107,17 @@ export default {
       } // 查询条件
     }
   },
-  mounted() {
+  mounted () {
     this.handleLeadershipInspectPage()
   },
   methods: {
-    search() {
+    search () {
       this.handleLeadershipInspectPage()
     },
-    subString(time) {
+    subString (time) {
       return time.substring(0, 10)
     },
-    async handleLeadershipInspectPage() {
+    async handleLeadershipInspectPage () {
       try {
         if (this.dataList && this.dataList.length > 0) {
           this.advancedForm.inspectTime = this.dataList[0] + ' 00:00:00'
@@ -121,7 +139,7 @@ export default {
         }
       } catch (error) {}
     },
-    handleData(arr) {
+    handleData (arr) {
       this.list = arr.map(item => {
         return {
           time: item.inspectTime,

@@ -1,40 +1,54 @@
 <template>
   <div class="model">
     <div class="model-box">
-      <el-form ref="form" :rules="rules" :model="form" label-width="120px">
+      <el-form
+        ref="form"
+        :rules="rules"
+        :model="form"
+        label-width="120px"
+      >
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="规则名称:" prop="name">
+            <el-form-item
+              label="规则名称:"
+              prop="name"
+            >
               <el-input
                 v-model="form.name"
                 placeholder="请输入规则名称"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="重点人员类型:">
-              <el-select v-model="form.type" placeholder="请选择重点人员类型">
+              <el-select
+                v-model="form.type"
+                placeholder="请选择重点人员类型"
+              >
                 <el-option
                   v-for="item in options"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="性别:">
               <el-radio-group v-model="form.sex">
-                <el-radio :label="1">男</el-radio>
-                <el-radio :label="2">女</el-radio>
+                <el-radio :label="1">
+                  男
+                </el-radio>
+                <el-radio :label="2">
+                  女
+                </el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="年龄:">
-              <el-slider v-model="form.age"></el-slider>
+              <el-slider v-model="form.age" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -42,7 +56,7 @@
               <el-input
                 v-model="form.nation"
                 placeholder="请输入民族"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -50,7 +64,7 @@
               <el-input
                 v-model="form.phone"
                 placeholder="请输入手机号码"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -58,58 +72,66 @@
               <el-input
                 v-model="form.ids"
                 placeholder="请输入身份证号码"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="婚姻状况:">
-              <el-select v-model="form.marriage" placeholder="请选择婚姻状况">
+              <el-select
+                v-model="form.marriage"
+                placeholder="请选择婚姻状况"
+              >
                 <el-option
                   v-for="item in marriageOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="学历情况:">
-              <el-select v-model="form.education" placeholder="请选择学历情况">
+              <el-select
+                v-model="form.education"
+                placeholder="请选择学历情况"
+              >
                 <el-option
                   v-for="item in educationOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="就业情况:">
-              <el-select v-model="form.job" placeholder="请选择就业情况">
+              <el-select
+                v-model="form.job"
+                placeholder="请选择就业情况"
+              >
                 <el-option
                   v-for="item in jobOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="社保缴纳:">
-              <el-select v-model="form.security" placeholder="请选择社保缴纳">
+              <el-select
+                v-model="form.security"
+                placeholder="请选择社保缴纳"
+              >
                 <el-option
                   v-for="item in securityOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
@@ -118,7 +140,7 @@
               <el-input
                 v-model="form.condition"
                 placeholder="请输入纳税情况"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -126,76 +148,94 @@
               <el-input
                 v-model="form.number"
                 placeholder="请输入房产数量"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="小孩数量:">
-              <el-select v-model="form.kid" placeholder="请选择小孩数量">
+              <el-select
+                v-model="form.kid"
+                placeholder="请选择小孩数量"
+              >
                 <el-option
                   v-for="item in kidOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="法人信息:">
-              <el-select v-model="form.legal" placeholder="请选择法人信息">
+              <el-select
+                v-model="form.legal"
+                placeholder="请选择法人信息"
+              >
                 <el-option
                   v-for="item in legalOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="涉事案件:">
-              <el-select v-model="form.case" placeholder="请选择涉事案件">
+              <el-select
+                v-model="form.case"
+                placeholder="请选择涉事案件"
+              >
                 <el-option
                   v-for="item in caseOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="是否购车:">
               <el-radio-group v-model="form.purchase">
-                <el-radio :label="1">是</el-radio>
-                <el-radio :label="2">否</el-radio>
+                <el-radio :label="1">
+                  是
+                </el-radio>
+                <el-radio :label="2">
+                  否
+                </el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
-          <el-col :span="12" v-if="form.purchase == 1">
+          <el-col
+            v-if="form.purchase == 1"
+            :span="12"
+          >
             <el-form-item label="车牌号码:">
               <el-input
                 v-model="form.busNumber"
                 placeholder="请输入车牌号码"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
     </div>
     <div class="model-footer">
-      <el-button type="primary" @click="submitClick">提交</el-button>
+      <el-button
+        type="primary"
+        @click="submitClick"
+      >
+        提交
+      </el-button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       form: {
         name: '',
@@ -383,7 +423,7 @@ export default {
     }
   },
   methods: {
-    submitClick() {
+    submitClick () {
       this.$refs.form.validate(valid => {
         if (valid) {
           this.getRandomInt(10)
@@ -391,7 +431,7 @@ export default {
         }
       })
     },
-    getRandomInt(data) {
+    getRandomInt (data) {
       let number = ''
       for (let i = 0; i < data; i++) {
         number += Math.floor(Math.random() * 10)

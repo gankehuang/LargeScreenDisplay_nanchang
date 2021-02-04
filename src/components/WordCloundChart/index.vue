@@ -1,5 +1,9 @@
 <template>
-  <div :ref="id" :class="className" :style="{ height: height, width: width }" />
+  <div
+    :ref="id"
+    :class="className"
+    :style="{ height: height, width: width }"
+  />
 </template>
 
 <script>
@@ -33,15 +37,15 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       chart: null
     }
   },
-  mounted() {
+  mounted () {
     this.initChart()
   },
-  beforeDestroy() {
+  beforeDestroy () {
     if (!this.chart) {
       return
     }
@@ -49,7 +53,7 @@ export default {
     this.chart = null
   },
   methods: {
-    initChart() {
+    initChart () {
       this.chart = echarts.init(this.$refs[this.id])
       const option = {
         title: {
@@ -76,7 +80,7 @@ export default {
             // 随机生成字体颜色
             textStyle: {
               normal: {
-                color: function() {
+                color: function () {
                   return (
                     'rgb(' +
                     Math.round(Math.random() * 255) +

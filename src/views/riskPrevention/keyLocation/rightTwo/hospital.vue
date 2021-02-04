@@ -1,32 +1,38 @@
 <template>
   <div class="info-block">
-    <div class="title">医疗安全隐患</div>
+    <div class="title">
+      医疗安全隐患
+    </div>
     <div class="drop">
       <el-dropdown>
         <span class="el-dropdown-link">
-          {{ level }}<i class="el-icon-arrow-down el-icon--right"></i>
+          {{ level }}<i class="el-icon-arrow-down el-icon--right" />
         </span>
         <el-dropdown-menu
           slot="dropdown"
           style="width: 109px;text-align: center;line-height: 36px;background:#00225C;border-radius: 6px;border: 1px solid #559AF6;"
         >
           <el-dropdown-item
-            @click.native="tabLevel(item)"
             v-for="(item, index) in levelList"
             :key="index"
-            >{{ item }}</el-dropdown-item
+            @click.native="tabLevel(item)"
           >
+            {{ item }}
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <v-chart :options="useTypeOptions" class="echart" />
+    <v-chart
+      :options="useTypeOptions"
+      class="echart"
+    />
   </div>
 </template>
 
 <script>
 import echarts from 'vue-echarts'
 export default {
-  data() {
+  data () {
     return {
       level: '本日',
       levelList: ['本日', '本周', '本月', '本季度'],
@@ -63,7 +69,7 @@ export default {
           axisLabel: {
             color: '#458CDD',
             interval: 0,
-            formatter: function(value) {
+            formatter: function (value) {
               let valueTxt = ''
               if (value.length > 3) {
                 valueTxt = value.substring(0, 4) + '...'
@@ -156,7 +162,7 @@ export default {
     }
   },
   methods: {
-    tabLevel(item) {
+    tabLevel (item) {
       this.level = item
       switch (this.level) {
         case '本日':
@@ -193,7 +199,7 @@ export default {
               axisLabel: {
                 color: '#458CDD',
                 interval: 0,
-                formatter: function(value) {
+                formatter: function (value) {
                   let valueTxt = ''
                   if (value.length > 3) {
                     valueTxt = value.substring(0, 4) + '...'
@@ -318,7 +324,7 @@ export default {
               axisLabel: {
                 color: '#458CDD',
                 interval: 0,
-                formatter: function(value) {
+                formatter: function (value) {
                   let valueTxt = ''
                   if (value.length > 3) {
                     valueTxt = value.substring(0, 4) + '...'
@@ -443,7 +449,7 @@ export default {
               axisLabel: {
                 color: '#458CDD',
                 interval: 0,
-                formatter: function(value) {
+                formatter: function (value) {
                   let valueTxt = ''
                   if (value.length > 3) {
                     valueTxt = value.substring(0, 4) + '...'
@@ -568,7 +574,7 @@ export default {
               axisLabel: {
                 color: '#458CDD',
                 interval: 0,
-                formatter: function(value) {
+                formatter: function (value) {
                   let valueTxt = ''
                   if (value.length > 3) {
                     valueTxt = value.substring(0, 4) + '...'

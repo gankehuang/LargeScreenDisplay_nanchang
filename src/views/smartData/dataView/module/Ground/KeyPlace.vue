@@ -1,9 +1,17 @@
 <template>
   <div class="key-place-container">
-    <div class="title">重点场所</div>
+    <div class="title">
+      重点场所
+    </div>
     <ul>
-      <li v-for="(item, index) in dataList" :key="index">
-        <svg-icon :icon-class="item.icon" class="icon" />
+      <li
+        v-for="(item, index) in dataList"
+        :key="index"
+      >
+        <svg-icon
+          :icon-class="item.icon"
+          class="icon"
+        />
         <span class="label">{{ item.label }}</span>
         <div class="data">
           <span class="number">{{ item.number }}</span>
@@ -18,7 +26,7 @@
 // import { queryKeyPlaceCount } from '@/api/smartData/dataView'
 import { queryWeightPlace } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       code: '3601',
       dataList: [
@@ -55,10 +63,10 @@ export default {
       ]
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  mounted() {
+  mounted () {
     this.handleQueryKeyPlaceCount()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -66,7 +74,7 @@ export default {
     })
   },
   methods: {
-    async handleQueryKeyPlaceCount() {
+    async handleQueryKeyPlaceCount () {
       try {
         // const { status, data } = await queryKeyPlaceCount({
         //   gridCode: this.code
@@ -82,11 +90,11 @@ export default {
           gridCode: this.code
         })
         if (status === 200) {
-          this.dataList[0].number = data['school']
-          this.dataList[1].number = data['hospital']
-          this.dataList[2].number = data['gas']
-          this.dataList[3].number = data['build']
-          this.dataList[4].number = data['view']
+          this.dataList[0].number = data.school
+          this.dataList[1].number = data.hospital
+          this.dataList[2].number = data.gas
+          this.dataList[3].number = data.build
+          this.dataList[4].number = data.view
         }
       } catch (error) {}
     }

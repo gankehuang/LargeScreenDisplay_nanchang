@@ -1,53 +1,53 @@
 <template>
-  <div class="page-container">
-    <Tabs :tab-list="tabList" width="300px" :cur-index="2" />
-    <centerMap @mapEvent="mapEvent"></centerMap>
-    <transition name="ani-left" mode="out-in" appear>
-      <div class="page-left">
-        <leftInfo></leftInfo>
-        <left2Info></left2Info>
-      </div>
-    </transition>
-    <transition name="ani-right" mode="out-in" appear>
-      <div class="page-right">
-        <right1Info></right1Info>
-        <right2Info></right2Info>
-        <right3Info></right3Info>
-      </div>
-    </transition>
+  <Container>
+    <Tabs
+      :tab-list="tabList"
+      width="300px"
+      :cur-index="2"
+    />
+    <Map @mapEvent="mapEvent" />
+    <template v-slot:pageLeft>
+      <PersonnelIncidentsNum />
+      <MonthlyPetitionRanking />
+    </template>
+    <template v-slot:pageRight>
+      <InterviewAnalysisReport />
+      <LettersProminentField />
+      <PetitionChannels />
+    </template>
     <div class="center">
-      <centerInfo></centerInfo>
+      <centerInfo />
     </div>
-  </div>
+  </Container>
 </template>
 <script>
-import leftInfo from './PageLeft/left1.vue'
-import left2Info from './PageLeft/left2.vue'
-import right1Info from './PageRight/right1.vue'
-import right2Info from './PageRight/right2.vue'
-import right3Info from './PageRight/right3.vue'
-import centerInfo from './PageCenter/centerInfo.vue'
-import centerMap from './centerMap'
+import PersonnelIncidentsNum from './Left/PersonnelIncidentsNum'
+import MonthlyPetitionRanking from './Left/MonthlyPetitionRanking'
+import InterviewAnalysisReport from './Right/InterviewAnalysisReport'
+import LettersProminentField from './Right/LettersProminentField'
+import PetitionChannels from './Right/PetitionChannels'
+import centerInfo from './PageCenter/centerInfo'
+import Map from './Map'
 import commonMixin from '../../commonMixin'
 export default {
-  mixins: [commonMixin],
   components: {
-    leftInfo,
-    left2Info,
-    right1Info,
-    right2Info,
-    right3Info,
+    PersonnelIncidentsNum,
+    MonthlyPetitionRanking,
+    InterviewAnalysisReport,
+    LettersProminentField,
+    PetitionChannels,
     centerInfo,
-    centerMap
+    Map
   },
-  data() {
+  mixins: [commonMixin],
+  data () {
     return {
       countyList: null,
       isInfo: true
     }
   },
   methods: {
-    mapEvent(data) {
+    mapEvent (data) {
       this.isInfo = false
       this.$nextTick(() => {
         this.isInfo = true
@@ -69,7 +69,8 @@ export default {
     position: absolute;
     bottom: 15px;
     left: 50%;
-    margin-left: -510px;
+    transform: translateX(-50%);
+    width: 1017px;
   }
 }
 </style>

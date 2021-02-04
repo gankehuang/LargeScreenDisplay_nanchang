@@ -16,11 +16,11 @@ export default {
     Sidebar,
     AppMain
   },
-  data() {
+  data () {
     return {}
   },
   computed: {
-    isCollapse() {
+    isCollapse () {
       return this.$store.getters['asideRouters/isCollapse']
     }
   }

@@ -8,8 +8,7 @@
       scrolling="no"
       marginheight="0"
       marginwidth="0"
-    >
-    </iframe>
+    />
   </div>
 </template>
 
@@ -17,17 +16,17 @@
 import { autoLogin } from '@/api/riskPrevention/law'
 
 export default {
-  data() {
+  data () {
     return {
       iframeUrl: ''
     }
   },
-  created() {
+  created () {
     this.autoLogin()
   },
-  mounted() {},
+  mounted () {},
   methods: {
-    autoLogin() {
+    autoLogin () {
       autoLogin().then(res => {
         const { status, data } = res
         if (status === 200) {

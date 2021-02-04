@@ -4,7 +4,7 @@
       <video-player
         class="vjs-custom-skin"
         :options="playerOptions"
-      ></video-player>
+      />
     </div>
     <iframe
       v-show="ifShow"
@@ -15,15 +15,17 @@
       scrolling="no"
       marginheight="0"
       marginwidth="0"
-    >
-    </iframe>
+    />
   </div>
 </template>
 
 <script>
 import { videoPlayer } from 'vue-video-player'
 export default {
-  data() {
+  components: {
+    videoPlayer
+  },
+  data () {
     return {
       playerOptions: {
         playbackRates: [0.7, 1.0, 1.5, 2.0], // 播放速度
@@ -46,10 +48,7 @@ export default {
       ifShow: false
     }
   },
-  components: {
-    videoPlayer
-  },
-  mounted() {
+  mounted () {
     const timer = setInterval(() => {
       this.ifShow = true
       // 某些定时器操作

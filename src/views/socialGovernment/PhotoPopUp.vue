@@ -1,11 +1,17 @@
 <template>
-  <div class="time-line-container" v-if="visible">
-    <div class="close" @click="close"></div>
+  <div
+    v-if="visible"
+    class="time-line-container"
+  >
+    <div
+      class="close"
+      @click="close"
+    />
     <div class="sidebarList">
       <div
-        :class="['sidebarOne', { currentOne: currentIndex === index }]"
         v-for="(item, index) in cityTitle"
         :key="index"
+        :class="['sidebarOne', { currentOne: currentIndex === index }]"
         @click="sidebarClick(index, item)"
       >
         {{ item }}
@@ -16,7 +22,9 @@
       <div class="line" />
       <div class="time-node-title">
         <div class="node" />
-        <div class="title">政府跨部门办案平台</div>
+        <div class="title">
+          政府跨部门办案平台
+        </div>
       </div>
       <div class="info-node">
         <div class="node" />
@@ -24,8 +32,7 @@
           <el-image
             :src="require('@/assets/image/dataView/zfkbm.jpg')"
             :preview-src-list="[require('@/assets/image/dataView/zfkbm.jpg')]"
-          >
-          </el-image>
+          />
         </div>
       </div>
     </div>
@@ -45,25 +52,25 @@ export default {
     //   default: ''
     // }
   },
-  data() {
+  data () {
     return {
       cityTitle: ['政府跨部门办案平台'],
       currentIndex: 0
     }
   },
-  mounted() {},
   watch: {
-    visible(newVal) {
+    visible (newVal) {
       if (newVal) {
         this.currentIndex = 0
       }
     }
   },
+  mounted () {},
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     },
-    sidebarClick(index, item) {
+    sidebarClick (index, item) {
       this.currentIndex = index
     }
   }

@@ -2,27 +2,28 @@
   <SimpleMap @mapInit="mapInit">
     <OperateMap @updateMapMarker="updateMapMarker" />
     <SearchInput
-      @searchByKeyWords="updateMapMarkerBySearch"
       class="input-container"
+      @searchByKeyWords="updateMapMarkerBySearch"
     />
-    <CameraModal :visible.sync="cameraModal.visible" :info="cameraModal.info" />
+    <CameraModal
+      :visible.sync="cameraModal.visible"
+      :info="cameraModal.info"
+    />
   </SimpleMap>
 </template>
 
 <script>
-import SimpleMap from '@/components/SimpleMap'
 import OperateMap from './OperateMap'
 import CameraModal from './CameraModal'
 import SearchInput from './SearchInput'
 import { getKeyMonitorList, selectByGeo } from '@/api/riskPrevention/floatingPopulation'
 export default {
   components: {
-    SimpleMap,
     OperateMap,
     CameraModal,
     SearchInput
   },
-  data() {
+  data () {
     return {
       map: null,
       cameraModal: {
@@ -43,14 +44,14 @@ export default {
       curTitle: ''
     }
   },
-  created() {},
+  created () {},
   methods: {
-    mapInit(map) {
+    mapInit (map) {
       this.map = map
       this.getKeyMonitorList()
       this.map.setZoom(10.5)
     },
-    updateMapMarker(data) {
+    updateMapMarker (data) {
       const { title } = data
       this.curTitle = title
       for (const key in this.markList) {
@@ -75,7 +76,7 @@ export default {
       //   // })
       // }
     },
-    updateMapMarkerBySearch(keyWords) {
+    updateMapMarkerBySearch (keyWords) {
       if (this.curTitle) {
         console.log(1)
         this.markList[this.curTitle + 'List'].forEach((item, index) => {
@@ -88,7 +89,7 @@ export default {
       }
     },
     // 查询重点监控
-    getKeyMonitorList() {
+    getKeyMonitorList () {
       if (this.map) {
         this.map.remove(this.markList.jcList)
         this.map.remove(this.markList.hczList)
@@ -204,7 +205,7 @@ export default {
         }
       })
     },
-    createMarker(icon, pos, mes) {
+    createMarker (icon, pos, mes) {
       const marker = new window.AMap.Marker({
         icon: new window.AMap.Icon({
           image: icon,
@@ -238,16 +239,16 @@ export default {
       })
       return marker
     },
-    getVideoInfo(mes) {
+    getVideoInfo (mes) {
       this.cameraModal.info = mes
       const params = {
         distance: 1,
         longitude: mes.longitude,
         latitude: mes.latitude
       }
-      selectByGeo(1,1, params).then(res=> {
-        if(res.status === 200) {
-          if(res.data.list[0]) {
+      selectByGeo(1, 1, params).then(res => {
+        if (res.status === 200) {
+          if (res.data.list[0]) {
             this.cameraModal.info.cameraIndexCode = res.data.list[0].gbIndexCode || res.data.list[0].cameraIndexCode
           }
         } else {

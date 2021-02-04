@@ -1,24 +1,29 @@
 <template>
   <div class="conBottom">
-    <p class="title">统计截止至：{{ nowDateTime }}</p>
+    <p class="title">
+      统计截止至：{{ nowDateTime }}
+    </p>
     <div class="drop">
       <el-dropdown>
         <span class="el-dropdown-link">
-          {{ level }}<i class="el-icon-arrow-down el-icon--right"></i>
+          {{ level }}<i class="el-icon-arrow-down el-icon--right" />
         </span>
         <el-dropdown-menu
           slot="dropdown"
           style="width: 109px;text-align: center;line-height: 36px;background:#00225C;border-radius: 6px;border: 1px solid #559AF6;"
         >
           <el-dropdown-item
-            @click.native="tabLevel(item)"
             v-for="(item, index) in levelList"
             :key="index"
-            >{{ item }}</el-dropdown-item
+            @click.native="tabLevel(item)"
           >
+            {{ item }}
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <button class="search-btn">查询</button>
+      <button class="search-btn">
+        查询
+      </button>
     </div>
     <div class="btm-box">
       <div class="box-left">
@@ -34,12 +39,27 @@
         </div>
         <div class="box-table">
           <el-scrollbar style="height:100%;width:100%;">
-            <el-table stripe :data="tableData" style="width: 100%">
-              <el-table-column label="序号" type="index"> </el-table-column>
-              <el-table-column prop="date" label="县区"> </el-table-column>
-              <el-table-column prop="name" label="处置率"> </el-table-column>
-              <el-table-column prop="address" label="处置数量">
-              </el-table-column>
+            <el-table
+              stripe
+              :data="tableData"
+              style="width: 100%"
+            >
+              <el-table-column
+                label="序号"
+                type="index"
+              />
+              <el-table-column
+                prop="date"
+                label="县区"
+              />
+              <el-table-column
+                prop="name"
+                label="处置率"
+              />
+              <el-table-column
+                prop="address"
+                label="处置数量"
+              />
             </el-table>
           </el-scrollbar>
         </div>
@@ -57,12 +77,31 @@
         </div>
         <div class="box-table">
           <el-scrollbar style="height:100%;width:100%;">
-            <el-table stripe :data="tableData1" style="width: 100%">
-              <el-table-column label="序号" type="index"> </el-table-column>
-              <el-table-column prop="date" label="类型"> </el-table-column>
-              <el-table-column prop="name" label="占比"> </el-table-column>
-              <el-table-column prop="num" label="化解率"> </el-table-column>
-              <el-table-column prop="address" label="数量"> </el-table-column>
+            <el-table
+              stripe
+              :data="tableData1"
+              style="width: 100%"
+            >
+              <el-table-column
+                label="序号"
+                type="index"
+              />
+              <el-table-column
+                prop="date"
+                label="类型"
+              />
+              <el-table-column
+                prop="name"
+                label="占比"
+              />
+              <el-table-column
+                prop="num"
+                label="化解率"
+              />
+              <el-table-column
+                prop="address"
+                label="数量"
+              />
             </el-table>
           </el-scrollbar>
         </div>
@@ -72,7 +111,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       nowDateTime: '',
       level: '截止当前',
@@ -126,16 +165,16 @@ export default {
       ]
     }
   },
-  created() {
+  created () {
     console.log(new Date())
     this.getTime()
   },
   methods: {
-    tabLevel(item) {
+    tabLevel (item) {
       this.level = item
     },
 
-    getTime() {
+    getTime () {
       const yy = new Date().getFullYear()
       const mm = new Date().getMonth() + 1
       const dd = new Date().getDate()

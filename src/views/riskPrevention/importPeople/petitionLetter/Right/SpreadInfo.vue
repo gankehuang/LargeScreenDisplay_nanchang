@@ -1,28 +1,32 @@
 <template>
-  <div class="win-info">
-    <div class="title">信访人员县区分布</div>
-    <v-chart :options="amountOptions" class="echarts" />
-  </div>
+  <InfoBlock
+    title="信访人员分布"
+    height="484px"
+  >
+    <v-chart
+      :options="amountOptions"
+      class="echarts"
+    />
+  </InfoBlock>
 </template>
 
 <script>
 import echarts from 'vue-echarts'
 import { countPetitionPeopleByRegion } from '@/api/riskPrevention/importPeople'
 export default {
-  data() {
+  data () {
     return {
       totalData: [],
       nameList: []
     }
   },
   computed: {
-    amountOptions() {
+    amountOptions () {
       return {
         grid: {
           left: '25%',
-          top: '10%',
-          height: '80%'
-          //     containLabel: true,
+          top: 0,
+          height: '100%'
         },
         xAxis: [
           {
@@ -96,18 +100,18 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    _compare(property) {
-      return function(a, b) {
+    _compare (property) {
+      return function (a, b) {
         const value1 = a[property]
         const value2 = b[property]
         return value1 - value2
       }
     },
-    getList() {
+    getList () {
       countPetitionPeopleByRegion().then(res => {
         if (res.status === 200) {
           const newArr = res.data.sort(this._compare('numVal'))
@@ -123,10 +127,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.echarts {
-  width: 100%;
-  height: 100%;
-}
 .win-info {
   position: relative;
   width: 420px;

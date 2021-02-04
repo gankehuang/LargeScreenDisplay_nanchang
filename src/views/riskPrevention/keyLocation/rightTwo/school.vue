@@ -1,20 +1,24 @@
 <template>
   <div class="info-block">
-    <div class="title">校园周边安全隐患</div>
+    <div class="title">
+      校园周边安全隐患
+    </div>
     <div class="drop">
       <el-dropdown>
         <span class="el-dropdown-link">
-          {{ level }}<i class="el-icon-arrow-down el-icon--right"></i>
+          {{ level }}<i class="el-icon-arrow-down el-icon--right" />
         </span>
         <el-dropdown-menu
           slot="dropdown"
           style="width: 109px;text-align: center;line-height: 36px;background:#00225C;border-radius: 6px;border: 1px solid #559AF6;"
         >
           <el-dropdown-item
-            @click.native="tabLevel(item)"
             v-for="(item, index) in levelList"
             :key="index"
-          >{{ item }}</el-dropdown-item>
+            @click.native="tabLevel(item)"
+          >
+            {{ item }}
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -30,7 +34,7 @@
 import echarts from 'vue-echarts'
 import ECharts from 'echarts'
 export default {
-  data() {
+  data () {
     return {
       level: '本日',
       levelList: ['本日', '本周', '本月', '本季度'],
@@ -266,11 +270,11 @@ export default {
     //   }
     // },
   },
-  mounted() {
+  mounted () {
     this.initChart()
   },
   methods: {
-    tabLevel(item) {
+    tabLevel (item) {
       this.level = item
       switch (this.level) {
         case '本日':
@@ -755,7 +759,7 @@ export default {
           break
       }
     },
-    initChart() {
+    initChart () {
       const that = this
       that.$nextTick(() => {
         that.chart = ECharts.init(document.getElementById('chart'))

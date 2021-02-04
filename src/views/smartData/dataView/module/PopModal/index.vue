@@ -1,9 +1,17 @@
 <template>
-  <div class="mask-box" v-if="visible">
-    <div class="mask"></div>
+  <div
+    v-if="visible"
+    class="mask-box"
+  >
+    <div class="mask" />
     <div class="pop-modal-container">
-      <div class="pop-modal-close" @click="close"></div>
-      <h1 class="pop-modal-title">人口统计</h1>
+      <div
+        class="pop-modal-close"
+        @click="close"
+      />
+      <h1 class="pop-modal-title">
+        人口统计
+      </h1>
       <nanchang-map />
       <Left />
       <Right />
@@ -28,7 +36,7 @@ export default {
     }
   },
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     }
   }

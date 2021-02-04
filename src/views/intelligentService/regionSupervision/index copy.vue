@@ -1,7 +1,7 @@
 <template>
   <div
-    class="page"
     v-loading="isLoading"
+    class="page"
     element-loading-text="加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba( 0, 0, 0, 0.7)"
@@ -11,7 +11,9 @@
         <el-button
           type="primary"
           icon="el-icon-plus"
-        >录入信息</el-button>
+        >
+          录入信息
+        </el-button>
       </div>
       <div class="right">
         <el-input
@@ -20,11 +22,15 @@
           clearable
           class="search-input"
         />
-        <el-button type="primary">查询</el-button>
+        <el-button type="primary">
+          查询
+        </el-button>
         <el-button
           plain
           @click="advancedSearchShow = true"
-        >高级搜索</el-button>
+        >
+          高级搜索
+        </el-button>
       </div>
     </div>
 
@@ -47,25 +53,31 @@
           />
         </el-form-item>
         <el-form-item label="是否超时">
-          <el-switch> </el-switch>
+          <el-switch />
         </el-form-item>
         <el-form-item label="是否整改">
-          <el-switch> </el-switch>
+          <el-switch />
         </el-form-item>
 
         <el-form-item class="buttons">
           <el-button
             type="primary"
             @click="searchAdvance"
-          >查询</el-button>
+          >
+            查询
+          </el-button>
           <el-button
             type="primary"
             @click="resetSearchForm"
-          >重置</el-button>
+          >
+            重置
+          </el-button>
           <el-button
             plain
             @click="advancedSearchShow = false"
-          >取消</el-button>
+          >
+            取消
+          </el-button>
         </el-form-item>
       </el-form>
     </search-advance>
@@ -76,7 +88,9 @@
         icon="el-icon-delete"
         :disabled="!selection.length"
         @click="del(selection)"
-      >批量删除</el-button>
+      >
+        批量删除
+      </el-button>
     </div>
 
     <el-table
@@ -135,26 +149,26 @@
       >
         <template slot-scope="scope">
           <td-btn
-            content="上报"
             v-if="scope.row.status !== '3' && scope.row.status !== '6'"
+            content="上报"
             icon="el-icon-s-promotion"
             @click="handleEvent(scope.row, '上报')"
           />
           <td-btn
-            content="指派"
             v-if="scope.row.status === '1'"
+            content="指派"
             icon="el-icon-bicycle"
             @click="handleEvent(scope.row, '指派')"
           />
           <td-btn
-            content="催单"
             v-if="scope.row.status !== '6' && scope.row.status !== '3'"
+            content="催单"
             icon="el-icon-alarm-clock"
             @click="handleEvent(scope.row, '催单')"
           />
           <td-btn
-            content="处置"
             v-if="scope.row.status !== '3' && scope.row.status !== '6'"
+            content="处置"
             icon="el-icon-wind-power"
             @click="handleEvent(scope.row, '处置')"
           />
@@ -209,8 +223,8 @@
     <CheckModal
       v-if="modal === 'check'"
       :event-id="needEventId"
-      :processingDesc="processingDesc"
-      :processingTime="processingTime"
+      :processing-desc="processingDesc"
+      :processing-time="processingTime"
       @onShowToast="onCheckModal"
       @closeModal="modal = ''"
     />
@@ -230,7 +244,7 @@ import { eventReminder } from '@/api/intelligentService/earlyWarningDisposal'
 import eventMixin from '../evenModule/eventMixin'
 export default {
   mixins: [eventMixin],
-  data() {
+  data () {
     return {
       isLoading: false,
       selection: [],
@@ -245,11 +259,11 @@ export default {
       advancedForm: {}
     }
   },
-  created() {
+  created () {
     this.getList()
   },
   methods: {
-    async getList() {
+    async getList () {
       try {
         const { status, data } = await queryEventList(
           this.pagination.pageNum,
@@ -262,14 +276,14 @@ export default {
         }
       } catch (error) {}
     },
-    resetSearchForm() {
+    resetSearchForm () {
       this.advancedForm = this.$options.data().advancedForm
       this.getList()
     },
-    searchAdvance() {},
-    del() {},
-    handleSelectionChange() {},
-    handleEvent(curRow, type) {
+    searchAdvance () {},
+    del () {},
+    handleSelectionChange () {},
+    handleEvent (curRow, type) {
       switch (type) {
         case '上报':
           this.modal = 'report'

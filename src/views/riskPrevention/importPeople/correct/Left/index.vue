@@ -1,19 +1,19 @@
 <template>
   <div class="page-left">
-    <CountInfo />
-    <WatchInfo />
+    <CorrectionStatistics />
+    <RegionalDistribution />
   </div>
 </template>
 
 <script>
-import CountInfo from './CountInfo'
-import WatchInfo from './WatchInfo'
+import CorrectionStatistics from './CorrectionStatistics'
+import RegionalDistribution from './RegionalDistribution'
 export default {
   components: {
-    CountInfo,
-    WatchInfo
+    CorrectionStatistics,
+    RegionalDistribution
   },
-  data() {
+  data () {
     return {}
   }
 }

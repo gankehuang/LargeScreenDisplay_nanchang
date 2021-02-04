@@ -3,7 +3,7 @@
     <video-player
       class="vjs-custom-skin"
       :options="playerOptions"
-    ></video-player>
+    />
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
   components: {
     videoPlayer
   },
-  data() {
+  data () {
     return {
       playerOptions: {
         playbackRates: [0.7, 1.0, 1.5, 2.0], // 播放速度
@@ -36,7 +36,7 @@ export default {
     }
   },
 
-  mounted() {
+  mounted () {
     const timer = setInterval(() => {
       this.$router.push({ path: '/layout' })
       // 某些定时器操作

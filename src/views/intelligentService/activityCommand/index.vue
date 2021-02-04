@@ -1,6 +1,13 @@
 <template>
-  <div class="earlyWarningDisposal" :key="i">
-    <Tabs :tab-list="tabList" width="500px" :cur-index="2" />
+  <div
+    :key="i"
+    class="earlyWarningDisposal"
+  >
+    <Tabs
+      :tab-list="tabList"
+      width="500px"
+      :cur-index="2"
+    />
     <div class="con-top">
       <eventNum />
       <eventDistrict />
@@ -25,17 +32,17 @@ export default {
     bottomForm
   },
   mixins: [commonMixin],
-  data() {
+  data () {
     return {
       i: 0
     }
   },
-  mounted() {
+  mounted () {
     this.$EventBus.$on('updateCommend', i => {
       this.i++
     })
   },
-  beforeDestory() {
+  beforeDestory () {
     this.$EventBus.$off('updateCommend')
   }
 }

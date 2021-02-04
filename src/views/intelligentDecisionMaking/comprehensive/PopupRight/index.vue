@@ -1,22 +1,34 @@
 <template>
-  <div class="mask-container" v-if="visible">
-    <div class="mask"></div>
+  <div
+    v-if="visible"
+    class="mask-container"
+  >
+    <div class="mask" />
     <div class="comprehensive-popup-container">
       <el-scrollbar style="width:100%;height:100%;">
-        <div class="popup-close" @click="close"></div>
+        <div
+          class="popup-close"
+          @click="close"
+        />
         <IndexName :code="selectedCounty.code" />
         <RadarBlock
           :code="selectedCounty.code"
-          :codeName="selectedCounty.name"
+          :code-name="selectedCounty.name"
         />
         <BarBlock :code="selectedCounty.code" />
         <div class="analysis">
-          <svg-icon icon-class="popup-tip" class="analysis-icon"></svg-icon>
+          <svg-icon
+            icon-class="popup-tip"
+            class="analysis-icon"
+          />
           <span class="analysis-title">预警三级指标</span>
         </div>
         <TableList :code="selectedCounty.code" />
         <div class="analysis">
-          <svg-icon icon-class="popup-tip" class="analysis-icon"></svg-icon>
+          <svg-icon
+            icon-class="popup-tip"
+            class="analysis-icon"
+          />
           <span class="analysis-title">督导意见</span>
         </div>
         <SupervisoryOpinion
@@ -30,8 +42,7 @@
               close();
               handleGenSupervisionEvent();
             "
-            >督促整改</span
-          >
+          >督促整改</span>
         </div>
       </el-scrollbar>
     </div>
@@ -47,6 +58,13 @@ import SupervisoryOpinion from './SupervisoryOpinion'
 import { genSupervisionEvent } from '@/api/intelligentDecisionMaking/comprehensive'
 
 export default {
+  components: {
+    RadarBlock,
+    BarBlock,
+    IndexName,
+    TableList,
+    SupervisoryOpinion
+  },
   props: {
     visible: {
       type: Boolean,
@@ -60,17 +78,7 @@ export default {
       type: Number
     }
   },
-  components: {
-    RadarBlock,
-    BarBlock,
-    IndexName,
-    TableList,
-    SupervisoryOpinion
-  },
-  watch: {
-    visible(val) {}
-  },
-  data() {
+  data () {
     return {
       selectedCounty: undefined,
       selectedIndicator: { label: '总分' },
@@ -78,11 +86,14 @@ export default {
       supInfo: ''
     }
   },
-  beforeDestroy() {
+  watch: {
+    visible (val) {}
+  },
+  beforeDestroy () {
     this.$EventBus.$off('update:selectedCounty')
     this.$EventBus.$off('update:selectedIndicator')
   },
-  mounted() {
+  mounted () {
     this.$EventBus.$on('update:selectedCounty', county => {
       console.log(county)
       this.selectedCounty = county
@@ -93,12 +104,12 @@ export default {
     )
   },
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
       this.$emit('update:buttonVisible', false)
     },
     // 生成督导事件
-    async handleGenSupervisionEvent() {
+    async handleGenSupervisionEvent () {
       try {
         const initData = {
           superviseRegion: this.selectedCounty.name,
@@ -114,7 +125,7 @@ export default {
         }
       } catch (error) {}
     },
-    superviseInfo(data) {
+    superviseInfo (data) {
       this.supInfo = data
     }
   }

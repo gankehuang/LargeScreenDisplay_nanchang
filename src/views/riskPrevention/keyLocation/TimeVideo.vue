@@ -1,6 +1,8 @@
 <template>
   <div class="left-one">
-    <div class="title">实时视频</div>
+    <div class="title">
+      实时视频
+    </div>
     <div class="video-play">
       <IframeVideoPlay
         v-for="(item, index) in videoList"
@@ -20,7 +22,7 @@ export default {
       type: Array
     }
   },
-  data() {
+  data () {
     return {}
   },
   methods: {}

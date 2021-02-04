@@ -1,7 +1,15 @@
 <template>
   <div class="list-container pepple-list">
-    <el-table :data="tableData" :stripe="true" style="width: 100%">
-      <el-table-column prop="leaderName" label="姓名" width="60">
+    <el-table
+      :data="tableData"
+      :stripe="true"
+      style="width: 100%"
+    >
+      <el-table-column
+        prop="leaderName"
+        label="姓名"
+        width="60"
+      >
         <template slot-scope="scope">
           <el-popover
             placement="bottom"
@@ -19,7 +27,10 @@
                 />
                 <div>电话</div>
               </div>
-              <div class="tt" @click="schedulingVideo">
+              <div
+                class="tt"
+                @click="schedulingVideo"
+              >
                 <svg-icon
                   icon-class="icon-shipin"
                   class="icon-shipin"
@@ -28,11 +39,17 @@
                 <div>视频</div>
               </div>
             </div>
-            <div slot="reference">{{ scope.row.leaderName }}</div>
+            <div slot="reference">
+              {{ scope.row.leaderName }}
+            </div>
           </el-popover>
         </template>
       </el-table-column>
-      <el-table-column prop="leaderDistrict" label="县区/部门" width="90">
+      <el-table-column
+        prop="leaderDistrict"
+        label="县区/部门"
+        width="90"
+      >
         <template slot-scope="scope">
           <el-popover
             placement="bottom"
@@ -42,7 +59,10 @@
             :visible-arrow="false"
           >
             <div class="tan">
-              <div class="tt" @click="schedulingVideo">
+              <div
+                class="tt"
+                @click="schedulingVideo"
+              >
                 <svg-icon
                   icon-class="icon-dianhua"
                   class="icon-dianhua"
@@ -59,11 +79,17 @@
                 <div>视频</div>
               </div>
             </div>
-            <div slot="reference">{{ scope.row.leaderDistrict }}</div>
+            <div slot="reference">
+              {{ scope.row.leaderDistrict }}
+            </div>
           </el-popover>
         </template>
       </el-table-column>
-      <el-table-column prop="leaderPosition" label="职务" width="110">
+      <el-table-column
+        prop="leaderPosition"
+        label="职务"
+        width="110"
+      >
         <template slot-scope="scope">
           <el-popover
             placement="bottom"
@@ -81,7 +107,10 @@
                 />
                 <div>电话</div>
               </div>
-              <div class="tt" @click="schedulingVideo">
+              <div
+                class="tt"
+                @click="schedulingVideo"
+              >
                 <svg-icon
                   icon-class="icon-shipin"
                   class="icon-shipin"
@@ -90,7 +119,9 @@
                 <div>视频</div>
               </div>
             </div>
-            <div slot="reference">{{ scope.row.leaderPosition }}</div>
+            <div slot="reference">
+              {{ scope.row.leaderPosition }}
+            </div>
           </el-popover>
         </template>
       </el-table-column>
@@ -117,7 +148,10 @@
                 />
                 <div>电话</div>
               </div>
-              <div class="tt" @click="schedulingVideo(1)">
+              <div
+                class="tt"
+                @click="schedulingVideo(1)"
+              >
                 <svg-icon
                   icon-class="icon-shipin"
                   class="icon-shipin"
@@ -134,12 +168,15 @@
       </el-table-column>
     </el-table>
 
-    <div v-if="isShowFlv" class="rtmp-box video-position">
+    <div
+      v-if="isShowFlv"
+      class="rtmp-box video-position"
+    >
       <img
         class="btn-close"
         src="@/assets/image/common/close-btn.png"
         @click="bindBtnClose(1)"
-      />
+      >
       <FlvPlayer
         has-audio
         src="http://172.11.16.243:8025/flv"
@@ -152,25 +189,25 @@
 <script>
 import FlvPlayer from '@/components/FlvPlayer'
 export default {
+  components: {
+    FlvPlayer
+  },
   props: {
     tableData: {
       type: Array,
       default: () => []
     }
   },
-  components: {
-    FlvPlayer
-  },
-  data() {
+  data () {
     return {
       isShowFlv: false
     }
   },
   methods: {
-    bindBtnClose() {
+    bindBtnClose () {
       this.isShowFlv = false
     },
-    schedulingVideo() {
+    schedulingVideo () {
       this.isShowFlv = true
     }
   }

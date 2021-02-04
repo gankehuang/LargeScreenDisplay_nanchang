@@ -25,7 +25,7 @@ const mutations = {
 
 const actions = {
   // 用户登录
-  login({ commit }, userInfo) {
+  login ({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({
@@ -65,13 +65,13 @@ const actions = {
   //   })
   // },
 
-  logout({ commit }) {
+  logout ({ commit }) {
     removeToken()
     resetRouter()
   },
 
   // 清除token
-  resetToken({ commit }) {
+  resetToken ({ commit }) {
     return new Promise(resolve => {
       removeToken() // must remove  token  first
       commit('RESET_STATE')

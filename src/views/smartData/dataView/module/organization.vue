@@ -58,23 +58,17 @@
         <ul>
           <li>
             <p class="connected">
-              <span class="title"><i class="iconfont icon-health-ecg"/></span
-              ><span class="unit">心防组织</span
-              ><strong class="num">8989</strong>
+              <span class="title"><i class="iconfont icon-health-ecg" /></span><span class="unit">心防组织</span><strong class="num">8989</strong>
             </p>
           </li>
           <li>
             <p class="connected">
-              <span class="title"><i class="iconfont icon-falvyuanzhu"/></span
-              ><span class="unit">法律援助组织</span
-              ><strong class="num">8989</strong>
+              <span class="title"><i class="iconfont icon-falvyuanzhu" /></span><span class="unit">法律援助组织</span><strong class="num">8989</strong>
             </p>
           </li>
           <li>
             <p class="connected">
-              <span class="title"><i class="iconfont icon-woshou"/></span
-              ><span class="unit">人民调解组织</span
-              ><strong class="num">8989</strong>
+              <span class="title"><i class="iconfont icon-woshou" /></span><span class="unit">人民调解组织</span><strong class="num">8989</strong>
             </p>
           </li>
         </ul>

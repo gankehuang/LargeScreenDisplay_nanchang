@@ -9,7 +9,7 @@ import { Message } from 'element-ui'
 // 视频关闭远端摄像头、声音
 
 // 创建音视频房间
-function createRoom(userId, userSig) {
+function createRoom (userId, userSig) {
   const client = TRTC.createClient({
     sdkAppId: trtcCallConfig.SDKAPPID,
     userId: userId,
@@ -19,7 +19,7 @@ function createRoom(userId, userSig) {
   return client
 }
 // 创建本地音视频流
-function createStream(userId) {
+function createStream (userId) {
   return TRTC.createStream({ userId, audio: true, video: true })
 }
 
@@ -54,7 +54,7 @@ const mutations = {
 
 const actions = {
   // 实例化会议客户端
-  async createRoom({ dispatch, commit }, userInfo) {
+  async createRoom ({ dispatch, commit }, userInfo) {
     const resultBool = await checkTRTC()
     if (!resultBool) {
       return
@@ -67,7 +67,7 @@ const actions = {
     dispatch('clientOnStream', { divId: userInfo.divId })
   },
   // 监听远端音视频流
-  clientOnStream({ commit }, { divId }) {
+  clientOnStream ({ commit }, { divId }) {
     const client = state.client
     client.on('stream-added', event => {
       console.log('------------------stream-added 执行')
@@ -90,7 +90,7 @@ const actions = {
     })
   },
   // 加入会议 没有该房  就创建房间
-  joinRoom({ dispatch }) {
+  joinRoom ({ dispatch }) {
     state.client
       .join({ roomId: 29108 })
       .then(() => {
@@ -102,14 +102,14 @@ const actions = {
       })
   },
   // 创建本地流
-  createStream({ dispatch, commit }) {
+  createStream ({ dispatch, commit }) {
     const userId = state.userInfo.userId
     const localStream = createStream(userId)
     commit('SET_LOCALSTREAM', localStream)
     dispatch('initLocalStream')
   },
   // 初始化音视频流
-  initLocalStream({ dispatch }) {
+  initLocalStream ({ dispatch }) {
     const localStream = state.localStream
     // console.log('-----------------本地流：', localStream)
     // 使用自定义视频Profile设置
@@ -125,7 +125,7 @@ const actions = {
       })
   },
   // 发布本地视频流
-  punlishLocalStream() {
+  punlishLocalStream () {
     const client = state.client
     const localStream = state.localStream
     client
@@ -138,7 +138,7 @@ const actions = {
       })
   },
   // 播放本地流
-  playLocalStream(_, { divId }) {
+  playLocalStream (_, { divId }) {
     const localStream = state.localStream
     localStream
       .initialize()
@@ -150,7 +150,7 @@ const actions = {
       })
   },
   // 离开房间
-  leaveRoom({ commit }) {
+  leaveRoom ({ commit }) {
     state.localStream.stop()
     state.localStream.close()
     commit('SET_LOCALSTREAM', null)

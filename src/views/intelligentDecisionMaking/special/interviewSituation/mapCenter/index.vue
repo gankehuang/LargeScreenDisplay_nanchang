@@ -1,19 +1,33 @@
 <template>
   <div class="samrt-make-policy-center">
-    <div class="location" v-if="county">
-      <span>当前位置</span>：<el-button type="text"
-@click.stop="ncClick"
-        >南昌市</el-button
+    <div
+      v-if="county"
+      class="location"
+    >
+      <span>当前位置</span>：<el-button
+        type="text"
+        @click.stop="ncClick"
       >
+        南昌市
+      </el-button>
       > {{ county }}
     </div>
-    <div class="location" v-else>
-      <span>当前位置</span>：<el-button type="text"
-@click.stop="ncClick"
-        >南昌市</el-button
+    <div
+      v-else
+      class="location"
+    >
+      <span>当前位置</span>：<el-button
+        type="text"
+        @click.stop="ncClick"
       >
+        南昌市
+      </el-button>
     </div>
-    <v-chart id="nanChang" style="width:100%;height:100%" :options="options" />
+    <v-chart
+      id="nanChang"
+      style="width:100%;height:100%"
+      :options="options"
+    />
   </div>
 </template>
 
@@ -24,7 +38,7 @@ import nanChangMap from './nanChang.json'
 ECharts.registerMap('nanChang', nanChangMap)
 
 export default {
-  data() {
+  data () {
     return {
       time: 1,
       nanChangMapEchart: undefined,
@@ -35,7 +49,7 @@ export default {
     }
   },
   computed: {
-    options() {
+    options () {
       return {
         geo: {
           type: 'map',
@@ -102,7 +116,7 @@ export default {
                 fontSize: 16,
                 color: '#fff'
               },
-              formatter: function(params) {
+              formatter: function (params) {
                 return params.name + '\n' + params.value
               },
               emphasis: {
@@ -118,13 +132,13 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.initMapClick()
     this.mapData()
   },
   methods: {
     // 初始化地图添加点击事件
-    mapData() {
+    mapData () {
       mapData().then(res => {
         if (res.status === 200) {
           this.buttonList = res.data
@@ -142,7 +156,7 @@ export default {
         }
       })
     },
-    initMapClick() {
+    initMapClick () {
       const that = this
       that.$nextTick(() => {
         that.nanChangMapEchart = ECharts.init(
@@ -155,7 +169,7 @@ export default {
         })
       })
     },
-    ncClick() {
+    ncClick () {
       this.county = null
       this.countyList = null
       this.$emit('mapEvent', this.countyList)

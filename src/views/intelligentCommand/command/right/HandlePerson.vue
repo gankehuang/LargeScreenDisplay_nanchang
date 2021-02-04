@@ -3,7 +3,9 @@
     class="event-person"
     style="position:relative"
   >
-    <div class="person-title">现场处置人员</div>
+    <div class="person-title">
+      现场处置人员
+    </div>
     <div
       v-if="isShowFlv"
       class="rtmp-box"
@@ -12,7 +14,7 @@
         class="btn-close"
         src="@/assets/image/common/close-btn.png"
         @click="bindBtnClose()"
-      />
+      >
       <FlvPlayer
         has-audio
         src="http://172.11.16.243:8025/flv"
@@ -25,9 +27,9 @@
     >
       <el-scrollbar style="height: 80%">
         <div
-          class="person-item"
           v-for="item in personList"
           :key="item.id"
+          class="person-item"
         >
           <div class="item-avatar">
             <el-image
@@ -52,12 +54,12 @@
             <div
               class="btn"
               @click="handleSingleMeetingModalVisible(0,item)"
-            ></div>
+            />
             <!-- @click="handleMeetingModalVisible(1,item)" -->
             <div
               class="btn"
               @click="handleSingleMeetingModalVisible(1,item)"
-            ></div>
+            />
           </div>
         </div>
       </el-scrollbar>
@@ -69,8 +71,8 @@
     /> -->
     <SingleMeetingModal
       :visible.sync="singleMeetingModalVisible"
-      :gridMemberInfo.sync="gridMemberInfo"
-      :clientId.sync="clientId"
+      :grid-member-info.sync="gridMemberInfo"
+      :client-id.sync="clientId"
     />
   </div>
 </template>
@@ -81,18 +83,18 @@ import FlvPlayer from '@/components/FlvPlayer'
 import SingleMeetingModal from '@/components/SingleMeetingModal'
 import { selectByGridAdminClientById } from '@/api/intelligentCommand/command'
 export default {
+  components: {
+    FlvPlayer,
+    // MeetingModal,
+    SingleMeetingModal
+  },
   props: {
     personList: {
       type: Array,
       default: () => []
     }
   },
-  components: {
-    FlvPlayer,
-    // MeetingModal,
-    SingleMeetingModal
-  },
-  data() {
+  data () {
     return {
       isShowFlv: false,
       // meetingModalVisible: false,
@@ -102,14 +104,14 @@ export default {
     }
   },
   methods: {
-    bindBtnClose() {
+    bindBtnClose () {
       this.isShowFlv = false
     },
-    schedulingVideo(item) {
+    schedulingVideo (item) {
       this.isShowFlv = true
       // this.$EventBus.$emit('schedulingVideo', item.id)
     },
-    focusDevice(item) {
+    focusDevice (item) {
       if (item.lat && item.lon && item.isOnline === 1) {
         this.$EventBus.$emit('focusDevice', [item.lon, item.lat])
       }
@@ -119,12 +121,12 @@ export default {
     //   this.gridMemberInfo = gridMemberInfo
     //   this.meetingModalVisible = await this.handleSelectByGridAdminClientById()
     // },
-    async handleSingleMeetingModalVisible(type, item) {
+    async handleSingleMeetingModalVisible (type, item) {
       const gridMemberInfo = { callType: type, ...item }
       this.gridMemberInfo = gridMemberInfo
       this.singleMeetingModalVisible = await this.handleSelectByGridAdminClientById()
     },
-    async handleSelectByGridAdminClientById() {
+    async handleSelectByGridAdminClientById () {
       const { status, data } = await selectByGridAdminClientById({
         mobile: this.gridMemberInfo.tel
       })
@@ -141,19 +143,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/deep/ .el-scrollbar__wrap {
+::v-deep .el-scrollbar__wrap {
   overflow: auto;
 }
 .event-person {
+  position: relative;
   .person-title {
     width: 100%;
     height: 36px;
     font-size: 16px;
     color: #7dbcff;
     text-align: center;
-    background: url('~@/assets/image/command/block-title-bg.png') no-repeat;
     background-size: contain;
-    background-position: center center;
+    background: url('~@/assets/image/command/block-title-bg.png') no-repeat center center;
   }
 
   .rtmp-box {
@@ -169,7 +171,7 @@ export default {
   }
 
   .person-list {
-    height: 300px;
+    height: 215px;
   }
   .person-item {
     margin-top: 10px;

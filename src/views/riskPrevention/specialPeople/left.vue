@@ -1,7 +1,7 @@
 <template>
   <div class="page-left">
-    <ListInfo></ListInfo>
-    <PeopleInfo></PeopleInfo>
+    <ListInfo />
+    <PeopleInfo />
   </div>
 </template>
 
@@ -13,16 +13,16 @@ export default {
     ListInfo,
     PeopleInfo
   },
-  data() {
+  data () {
     return {
       list: []
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {}
+    getList () {}
   }
 }
 </script>

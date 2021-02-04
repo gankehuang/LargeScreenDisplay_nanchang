@@ -1,6 +1,8 @@
 <template>
   <div class="eventDistrict">
-    <div class="title">活动数量分析</div>
+    <div class="title">
+      活动数量分析
+    </div>
     <div class="contain">
       <v-chart :options="options" />
     </div>
@@ -9,7 +11,7 @@
 <script>
 import { countActivityBaseByMonth } from '@/api/adminIntelligentService/activityCommand'
 export default {
-  data() {
+  data () {
     return {
       series: [
         { value: 0, name: '1月' },
@@ -28,7 +30,7 @@ export default {
     }
   },
   computed: {
-    options() {
+    options () {
       return {
         // color: ['#3398DB'],
         tooltip: {
@@ -119,11 +121,11 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       countActivityBaseByMonth().then(res => {
         if (res.status === 200) {
           res.data.forEach((element, index) => {

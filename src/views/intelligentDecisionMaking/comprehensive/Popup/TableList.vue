@@ -9,27 +9,27 @@
         label="一级指标"
         align="center"
         prop="firstIndicatorName"
-      ></el-table-column>
+      />
       <el-table-column
         label="二级指标"
         align="center"
         prop="secondIndicatorName"
-      ></el-table-column>
+      />
       <el-table-column
         label="三级指标"
         align="center"
         prop="indicatorName"
-      ></el-table-column>
+      />
       <el-table-column
         label="权重"
         align="center"
         prop="weight"
-      ></el-table-column>
+      />
       <el-table-column
         label="得分"
         align="center"
         prop="score"
-      ></el-table-column>
+      />
     </el-table>
   </div>
 </template>
@@ -47,16 +47,16 @@ export default {
       default: () => '3601'
     }
   },
-  data() {
+  data () {
     return {
       tableData: []
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       const list = {
         code: this.code,
         firstIndicator: parseInt(this.index) + 1

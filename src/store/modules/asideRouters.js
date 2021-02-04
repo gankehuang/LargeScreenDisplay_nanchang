@@ -18,7 +18,7 @@ const mutations = {
       state.adminRouters = postManage
     }
   },
-  SET_ASIDESTATUS(state, status) {
+  SET_ASIDESTATUS (state, status) {
     state.isCollapse = status
   }
 }

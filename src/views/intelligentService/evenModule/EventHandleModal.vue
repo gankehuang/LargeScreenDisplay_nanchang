@@ -2,14 +2,32 @@
   <div class="mask-container">
     <div class="mask" />
     <div class="toast-container">
-      <div class="toast-title">事件处置</div>
+      <div class="toast-title">
+        事件处置
+      </div>
       <div class="form-item">
-        <div class="label">处理说明：</div>
-        <el-input class="input" type="textarea" v-model="content"></el-input>
+        <div class="label">
+          处理说明：
+        </div>
+        <el-input
+          v-model="content"
+          class="input"
+          type="textarea"
+        />
       </div>
       <div class="toast-bottom">
-        <div class="button" @click="closeModal">取消</div>
-        <div class="button" @click="submit">确定</div>
+        <div
+          class="button"
+          @click="closeModal"
+        >
+          取消
+        </div>
+        <div
+          class="button"
+          @click="submit"
+        >
+          确定
+        </div>
       </div>
     </div>
   </div>
@@ -22,16 +40,16 @@ export default {
       type: [Number, String]
     }
   },
-  data() {
+  data () {
     return {
       content: ''
     }
   },
   methods: {
-    closeModal() {
+    closeModal () {
       this.$emit('closeModal')
     },
-    async submit() {
+    async submit () {
       await handleEvent({
         id: this.eventId,
         processingDesc: this.content,

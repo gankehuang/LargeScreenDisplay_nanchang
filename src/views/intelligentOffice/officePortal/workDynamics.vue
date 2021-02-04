@@ -3,14 +3,18 @@
     <div class="title">
       工作动态
     </div>
-    <div class="shuaxins"></div>
+    <div class="shuaxins" />
     <div class="shuaxin">
       刷新
     </div>
     <div class="box">
       <el-scrollbar style="height:100%;width:100%;">
-        <div class="box-list" v-for="(item, index) in list" :key="index">
-          <p class="icon"></p>
+        <div
+          v-for="(item, index) in list"
+          :key="index"
+          class="box-list"
+        >
+          <p class="icon" />
           <p class="name">
             {{
               item.title.length > 22
@@ -18,7 +22,9 @@
                 : item.title
             }}
           </p>
-          <p class="time">{{ item.time }}</p>
+          <p class="time">
+            {{ item.time }}
+          </p>
         </div>
       </el-scrollbar>
     </div>
@@ -26,7 +32,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       list: [
         {

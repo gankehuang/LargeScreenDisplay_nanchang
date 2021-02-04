@@ -48,12 +48,12 @@ export default {
       default: 1
     }
   },
-  data() {
+  data () {
     return {
       oWebControl: null
     }
   },
-  mounted() {
+  mounted () {
     this.stopVideo()
     this.initPlugin()
 
@@ -61,19 +61,19 @@ export default {
       this.startVideo()
     }, 2000)
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.stopVideo()
   },
   methods: {
     // 初始化播放实例
-    initPlugin() {
+    initPlugin () {
       const that = this
       this.oWebControl = new window.WebControl({
         szPluginContainer: this.boxId, // 指定容器id
         iServicePortStart: 15900, // 指定起止端口号，建议使用该值
         iServicePortEnd: 15909,
         szClassId: '23BF3B0A-2C56-4D97-9C03-0CB103AA8F11', // 用于IE10使用ActiveX的clsid
-        cbConnectSuccess: function() {
+        cbConnectSuccess: function () {
           // 创建WebControl实例成功
           that.oWebControl
             .JS_StartService('window', {
@@ -81,7 +81,7 @@ export default {
               dllPath: './VideoPluginConnect.dll' // 值"./VideoPluginConnect.dll"写死
             })
             .then(
-              function() {
+              function () {
                 // 启动插件服务成功
                 that.oWebControl.JS_SetWindowControlCallback({
                   // 设置消息回调
@@ -90,31 +90,31 @@ export default {
 
                 that.oWebControl
                   .JS_CreateWnd(that.boxId, that.width, that.height)
-                  .then(function() {
+                  .then(function () {
                     // JS_CreateWnd创建视频播放窗口，宽高可设定
                     that.init() // 创建播放实例成功后初始化
                   })
               },
-              function() {
+              function () {
                 // 启动插件服务失败
               }
             )
         },
-        cbConnectError: function() {
+        cbConnectError: function () {
           // 创建WebControl实例失败
           that.oWebControl = null
           $('#playWnd').html('插件未启动，正在尝试启动，请稍候...')
           that.WebControl.JS_WakeUp('VideoWebPlugin://') // 程序未启动时执行error函数，采用wakeup来启动程序
           initCount++
           if (initCount < 3) {
-            setTimeout(function() {
+            setTimeout(function () {
               that.initPlugin()
             }, 3000)
           } else {
             $('#playWnd').html('插件启动失败，请检查插件是否安装！')
           }
         },
-        cbConnectClose: function(bNormalClose) {
+        cbConnectClose: function (bNormalClose) {
           // 异常断开：bNormalClose = false
           // JS_Disconnect正常断开：bNormalClose = true
           console.log('cbConnectClose')
@@ -122,9 +122,9 @@ export default {
         }
       })
     },
-    init() {
+    init () {
       var that = this
-      this.getPubKey(function() {
+      this.getPubKey(function () {
         // //////////////////////////////// 请自行修改以下变量值	////////////////////////////////////
         const appkey = that.appkey // 综合安防管理平台提供的appkey，必填
         const secret = that.setEncrypt(that.secret) // 综合安防管理平台提供的secret，必填
@@ -161,12 +161,12 @@ export default {
               buttonIDs: buttonIDs // 自定义工具条按钮
             })
           })
-          .then(function(oData) {
+          .then(function (oData) {
             that.oWebControl.JS_Resize(that.width, that.height) // 初始化后resize一次，规避firefox下首次显示窗口后插件窗口未与DIV窗口重合问题
           })
       })
     },
-    getPubKey(callback) {
+    getPubKey (callback) {
       this.oWebControl
         .JS_RequestInterface({
           funcName: 'getRSAPubKey',
@@ -174,23 +174,23 @@ export default {
             keyLength: 1024
           })
         })
-        .then(function(oData) {
+        .then(function (oData) {
           if (oData.responseMsg.data) {
             pubKey = oData.responseMsg.data
             callback()
           }
         })
     },
-    setEncrypt(value) {
+    setEncrypt (value) {
       var encrypt = new window.JSEncrypt()
       encrypt.setPublicKey(pubKey)
       return encrypt.encrypt(value)
     },
-    cbIntegrationCallBack(oData) {
+    cbIntegrationCallBack (oData) {
       console.log(oData)
     },
     // 开始播放视频
-    startVideo() {
+    startVideo () {
       let cameraIndexCode = this.cameraIndexCode // 获取输入的监控点编号值，必填
       const cameraIndexCodeList = cameraIndexCode.split(',')
       const streamMode = 0 // 主子码流标识：0-主码流，1-子码流
@@ -225,7 +225,7 @@ export default {
             funcName: 'startMultiPreviewByCameraIndexCode',
             argument: JSON.stringify(tmpAgr)
           })
-          .then(function(oData) {})
+          .then(function (oData) {})
         // 单个视频
       } else {
         tmpAgr = {
@@ -242,20 +242,20 @@ export default {
             funcName: 'startPreview',
             argument: JSON.stringify(tmpAgr)
           })
-          .then(function(oData) {
+          .then(function (oData) {
             // that.showCBInfo(JSON.stringify(oData ? oData.responseMsg : ''))
           })
       }
     },
     // 停止播放视频
-    stopVideo() {
+    stopVideo () {
       if (this.oWebControl != null) {
         this.oWebControl.JS_HideWnd() // 先让窗口隐藏，规避可能的插件窗口滞后于浏览器消失问题
         this.oWebControl.JS_Disconnect().then(
-          function() {
+          function () {
             // 断开与插件服务连接成功
           },
-          function() {
+          function () {
             // 断开与插件服务连接失败
           }
         )

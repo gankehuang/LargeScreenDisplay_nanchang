@@ -1,5 +1,5 @@
 <template>
-  <div class="grid-connected"></div>
+  <div class="grid-connected" />
 </template>
 
 <script>

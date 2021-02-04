@@ -11,7 +11,7 @@ export default {
     EventHandleModal,
     EventDetailModal
   },
-  data() {
+  data () {
     return {
       isGas: false,
       modal: '',
@@ -27,12 +27,12 @@ export default {
       gridCode: ''
     }
   },
-  created() {
+  created () {
     this.getAllEventList()
   },
   methods: {
     // 获取全部事件
-    async getAllEventList() {
+    async getAllEventList () {
       const list = {
         eventCodeList: ''
       }
@@ -50,7 +50,7 @@ export default {
       this.eventList = this.eventList.slice(0, 50)
     },
     // 聚焦当前点击事件
-    focusEvent(item) {
+    focusEvent (item) {
       if (item.position.length && item.position[0] && item.position[1]) {
         this.eventInfo = item
         this.map.setCenter([item.longitude, item.latitude])
@@ -59,16 +59,16 @@ export default {
         this.$message.warning('未获取到该事件的位置信息')
       }
     },
-    detailsEvent(item) {
+    detailsEvent (item) {
       this.eventInfo = item
       this.showEventDetail()
     },
     // 监听事件指派和上报弹框
-    onDealModal() {
+    onDealModal () {
       this.modal = ''
     },
     // 监听事件详情弹框
-    onEventModal(title, id, gridCode) {
+    onEventModal (title, id, gridCode, personItem) {
       if (title === '事件指派' || title === '事件上报') {
         this.modal = 'report'
         this.dealModalTitle = title
@@ -81,7 +81,8 @@ export default {
         this.modal = ''
         this.eventDetailModal.visible = true
         this.eventDetailModal.info = {
-          id: id
+          id: id,
+          personItem
         }
         return
       }
@@ -95,11 +96,11 @@ export default {
       this.modal = ''
     },
     // 监听事件处置弹框
-    onShowToast() {
+    onShowToast () {
       this.modal = ''
     },
     // 查看事件弹框
-    showEventDetail() {
+    showEventDetail () {
       this.modal = 'event'
     }
   }

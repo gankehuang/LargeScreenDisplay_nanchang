@@ -1,20 +1,38 @@
 <template>
-  <div class="mask-container" v-if="visible">
-    <div class="mask"></div>
+  <div
+    v-if="visible"
+    class="mask-container"
+  >
+    <div class="mask" />
     <div class="comprehensive-popup-container">
-      <div class="popup-close" @click="close"></div>
+      <div
+        class="popup-close"
+        @click="close"
+      />
       <div class="analysis">
-        <svg-icon icon-class="popup-tip" class="analysis-icon"></svg-icon>
+        <svg-icon
+          icon-class="popup-tip"
+          class="analysis-icon"
+        />
         <span class="analysis-title">二级指标得分</span>
       </div>
-      <IndexName :index="index" :code="code" />
+      <IndexName
+        :index="index"
+        :code="code"
+      />
       <!-- <RadarBlock />
       <BarBlock /> -->
       <div class="analysis">
-        <svg-icon icon-class="popup-tip" class="analysis-icon"></svg-icon>
+        <svg-icon
+          icon-class="popup-tip"
+          class="analysis-icon"
+        />
         <span class="analysis-title">三级指标得分</span>
       </div>
-      <TableList :index="index" :code="code" />
+      <TableList
+        :index="index"
+        :code="code"
+      />
     </div>
   </div>
 </template>
@@ -23,6 +41,10 @@
 import IndexName from './IndexName'
 import TableList from './TableList'
 export default {
+  components: {
+    IndexName,
+    TableList
+  },
   props: {
     visible: {
       type: Boolean,
@@ -36,14 +58,7 @@ export default {
       type: Number
     }
   },
-  components: {
-    IndexName,
-    TableList
-  },
-  watch: {
-    visible(val) {}
-  },
-  data() {
+  data () {
     return {
       selectedCounty: undefined,
       selectedIndicator: { label: '总分' },
@@ -51,12 +66,15 @@ export default {
       code: ''
     }
   },
-  beforeDestroy() {
+  watch: {
+    visible (val) {}
+  },
+  beforeDestroy () {
     this.$EventBus.$off('update:selectedCounty')
     this.$EventBus.$off('update:selectedIndicator')
     this.$EventBus.$off('update:selectedItemCode')
   },
-  mounted() {
+  mounted () {
     this.$EventBus.$on(
       'update:selectedCounty',
       county => (this.selectedCounty = county)
@@ -70,7 +88,7 @@ export default {
     })
   },
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     }
   }

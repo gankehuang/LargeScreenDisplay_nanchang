@@ -1,16 +1,22 @@
 <template>
   <div class="rightOne">
-    <div class="title">舆情分析</div>
+    <div class="title">
+      舆情分析
+    </div>
     <div class="con">
       <el-scrollbar style="height:202px">
         <div
-          class="item"
           v-for="(item, index) in rightTopList"
           :key="index"
+          class="item"
           @click="watchPdf(item)"
         >
-          <div class="label">{{ item.label }}</div>
-          <div class="date">{{ item.date }}</div>
+          <div class="label">
+            {{ item.label }}
+          </div>
+          <div class="date">
+            {{ item.date }}
+          </div>
           <!-- <a
             target="_blank"
             :download="item.label"
@@ -35,13 +41,16 @@
         </div>
       </el-scrollbar>
     </div>
-    <PdfDialog :visible.sync="pdfModalVisible" :pdfFile="pdfFile" />
+    <PdfDialog
+      :visible.sync="pdfModalVisible"
+      :pdf-file="pdfFile"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       pdfModalVisible: false,
       pdfFile: {},
@@ -86,7 +95,7 @@ export default {
     }
   },
   methods: {
-    watchPdf(item) {
+    watchPdf (item) {
       if (item.file) {
         this.pdfModalVisible = true
         this.pdfFile.file = item.file

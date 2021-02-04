@@ -1,6 +1,10 @@
 <template>
   <div class="officePortal">
-    <Tabs :tab-list="tabList" width="500px" :cur-index="0" />
+    <Tabs
+      :tab-list="tabList"
+      width="500px"
+      :cur-index="0"
+    />
     <div class="office-con">
       <div class="office-left">
         <quickEntry />

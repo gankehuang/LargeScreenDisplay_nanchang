@@ -1,23 +1,23 @@
 <template>
   <div class="select-list">
     <div
-      class="select-item"
       v-for="(item, index) in menuList"
       :key="index"
+      class="select-item"
       :class="{ active: item.active }"
       @click.stop="handleMap(item, index)"
     >
       <span>{{ item.name }}</span>
 
       <div
-        class="pullup-menu"
         v-if="item.active && item.children.length > 0"
         v-clickoutside="handleClose"
+        class="pullup-menu"
       >
         <div
-          class="menu-item"
           v-for="(item1, index1) in item.children"
           :key="index1"
+          class="menu-item"
           :class="{ active: item1.active }"
           @click.stop="handleChild(index, item1, index1)"
         >
@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       curIndex: -1,
       menuList: [
@@ -48,7 +48,7 @@ export default {
     }
   },
   methods: {
-    handleMap(item, index) {
+    handleMap (item, index) {
       this.menuList[index].children.forEach(item => (item.active = false))
       this.menuList.forEach(item => (item.active = false))
       this.menuList[index].active = true
@@ -60,7 +60,7 @@ export default {
         )
       }
     },
-    handleChild(index, item1, index1) {
+    handleChild (index, item1, index1) {
       this.menuList[index].children.forEach(item => (item.active = false))
       this.menuList[index].children[index1].active = true
       if (item1.menuName === '警情态势') {
@@ -74,7 +74,7 @@ export default {
       }
     },
     // 点击空白处下拉框关闭
-    handleClose(e) {
+    handleClose (e) {
       this.menuList.forEach(item => {
         item.active = false
       })

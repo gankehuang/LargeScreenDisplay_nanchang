@@ -1,15 +1,20 @@
 <template>
   <div class="structure-container">
-    <div class="title">事件来源</div>
-    <div class="chart-bg"></div>
-    <v-chart :options="options" class="vchart" />
+    <div class="title">
+      事件来源
+    </div>
+    <div class="chart-bg" />
+    <v-chart
+      :options="options"
+      class="vchart"
+    />
   </div>
 </template>
 
 <script>
 import { queryEventSource } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       code: '3601',
       optionsData: [
@@ -21,15 +26,8 @@ export default {
       ]
     }
   },
-  async mounted() {
-    await this.getAsyncData()
-    this.$EventBus.$on('update:dataViewSeleItem', async({ code }) => {
-      this.code = code
-      await this.getAsyncData()
-    })
-  },
   computed: {
-    options() {
+    options () {
       return {
         color: ['#2B8CF1', '#A9DAFF', '#E0AC10', '#0ECDE9', '#CED42D'],
         tooltip: {
@@ -87,8 +85,15 @@ export default {
       }
     }
   },
+  async mounted () {
+    await this.getAsyncData()
+    this.$EventBus.$on('update:dataViewSeleItem', async ({ code }) => {
+      this.code = code
+      await this.getAsyncData()
+    })
+  },
   methods: {
-    async getAsyncData() {
+    async getAsyncData () {
       try {
         const { status, data } = await queryEventSource({
           gridCode: this.code

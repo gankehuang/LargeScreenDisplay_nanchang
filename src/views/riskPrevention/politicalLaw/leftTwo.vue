@@ -1,21 +1,26 @@
 <template>
   <div class="leftTwo">
-    <div class="title">七天舆情分析</div>
-    <v-chart :options="options" class="echarts" />
+    <div class="title">
+      七天舆情分析
+    </div>
+    <v-chart
+      :options="options"
+      class="echarts"
+    />
   </div>
 </template>
 <script>
 import echarts from 'vue-echarts'
 import { getBeforeDate } from '@/utils/dateTime'
 export default {
-  data() {
+  data () {
     return {
       xList: [],
       dataList: []
     }
   },
   computed: {
-    options() {
+    options () {
       return {
         // color: ['#3398DB'],
         tooltip: {
@@ -98,7 +103,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     for (let i = 0; i < 7; i++) {
       this.xList.unshift(
         getBeforeDate(i + 1)

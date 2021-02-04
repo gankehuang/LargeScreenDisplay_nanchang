@@ -12,7 +12,7 @@ export default {
     EventDetailModal,
     CheckModal
   },
-  data() {
+  data () {
     return {
       modal: '',
       eventInfo: null,
@@ -29,12 +29,12 @@ export default {
   },
   methods: {
     // 监听事件指派和上报弹框
-    onDealModal() {
+    onDealModal () {
       this.modal = ''
       this.getList()
     },
     // 聚焦当前点击的事件
-    warningFocus(item) {
+    warningFocus (item) {
       let curId = ''
 
       if (typeof item === 'string') {
@@ -60,7 +60,7 @@ export default {
       }
     },
     // 监听事件详情弹框
-    onEventModal(title, id, gridCode) {
+    onEventModal (title, id, gridCode, personItem) {
       if (title === '事件指派' || title === '事件上报') {
         this.modal = 'report'
         this.dealModalTitle = title
@@ -73,7 +73,8 @@ export default {
         this.modal = ''
         this.eventDetailModal.visible = true
         this.eventDetailModal.info = {
-          id: id
+          id: id,
+          personItem
         }
         return
       }
@@ -87,17 +88,17 @@ export default {
       this.modal = ''
     },
     // 监听事件处置弹框
-    onShowToast() {
+    onShowToast () {
       this.modal = ''
       this.getList()
     },
     // 监听核查弹框
-    onCheckModal() {
+    onCheckModal () {
       this.modal = ''
       this.getList()
     },
     // 查看事件弹框
-    showEventDetail(info) {
+    showEventDetail (info) {
       console.log(info, '事件信息')
       this.eventInfo = info
       this.modal = 'event'

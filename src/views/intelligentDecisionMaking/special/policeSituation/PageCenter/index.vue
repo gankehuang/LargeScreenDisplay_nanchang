@@ -1,79 +1,40 @@
 <template>
-  <div class="police-stiuation-center">
-    <div class="title"></div>
-    <div class="title">
-      警情环比同比
+  <InfoBlock
+    title="警情环比同比"
+    :show-title-bg="false"
+    :bg-url="require('@/assets/image/policeSituation/center-bottom-bg.png')"
+    width="100%"
+    height="186px"
+  >
+    <div name="topRight">
+      <TagButton
+        :area-list="areaList"
+        :time-list="timeList"
+        :kind-list="kindList"
+        :area="area"
+        :time="time"
+        :kind="kind"
+        @areaClick="areaClick"
+        @kindClick="kindClick"
+        @timeclick="timeclick"
+      />
     </div>
-    <div class="drop">
-      <el-dropdown>
-        <span class="el-dropdown-link">
-          {{ area }}<i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <el-dropdown-menu
-          slot="dropdown"
-          style="width: 110px;
-    text-align: center;
-     background: #559AF6 url('~@/assets/image/policeSituation/button-bg.png')no-repeat center;
-    background-size: 100% 100%;
-    border: 0;"
-        >
-          <el-dropdown-item
-            @click.native="areaClick(item)"
-            v-for="(item, index) in areaList"
-            :key="index"
-            >{{ item }}</el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown>
-      <el-dropdown>
-        <span class="el-dropdown-link">
-          {{ time }}<i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <el-dropdown-menu
-          slot="dropdown"
-          style="width: 110px;
-    text-align: center;
-     background: #559AF6 url('~@/assets/image/policeSituation/button-bg.png')no-repeat center;
-    background-size: 100% 100%;
-    border: 0;"
-        >
-          <el-dropdown-item
-            @click.native="timeclick(item)"
-            v-for="(item, index) in timeList"
-            :key="index"
-            >{{ item }}</el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown>
-      <el-dropdown>
-        <span class="el-dropdown-link">
-          {{ kind }}<i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <el-dropdown-menu
-          slot="dropdown"
-          style="width: 110px;
-    text-align: center;
-     background: #559AF6 url('~@/assets/image/policeSituation/button-bg.png')no-repeat center;
-    background-size: 100% 100%;
-    border: 0;"
-        >
-          <el-dropdown-item
-            @click.native="kindClick(item)"
-            v-for="(item, index) in kindList"
-            :key="index"
-            >{{ item }}</el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
-    <v-chart :options="amountOptions" class="echarts" v-if="isShow" />
-  </div>
+    <v-chart
+      v-if="isShow"
+      :options="amountOptions"
+      class="echarts"
+    />
+  </InfoBlock>
 </template>
 
 <script>
 import { alertDate } from '@/api/intelligentDecisionMaking/special'
+import TagButton from '../../interviewSituation/PageCenter/TagButton'
 export default {
-  data() {
+  components: {
+    TagButton
+  },
+  data () {
     return {
       amountOptions: {
         grid: {
@@ -81,7 +42,7 @@ export default {
           right: 20,
           bottom: '15%',
           top: '5%',
-          height: '55%'
+          height: '100%'
           //     containLabel: true,
         },
         legend: [
@@ -287,43 +248,16 @@ export default {
                 color: '#F7563C'
               }
             }
-          },
-          
+          }
+
         ]
       },
       area: '市县',
-      areaList: [
-        '南昌县',
-        '进贤县',
-        '安义县',
-        '东湖区',
-        '西湖区',
-        '青云谱区',
-        '湾里局',
-        '青山湖区',
-        '新建区',
-        '高新区',
-        '经开区',
-        '红谷滩区'
-      ],
+      areaList: ['南昌县', '进贤县', '安义县', '东湖区', '西湖区', '青云谱区', '湾里局', '青山湖区', '新建区', '高新区', '经开区', '红谷滩区'],
       time: '2020',
       timeList: ['2020', '2019', '2018', '2017', '2016'],
       kind: '全部',
-      kindList: [
-        '行政(治安)',
-        '刑事案件',
-        '举报',
-        '救助',
-        '交通类警情',
-        '诈骗',
-        '盗窃',
-        '抢劫',
-        '抢夺',
-        '涉黄',
-        '涉赌',
-        '金融诈骗',
-        '其他'
-      ],
+      kindList: ['行政(治安)', '刑事案件', '举报', '救助', '交通类警情', '诈骗', '盗窃', '抢劫', '抢夺', '涉黄', '涉赌', '金融诈骗', '其他'],
       areaData: '',
       kindData: '',
       isShow: true,
@@ -333,27 +267,30 @@ export default {
       chartData2: []
     }
   },
+  created () {
+    this.alertDate()
+  },
   methods: {
-    areaClick(item) {
+    areaClick (item) {
       this.area = item
       this.alertDate()
     },
-    kindClick(item) {
+    kindClick (item) {
       this.kind = item
       this.alertDate()
     },
-    timeclick(item) {
+    timeclick (item) {
       this.time = item
       this.alertDate()
     },
-    traverseFun(data) {
+    traverseFun (data) {
       const arrayList = []
       for (let i = 0; i < data.length; i++) {
         arrayList.push(parseInt(data[i].value))
       }
       return arrayList
     },
-    alertDate() {
+    alertDate () {
       switch (this.area) {
         case '南昌县':
           this.areaData = '360121'
@@ -507,55 +444,12 @@ export default {
         })
       })
     }
-  },
-  created() {
-    this.alertDate()
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.police-stiuation-center {
-  position: absolute;
-  left: 50%;
-  margin-left: -508px;
-  bottom: 24px;
-  width: 1017px;
-  height: 186px;
-  background: url("~@/assets/image/policeSituation/center-bottom-bg.png") center
-    center / 100% 100% no-repeat;
-  .title {
-    line-height: 40px;
-    font-size: 16px;
-    color: #7dbcff;
-    margin-left: 29px;
-    font-weight: bold;
-  }
-  .drop {
-    position: absolute;
-    right: 30px;
-    top: 20px;
-    z-index: 40;
-  }
-  .el-dropdown {
-    margin-right: 20px;
-  }
-  .el-dropdown-link {
-    display: inline-block;
-    width: 110px;
-    line-height: 31px;
-    text-align: center;
-    font-size: 12px;
-    color: #b2d9fb;
-    background: url("~@/assets/image/policeSituation/button-bg.png") no-repeat
-      center;
-    background-size: 100% 100%;
-    cursor: pointer;
-  }
-}
-</style>
-<style lang="scss" scoped>
-/deep/.el-scrollbar__wrap {
+::v-deep .el-scrollbar__wrap {
   overflow: auto;
 }
 </style>

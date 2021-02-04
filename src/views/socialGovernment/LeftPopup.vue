@@ -1,23 +1,41 @@
 <template>
-  <div class="social-government-left-popup fadeIn" v-if="visible">
-    <div class="close" @click="close" />
-    <MapModal :visible.sync="mapModalVisible" :type="mapMarkerType" />
-    <VRModal :visible.sync="VRModalVisible" :url="VRUrl" />
-    <NcMapModal :visible.sync="ncMapModalVisible" :typeNc.sync="typeNc" />
+  <div
+    v-if="visible"
+    class="social-government-left-popup fadeIn"
+  >
+    <div
+      class="close"
+      @click="close"
+    />
+    <MapModal
+      :visible.sync="mapModalVisible"
+      :type="mapMarkerType"
+    />
+    <VRModal
+      :visible.sync="VRModalVisible"
+      :url="VRUrl"
+    />
+    <NcMapModal
+      :visible.sync="ncMapModalVisible"
+      :type-nc.sync="typeNc"
+    />
     <TimeLineModal
       :visible.sync="timeLineModalVisible"
       :value.sync="timeLineValue"
     />
     <STSign :visible.sync="stSignVisible" />
     <ZhzfSign :visible.sync="zhzfSignVisible" />
-    <STSign :visible.sync="stSignVisible" :value.sync="stSignValue" />
+    <STSign
+      :visible.sync="stSignVisible"
+      :value.sync="stSignValue"
+    />
     <PhotoPopUp :visible.sync="photoPopUpVisible" />
     <SocialPlatForm :visible.sync="socialPlatFormVisible" />
     <el-scrollbar class="scrollbar-container">
       <div
-        class="list-item"
         v-for="(item, index) in item.list"
         :key="index"
+        class="list-item"
         @click="tabMapMarkerType(item)"
       >
         <span>
@@ -62,19 +80,7 @@ export default {
       default: undefined
     }
   },
-  watch: {
-    visible(val) {
-      if (!val) {
-        this.mapModalVisible = false
-        this.ncMapModalVisible = false
-        this.timeLineModalVisible = false
-        this.stSignVisible = false
-        this.VRModalVisible = false
-        this.zhzfSignVisible = false
-      }
-    }
-  },
-  data() {
+  data () {
     return {
       mapModalVisible: false,
       mapMarkerType: 'redPost',
@@ -92,9 +98,21 @@ export default {
       stSignValue: ''
     }
   },
+  watch: {
+    visible (val) {
+      if (!val) {
+        this.mapModalVisible = false
+        this.ncMapModalVisible = false
+        this.timeLineModalVisible = false
+        this.stSignVisible = false
+        this.VRModalVisible = false
+        this.zhzfSignVisible = false
+      }
+    }
+  },
   methods: {
     // mock 数据中  type 区分弹框
-    tabMapMarkerType(item) {
+    tabMapMarkerType (item) {
       if (item.type === 'VR') {
         this.VRModalVisible = true
         this.VRUrl = item.url
@@ -118,7 +136,7 @@ export default {
         this.mapModalVisible = true
       }
     },
-    close() {
+    close () {
       this.$emit('update:visible', false)
       this.$emit('update:rightClickItemIndex', undefined)
     }

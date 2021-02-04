@@ -1,10 +1,10 @@
 <template>
   <div class="search">
     <div class="title">
-      <img src="@/assets/image/search/search-icon.png" />
+      <img src="@/assets/image/search/search-icon.png">
       智慧搜索
     </div>
-    <Search @search="search"></Search>
+    <Search @search="search" />
   </div>
 </template>
 <script>
@@ -13,15 +13,15 @@ export default {
   components: {
     Search
   },
-  data() {
+  data () {
     return {
       input: ''
     }
   },
   methods: {
-    search(id, search) {
+    search (id, search) {
       this.$router
-        .push({ path: '/search/second', query: { id: id, search: search }})
+        .push({ path: '/search/second', query: { id: id, search: search } })
         .catch(() => {
           this.reload()
         })

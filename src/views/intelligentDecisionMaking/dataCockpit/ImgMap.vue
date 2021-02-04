@@ -1,18 +1,18 @@
 <template>
   <div class="img-map-container">
     <div
+      v-for="(item, index) in buttonList"
+      :key="index"
       :class="[
         'data-view-map-button',
         { selected: selectedItem.name === item.name }
       ]"
-      v-for="(item, index) in buttonList"
-      :key="index"
       :style="item.style"
       @click="changeData(item)"
     >
       {{ item.name }}
     </div>
-    <img :src="bg" />
+    <img :src="bg">
   </div>
 </template>
 
@@ -21,7 +21,7 @@ import { buttonList, initTotalData } from './mock'
 const initBg = require('@/assets/image/dataView/map.png')
 const initMapBg = require('@/assets/image/comprehensive/map-bg.png')
 export default {
-  data() {
+  data () {
     return {
       bg: initBg,
       mapBg: initMapBg,
@@ -30,7 +30,7 @@ export default {
     }
   },
   methods: {
-    changeData(item) {
+    changeData (item) {
       if (item.name === this.selectedItem.name) {
         this.selectedItem = initTotalData
         this.bg = initBg

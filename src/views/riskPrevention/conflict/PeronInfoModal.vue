@@ -1,13 +1,13 @@
 <template>
   <div
-    class="mask-container shade"
     v-if="visible"
+    class="mask-container shade"
   >
     <div class="mask" />
     <transition name="fade">
       <div
-        class="modal-container"
         v-loading="loading"
+        class="modal-container"
         element-loading-text="加载中"
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba( 0, 0, 0, 0.7)"
@@ -19,7 +19,7 @@
           class="modal-close"
           @click="closeModal"
         >
-          <i class="iconfont el-icon-close"></i>
+          <i class="iconfont el-icon-close" />
         </div>
         <div class="modal-content">
           <div class="left-content">
@@ -70,11 +70,15 @@
             <div
               class="look-trajectory"
               @click="showPath()"
-            >人员轨迹</div>
+            >
+              人员轨迹
+            </div>
             <div
               class="look-trajectory"
               @click="showPath(1)"
-            >车辆轨迹</div>
+            >
+              车辆轨迹
+            </div>
           </div>
         </div>
         <div class="snap-list">
@@ -82,15 +86,15 @@
             最近抓拍
           </div>
           <div
-            style="width: 100%;height: 427px;"
             v-if="snapList.length > 0"
+            style="width: 100%;height: 427px;"
           >
             <el-scrollbar style="height: 100%;">
               <div class="snap-center">
                 <div
-                  class="snap-img"
                   v-for="(item, index) in snapList"
                   :key="index"
+                  class="snap-img"
                 >
                   <el-image
                     style="width: 100px;height: 107px;display: block;"
@@ -130,7 +134,7 @@ export default {
       type: Object
     }
   },
-  data() {
+  data () {
     return {
       snapList: [],
       loading: false,
@@ -147,7 +151,7 @@ export default {
     }
   },
   watch: {
-    visible(val) {
+    visible (val) {
       if (val) {
         this.personInfo = this.$options.data().personInfo
         this.getPersonInfo()
@@ -155,10 +159,10 @@ export default {
     }
   },
   methods: {
-    closeModal() {
+    closeModal () {
       this.$emit('update:visible', false)
     },
-    async getPersonInfo() {
+    async getPersonInfo () {
       this.loading = true
       const { status, data } = await getZhqInfo({ id: this.info.id })
 
@@ -176,17 +180,17 @@ export default {
       }
       this.getSnapList()
     },
-    showPath(type) {
+    showPath (type) {
       this.$emit('showPath', this.personInfo, type)
       this.closeModal()
     },
-    getSimilarity(si) {
+    getSimilarity (si) {
       let similarity = si * 100
       similarity = similarity.toString()
       similarity = similarity.substring(0, 5)
       return similarity
     },
-    getSnapList() {
+    getSnapList () {
       const fd = {
         certificateNumber: this.personInfo.idCard,
         beginTime: '2020-01-01 00:00:00',

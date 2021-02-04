@@ -3,7 +3,7 @@ require('events').EventEmitter.defaultMaxListeners = 0
 
 const IS_PROD = process.env.NODE_ENV === 'production'
 
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
@@ -11,16 +11,14 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: '',
-  runtimeCompiler: true,
+  runtimeCompiler: false,
+  lintOnSave: 'warning',
   productionSourceMap: !IS_PROD,
-  lintOnSave: false,
   css: {
     sourceMap: !IS_PROD
   },
   transpileDependencies: ['vue-echarts', 'resize-detector'],
   configureWebpack: config => {
-    if (IS_PROD) {
-    }
   },
   devServer: {
     https: !IS_PROD,
@@ -111,16 +109,6 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-    // 解决 cli3 热更新失效 https://github.com/vuejs/vue-cli/issues/1559
-    config.resolve.symlinks(true)
-
-    // 如果使用多页面打包，使用vue inspect --plugins查看html是否在结果数组中
-    // config.plugin('html').tap(args => {
-    //   // 修复 lazy loading routes error
-    //   args[0].chunkssortmode = 'none'
-    //   return args
-    // })
-
     // set svg-sprite-loader
     config.module
       .rule('svg')

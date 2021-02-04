@@ -4,16 +4,19 @@
       <p>预警响应单位</p>
     </div>
     <div class="right">
-      <div class="right-one" v-for="(item, index) in dataList" :key="index">
-        {{ item.name }}<span class="one">{{ item.num }}</span
-        ><span class="two">个</span>
+      <div
+        v-for="(item, index) in dataList"
+        :key="index"
+        class="right-one"
+      >
+        {{ item.name }}<span class="one">{{ item.num }}</span><span class="two">个</span>
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       dataList: [
         {

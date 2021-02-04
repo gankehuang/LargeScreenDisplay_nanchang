@@ -1,6 +1,11 @@
 <template>
   <div class="page-container">
-    <Tabs :tab-list="tabList" width="500px" :cur-index="0" class="tabs" />
+    <Tabs
+      :tab-list="tabList"
+      width="500px"
+      :cur-index="0"
+      class="tabs"
+    />
     <Left />
     <Center />
     <Right />

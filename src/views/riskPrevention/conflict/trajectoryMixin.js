@@ -4,13 +4,13 @@ import {
 } from '@/api/riskPrevention/importPeople'
 
 export default {
-  data() {
+  data () {
     return {
       navg: null
     }
   },
   methods: {
-    showPath(info, type) {
+    showPath (info, type) {
       if (type === 1) {
         // 车辆轨迹
         this.loading = true
@@ -77,7 +77,7 @@ export default {
       }
     },
     // 渲染轨迹
-    renderPath(
+    renderPath (
       path,
       personAvatar,
       width = 80,
@@ -88,7 +88,7 @@ export default {
       this.navg ? this.navg.destroy() : null
 
       const that = this
-      window.AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function(
+      window.AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function (
         PathSimplifier,
         $
       ) {
@@ -101,7 +101,7 @@ export default {
           zIndex: 100,
           // autoSetFitView:false,
           map: that.map, // 所属的地图实例
-          getPath: function(pathData, pathIndex) {
+          getPath: function (pathData, pathIndex) {
             const points = pathData.points
             const lnglatList = []
 
@@ -185,11 +185,11 @@ export default {
           }
         ])
 
-        function onload() {
+        function onload () {
           pathSimplifierIns.renderLater()
         }
 
-        function onerror(e) {
+        function onerror (e) {
           alert('图片加载失败！')
         }
 
@@ -224,7 +224,7 @@ export default {
 
         that.navg.start()
 
-        pathSimplifierIns.on('pointClick', function(e, info) {
+        pathSimplifierIns.on('pointClick', function (e, info) {
           that.infoWindowData = {
             lat: e.originalEvent.lnglat.lat,
             lon: e.originalEvent.lnglat.lng,
@@ -234,7 +234,7 @@ export default {
       })
     },
     // 隐藏轨迹
-    hidePath() {
+    hidePath () {
       window.pathSimplifierIns ? window.pathSimplifierIns.setData([]) : null
       this.navg ? this.navg.destroy() : null
       this.navg = null

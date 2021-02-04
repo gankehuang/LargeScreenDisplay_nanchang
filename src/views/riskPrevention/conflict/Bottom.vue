@@ -1,17 +1,21 @@
 <template>
   <div class="police-stiuation-center">
-    <div class="title"></div>
+    <div class="title" />
     <div class="title">
       矛盾纠纷同环比
     </div>
-    <v-chart :options="amountOptions" class="echarts" v-if="isShow" />
+    <v-chart
+      v-if="isShow"
+      :options="amountOptions"
+      class="echarts"
+    />
   </div>
 </template>
 
 <script>
 // import { alertDate } from '@/api/intelligentDecisionMaking/special'
 export default {
-  data() {
+  data () {
     return {
       amountOptions: {
         grid: {
@@ -214,7 +218,7 @@ export default {
               }
             }
           },
-            {
+          {
             name: '同比上升',
             type: 'line',
             data: [
@@ -286,10 +290,10 @@ export default {
       isShow: true
     }
   },
-  methods: {},
-  created() {
+  created () {
     // this.alertDate()
-  }
+  },
+  methods: {}
 }
 </script>
 

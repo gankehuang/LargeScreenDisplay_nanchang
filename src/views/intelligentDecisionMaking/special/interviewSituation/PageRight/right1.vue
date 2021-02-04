@@ -6,7 +6,12 @@
     <div style="height: 212px">
       <el-scrollbar style="height: 100%">
         <div class="list">
-          <div class="list-item" v-for="(item, index) in itemList" :key="index" @click="watchPdf(item)">
+          <div
+            v-for="(item, index) in itemList"
+            :key="index"
+            class="list-item"
+            @click="watchPdf(item)"
+          >
             <div>
               <div class="name">
                 {{ item.label }}
@@ -16,31 +21,43 @@
               </div>
             </div>
             <a
+              v-if="item.url"
               target="_blank"
               :download="item.label"
               :href="item.url"
-              v-if="item.url"
               @click.stop=""
             >
               <div class="download">
-                <svg-icon icon-class="download" class="svg-icon" />
+                <svg-icon
+                  icon-class="download"
+                  class="svg-icon"
+                />
               </div>
             </a>
-            <a @click.stop="downloadReport" v-else>
+            <a
+              v-else
+              @click.stop="downloadReport"
+            >
               <div class="download">
-                <svg-icon icon-class="download" class="svg-icon" />
+                <svg-icon
+                  icon-class="download"
+                  class="svg-icon"
+                />
               </div>
             </a>
           </div>
         </div>
       </el-scrollbar>
     </div>
-    <PdfDialog :visible.sync="pdfModalVisible" :pdfFile="pdfFile" />
+    <PdfDialog
+      :visible.sync="pdfModalVisible"
+      :pdf-file="pdfFile"
+    />
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       pdfModalVisible: false,
       pdfFile: {},
@@ -85,10 +102,10 @@ export default {
     }
   },
   methods: {
-    downloadReport() {
+    downloadReport () {
       this.$message.warning('暂无报告')
     },
-    watchPdf(item) {
+    watchPdf (item) {
       if (item.url) {
         this.pdfModalVisible = true
         this.pdfFile.file = item.url

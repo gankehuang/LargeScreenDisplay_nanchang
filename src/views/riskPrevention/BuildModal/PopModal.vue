@@ -1,19 +1,22 @@
 <template>
-  <div class="mask-container" v-if="visible">
-    <div class="mask"></div>
+  <div
+    v-if="visible"
+    class="mask-container"
+  >
+    <div class="mask" />
     <div class="household-table-container">
       <img
         class="modal-close"
         src="@/assets/image/dataView/pop-modal-close.png"
         @click="closeModal"
-      />
+      >
       <div class="pop-modal-title">
         <h1>{{ title }}</h1>
       </div>
       <div
-        class="flex-contianer"
         v-if="!loading && list && list.length"
         v-loading="loading"
+        class="flex-contianer"
         element-loading-text="加载中"
         element-loading-spinner="el-icon-loading"
         element-loading-background="transparent"
@@ -21,9 +24,9 @@
         <div class="left-list">
           <el-scrollbar style="height: 700px">
             <div
-              class="left-list-item"
               v-for="(item, index) in list"
               :key="index"
+              class="left-list-item"
             >
               <div :class="handlePerType(item, index)" />
               <div class="info">
@@ -64,10 +67,16 @@
                 <el-row>
                   <el-col :span="24">
                     <span class="label">联系电话：</span>
-                    <span class="data" v-if="item.phoneNumber">{{
+                    <span
+                      v-if="item.phoneNumber"
+                      class="data"
+                    >{{
                       item.phoneNumber | hidePhone
                     }}</span>
-                    <span class="data" v-else>-</span>
+                    <span
+                      v-else
+                      class="data"
+                    >-</span>
                   </el-col>
                 </el-row>
               </div>
@@ -88,50 +97,60 @@
               class="echart-legend-span"
               :class="{ active: curEchartName === '水' }"
               @click="handleCurEchart('水')"
-              >水</span
-            >
+            >水</span>
             <span
               class="echart-legend-span"
               :class="{ active: curEchartName === '电' }"
               @click="handleCurEchart('电')"
-              >电</span
-            >
+            >电</span>
             <span
               class="echart-legend-span"
               :class="{ active: curEchartName === '气' }"
               @click="handleCurEchart('气')"
-              >气</span
-            >
+            >气</span>
           </div>
-          <v-chart :options="topOptions" class="top" />
+          <v-chart
+            :options="topOptions"
+            class="top"
+          />
           <div class="bottom">
-            <div class="bottom-title">异常分析</div>
+            <div class="bottom-title">
+              异常分析
+            </div>
             <div class="analysis-list">
               <div
-                class="analysis-list-item"
-                :key="index"
                 v-for="(item, index) in analysisList"
+                :key="index"
+                class="analysis-list-item"
               >
-                <div class="level-bg" :class="handleLevel(item, index)">
-                  <img :src="levelArr[item.level]" />
+                <div
+                  class="level-bg"
+                  :class="handleLevel(item, index)"
+                >
+                  <img :src="levelArr[item.level]">
                   <div class="level-tips">
                     <div
-                      class="level-tips-item"
                       v-for="index in 4"
                       :key="index"
+                      class="level-tips-item"
                     >
                       {{ index + "级" }}
                     </div>
                   </div>
                 </div>
-                <div class="name">{{ item.name }}</div>
+                <div class="name">
+                  {{ item.name }}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="empty" v-if="!loading && list.length === 0">
-        <img :src="require('@/assets/image/rentalHousing/empty-icon.png')" />
+      <div
+        v-if="!loading && list.length === 0"
+        class="empty"
+      >
+        <img :src="require('@/assets/image/rentalHousing/empty-icon.png')">
       </div>
     </div>
   </div>
@@ -157,7 +176,7 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       photoUrl: require('@/assets/image/rentalHousing/has-avatar.png'),
       list: [],
@@ -185,7 +204,7 @@ export default {
     }
   },
   computed: {
-    topOptions() {
+    topOptions () {
       return {
         title: {
           text: '分析',
@@ -306,19 +325,19 @@ export default {
         ]
       }
     },
-    bottomOptions() {
+    bottomOptions () {
       return {}
     }
   },
   watch: {
-    visible(val) {
+    visible (val) {
       if (val) {
         this.getList()
       }
     }
   },
   methods: {
-    async getList() {
+    async getList () {
       this.loading = true
       const { status, data } = await queryRoomUserByRoom({
         roomId: this.id
@@ -331,7 +350,7 @@ export default {
           this.list[0].unitName.replace('_', '') + this.list[0].roomName + '房'
       }
     },
-    handlePerType(item, index) {
+    handlePerType (item, index) {
       if (item.registrationType === '业主' && index === 0) {
         return 'tip-owner'
       } else if (
@@ -343,7 +362,7 @@ export default {
         return 'tip-household'
       }
     },
-    handleCurEchart(item) {
+    handleCurEchart (item) {
       this.curEchartName = item
 
       switch (item) {
@@ -388,7 +407,7 @@ export default {
       }
     },
     // 房屋人员排序
-    sortByType(pre, cur) {
+    sortByType (pre, cur) {
       switch (pre.registrationType) {
         case '业主':
           pre.weight = 3
@@ -420,10 +439,10 @@ export default {
       return cur.weight - pre.weight
     },
     // 判断嫌疑指数
-    handleLevel({ level }) {
+    handleLevel ({ level }) {
       return `level-${level}`
     },
-    closeModal() {
+    closeModal () {
       this.$emit('update:visible', false)
     }
   }

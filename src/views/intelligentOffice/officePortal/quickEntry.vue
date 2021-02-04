@@ -3,15 +3,18 @@
     <div class="title">
       快捷入口
     </div>
-    <div class="shuaxin"></div>
+    <div class="shuaxin" />
     <div class="box">
       <div
-        class="box-list"
         v-for="(item, index) in list"
         :key="index"
+        class="box-list"
         @click="toChange(index)"
       >
-        <svg-icon :icon-class="item.icon" class="icon" />
+        <svg-icon
+          :icon-class="item.icon"
+          class="icon"
+        />
         <p>{{ item.title }}</p>
       </div>
     </div>
@@ -19,7 +22,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       list: [
         {
@@ -38,7 +41,7 @@ export default {
     }
   },
   methods: {
-    toChange(index) {
+    toChange (index) {
       if (index === 0) {
         this.$router.push('/intelligentOffice/leaderInspection')
       }

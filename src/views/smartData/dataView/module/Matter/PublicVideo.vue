@@ -1,18 +1,25 @@
 <template>
   <div class="matter-public-video">
-    <div class="title">公共视频</div>
+    <div class="title">
+      公共视频
+    </div>
     <div class="total">
       <span>视频资源总数：</span>
       <span>{{ videoResourceTotal }}</span>
       <span>个</span>
     </div>
     <ul>
-      <li v-for="(item, index) in dataList" :key="index">
+      <li
+        v-for="(item, index) in dataList"
+        :key="index"
+      >
         <div class="label-container">
           <div class="icon" />
         </div>
         <div class="data">
-          <div class="label">{{ item.label }}</div>
+          <div class="label">
+            {{ item.label }}
+          </div>
           <div class="number">
             <span>{{ item.number }}</span>
             <span>{{ item.unit }}</span>
@@ -26,7 +33,7 @@
 <script>
 import { queryVideo } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       videoResourceTotal: 0,
       code: '3601',
@@ -51,10 +58,10 @@ export default {
   // created() {
   //   this.handleQueryVideo()
   // },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  async mounted() {
+  async mounted () {
     await this.handleQueryVideo()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -62,7 +69,7 @@ export default {
     })
   },
   methods: {
-    async handleQueryVideo() {
+    async handleQueryVideo () {
       try {
         const { status, data } = await queryVideo({ gridCode: this.code })
         if (status === 200) {
@@ -70,10 +77,10 @@ export default {
             (total, cur) => total + cur,
             0
           )
-          this.dataList[0].number = data['tw']
-          this.dataList[1].number = data['shzy']
-          this.dataList[2].number = data['dw']
-          this.dataList[3].number = data['zhyy']
+          this.dataList[0].number = data.tw
+          this.dataList[1].number = data.shzy
+          this.dataList[2].number = data.dw
+          this.dataList[3].number = data.zhyy
         }
       } catch (error) {}
     }

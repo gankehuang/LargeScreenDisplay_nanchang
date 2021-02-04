@@ -6,11 +6,14 @@
         class="btn-close"
         src="@/assets/image/common/close-btn.png"
         @click="bindBtnClose"
-      />
-      <div class="title">{{ modalTitle }}</div>
+      >
+      <div class="title">
+        {{ modalTitle }}
+      </div>
       <div class="body">
         <div class="content1">
           <el-tree
+            ref="tree"
             :data="groupList"
             :expand-on-click-node="false"
             show-checkbox
@@ -19,38 +22,45 @@
             node-key="name"
             :default-expand-all="modalTitle === '事件上报'"
             @check="bindTreeCheck"
-            ref="tree"
           >
-            <div class="node" slot-scope="{ node, data }">
+            <div
+              slot-scope="{ node, data }"
+              class="node"
+            >
               <img
                 v-if="node.isLeaf"
                 class="img-device"
                 :class="data.active || 'inactive'"
                 src="@/assets/image/warning/device.png"
-              />
-              <span
-                >{{ node.label }} {{ data.phone ? "-" + data.phone : "" }}</span
               >
+              <span>{{ node.label }} {{ data.phone ? "-" + data.phone : "" }}</span>
             </div>
           </el-tree>
         </div>
         <div class="content2 checked">
           <div
-            class="item"
             v-for="item in checkedList"
             :key="item.name"
+            class="item"
             @click="removeDevice(item.name)"
           >
             {{ item.name }}
-            <img src="@/assets/image/warning/label-remove.png" />
+            <img src="@/assets/image/warning/label-remove.png">
           </div>
         </div>
         <div class="content2 msg">
-          <textarea v-model="text" placeholder="请输入信息"></textarea>
+          <textarea
+            v-model="text"
+            placeholder="请输入信息"
+          />
         </div>
         <div class="btn">
-          <button @click="bindBtnClose">返回</button>
-          <button @click="dealEvent">发送</button>
+          <button @click="bindBtnClose">
+            返回
+          </button>
+          <button @click="dealEvent">
+            发送
+          </button>
         </div>
       </div>
     </div>
@@ -72,14 +82,14 @@ export default {
     eventId: String,
     gridCode: String
   },
-  data() {
+  data () {
     return {
       groupList: [],
       checkedList: [],
       text: ''
     }
   },
-  mounted() {
+  mounted () {
     if (this.modalTitle === '事件指派') {
       this.getGroupForce()
     } else if (this.modalTitle === '事件上报') {
@@ -87,7 +97,7 @@ export default {
     }
   },
   methods: {
-    getGroupForce() {
+    getGroupForce () {
       getGroupForce({
         gridCode: this.gridCode,
         eventId: this.eventId
@@ -128,7 +138,7 @@ export default {
         }
       })
     },
-    queryOrgMember() {
+    queryOrgMember () {
       queryOrgMember({
         orgId: '2370',
         type: 0
@@ -152,26 +162,26 @@ export default {
         }
       })
     },
-    bindBtnClose() {
+    bindBtnClose () {
       this.$emit('bindBtnClose')
     },
-    bindTreeCheck(data, nodes) {
-      this.checkedList = this.$refs['tree'].getCheckedNodes()
+    bindTreeCheck (data, nodes) {
+      this.checkedList = this.$refs.tree.getCheckedNodes()
       if (this.checkedList.length) {
         this.checkedList = this.checkedList.filter(item => {
           return !item.children
         })
       }
     },
-    removeDevice(deviceName) {
+    removeDevice (deviceName) {
       this.checkedList = this.checkedList.filter(
         item => item.name !== deviceName
       )
-      this.$refs['tree'].setCheckedKeys(
+      this.$refs.tree.setCheckedKeys(
         this.checkedList.map(item => item.name)
       )
     },
-    dealEvent() {
+    dealEvent () {
       if (this.modalTitle === '事件指派') {
         eventAssign({
           desc: this.text,

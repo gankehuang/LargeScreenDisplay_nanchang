@@ -1,11 +1,15 @@
 <template>
   <div class="page-container">
-    <Tabs :tab-list="tabList" width="600px" :cur-index="1" />
-    <AMap @mapInit="mapInit">
+    <Tabs
+      :tab-list="tabList"
+      width="600px"
+      :cur-index="1"
+    />
+    <SimpleMap @mapInit="mapInit">
       <el-amap-info-window
         v-if="infoWindowData"
-        :autoMove="true"
-        :showShadow="true"
+        :auto-move="true"
+        :show-shadow="true"
         :position="[infoWindowData.lon, infoWindowData.lat]"
         :events="infoWindowEvents"
         :is-custom="true"
@@ -13,18 +17,24 @@
         <div class="modal-content">
           <img
             class="close-btn"
-            @click="infoWindowData = null"
             src="@/assets/image/KeyThrong/close.png"
-          />
+            @click="infoWindowData = null"
+          >
 
           <div class="content-left">
             <div class="item-p">
               <span>网格归属：</span>
               <span class="value-text">{{ infoWindowData.gridSubPath }}</span>
             </div>
-            <div class="item-p" style="display:flex;">
+            <div
+              class="item-p"
+              style="display:flex;"
+            >
               <span>姓名：</span>
-              <span style="align-self:center;" class="value-text">{{
+              <span
+                style="align-self:center;"
+                class="value-text"
+              >{{
                 infoWindowData.name
               }}</span>
             </div>
@@ -45,9 +55,12 @@
               fit="contain"
               :src="infoWindowData.imageUrl"
               :preview-src-list="srcList"
-            ></el-image>
+            />
 
-            <div class="look-trajectory" @click="lookVideo(infoWindowData)">
+            <div
+              class="look-trajectory"
+              @click="lookVideo(infoWindowData)"
+            >
               查看视频
             </div>
           </div>
@@ -58,18 +71,32 @@
         :visible.sync="personVideoModal.visible"
         :info="personVideoModal.info"
       />
-    </AMap>
+    </SimpleMap>
 
-    <transition name="ani-left" mode="out-in" appear>
+    <transition
+      name="ani-left"
+      mode="out-in"
+      appear
+    >
       <div class="page-left">
         <div>
-          <el-form class="search-form" :model="form" label-width="90px">
+          <el-form
+            class="search-form"
+            :model="form"
+            label-width="90px"
+          >
             <el-form-item label="姓名">
-              <el-input v-model="form.name" placeholder="请输入" />
+              <el-input
+                v-model="form.name"
+                placeholder="请输入"
+              />
             </el-form-item>
 
             <el-form-item label="证件号码">
-              <el-input v-model="form.certificateNumber" placeholder="请输入" />
+              <el-input
+                v-model="form.certificateNumber"
+                placeholder="请输入"
+              />
             </el-form-item>
 
             <el-form-item label="开始时间">
@@ -91,36 +118,45 @@
             </el-form-item>
           </el-form>
 
-          <div class="search-input" @click="getFaceRecordList">
-            <i class="el-icon-search"></i>
+          <div
+            class="search-input"
+            @click="getFaceRecordList"
+          >
+            <i class="el-icon-search" />
             <span class="search-text">搜索</span>
           </div>
 
           <div
-            class="search-list"
             v-loading="loading"
+            class="search-list"
             element-loading-text="加载中"
             element-loading-spinner="el-icon-loading"
             element-loading-background="rgba(0, 0, 0, 1)"
           >
             <span class="search-title">搜索到相关人员</span>
 
-            <div class="no-data" v-if="!loading && !personList.length"></div>
-            <div class="scrollbar-box" v-else>
+            <div
+              v-if="!loading && !personList.length"
+              class="no-data"
+            />
+            <div
+              v-else
+              class="scrollbar-box"
+            >
               <el-scrollbar style="width:100%;height:100%">
                 <div class="avatar-list">
                   <div
-                    class="list-item"
-                    :class="{ active: curPersonIndex === index }"
                     v-for="(item, index) in personList"
                     :key="index"
+                    class="list-item"
+                    :class="{ active: curPersonIndex === index }"
                     @click="selectPerson(item, index)"
                   >
                     <div class="item-avatar">
                       <img
                         :src="item.faceUrl"
                         style="width:100%;height:100%;"
-                      />
+                      >
                     </div>
                     <span class="item-title">{{ item.name }}</span>
                   </div>
@@ -132,18 +168,20 @@
       </div>
     </transition>
 
-    <transition name="ani-right" mode="out-in" appear>
+    <transition
+      name="ani-right"
+      mode="out-in"
+      appear
+    >
       <div class="page-right">
         <div class="search-result">
           <div class="result-top">
             <div class="result-left">
               <div>
-                <span class="result-label">姓名：</span
-                >{{ curPersonInfo ? curPersonInfo.name : "" }}
+                <span class="result-label">姓名：</span>{{ curPersonInfo ? curPersonInfo.name : "" }}
               </div>
               <div>
-                <span class="result-label">证件号：</span
-                >{{ curPersonInfo ? curPersonInfo.certificateNumber : "" }}
+                <span class="result-label">证件号：</span>{{ curPersonInfo ? curPersonInfo.certificateNumber : "" }}
               </div>
               <div>
                 <span class="result-label">抓拍次数：</span>{{ captureNum }}次
@@ -156,27 +194,30 @@
                 :z-index="9999"
                 :src="curPersonInfo.faceUrl"
                 :preview-src-list="[curPersonInfo.faceUrl]"
-              ></el-image>
+              />
               <img
                 v-else
                 :src="require('@/assets/image/importPeople/no-avatar.png')"
                 style="width:100%;height:100%;"
-              />
+              >
             </div>
           </div>
 
           <div
-            class="no-data"
             v-if="!Object.keys(faceCaptureList).length"
-          ></div>
+            class="no-data"
+          />
 
-          <div class="scrollbar-box" v-else>
+          <div
+            v-else
+            class="scrollbar-box"
+          >
             <el-scrollbar style="width:100%;height:100%;">
               <div class="list-container">
                 <div
-                  class="list-item"
                   v-for="(value, key, index) in faceCaptureList"
                   :key="index"
+                  class="list-item"
                 >
                   <div
                     class="item-select"
@@ -184,8 +225,10 @@
                       faceCaptureList[key].active ? 'select-off' : 'select-on'
                     ]"
                     @click="selectPath(value, key, index)"
-                  ></div>
-                  <div class="item-time">{{ key }}</div>
+                  />
+                  <div class="item-time">
+                    {{ key }}
+                  </div>
                   <div class="item-num">
                     {{ faceCaptureList[key].pathList.length }}次
                   </div>
@@ -198,22 +241,29 @@
                 </div>
               </div>
             </el-scrollbar>
-            <div class="select-all" @click="selectAllPath()">
+            <div
+              class="select-all"
+              @click="selectAllPath()"
+            >
               <div
                 class="select-btn"
                 :class="[this.isSelectAllPath ? 'select-off' : 'select-on']"
-              ></div>
-              <div class="select-text">全选</div>
+              />
+              <div class="select-text">
+                全选
+              </div>
             </div>
           </div>
 
           <div class="select-result">
             <div class="select-num">
-              已选择<span class="mark-text">{{ totalPathNum }}</span
-              >项
+              已选择<span class="mark-text">{{ totalPathNum }}</span>项
             </div>
-            <div class="select-path" @click="lookAllPath">
-              <span class="look-icon"></span>
+            <div
+              class="select-path"
+              @click="lookAllPath"
+            >
+              <span class="look-icon" />
               <span class="look-text">查看轨迹</span>
             </div>
           </div>
@@ -224,7 +274,6 @@
 </template>
 
 <script>
-import AMap from '@/components/SimpleMap'
 import commonMixin from '../commonMixin'
 import {
   getFaceRecordList,
@@ -233,11 +282,10 @@ import {
 import PersonVideoModal from './PersonVideoModal'
 export default {
   components: {
-    AMap,
     PersonVideoModal
   },
   mixins: [commonMixin],
-  data() {
+  data () {
     return {
       map: null,
       form: {
@@ -269,10 +317,9 @@ export default {
       loading: false
     }
   },
-  created() {},
   watch: {
     faceCaptureList: {
-      handler() {
+      handler () {
         let flag = true
         let num = 0
         for (const key in this.faceCaptureList) {
@@ -297,13 +344,14 @@ export default {
       immediate: true
     }
   },
+  created () {},
   methods: {
-    mapInit(map) {
+    mapInit (map) {
       this.map = map
       this.map.setCenter([115.791124, 28.611357])
       this.map.setZoom(9.5)
     },
-    getFaceRecordList() {
+    getFaceRecordList () {
       this.loading = true
       this.personList = []
       getFaceRecordList(this.form).then(res => {
@@ -318,12 +366,12 @@ export default {
         }
       })
     },
-    selectPerson(item, index) {
+    selectPerson (item, index) {
       this.curPersonIndex = index
       this.curPersonInfo = item
       this.getOneFaceCapture(item.certificateNumber)
     },
-    getOneFaceCapture(idCard) {
+    getOneFaceCapture (idCard) {
       // let fd = new FormData();
       // fd.append("certificateNumber", idCard);
       // fd.append("beginTime", this.beginTime);
@@ -357,12 +405,12 @@ export default {
         this.faceCaptureList = listObj
       })
     },
-    lookVideo(data) {
+    lookVideo (data) {
       this.personVideoModal.visible = true
       this.personVideoModal.info = data
       this.infoWindowData = null
     },
-    lookPath(list) {
+    lookPath (list) {
       const pathList = []
       list.forEach(item => {
         pathList.push({
@@ -372,7 +420,7 @@ export default {
       })
       this.renderPath(pathList.reverse())
     },
-    lookAllPath() {
+    lookAllPath () {
       const pathList = []
       for (const key in this.faceCaptureList) {
         if (this.faceCaptureList[key].active) {
@@ -401,7 +449,7 @@ export default {
 
       this.renderPath(needList)
     },
-    selectPath(value, key, index) {
+    selectPath (value, key, index) {
       this.faceCaptureList[key].active = !this.faceCaptureList[key].active
 
       this.$set(this.faceCaptureList, key, {
@@ -409,7 +457,7 @@ export default {
         active: this.faceCaptureList[key].active
       })
     },
-    selectAllPath() {
+    selectAllPath () {
       this.isSelectAllPath = !this.isSelectAllPath
       for (const key in this.faceCaptureList) {
         this.$set(this.faceCaptureList, key, {
@@ -418,7 +466,7 @@ export default {
         })
       }
     },
-    renderPath(path) {
+    renderPath (path) {
       const that = this
       if (that.navg) {
         that.navg.destroy()
@@ -428,7 +476,7 @@ export default {
         window.pathSimplifierIns.setData([])
       }
 
-      window.AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function(
+      window.AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function (
         PathSimplifier,
         $
       ) {
@@ -441,7 +489,7 @@ export default {
           zIndex: 100,
           autoSetFitView: true,
           map: that.map, // 所属的地图实例
-          getPath: function(pathData, pathIndex) {
+          getPath: function (pathData, pathIndex) {
             const points = pathData.points
             const lnglatList = []
 
@@ -525,11 +573,11 @@ export default {
           }
         ])
 
-        function onload() {
+        function onload () {
           pathSimplifierIns.renderLater()
         }
 
-        function onerror(e) {
+        function onerror (e) {
           alert('图片加载失败！')
         }
 
@@ -562,7 +610,7 @@ export default {
 
         that.navg.start()
 
-        pathSimplifierIns.on('pointClick', function(e, info) {
+        pathSimplifierIns.on('pointClick', function (e, info) {
           console.log(e, info)
           that.infoWindowData = {
             lat: e.originalEvent.lnglat.lat,

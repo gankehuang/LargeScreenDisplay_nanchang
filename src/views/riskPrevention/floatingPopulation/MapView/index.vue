@@ -1,29 +1,29 @@
 <template>
   <div
+    v-loading="loading"
     class="float-peo-map-center"
     style="width:60%;height:70%"
-    v-loading="loading"
     element-loading-text="数据加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="transparent"
   >
     <v-chart
-      :options="options"
       id="chinaMap"
+      :options="options"
     />
     <div
-      class="mask-container"
       v-if="tableModalVisible"
+      class="mask-container"
     >
-      <div class="mask"></div>
+      <div class="mask" />
       <div class="table-modal">
         <div
           class="table-modal-close"
           style="z-index:1000"
           @click="tableModalVisible = false"
-        ></div>
+        />
         <floatPeopletable
-          :provinceCode="provinceCode"
+          :province-code="provinceCode"
           style="position:relative;z-index:1000"
         />
       </div>
@@ -42,7 +42,7 @@ export default {
   components: {
     floatPeopletable
   },
-  data() {
+  data () {
     return {
       loading: false,
       chinaMapEchart: undefined,
@@ -465,7 +465,7 @@ export default {
     }
   },
   computed: {
-    options() {
+    options () {
       return {
         geo: {
           type: 'map',
@@ -536,7 +536,7 @@ export default {
               shadowColor: '#333'
             },
             hoverAnimation: true,
-            symbolSize: function() {
+            symbolSize: function () {
               return 10
             },
             encode: {
@@ -578,24 +578,24 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.handleQueryPopulationProvince()
     this.initMapClick()
   },
   methods: {
     // 初始化地图添加点击事件
-    initMapClick() {
+    initMapClick () {
       const that = this
       that.$nextTick(() => {
         that.chinaMapEchart = ECharts.init(document.getElementById('chinaMap'))
-        that.chinaMapEchart.on('click', ({ data: { code }}) => {
+        that.chinaMapEchart.on('click', ({ data: { code } }) => {
           that.provinceCode = code
           that.tableModalVisible = true
         })
       })
     },
     // 流动人口统计
-    async handleQueryPopulationProvince() {
+    async handleQueryPopulationProvince () {
       const that = this
       this.loading = true
       const { status, data } = await queryPopulationProvince()

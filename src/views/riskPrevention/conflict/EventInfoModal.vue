@@ -1,11 +1,11 @@
 <template>
   <div
-    class="mask-container"
+    v-if="visible"
     v-loading="loading"
+    class="mask-container"
     element-loading-text="加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="transparent"
-    v-if="visible"
   >
     <div class="mask" />
     <div class="event-info-modal">
@@ -17,14 +17,16 @@
         中华情动态预警
       </div>
       <div class="peo-list">
-        <div class="title">聚集人员</div>
+        <div class="title">
+          聚集人员
+        </div>
         <div class="list">
           <div
-            @click="selectPer(item)"
+            v-for="(item,index) in peoList"
+            :key="index"
             class="list-item"
             :class="{'active':selectedItem.gmsfzhm===item.gmsfzhm}"
-            :key="index"
-            v-for="(item,index) in peoList"
+            @click="selectPer(item)"
           >
             <el-image
               class="el-image"
@@ -32,14 +34,16 @@
               :src="item.xp"
             />
             <div class="info">
-              <div class="name">{{item.xm}}</div>
+              <div class="name">
+                {{ item.xm }}
+              </div>
               <div class="sex">
                 <span>性别:</span>
-                {{item.sex}}
+                {{ item.sex }}
               </div>
               <div class="age">
                 <span>年龄:</span>
-                {{item.age}}
+                {{ item.age }}
               </div>
             </div>
           </div>
@@ -47,30 +51,32 @@
       </div>
       <div class="line" />
       <div class="per-info-details">
-        <div class="title">基本信息</div>
+        <div class="title">
+          基本信息
+        </div>
         <div class="info-details">
           <div class="row">
             <span>姓名:</span>
-            {{selectedItem.xm | hideName}}
+            {{ selectedItem.xm | hideName }}
           </div>
           <div class="row">
             <div class="col">
               <span>户籍地址:</span>
-              {{selectedItem.residenceaddr | hideAddress}}
+              {{ selectedItem.residenceaddr | hideAddress }}
             </div>
             <div class="col">
               <span>联系电话:</span>
-              {{selectedItem.phone | hidePhone}}
+              {{ selectedItem.phone | hidePhone }}
             </div>
           </div>
           <div class="row">
             <div class="col">
               <span>家庭住址:</span>
-              {{selectedItem.householdaddr }}
+              {{ selectedItem.householdaddr }}
             </div>
             <div class="col">
               <span>身份证号码:</span>
-              {{selectedItem.gmsfzhm | hideIdCard}}
+              {{ selectedItem.gmsfzhm | hideIdCard }}
             </div>
           </div>
         </div>
@@ -80,25 +86,29 @@
             <div
               class="button"
               @click="showPath()"
-            >人员轨迹</div>
+            >
+              人员轨迹
+            </div>
             <div
               class="button"
               @click="showPath(1)"
-            >车辆轨迹</div>
+            >
+              车辆轨迹
+            </div>
           </div>
         </div>
         <div
+          v-loading="captureArrLoading"
           class="
               capture-details"
-          v-loading="captureArrLoading"
           element-loading-text="加载中"
           element-loading-spinner="el-icon-loading"
           element-loading-background="transparent"
         >
           <div
+            v-for="(item,index) in captureArr"
             :key="index"
             class="el-image-container"
-            v-for="(item,index) in captureArr"
           >
             <el-image
               class="el-image"
@@ -131,22 +141,7 @@ export default {
       default: () => {}
     }
   },
-  watch: {
-    visible(bool) {
-      if (bool) {
-        this.loading = true
-        this.handleGetZhqInfoByIdCards()
-      }
-    },
-    peoList(arr) {
-      if (arr && arr.length > 0) {
-        this.selectedItem = arr[0]
-        this.hadnleQueryPeopleRecord()
-        this.loading = false
-      }
-    }
-  },
-  data() {
+  data () {
     return {
       loading: false,
       selectedItem: {},
@@ -155,27 +150,42 @@ export default {
       captureArrLoading: false
     }
   },
+  watch: {
+    visible (bool) {
+      if (bool) {
+        this.loading = true
+        this.handleGetZhqInfoByIdCards()
+      }
+    },
+    peoList (arr) {
+      if (arr && arr.length > 0) {
+        this.selectedItem = arr[0]
+        this.hadnleQueryPeopleRecord()
+        this.loading = false
+      }
+    }
+  },
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     },
-    selectPer(item) {
+    selectPer (item) {
       this.selectedItem = item
       this.hadnleQueryPeopleRecord()
     },
-    showPath(type) {
+    showPath (type) {
       this.$emit('showPath', this.selectedItem, type)
       this.close()
     },
     // 处理照片相似度字符串
-    getSimilarity(si) {
+    getSimilarity (si) {
       let similarity = si * 100
       similarity = similarity.toString()
       similarity = similarity.substring(0, 5)
       return similarity
     },
     // 处理人员具体信息
-    handleDataToPeoList(data) {
+    handleDataToPeoList (data) {
       this.peoList = data.map((item) => {
         return {
           xm: item.xm,
@@ -192,7 +202,7 @@ export default {
       })
     },
     // 根据聚集人员身份证号获取人员详情
-    async handleGetZhqInfoByIdCards() {
+    async handleGetZhqInfoByIdCards () {
       const idCards = this.info.peopleIdNumber.split(',')
       const { status, data } = await getZhqInfoByIdCards(idCards)
       if (status === 200) {
@@ -200,7 +210,7 @@ export default {
       }
     },
     // 获取当前选中人懒抓拍记录
-    async hadnleQueryPeopleRecord() {
+    async hadnleQueryPeopleRecord () {
       this.captureArrLoading = true
       const params = {
         certificateNumber: this.selectedItem.gmsfzhm,

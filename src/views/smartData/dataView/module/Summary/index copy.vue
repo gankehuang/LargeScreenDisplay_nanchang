@@ -41,22 +41,6 @@ import PubilcVideoCopy from './copy/PubilcVideoCopy'
 import GovOrganizationCopy from './copy/GovOrganizationCopy'
 import NetMixCopy from './copy/NetMixCopy'
 export default {
-  props: {
-    totalData: {
-      type: Object,
-      value: () => {}
-    },
-    tabName: {
-      type: String,
-      value: ''
-    }
-  },
-  watch: {
-    tabName(val) {
-      // debugger
-      this.tabName = val
-    }
-  },
   components: {
     TotalData,
     BasicData,
@@ -70,6 +54,22 @@ export default {
     PubilcVideoCopy,
     GovOrganizationCopy,
     NetMixCopy
+  },
+  props: {
+    totalData: {
+      type: Object,
+      value: () => {}
+    },
+    tabName: {
+      type: String,
+      value: ''
+    }
+  },
+  watch: {
+    tabName (val) {
+      // debugger
+      this.tabName = val
+    }
   }
 }
 </script>

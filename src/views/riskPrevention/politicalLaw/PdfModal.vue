@@ -1,12 +1,18 @@
 <template>
-  <div class="pdf-modal-contianer" v-if="visible">
-    <div class="close" @click="close"></div>
+  <div
+    v-if="visible"
+    class="pdf-modal-contianer"
+  >
+    <div
+      class="close"
+      @click="close"
+    />
     <el-scrollbar class="popup-scrollbar">
       <pdf
-        class="pdf-page"
         v-for="(item, index) in pdfFile.numPages"
-        :src="pdfFile.file"
         :key="index"
+        class="pdf-page"
+        :src="pdfFile.file"
         :page="item"
       />
     </el-scrollbar>
@@ -29,13 +35,13 @@ export default {
       default: () => {}
     }
   },
-  data() {
+  data () {
     return {
       numPages: 0
     }
   },
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     }
   }

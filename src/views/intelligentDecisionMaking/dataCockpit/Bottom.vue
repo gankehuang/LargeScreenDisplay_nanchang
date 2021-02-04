@@ -1,13 +1,15 @@
 <template>
   <div class="data-cockpit-bottom">
-    <div class="title">当月平安指数排名</div>
+    <div class="title">
+      当月平安指数排名
+    </div>
     <div class="top-three-list">
       <div class="tip" />
       <div class="list">
         <div
-          class="list-item"
           v-for="(item, index) in topThreeList"
           :key="index"
+          class="list-item"
         >
           <span
             :class="[
@@ -15,7 +17,7 @@
               { second: index === 1 },
               { third: index === 2 }
             ]"
-          ></span>
+          />
           <span>{{ item.name }}</span>
           <span>{{ item.score }}</span>
         </div>
@@ -25,9 +27,9 @@
       <div class="tip" />
       <div class="list">
         <div
-          class="list-item"
           v-for="(item, index) in lastThreeList"
           :key="index"
+          class="list-item"
         >
           <span
             :class="[
@@ -35,7 +37,7 @@
               { second: index === 1 },
               { third: index === 2 }
             ]"
-          ></span>
+          />
           <span>{{ item.name }}</span>
           <span>{{ item.score }}</span>
         </div>
@@ -45,9 +47,9 @@
       <div class="tip" />
       <div class="list">
         <div
-          class="list-item"
           v-for="(item, index) in upThreeList"
           :key="index"
+          class="list-item"
         >
           <span
             :class="[
@@ -55,7 +57,7 @@
               { second: index === 1 },
               { third: index === 2 }
             ]"
-          ></span>
+          />
           <span>{{ item.name }}</span>
           <span>{{ item.score }}</span>
         </div>
@@ -65,9 +67,9 @@
       <div class="tip" />
       <div class="list">
         <div
-          class="list-item"
           v-for="(item, index) in downThreeList"
           :key="index"
+          class="list-item"
         >
           <span
             :class="[
@@ -75,7 +77,7 @@
               { second: index === 1 },
               { third: index === 2 }
             ]"
-          ></span>
+          />
           <span>{{ item.name }}</span>
           <span>{{ item.score }}</span>
         </div>
@@ -86,7 +88,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       topThreeList: [
         {

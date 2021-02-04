@@ -21,8 +21,20 @@
       </el-amap>
     </div>
     <div class="form-controls">
-      <el-button size="small" type="primary" @click="submit">提交</el-button>
-      <el-button size="small" plain @click="dialogClose">取消</el-button>
+      <el-button
+        size="small"
+        type="primary"
+        @click="submit"
+      >
+        提交
+      </el-button>
+      <el-button
+        size="small"
+        plain
+        @click="dialogClose"
+      >
+        取消
+      </el-button>
     </div>
   </el-dialog>
 </template>
@@ -38,7 +50,7 @@ export default {
       type: Array
     }
   },
-  data() {
+  data () {
     return {
       coordinate: {
         lng: '',
@@ -69,19 +81,19 @@ export default {
     }
   },
   watch: {
-    position(a, b) {
+    position (a, b) {
       this.marker.position = a
     }
   },
   methods: {
-    handleClose() {
+    handleClose () {
       this.$emit('update:visible', false)
     },
-    submit() {
+    submit () {
       this.$emit('update:visible', false)
       this.$emit('submit-success', this.coordinate)
     },
-    dialogClose() {
+    dialogClose () {
       this.$emit('update:visible', false)
     }
   }

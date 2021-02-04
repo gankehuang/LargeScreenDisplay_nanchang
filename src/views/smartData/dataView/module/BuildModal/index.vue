@@ -1,38 +1,65 @@
 <template>
   <transition name="fade">
-    <div class="modal-container" v-if="visible">
+    <div
+      v-if="visible"
+      class="modal-container"
+    >
       <el-row class="page-box">
-        <el-col :span="6" class="tree-container">
+        <el-col
+          :span="6"
+          class="tree-container"
+        >
           <div class="tree-border rect">
             <Tree
               class="left-aside left-tree"
               style="height:780px"
-              @changeGridId="changeGridId"
               type="unit"
+              @changeGridId="changeGridId"
             />
           </div>
         </el-col>
         <el-col :span="18">
           <!-- <div class="modal-title">房屋信息</div> -->
-          <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="房屋信息" name="first" />
-            <el-tab-pane label="单元信息" name="second" />
-            <el-tab-pane label="重点关注人员房" name="third" />
-            <el-tab-pane label="房屋核查" name="fourth" />
+          <el-tabs
+            v-model="activeName"
+            @tab-click="handleClick"
+          >
+            <el-tab-pane
+              label="房屋信息"
+              name="first"
+            />
+            <el-tab-pane
+              label="单元信息"
+              name="second"
+            />
+            <el-tab-pane
+              label="重点关注人员房"
+              name="third"
+            />
+            <el-tab-pane
+              label="房屋核查"
+              name="fourth"
+            />
           </el-tabs>
           <img
             class="modal-close"
             src="@/assets/image/dataView/pop-modal-close.png"
             @click="closeModal"
-          />
-          <div class="first-build-title" v-if="activeName === 'first'">
+          >
+          <div
+            v-if="activeName === 'first'"
+            class="first-build-title"
+          >
             1栋1单元
           </div>
-          <div class="modal-first-content" v-if="activeName === 'first'">
+          <div
+            v-if="activeName === 'first'"
+            class="modal-first-content"
+          >
             <div
               v-for="(item, index) in buildInfoList"
-              class="info-item"
               :key="index"
+              class="info-item"
             >
               <div class="item-bg">
                 <span>{{ item.label }}</span>
@@ -42,21 +69,34 @@
               </div>
             </div>
           </div>
-          <div class="build-title" v-if="activeName === 'second'">莱蒙都会</div>
-          <div class="modal-second-content" v-if="activeName === 'second'">
-            <div class="left-box" style="height:95%;width:90%">
+          <div
+            v-if="activeName === 'second'"
+            class="build-title"
+          >
+            莱蒙都会
+          </div>
+          <div
+            v-if="activeName === 'second'"
+            class="modal-second-content"
+          >
+            <div
+              class="left-box"
+              style="height:95%;width:90%"
+            >
               <!-- <div class="title">1栋1单元</div> -->
               <el-scrollbar style="height: 95%;">
                 <div
-                  class="build-item"
                   v-for="(item, index) in computedBuildLayerList"
                   :key="index + 'buildLayerList'"
+                  class="build-item"
                 >
-                  <div class="item-name">{{ item.layerName }}</div>
+                  <div class="item-name">
+                    {{ item.layerName }}
+                  </div>
                   <div
-                    class="item-term"
                     v-for="(item1, index1) in item.roomList"
                     :key="index1 + 'roomList'"
+                    class="item-term"
                     :style="{
                       'background-color': item1.isSelected
                         ? selectorList[item1.type].color
@@ -71,9 +111,9 @@
             </div>
             <div class="select-box">
               <div
-                class="item"
                 v-for="(value, key, index) in selectorList"
                 :key="index"
+                class="item"
                 @click="toggleSelect(key)"
               >
                 <span
@@ -81,28 +121,37 @@
                   :style="{
                     'background-color': value.isSelected ? value.color : '#eee'
                   }"
-                ></span>
+                />
                 <span class="type-text">{{ key }}</span>
               </div>
             </div>
           </div>
-          <div class="build-title" v-if="this.activeName === 'third'">
+          <div
+            v-if="this.activeName === 'third'"
+            class="build-title"
+          >
             莱蒙都会
           </div>
-          <div class="modal-third-content" v-if="this.activeName === 'third'">
-            <div class="left-box" style="height:95%;width:90%">
+          <div
+            v-if="this.activeName === 'third'"
+            class="modal-third-content"
+          >
+            <div
+              class="left-box"
+              style="height:95%;width:90%"
+            >
               <!-- <div class="title">重点关注人员房(54房)</div> -->
               <el-scrollbar style="height: 95%;">
                 <div
-                  class="build-item"
                   v-for="(item, index) in computedBuildLayerListThird"
                   :key="index + 'buildLayerThirdList'"
+                  class="build-item"
                 >
                   <!-- <div class="item-name">{{ item.layerName }}</div> -->
                   <div
-                    class="item-term"
                     v-for="(item1, index1) in item.roomList"
                     :key="index1 + 'roomList'"
+                    class="item-term"
                     :style="{
                       'background-color': item1.isSelected
                         ? selectorThirdList[item1.type].color
@@ -117,9 +166,9 @@
             </div>
             <div class="select-box">
               <div
-                class="item"
                 v-for="(value, key, index) in selectorThirdList"
                 :key="index"
+                class="item"
                 @click="toggleThirdSelect(key)"
               >
                 <span
@@ -127,7 +176,7 @@
                   :style="{
                     'background-color': value.isSelected ? value.color : '#eee'
                   }"
-                ></span>
+                />
                 <span class="type-text">{{ key }}</span>
               </div>
             </div>
@@ -135,12 +184,14 @@
           <div v-if="this.activeName === 'fourth'">
             <el-form inline>
               <el-form-item label="检查类型">
-                <el-select placeholder="检查类型"></el-select>
+                <el-select placeholder="检查类型" />
               </el-form-item>
               <el-form-item label="关键词">
-                <el-input placeholder=""></el-input>
+                <el-input placeholder="" />
               </el-form-item>
-              <el-button type="primary">查询</el-button>
+              <el-button type="primary">
+                查询
+              </el-button>
             </el-form>
           </div>
           <div v-if="this.activeName === 'fourth'">
@@ -149,23 +200,55 @@
               style="width:98%;background-color:transparent"
               height="100%"
             >
-              <el-table-column label="楼栋名称" prop="name" />
-              <el-table-column label="房屋编号" prop="buildNumber" />
-              <el-table-column label="业主姓名" prop="ownerName">
-                <template slot-scope="scope">{{
-                  scope.row.ownerName | hideName
-                }}</template>
+              <el-table-column
+                label="楼栋名称"
+                prop="name"
+              />
+              <el-table-column
+                label="房屋编号"
+                prop="buildNumber"
+              />
+              <el-table-column
+                label="业主姓名"
+                prop="ownerName"
+              >
+                <template slot-scope="scope">
+                  {{
+                    scope.row.ownerName | hideName
+                  }}
+                </template>
               </el-table-column>
-              <el-table-column label="联系方式" prop="phone">
-                <template slot-scope="scope">{{
-                  scope.row.phone | hidePhone
-                }}</template>
+              <el-table-column
+                label="联系方式"
+                prop="phone"
+              >
+                <template slot-scope="scope">
+                  {{
+                    scope.row.phone | hidePhone
+                  }}
+                </template>
               </el-table-column>
-              <el-table-column label="核查类型" prop="type" />
-              <el-table-column label="房屋入住人数" prop="number" />
-              <el-table-column label="核查员" prop="checker" />
-              <el-table-column label="核查时间" prop="time" width="200px" />
-              <el-table-column label="是否正常" prop="status" />
+              <el-table-column
+                label="核查类型"
+                prop="type"
+              />
+              <el-table-column
+                label="房屋入住人数"
+                prop="number"
+              />
+              <el-table-column
+                label="核查员"
+                prop="checker"
+              />
+              <el-table-column
+                label="核查时间"
+                prop="time"
+                width="200px"
+              />
+              <el-table-column
+                label="是否正常"
+                prop="status"
+              />
               <el-table-column label="操作" />
             </el-table>
           </div>
@@ -178,6 +261,9 @@
 <script>
 import Tree from '@/components/Tree'
 export default {
+  components: {
+    Tree
+  },
   props: {
     visible: {
       type: Boolean,
@@ -187,10 +273,7 @@ export default {
       type: Object
     }
   },
-  components: {
-    Tree
-  },
-  data() {
+  data () {
     return {
       activeName: 'second',
       list: [
@@ -1208,20 +1291,20 @@ export default {
     }
   },
   computed: {
-    computedBuildLayerList() {
+    computedBuildLayerList () {
       const list = [...this.buildLayerList]
       return list.reverse()
     },
-    computedBuildLayerListThird() {
+    computedBuildLayerListThird () {
       const list = [...this.buildLayerThirdList]
       return list.reverse()
     }
   },
   methods: {
-    closeModal() {
+    closeModal () {
       this.$emit('update:visible', false)
     },
-    toggleSelect(key) {
+    toggleSelect (key) {
       this.selectorList[key].isSelected = !this.selectorList[key].isSelected
       if (key === '全部') {
         for (const i in this.selectorList) {
@@ -1253,7 +1336,7 @@ export default {
         })
       })
     },
-    toggleThirdSelect(key) {
+    toggleThirdSelect (key) {
       console.log(this.selectorThirdList[key])
       this.selectorThirdList[key].isSelected = !this.selectorThirdList[key]
         .isSelected
@@ -1289,7 +1372,7 @@ export default {
         })
       })
     },
-    handleClick({ name }) {
+    handleClick ({ name }) {
       this.activeName = name
     }
   }

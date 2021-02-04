@@ -13,7 +13,7 @@ export default {
     AimInfo,
     QuestionInfo
   },
-  data() {
+  data () {
     return {}
   }
 }

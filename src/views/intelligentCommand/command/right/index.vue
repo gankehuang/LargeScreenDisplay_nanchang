@@ -1,10 +1,14 @@
 <template>
-  <div class="block-box">
-    <div class="box-title">责任领导</div>
-    <TopTable :tableData="tableData" />
+  <InfoBlock
+    title="责任领导"
+    height="100%"
+    :bg-url="require('@/assets/image/common/info-block-big-bg.png')"
+    :content-style-obj="{paddingTop: '15px'}"
+  >
+    <TopTable :table-data="tableData" />
     <InternetOfVision />
-    <HandlePerson :personList="personList" />
-  </div>
+    <HandlePerson :person-list="personList" />
+  </InfoBlock>
 </template>
 
 <script>
@@ -26,31 +30,29 @@ const pointEnumeration = {
   青山湖南钢街道综治中心: '360111004002006'
 }
 export default {
-  props: {
-    departmentList: {
-      type: Array,
-      default: () => []
-    },
-    activeMes: {
-      type: Object
-    },
-    gridName: {
-      type: String
-    }
-  },
   components: {
     TopTable,
     InternetOfVision,
     HandlePerson
   },
-  data() {
+  props: {
+    activeMes: {
+      type: Object,
+      default: () => {}
+    },
+    gridName: {
+      type: String,
+      default: ''
+    }
+  },
+  data () {
     return {
       personList: [{}],
       tableData: []
     }
   },
   watch: {
-    activeMes(newVal) {
+    activeMes (newVal) {
       if (newVal) {
         // 更新责任领导列表
         this.tableData = this.activeMes.activityLeaders
@@ -58,7 +60,7 @@ export default {
     },
     gridName: {
       immediate: true,
-      handler: function(val) {
+      handler: function (val) {
         // 更新现场处置人员列表
         if (pointEnumeration[val]) {
           this.getPersonList(pointEnumeration[val])
@@ -68,7 +70,7 @@ export default {
   },
   methods: {
     // 动态更新指挥人员
-    getPersonList(gridCode) {
+    getPersonList (gridCode) {
       selectGridAdminByGridCode({ gridCodeList: gridCode }).then((res) => {
         if (res.status === 200) {
           this.personList = res.data
@@ -80,20 +82,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.block-box {
-  position: relative;
-  width: 420px;
-  height: 100%;
-  background: url('~@/assets/image/command/block-bg.png') no-repeat;
-  background-size: 100% 100%;
-  padding: 50px 10px 10px 10px;
-  .box-title {
-    position: absolute;
-    left: 20px;
-    top: 10px;
-    font-size: 16px;
-    color: #7dbcff;
-    font-weight: 600;
-  }
-}
+
 </style>

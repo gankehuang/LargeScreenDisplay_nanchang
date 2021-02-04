@@ -101,7 +101,7 @@ export default [
         meta: {
           title: '智防风险-社会治安-出租房屋'
         },
-        component: () => import('@/views/riskPrevention/rentalHousing')
+        component: () => import('@/views/riskPrevention/rentalHousing/index')
       },
       {
         path: '/riskPrevention/conflict',
@@ -179,18 +179,9 @@ export default [
         path: '/intelligentCommand/command',
         name: 'intelligentCommandCommand',
         meta: {
-          title: '智能指挥-融合指挥'
+          title: '智能指挥'
         },
         component: () => import('@/views/intelligentCommand/command')
-      },
-      {
-        path: '/intelligentCommand/command/scheduling',
-        name: 'scheduling',
-        meta: {
-          title: '智能指挥-融合指挥-视频调度'
-        },
-        component: () =>
-          import('@/views/intelligentCommand/command/Scheduling/index')
       },
       {
         path: '/adminIntelligentService',

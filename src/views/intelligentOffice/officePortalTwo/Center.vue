@@ -2,36 +2,64 @@
   <div class="page-center">
     <!-- 工作动态 -->
     <div class="gzdt-container block-bg-container">
-      <div class="title">工作动态</div>
-      <svg-icon class="refresh-icon" icon-class="refresh" />
+      <div class="title">
+        工作动态
+      </div>
+      <svg-icon
+        class="refresh-icon"
+        icon-class="refresh"
+      />
       <div class="content">
         <div class="carousel-container">
-          <el-carousel height="160px" style="width: 264px" :autoplay="false">
+          <el-carousel
+            height="160px"
+            style="width: 264px"
+            :autoplay="false"
+          >
             <el-carousel-item
               v-for="(item, index) in carouselLsit"
               :key="index"
             >
               <!-- :preview-src-list="[item.image]" -->
-              <el-image :src="item.image" @click="amplificationImg(item.image)" />
-              <div class="carousel-info text-overflow" :title="item.title">
+              <el-image
+                :src="item.image"
+                @click="amplificationImg(item.image)"
+              />
+              <div
+                class="carousel-info text-overflow"
+                :title="item.title"
+              >
                 {{ item.title }}
               </div>
             </el-carousel-item>
           </el-carousel>
           <div class="info-container">
-            <div class="title">黄喜忠市长到市综治中心调研</div>
+            <div class="title">
+              黄喜忠市长到市综治中心调研
+            </div>
             <div class="content text-overflows">
               11月18日上午，市长黄喜忠来到市综治中心，就市域社会治理工作进行调研。市委常委、政法委书记胡晓海、市委常委、副市长王万征参加。在市综治中心，黄喜忠详细听取了南昌市域社会治理应用平台介绍后指出，要进一步依托市综治中心平台，按照“科学、及时、有效、实用”的原则，充分整合各县（区）的资源力量，借鉴疫情期间联防联控、群防群治的经验做法，通过网格化，强化社区（村）和基层单位管理，努力实现市域社会治理源头管控和风险防范。
             </div>
-            <div class="time">2020-11-12</div>
+            <div class="time">
+              2020-11-12
+            </div>
           </div>
         </div>
         <el-scrollbar class="list">
-          <div class="list-item" v-for="(item, index) in gzdtList" :key="index">
-            <div class="list-content text-overflow" :title="item.title">
+          <div
+            v-for="(item, index) in gzdtList"
+            :key="index"
+            class="list-item"
+          >
+            <div
+              class="list-content text-overflow"
+              :title="item.title"
+            >
               {{ item.title }}
             </div>
-            <div class="list-time">{{ item.time }}</div>
+            <div class="list-time">
+              {{ item.time }}
+            </div>
           </div>
         </el-scrollbar>
       </div>
@@ -39,19 +67,28 @@
     <div />
     <!-- 领导视察 -->
     <div class="ldsc-container block-bg-container">
-      <div class="title">领导视察</div>
-      <svg-icon class="refresh-icon" icon-class="refresh" />
+      <div class="title">
+        领导视察
+      </div>
+      <svg-icon
+        class="refresh-icon"
+        icon-class="refresh"
+      />
       <el-scrollbar class="content">
         <div
-          class="time-first-block"
-          :key="index"
           v-for="(item, index) in list"
+          :key="index"
+          class="time-first-block"
         >
           <div class="line" />
           <div class="time-node-title">
-            <div class="time">{{ item.time }}</div>
+            <div class="time">
+              {{ item.time }}
+            </div>
             <div class="node" />
-            <div class="title">{{ item.title }}</div>
+            <div class="title">
+              {{ item.title }}
+            </div>
           </div>
           <!-- <div class="image-node">
             <div class="image-list">
@@ -66,23 +103,33 @@
              <div class="node" />
           </div> -->
           <div class="image-list">
-              <el-image
-                class="el-image"
-                v-for="(item, index) in item.images"
-                :key="index"
-                :src="item.imageUrl"
-                :preview-src-list="[item.imageUrl]"
-              />
+            <el-image
+              v-for="(item, index) in item.images"
+              :key="index"
+              class="el-image"
+              :src="item.imageUrl"
+              :preview-src-list="[item.imageUrl]"
+            />
           </div>
           <div class="info-node">
             <div class="node" />
-            <div class="info">{{ item.info }}</div>
+            <div class="info">
+              {{ item.info }}
+            </div>
           </div>
         </div>
       </el-scrollbar>
     </div>
-    <el-dialog title="" width="60%" :visible.sync="dialogTableVisible">
-      <img :src="workStatusImg" style="width: 100%" alt="">
+    <el-dialog
+      title=""
+      width="60%"
+      :visible.sync="dialogTableVisible"
+    >
+      <img
+        :src="workStatusImg"
+        style="width: 100%"
+        alt=""
+      >
     </el-dialog>
   </div>
 </template>
@@ -90,10 +137,7 @@
 <script>
 import { leadershipInspectPage } from '@/api/adminIntelligentOffice/leaderInspection'
 export default {
-  mounted() {
-    this.handleLeadershipInspectPage()
-  },
-  data() {
+  data () {
     return {
       advancedForm: {
         name: '',
@@ -177,8 +221,11 @@ export default {
       workStatusImg: ''
     }
   },
+  mounted () {
+    this.handleLeadershipInspectPage()
+  },
   methods: {
-    async handleLeadershipInspectPage() {
+    async handleLeadershipInspectPage () {
       try {
         if (this.dataList && this.dataList.length > 0) {
           this.advancedForm.inspectTime = this.dataList[0] + ' 00:00:00'
@@ -200,7 +247,7 @@ export default {
         }
       } catch (error) {}
     },
-    handleData(arr) {
+    handleData (arr) {
       this.list = arr.map(item => {
         return {
           time: item.inspectTime,
@@ -211,7 +258,7 @@ export default {
         }
       })
     },
-    amplificationImg(data) {
+    amplificationImg (data) {
       this.dialogTableVisible = true
       this.workStatusImg = data
       console.log(data)

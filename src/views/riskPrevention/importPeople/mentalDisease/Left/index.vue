@@ -1,19 +1,19 @@
 <template>
   <div class="page-left">
-    <CountInfo />
-    <MesInfo />
+    <MentalDiseaseTotal />
+    <CareForInfo />
   </div>
 </template>
 
 <script>
-import CountInfo from './CountInfo'
-import MesInfo from './MesInfo'
+import MentalDiseaseTotal from './MentalDiseaseTotal'
+import CareForInfo from './CareForInfo'
 export default {
   components: {
-    CountInfo,
-    MesInfo
+    MentalDiseaseTotal,
+    CareForInfo
   },
-  data() {
+  data () {
     return {}
   }
 }

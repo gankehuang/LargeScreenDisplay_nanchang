@@ -1,24 +1,30 @@
 <template>
   <div class="rightTwo">
-    <div class="title">热门事件</div>
+    <div class="title">
+      热门事件
+    </div>
     <div class="con">
       <el-scrollbar style="height:100%;width:100%;">
         <div
-          class="con-list"
           v-for="(item, index) in list"
           :key="index"
+          class="con-list"
           @click="showEventDetail(item)"
         >
-          <div class="con-list-left">{{ index + 1 }}</div>
+          <div class="con-list-left">
+            {{ index + 1 }}
+          </div>
           <div class="con-list-right">
             <div class="details">
               <img
                 src="@/assets/image/warning/position.png"
                 class="position"
                 @click.stop="focusEvent(item)"
-              />
+              >
             </div>
-            <div class="name">{{ item.eventName }}</div>
+            <div class="name">
+              {{ item.eventName }}
+            </div>
             <div class="Introduction">
               <p>{{ item.happenedTime }}</p>
               <p>{{ item.emergencyLevelText }}</p>
@@ -35,7 +41,7 @@
 import { queryEventList } from '@/api/intelligentService/earlyWarningDisposal'
 import { yuqingList } from './mock'
 export default {
-  data() {
+  data () {
     return {
       list: [],
       advancedForm: {
@@ -44,14 +50,14 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    showEventDetail(item) {
+    showEventDetail (item) {
       this.$emit('showDetail', item)
     },
-    getList() {
+    getList () {
       this.list = []
       queryEventList(1, 100, this.advancedForm)
         .then(res => {
@@ -80,7 +86,7 @@ export default {
         })
         .catch(() => {})
     },
-    focusEvent(item) {
+    focusEvent (item) {
       this.$emit('focusEvent', item)
     }
   }

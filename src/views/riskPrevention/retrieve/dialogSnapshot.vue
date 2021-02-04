@@ -10,44 +10,65 @@
     @open="dialogOpen"
     @close="dialogClose"
   >
-    <el-form label-width="105px" label-position="left">
-      <el-form-item label="姓名"
-        ><span class="value-color">{{
+    <el-form
+      label-width="105px"
+      label-position="left"
+    >
+      <el-form-item
+        label="姓名"
+      >
+        <span class="value-color">{{
           snapInfo.name === "unknown" ? "未知" : snapInfo.name
-        }}</span></el-form-item
+        }}</span>
+      </el-form-item>
+      <el-form-item
+        label="性别"
       >
-      <el-form-item label="性别"
-        ><span class="value-color">{{ snapInfo.sexText }}</span></el-form-item
+        <span class="value-color">{{ snapInfo.sexText }}</span>
+      </el-form-item>
+      <el-form-item
+        label="是否微笑"
       >
-      <el-form-item label="是否微笑"
-        ><span class="value-color">{{ snapInfo.smileText }}</span></el-form-item
+        <span class="value-color">{{ snapInfo.smileText }}</span>
+      </el-form-item>
+      <el-form-item
+        label="是否戴眼镜"
       >
-      <el-form-item label="是否戴眼镜"
-        ><span class="value-color">{{ snapInfo.glassText }}</span></el-form-item
+        <span class="value-color">{{ snapInfo.glassText }}</span>
+      </el-form-item>
+      <el-form-item
+        label="年龄段"
       >
-      <el-form-item label="年龄段"
-        ><span class="value-color">{{
+        <span class="value-color">{{
           snapInfo.ageGroupText
-        }}</span></el-form-item
+        }}</span>
+      </el-form-item>
+      <el-form-item
+        label="车牌号码"
       >
-      <el-form-item label="车牌号码"
-        ><span class="value-color">{{
+        <span class="value-color">{{
           snapInfo.plateNo === "unknown" ? "未知" : snapInfo.plateNo
-        }}</span></el-form-item
+        }}</span>
+      </el-form-item>
+      <el-form-item
+        label="网格名称"
       >
-      <el-form-item label="网格名称"
-        ><span class="value-color">{{
+        <span class="value-color">{{
           snapInfo.gridSubPath + snapInfo.gridName
-        }}</span></el-form-item
+        }}</span>
+      </el-form-item>
+      <el-form-item
+        label="抓拍地点"
       >
-      <el-form-item label="抓拍地点"
-        ><span class="value-color">{{
+        <span class="value-color">{{
           snapInfo.cameraName
-        }}</span></el-form-item
+        }}</span>
+      </el-form-item>
+      <el-form-item
+        label="抓拍时间"
       >
-      <el-form-item label="抓拍时间"
-        ><span class="value-color">{{ snapInfo.shootTime }}</span></el-form-item
-      >
+        <span class="value-color">{{ snapInfo.shootTime }}</span>
+      </el-form-item>
     </el-form>
 
     <div class="img">
@@ -70,20 +91,20 @@ export default {
       default: () => {}
     }
   },
-  data() {
+  data () {
     return {
       snapInfo: {}
     }
   },
   methods: {
-    dialogOpen() {
+    dialogOpen () {
       this.snapInfo = { ...this.info }
     },
 
-    dialogClose() {
+    dialogClose () {
       this.$emit('update:visible', false)
     },
-    srcList(path) {
+    srcList (path) {
       const list = []
       if (path.indexOf('http') !== -1) {
         list.push(path)

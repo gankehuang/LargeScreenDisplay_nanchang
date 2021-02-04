@@ -2,22 +2,32 @@
   <div class="locationType">
     <div class="box">
       <div
-        class="list"
         v-for="(item, index) in leftTopList"
         :key="index"
-        @click="tab(item)"
+        class="list"
         :class="selectedItem === item.icon ? 'item-selected' : ''"
+        @click="tab(item)"
       >
-        <img v-if="item.icon === selectedItem" :src="item.onImg" alt="" />
-        <img v-else :src="item.img" alt="" />
-        <p class="type-title">{{ item.name }}</p>
+        <img
+          v-if="item.icon === selectedItem"
+          :src="item.onImg"
+          alt=""
+        >
+        <img
+          v-else
+          :src="item.img"
+          alt=""
+        >
+        <p class="type-title">
+          {{ item.name }}
+        </p>
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       selectedItem: 'school',
       leftTopList: [
@@ -65,7 +75,7 @@ export default {
     }
   },
   methods: {
-    tab(item) {
+    tab (item) {
       this.selectedItem = item.icon
       this.$emit('focusKeyAreas', item)
     }

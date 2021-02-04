@@ -3,7 +3,7 @@
     <el-dropdown @command="hanleCommand">
       <span class="el-dropdown-link">
         {{ area }}
-        <i class="el-icon-arrow-down el-icon--right"></i>
+        <i class="el-icon-arrow-down el-icon--right" />
       </span>
       <el-dropdown-menu
         slot="dropdown"
@@ -12,18 +12,19 @@
      "
       >
         <el-dropdown-item
-          :command="item"
-          @click.native="areaClick(index)"
           v-for="(item, index) in areaList"
           :key="index"
-          >{{ item }}</el-dropdown-item
+          :command="item"
+          @click.native="areaClick(index)"
         >
+          {{ item }}
+        </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
     <el-dropdown v-show="showTime">
       <span class="el-dropdown-link">
         {{ time }}
-        <i class="el-icon-arrow-down el-icon--right"></i>
+        <i class="el-icon-arrow-down el-icon--right" />
       </span>
       <el-dropdown-menu
         slot="dropdown"
@@ -32,17 +33,18 @@
      "
       >
         <el-dropdown-item
-          @click.native="timeclick(index)"
           v-for="(item, index) in timeList"
           :key="index"
-          >{{ item }}</el-dropdown-item
+          @click.native="timeclick(index)"
         >
+          {{ item }}
+        </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
     <el-dropdown v-show="showkind">
       <span class="el-dropdown-link">
         {{ kind }}
-        <i class="el-icon-arrow-down el-icon--right"></i>
+        <i class="el-icon-arrow-down el-icon--right" />
       </span>
       <el-dropdown-menu
         slot="dropdown"
@@ -51,18 +53,19 @@
     "
       >
         <el-dropdown-item
-          @click.native="kindClick(index)"
           v-for="(item, index) in kindList"
           :key="index"
-          >{{ item }}</el-dropdown-item
+          @click.native="kindClick(index)"
         >
+          {{ item }}
+        </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       area: '截至当前',
       areaList: ['截至当前', '按年月'],
@@ -89,7 +92,7 @@ export default {
     }
   },
   methods: {
-    hanleCommand(e) {
+    hanleCommand (e) {
       if (e === '截至当前') {
         this.showkind = false
         this.showTime = false
@@ -98,14 +101,14 @@ export default {
         this.showTime = true
       }
     },
-    areaClick(index) {
+    areaClick (index) {
       // console.log(item)
       this.area = this.areaList[index]
     },
-    kindClick(index) {
+    kindClick (index) {
       this.kind = this.kindList[index]
     },
-    timeclick(index) {
+    timeclick (index) {
       this.time = this.timeList[index]
     }
   }

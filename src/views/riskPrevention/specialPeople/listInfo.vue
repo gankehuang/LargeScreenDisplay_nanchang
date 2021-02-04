@@ -18,11 +18,22 @@
         max-height="240"
         style="width: 98%;height: 240px; margin: 30px auto 0;"
       >
-        <el-table-column prop="name" label="群体"> </el-table-column>
-        <el-table-column prop="count" label="人数"> </el-table-column>
-        <el-table-column prop="key" label="骨干人数"> </el-table-column>
-        <el-table-column prop="activePrecent" label="活跃指数">
-        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="群体"
+        />
+        <el-table-column
+          prop="count"
+          label="人数"
+        />
+        <el-table-column
+          prop="key"
+          label="骨干人数"
+        />
+        <el-table-column
+          prop="activePrecent"
+          label="活跃指数"
+        />
       </el-table>
     </div>
   </div>
@@ -30,7 +41,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       tableData: [
         {
@@ -61,7 +72,7 @@ export default {
     }
   },
   methods: {
-    nag() {
+    nag () {
       this.$router.push('/riskPrevention/keyWaters')
     }
   }

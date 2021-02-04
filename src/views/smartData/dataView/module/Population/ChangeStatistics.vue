@@ -1,15 +1,27 @@
 <template>
   <div class="change-statistics-container">
-    <div class="title">人口变动统计</div>
-    <v-chart :options="options" style="width:100%;height:100%" />
+    <div class="title">
+      人口变动统计
+    </div>
+    <v-chart
+      :options="options"
+      style="width:100%;height:100%"
+    />
   </div>
 </template>
 
 <script>
 import { populationVariation } from '@/api/smartData/dataView'
 export default {
+  data () {
+    return {
+      code: '3601',
+      monthData: [],
+      data: []
+    }
+  },
   computed: {
-    options() {
+    options () {
       return {
         color: ['#3497FB', '#80F4E7', '#E6B00E'],
         tooltip: {
@@ -167,17 +179,10 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      code: '3601',
-      monthData: [],
-      data: []
-    }
-  },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  mounted() {
+  mounted () {
     this.handlePopulationVariation()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -185,7 +190,7 @@ export default {
     })
   },
   methods: {
-    async handlePopulationVariation() {
+    async handlePopulationVariation () {
       try {
         const { status, data } = await populationVariation({ code: this.code })
         if (status === 200) {

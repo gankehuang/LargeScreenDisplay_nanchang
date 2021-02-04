@@ -1,3 +1,5 @@
+
+// 左中右布局容器
 .page-container {
   position: relative;
   display: flex;
@@ -5,27 +7,33 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 80px 5px 5px 5px;
+  padding: 70px 5px 5px 5px;
   background-color: #1d293b;
+  .page-left,
+  .page-right {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-width: 420px;
+    justify-content: space-around;
+  }
+
+  .page-center {
+    align-self: flex-start;
+    width: calc(100% - 900px);
+    height: 100%;
+    position: relative;
+    z-index: 1;
+  }
 }
 
+// 普通页面容器
 .page-box {
   position: relative;
   width: 100%;
   height: 100%;
-}
-
-.page-left,
-.page-right {
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.page-center {
-  align-self: flex-start;
 }
 
 .echarts {
@@ -240,7 +248,7 @@
   .el-button.is-plain:focus,
   .el-button.is-plain:hover {
     background-color: #344050;
-    border: 1px solid #344050;
+    border: 0px solid #344050;
   }
 }
 
@@ -318,5 +326,36 @@
     border-radius: 10px; /*滚动条的圆角*/
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: rgba(144, 147, 153, 0.3); /*滚动条的背景颜色*/
+  }
+}
+
+/*  */
+.el-cascader__dropdown[x-placement]
+.el-cascader-panel
+.el-scrollbar
+.el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+.el-cascader__dropdown[x-placement]
+.el-cascader-panel
+.el-scrollbar
+.el-scrollbar__wrap
+.el-cascader-menu__list {
+  height: 250px;
+}
+
+/**
+*  修改element UI Message(warning)消息提示样式
+*/
+.el-message--warning {
+  background-color: #3B9AFE;
+  border-color: #3B9AFE;
+  opacity: 0.9;
+
+  .el-icon-warning {
+    color: #ffffff;
+  }
+  .el-message__content {
+    color: #ffffff;
   }
 }

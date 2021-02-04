@@ -1,7 +1,7 @@
 <template>
   <el-scrollbar
-    style="height:100%;width:100%;"
     v-loading="isLoading"
+    style="height:100%;width:100%;"
     element-loading-background="rgba( 0, 0, 0, 0.7)"
   >
     <el-tree
@@ -12,10 +12,9 @@
       default-expand-all
       :expand-on-click-node="false"
       :props="props"
-      @node-click="nodeClick"
       :highlight-current="true"
-    >
-    </el-tree>
+      @node-click="nodeClick"
+    />
   </el-scrollbar>
 </template>
 
@@ -39,7 +38,7 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       isLoading: false,
       emptyText: '',
@@ -65,11 +64,11 @@ export default {
         },
         {
           label: '重点关注房屋数',
-          num: 0
+          num: 642
         },
         {
           label: '特殊关爱房屋数',
-          num: 0
+          num: 1323
         }
       ],
       peopleInfo: [
@@ -91,16 +90,16 @@ export default {
         },
         {
           label: '重点关注人员数',
-          num: 0
+          num: 583
         },
         {
           label: '特殊关爱人员数',
-          num: 0
+          num: 2585
         }
       ]
     }
   },
-  async mounted() {
+  async mounted () {
     await this.handleQueryCommunityTree()
     // await this.handleCount({ id: '305153127df411ea8f61fa163eac942c' })
     await this.handleCount({
@@ -111,7 +110,7 @@ export default {
   },
   methods: {
     // 获取小区数据
-    async handleQueryCommunityTree() {
+    async handleQueryCommunityTree () {
       this.isLoading = true
       try {
         const { status, data } = await queryCommunityTree()
@@ -122,7 +121,7 @@ export default {
       } catch (error) {}
     },
     // 小区数据获取楼栋
-    async handleQueryBuildingByCommunity(node) {
+    async handleQueryBuildingByCommunity (node) {
       try {
         const { status, data } = await queryBuildingByCommunity({
           communityId: node.id
@@ -133,7 +132,7 @@ export default {
       } catch (error) {}
     },
     // 楼栋编号获取房间
-    async queryRoomByBuilding(node) {
+    async queryRoomByBuilding (node) {
       try {
         const { status, data } = await queryRoomByBuilding({
           buildingId: node.id
@@ -149,7 +148,7 @@ export default {
       } catch (error) {}
     },
     // 根据区县或小区统计房屋、人口数量
-    async handleStatisticRoomAndUser(id) {
+    async handleStatisticRoomAndUser (id) {
       const { status, data } = await statisticRoomAndUser({ id })
       if (status === 200) {
         for (const key in data) {
@@ -228,7 +227,7 @@ export default {
     //   } catch (error) {}
     // },
     // 点击节点回调
-    async nodeClick(node) {
+    async nodeClick (node) {
       // console.log('-------------------', node)
       // 只有小区层级 且  小区下属楼栋未显示调用接口
       if (node.organizationLevel === '5' && node.children.length === 0) {
@@ -241,7 +240,7 @@ export default {
       }
     },
     // 获取县区、小区统计概况
-    async handleCount(node) {
+    async handleCount (node) {
       await this.handleStatisticRoomAndUser(node.id)
       this.$EventBus.$emit('update:countInfo', {
         title: node.organizationName || '南昌市',
@@ -251,7 +250,7 @@ export default {
       })
     },
     // 处理返回楼栋数
-    handleGroupBuilding(data, node) {
+    handleGroupBuilding (data, node) {
       const children = []
       data.forEach(item => {
         children.push({
@@ -264,7 +263,7 @@ export default {
       this.handleChildren(node.id, this.data, children)
     },
     // 根据小区编号更改楼栋信息
-    handleChildren(id, data, children) {
+    handleChildren (id, data, children) {
       const arr = Array.isArray(data) ? data : data.children
       for (const item of arr) {
         if (!item.id) continue
@@ -279,7 +278,7 @@ export default {
       }
     },
     // 处理单元数据
-    handleUnit(data) {
+    handleUnit (data) {
       const arr = []
       for (const item of data) {
         arr.push(item.id)
@@ -287,7 +286,7 @@ export default {
       return arr
     },
     // 处理房屋数据
-    handleRooms(data) {
+    handleRooms (data) {
       this.buildLayerList = []
       this.title = data[0].communityName + data[0].buildingName
       data.forEach((item, index) => {
@@ -326,7 +325,7 @@ export default {
       })
     },
     // 处理房间类型分类
-    handleRoomType(livePerson, roomType) {
+    handleRoomType (livePerson, roomType) {
       if (roomType === '出租') {
         if (livePerson >= 7) {
           return '群租（7人以上）'
@@ -340,7 +339,7 @@ export default {
       }
     },
     // 默认选中红谷滩
-    handlDefaultSelect() {
+    handlDefaultSelect () {
       this.$nextTick(() => {
         // console.log(this.$refs.tree)
         this.$refs.tree.setCurrentKey('305153127df411ea8f61fa163eac955c')

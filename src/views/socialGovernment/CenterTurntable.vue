@@ -1,32 +1,47 @@
 <template>
   <div class="center-turntable-container">
-    <div class="circle-mask"></div>
+    <div class="circle-mask" />
     <div :class="['circle', { spread: isSpread }]">
-      <div class="circle_img" ref="circleImgDom"></div>
+      <div
+        ref="circleImgDom"
+        class="circle_img"
+      />
       <!-- { 'click-pause': typeof pauseRightIndex !== 'undefined' } -->
       <div
+        ref="outerDom"
         :class="[
           'outer',
           { 'click-pause': typeof pauseRightIndex !== 'undefined' }
         ]"
-        ref="outerDom"
       >
         <div
-          class="arc_div"
-          @mouseenter="handleRightClickItemIndex(index)"
-          @mouseleave="handleRightClickItemIndex(undefined)"
-          :class="{ active: handleOuterCirlce(index) }"
           v-for="(item, index) in arcList"
           :key="index"
+          class="arc_div"
+          :class="{ active: handleOuterCirlce(index) }"
+          @mouseenter="handleRightClickItemIndex(index)"
+          @mouseleave="handleRightClickItemIndex(undefined)"
         >
           <div class="text">
-            <svg height="100" width="236">
+            <svg
+              height="100"
+              width="236"
+            >
               <defs>
-                <path id="myTextPath" d="M20,55 C400,0 -20,240 150,0"></path>
+                <path
+                  id="myTextPath"
+                  d="M20,55 C400,0 -20,240 150,0"
+                />
               </defs>
               <a>
-                <text x="55" y="80">
-                  <textPath href="#myTextPath" style="font-size:18px">
+                <text
+                  x="55"
+                  y="80"
+                >
+                  <textPath
+                    href="#myTextPath"
+                    style="font-size:18px"
+                  >
                     {{ item.name }}
                   </textPath>
                 </text>
@@ -44,21 +59,34 @@
         ]"
       >
         <div
-          class="new_sec_animate"
-          @mouseenter="handleLeftClickItemIndex(index)"
-          @mouseleave="handleLeftClickItemIndex(undefined)"
-          :class="{ active: handleInnerCircle(index) }"
           v-for="(item, index) in newSecList"
           :key="index"
+          class="new_sec_animate"
+          :class="{ active: handleInnerCircle(index) }"
+          @mouseenter="handleLeftClickItemIndex(index)"
+          @mouseleave="handleLeftClickItemIndex(undefined)"
         >
           <div class="sec_circle_text">
-            <svg height="100" width="300" class="openSvg">
+            <svg
+              height="100"
+              width="300"
+              class="openSvg"
+            >
               <defs>
-                <path id="path_1" d="M-84,114 C560,-100 0,420 400,70"></path>
+                <path
+                  id="path_1"
+                  d="M-84,114 C560,-100 0,420 400,70"
+                />
               </defs>
               <a>
-                <text x="180" y="80">
-                  <textPath href="#path_1" style="font-size:24px">
+                <text
+                  x="180"
+                  y="80"
+                >
+                  <textPath
+                    href="#path_1"
+                    style="font-size:24px"
+                  >
                     {{ item.name }}
                   </textPath>
                 </text>
@@ -67,8 +95,14 @@
           </div>
         </div>
       </div>
-      <div class="ring" ref="ringDom"></div>
-      <div @click="routeTo" :class="['inner_ring', innerCircleAnimation]"></div>
+      <div
+        ref="ringDom"
+        class="ring"
+      />
+      <div
+        :class="['inner_ring', innerCircleAnimation]"
+        @click="routeTo"
+      />
     </div>
   </div>
 </template>
@@ -137,7 +171,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       isSpread: false,
       innerCircleAnimation: '',
@@ -180,7 +214,7 @@ export default {
     }
   },
   methods: {
-    routeTo() {
+    routeTo () {
       this.isSpread = true
       this.pauseRightIndex = undefined
       this.pauseLeftIndex = undefined
@@ -215,7 +249,7 @@ export default {
         this.$EventBus.$emit('update:socialGovernmentVisible', false)
       }, 4500)
     },
-    judgeNewSecActive(index) {
+    judgeNewSecActive (index) {
       if (typeof index === 'undefined') return
       if (index === 8) {
         return 0
@@ -225,7 +259,7 @@ export default {
         return 2
       }
     },
-    judgeNewSecActiveByClick(clickIndex) {
+    judgeNewSecActiveByClick (clickIndex) {
       if (typeof clickIndex === 'undefined') return
       if (clickIndex === 8) {
         return 0
@@ -235,7 +269,7 @@ export default {
         return 2
       }
     },
-    handleLeftClickItemIndex(index) {
+    handleLeftClickItemIndex (index) {
       if (typeof index === 'undefined') {
         this.pauseLeftIndex = undefined
       } else {
@@ -246,7 +280,7 @@ export default {
       this.$emit('update:outerCircleIndex', undefined)
       this.$emit('update:innerCircleIndex', this.pauseLeftIndex)
     },
-    handleRightClickItemIndex(index) {
+    handleRightClickItemIndex (index) {
       if (typeof index === 'undefined') {
         this.pauseRightIndex = undefined
       } else {
@@ -259,7 +293,7 @@ export default {
       this.$emit('update:outerCircleIndex', this.pauseRightIndex)
     },
     // 判断三层治理框架
-    handleInnerCircle(index) {
+    handleInnerCircle (index) {
       if (this.pauseLeftIndex === index) {
         return true
       } else {
@@ -270,7 +304,7 @@ export default {
       }
     },
     // 判断九条治理路径
-    handleOuterCirlce(index) {
+    handleOuterCirlce (index) {
       if (
         this.pauseRightIndex === index ||
         this.rightItemIndex === index ||

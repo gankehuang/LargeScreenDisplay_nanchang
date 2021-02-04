@@ -2,7 +2,7 @@ import request from '@/utils/request'
 import { network, webPlatform } from '@/config/gateway'
 
 // 获取监控设备 列表
-export const getDepartmentList = function() {
+export const getDepartmentList = function () {
   return request({
     url: '/qfqzVisualization/queryUserInfos',
     method: 'post'
@@ -10,7 +10,7 @@ export const getDepartmentList = function() {
 }
 
 // 获取设备路径信息 根据日期
-export const getPathByDate = function(params) {
+export const getPathByDate = function (params) {
   return request({
     url: '/qfqzVisualization/queryPosInfos',
     method: 'post',
@@ -19,7 +19,7 @@ export const getPathByDate = function(params) {
 }
 
 // 获取设备路径信息 根据日期范围
-export const queryPosInfosDateRange = function(params) {
+export const queryPosInfosDateRange = function (params) {
   return request({
     url: '/qfqzVisualization/queryPosInfosDateRange',
     method: 'post',
@@ -28,7 +28,7 @@ export const queryPosInfosDateRange = function(params) {
 }
 
 // 获取序列号,验证码
-export const getSeq = function() {
+export const getSeq = function () {
   return request({
     url: '/qfqzVisualization/getSeq',
     method: 'post'
@@ -36,7 +36,7 @@ export const getSeq = function() {
 }
 
 // 开启设备录像
-export const openVideo = function(userId) {
+export const openVideo = function (userId) {
   return request({
     url: '/qfqzVisualization/startVideo',
     method: 'post',
@@ -45,7 +45,7 @@ export const openVideo = function(userId) {
 }
 
 // 关闭设备录像
-export const stopVideo = function(userId) {
+export const stopVideo = function (userId) {
   return request({
     url: '/qfqzVisualization/stopVideo',
     method: 'post',
@@ -54,7 +54,7 @@ export const stopVideo = function(userId) {
 }
 
 // 切换清晰度
-export const changeDeinition = function(defintion, userId) {
+export const changeDeinition = function (defintion, userId) {
   return request({
     url: '/qfqzVisualization/changeDefinition',
     method: 'post',
@@ -63,7 +63,7 @@ export const changeDeinition = function(defintion, userId) {
 }
 
 // 延长播放时间
-export const changeMaxTimer = function(time, userId) {
+export const changeMaxTimer = function (time, userId) {
   return request({
     url: '/qfqzVisualization/changeMaxTime',
     method: 'post',
@@ -72,7 +72,7 @@ export const changeMaxTimer = function(time, userId) {
 }
 
 // 文字广播
-export const sendMessage = function(content, userIds) {
+export const sendMessage = function (content, userIds) {
   return request({
     url: '/qfqzVisualization/facadeSendBroadcast',
     method: 'post',
@@ -81,7 +81,7 @@ export const sendMessage = function(content, userIds) {
 }
 
 // 新增活动
-export const addOrUpdateActivityBase = function(data) {
+export const addOrUpdateActivityBase = function (data) {
   return request({
     url: `${network}/${webPlatform}/activityBase/addOrUpdateActivityBase`,
     method: 'post',
@@ -90,7 +90,7 @@ export const addOrUpdateActivityBase = function(data) {
 }
 
 // 修改活动
-export const updateOrUpdateActivityBase = function(data) {
+export const updateOrUpdateActivityBase = function (data) {
   return request({
     url: `${network}/${webPlatform}/activityBase/updateOrUpdateActivityBase`,
     method: 'post',
@@ -99,7 +99,7 @@ export const updateOrUpdateActivityBase = function(data) {
 }
 
 // 根据id查询活动
-export const selectActivityBase = function(params) {
+export const selectActivityBase = function (params) {
   return request({
     url: `${network}/${webPlatform}/activityBase/selectActivityBase`,
     method: 'get',
@@ -108,7 +108,7 @@ export const selectActivityBase = function(params) {
 }
 
 // 查询活动列表
-export const selectActivityBasePage = function(pageNum, pageSize, params) {
+export const selectActivityBasePage = function (pageNum, pageSize, params) {
   return request({
     url: `${network}/${webPlatform}/activityBase/selectActivityBasePage/${pageNum}/${pageSize}`,
     method: 'get',
@@ -117,7 +117,7 @@ export const selectActivityBasePage = function(pageNum, pageSize, params) {
 }
 
 // 新增活动
-export const selectGridAdminByGridCode = function(params) {
+export const selectGridAdminByGridCode = function (params) {
   return request({
     url: `${network}/${webPlatform}/activityBase/selectGridAdminByGridCode`,
     method: 'get',
@@ -126,7 +126,7 @@ export const selectGridAdminByGridCode = function(params) {
 }
 
 // 根据经纬度查询某范围内点位信息
-export const selectByGeo = function(pageNum, pageSize, params) {
+export const selectByGeo = function (pageNum, pageSize, params) {
   return request({
     url: `${network}/${webPlatform}/positionInfo/selectByGeo/${pageNum}/${pageSize}`,
     method: 'get',
@@ -135,7 +135,7 @@ export const selectByGeo = function(pageNum, pageSize, params) {
 }
 
 // 根据网格员id查询客户端信息
-export const selectByGridAdminClientById = function(params) {
+export const selectByGridAdminClientById = function (params) {
   return request({
     url: `${network}/${webPlatform}/gridAdminClient/selectByGridAdminClientById`,
     method: 'get',
@@ -144,7 +144,7 @@ export const selectByGridAdminClientById = function(params) {
 }
 
 // 透传消息
-export const transmission = function(params) {
+export const transmission = function (params) {
   return request({
     url: `${network}/${webPlatform}/push/transmission`,
     method: 'get',
@@ -153,7 +153,7 @@ export const transmission = function(params) {
 }
 
 // 消息通知
-export const notification = function(params) {
+export const notification = function (params) {
   return request({
     url: `${network}/${webPlatform}/push/notification`,
     method: 'get',

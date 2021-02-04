@@ -1,9 +1,17 @@
 <template>
   <div class="model">
     <div class="model-box">
-      <el-form ref="form" :model="form" label-width="120px">
+      <el-form
+        ref="form"
+        :model="form"
+        label-width="120px"
+      >
         <el-row :gutter="20">
-          <el-col :span="24" v-for="(item, index) in form.list" :key="index">
+          <el-col
+            v-for="(item, index) in form.list"
+            :key="index"
+            :span="24"
+          >
             <el-form-item :label="item.name">
               <label>{{ item.value }}</label>
             </el-form-item>
@@ -21,7 +29,7 @@ export default {
       type: Array
     }
   },
-  data() {
+  data () {
     return {
       form: {
         list: this.dataList
@@ -29,7 +37,7 @@ export default {
     }
   },
   methods: {
-    submitClick() {
+    submitClick () {
       this.$emit('submitEvent', this.form)
     }
   }

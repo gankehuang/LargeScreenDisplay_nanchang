@@ -1,7 +1,14 @@
 <template>
   <div class="page-container">
-    <Tabs :tab-list="tabList" width="600px" :cur-index="4" />
-    <p class="btns" @click="changeClisk()"></p>
+    <Tabs
+      :tab-list="tabList"
+      width="600px"
+      :cur-index="4"
+    />
+    <p
+      class="btns"
+      @click="changeClisk()"
+    />
     <SimpleMap @mapInit="mapInit">
       <el-amap-marker
         v-for="(item, index) in markingPointList"
@@ -9,16 +16,23 @@
         :vid="index"
         :position="[item.longitude, item.latitude]"
         :offset="[-27, -40]"
-        :topWhenClick="true"
-        :zIndex="999"
+        :top-when-click="true"
+        :z-index="999"
       >
-        <div class="sh-text-twinkle" @click="towatch(item, index)">
+        <div
+          class="sh-text-twinkle"
+          @click="towatch(item, index)"
+        >
           <p>{{ item.eventName }}</p>
-          <div class="sh-twinkle"></div>
+          <div class="sh-twinkle" />
         </div>
       </el-amap-marker>
     </SimpleMap>
-    <transition name="ani-left" mode="out-in" appear>
+    <transition
+      name="ani-left"
+      mode="out-in"
+      appear
+    >
       <div class="page-left">
         <leftOne />
         <leftThree />
@@ -26,10 +40,17 @@
       </div>
     </transition>
 
-    <transition name="ani-right" mode="out-in" appear>
+    <transition
+      name="ani-right"
+      mode="out-in"
+      appear
+    >
       <div class="page-left">
         <rightOne />
-        <rightTwo @showDetail="showDetail" @focusEvent="focusEvent" />
+        <rightTwo
+          @showDetail="showDetail"
+          @focusEvent="focusEvent"
+        />
       </div>
     </transition>
     <!--事件信息弹框-->
@@ -72,7 +93,6 @@
 
 <script>
 import { queryEventList } from '@/api/intelligentService/earlyWarningDisposal'
-import SimpleMap from '@/components/SimpleMap'
 import commonMixin from '../commonMixin'
 import leftOne from './leftOne'
 import leftTwo from './leftTwo'
@@ -84,7 +104,6 @@ import eventMixin from './evenModule/eventMixin'
 import { yuqingList } from './mock'
 export default {
   components: {
-    SimpleMap,
     leftOne,
     leftTwo,
     rightOne,
@@ -92,7 +111,7 @@ export default {
     leftThree
   },
   mixins: [commonMixin, eventMixin],
-  data() {
+  data () {
     return {
       current: '热力图',
       // btnList: ['热力图', '实时事件'],
@@ -105,13 +124,13 @@ export default {
     }
   },
   methods: {
-    mapInit(map) {
+    mapInit (map) {
       this.map = map
       this.map.setCenter([115.986664, 28.574716])
       this.map.setZoom(11)
       this.getList()
     },
-    getList() {
+    getList () {
       this.markingPointList = []
       queryEventList(1, 100, this.advancedForm)
         .then(res => {
@@ -142,11 +161,11 @@ export default {
     },
 
     // 判断浏览区是否支持canvas
-    isSupportCanvas() {
+    isSupportCanvas () {
       const elem = document.createElement('canvas')
       return !!(elem.getContext && elem.getContext('2d'))
     },
-    toggleHeatMapShow() {
+    toggleHeatMapShow () {
       this.ifShow = !this.ifShow
       if (this.ifShow) {
         this.heatMap.show()
@@ -154,7 +173,7 @@ export default {
         this.heatMap.hide()
       }
     },
-    changeClisk() {
+    changeClisk () {
       autoLogin().then(res => {
         const { status, data } = res
         if (status === 200) {
@@ -165,13 +184,13 @@ export default {
         }
       })
     },
-    showDetail(item) {
+    showDetail (item) {
       this.showEventDetail(item)
     },
-    towatch(item, index) {
+    towatch (item, index) {
       this.showEventDetail(item)
     },
-    focusEvent(item) {
+    focusEvent (item) {
       if (item.latitude && item.longitude) {
         this.map.setCenter([item.longitude, item.latitude])
         this.map.setZoom(32)

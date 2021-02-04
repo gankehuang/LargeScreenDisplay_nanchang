@@ -2,12 +2,15 @@
   <div class="page-left">
     <div class="top-list">
       <div
-        class="item"
-        :key="index"
         v-for="(item, index) in list"
+        :key="index"
+        class="item"
         @click="open(index)"
       >
-        <svg-icon icon-class="menu" class="icon"></svg-icon>
+        <svg-icon
+          icon-class="menu"
+          class="icon"
+        />
         <div
           class="card-before"
           :class="
@@ -16,7 +19,10 @@
               : 'card-before-normal'
           "
         >
-          <v-chart :options="item.options" class="chart" />
+          <v-chart
+            :options="item.options"
+            class="chart"
+          />
         </div>
         <div
           class="card-after"
@@ -26,7 +32,9 @@
               : 'card-after-normal'
           "
         >
-          <div class="title">{{ item.title }}</div>
+          <div class="title">
+            {{ item.title }}
+          </div>
           <el-image
             :src="
               item.arrder === 'up'
@@ -43,7 +51,9 @@
             <span>{{ item.labelTwo }}</span>
             <span>{{ item.dataTwo }}</span>
           </div>
-          <div class="ellipsis">...</div>
+          <div class="ellipsis">
+            ...
+          </div>
         </div>
       </div>
     </div>
@@ -51,7 +61,10 @@
       <div class="title">
         指数变化趋势
       </div>
-      <v-chart :options="expChaOption" class="exp-cha-chart" />
+      <v-chart
+        :options="expChaOption"
+        class="exp-cha-chart"
+      />
     </div>
   </div>
 </template>
@@ -104,7 +117,7 @@ const setOption = (title, axisData, itemNum) => {
           show: true,
           align: 'center',
           offset: [70, -20],
-          formatter: function(value) {
+          formatter: function (value) {
             if (value.value === 0) {
               return '-'
             } else {
@@ -186,7 +199,7 @@ const setOption1 = (title, axisData, itemNum) => {
           align: 'center',
           offset: [0, -20],
           //   formatter: '{c}{a}',
-          formatter: function(value) {
+          formatter: function (value) {
             if (value.value === 0) {
               return '-'
             } else {
@@ -222,26 +235,13 @@ const setOption1 = (title, axisData, itemNum) => {
   }
 }
 export default {
-  beforeDestroy() {
-    this.$EventBus.$off('update:selectedItemData')
-    this.$EventBus.$off('update:backendMonthDataData')
-  },
-  mounted() {
-    const that = this
-    this.$EventBus.$on('selectedItemData', res => {
-      res.scoreList ? this.handleScoreList(res.scoreList) : ''
-    })
-    this.$EventBus.$on('backendMonthDataData', res => {
-      that.handleMonthData(res)
-    })
-  },
   props: {
     visible: {
       type: Boolean,
       default: false
     }
   },
-  data() {
+  data () {
     return {
       selectedItems: [],
       monthNumber: new Date().getMonth(),
@@ -305,14 +305,14 @@ export default {
     }
   },
   computed: {
-    monthList() {
+    monthList () {
       const arr = []
       for (let index = 0; index < this.monthNumber; index++) {
         arr.push('' + this.monthNumber - index)
       }
       return arr
     },
-    expChaOption() {
+    expChaOption () {
       return {
         tooltip: {
           trigger: 'axis'
@@ -450,8 +450,21 @@ export default {
       }
     }
   },
+  beforeDestroy () {
+    this.$EventBus.$off('update:selectedItemData')
+    this.$EventBus.$off('update:backendMonthDataData')
+  },
+  mounted () {
+    const that = this
+    this.$EventBus.$on('selectedItemData', res => {
+      res.scoreList ? this.handleScoreList(res.scoreList) : ''
+    })
+    this.$EventBus.$on('backendMonthDataData', res => {
+      that.handleMonthData(res)
+    })
+  },
   methods: {
-    selectItem(index) {
+    selectItem (index) {
       if (this.selectedItems.includes(index)) {
         let list = []
         this.selectedItems.forEach(item => {
@@ -464,7 +477,7 @@ export default {
       }
     },
     // 处理数据
-    handleScoreList(scoreList) {
+    handleScoreList (scoreList) {
       let list = []
       list = this.list.map((item, index) => {
         return {
@@ -475,12 +488,12 @@ export default {
       this.list = list
     },
     // 弹出穿透弹窗
-    open(index) {
+    open (index) {
       this.$EventBus.$emit('update:exponentIndex', index)
       this.$emit('update:visible', true)
     },
     // 处理月份数据
-    handleMonthData(data) {
+    handleMonthData (data) {
       for (const key in data) {
         if (data.hasOwnProperty(key)) {
           const length = data[key].length
@@ -493,7 +506,7 @@ export default {
       this.monthData = data
     },
     // 得出月份数据最小值
-    handleMonthDataMin(obj) {
+    handleMonthDataMin (obj) {
       let min = 100
       for (const key in obj) {
         if (obj.hasOwnProperty(key)) {

@@ -1,6 +1,10 @@
 <template>
   <div class="socialGovernance">
-    <Tabs :tab-list="tabList" width="500px" :cur-index="1" />
+    <Tabs
+      :tab-list="tabList"
+      width="500px"
+      :cur-index="1"
+    />
     <iframe
       src="http://172.11.16.88/admin/privilegeCodeLogin.jhtml?privilegeCode=sj&loginName=ncshzl"
       width="100%"
@@ -8,8 +12,7 @@
       scrolling="no"
       marginheight="0"
       marginwidth="0"
-    >
-    </iframe>
+    />
   </div>
 </template>
 
@@ -17,7 +20,7 @@
 import commonMixin from '../commonMixin'
 export default {
   mixins: [commonMixin],
-  data() {
+  data () {
     return {}
   }
 }

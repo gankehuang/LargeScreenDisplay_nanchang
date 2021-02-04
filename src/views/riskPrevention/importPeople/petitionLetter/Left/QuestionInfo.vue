@@ -1,21 +1,26 @@
 <template>
-  <div class="win-info">
-    <div class="title">信访关注问题TOP5</div>
-    <v-chart :options="options" class="echarts" />
-  </div>
+  <InfoBlock
+    title="信访关注问题TOP5"
+    height="450px"
+  >
+    <v-chart
+      :options="options"
+      class="echarts"
+    />
+  </InfoBlock>
 </template>
 
 <script>
 import { queryPetitionTop5 } from '@/api/riskPrevention/importPeople'
 
 export default {
-  data() {
+  data () {
     return {
       dataList: []
     }
   },
   computed: {
-    options() {
+    options () {
       return {
         // color: ['#3398DB'],
         tooltip: {
@@ -26,11 +31,8 @@ export default {
           }
         },
         grid: {
-          top: '20%',
-          width: '90%',
-          height: '70%',
-          left: '10',
-          containLabel: true
+          top: 20,
+          bottom: 100
         },
         xAxis: {
           type: 'category',
@@ -86,9 +88,7 @@ export default {
             name: '问题数据',
             type: 'bar',
             barWidth: '16',
-            data: this.dataList.sort(function(a, b) {
-              return a - b
-            }),
+            data: this.sortDataList,
             label: {
               show: false,
               position: 'top',
@@ -117,13 +117,19 @@ export default {
           }
         ]
       }
+    },
+    sortDataList () {
+      const dataList = [...this.dataList]
+      return dataList.sort(function (a, b) {
+        return a - b
+      })
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       queryPetitionTop5().then(res => {
         if (res.status === 200) {
           res.data.forEach(item => {
@@ -137,24 +143,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.win-info {
-  position: relative;
-  width: 420px;
-  height: 484px;
-  background: url("~@/assets/image/importPeople/xf-right-bg1.png");
-  background-size: 100% 100%;
-  .title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #7dbcff;
-    line-height: 18px;
-    position: absolute;
-    top: 10px;
-    left: 30px;
-  }
-  .echart {
-    width: 100%;
-    height: 100%;
-  }
-}
+
 </style>

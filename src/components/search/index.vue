@@ -1,17 +1,36 @@
 <template>
-  <div class="input" style="margin-top: 15px;" :style="blockStyleObj">
+  <div
+    class="input"
+    style="margin-top: 15px;"
+    :style="blockStyleObj"
+  >
     <el-input
-      placeholder="请输入内容"
       v-model="input3"
+      placeholder="请输入内容"
       class="input-with-select"
     >
-      <el-select v-model="select1" slot="prepend" placeholder="请选择">
-        <el-option label="人员" value="1"></el-option>
+      <el-select
+        slot="prepend"
+        v-model="select1"
+        placeholder="请选择"
+      >
+        <el-option
+          label="人员"
+          value="1"
+        />
         <!-- <el-option label="单位" value="2"></el-option> -->
-        <el-option label="车辆" value="3"></el-option>
+        <el-option
+          label="车辆"
+          value="3"
+        />
         <!-- <el-option label="警情" value="4"></el-option> -->
       </el-select>
-      <el-button slot="append" @click="search">搜索</el-button>
+      <el-button
+        slot="append"
+        @click="search"
+      >
+        搜索
+      </el-button>
     </el-input>
   </div>
 </template>
@@ -41,28 +60,28 @@ export default {
       }
     }
   },
-  mounted() {
-    this.input3 = this.input1
-    this.select1 = this.select
-  },
-  data() {
+  data () {
     return {
       input3: '',
       select1: '1'
     }
   },
-  methods: {
-    search() {
-      this.$emit('search', this.select1, this.input3)
-    }
-  },
   computed: {
-    blockStyleObj() {
+    blockStyleObj () {
       return {
         width: this.width,
         height: this.height,
         backgroundSize: '100% 100%'
       }
+    }
+  },
+  mounted () {
+    this.input3 = this.input1
+    this.select1 = this.select
+  },
+  methods: {
+    search () {
+      this.$emit('search', this.select1, this.input3)
     }
   }
 }

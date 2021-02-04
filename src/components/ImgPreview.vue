@@ -6,15 +6,18 @@
     :preview-src-list="previewList || [src]"
     class="img-container"
   >
-    <div slot="error" class="image-slot">
-      <i class="el-icon-picture-outline"></i>
+    <div
+      slot="error"
+      class="image-slot"
+    >
+      <i class="el-icon-picture-outline" />
     </div>
   </el-image>
 </template>
 
 <script>
 export default {
-  name: 'img-preview',
+  name: 'ImgPreview',
   props: {
     src: String,
     previewList: Array,
@@ -23,7 +26,7 @@ export default {
     height: Number
   },
   computed: {
-    sizeStyle() {
+    sizeStyle () {
       if (
         this.size &&
         typeof this.size === 'string' &&

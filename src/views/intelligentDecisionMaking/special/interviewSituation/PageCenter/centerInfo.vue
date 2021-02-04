@@ -1,77 +1,39 @@
 <template>
-  <div class="win-info">
-    <div class="title">
-      访情环比同比
+  <InfoBlock
+    title="访情环比同比"
+    :show-title-bg="false"
+    :bg-url="require('@/assets/image/policeSituation/center-bottom-bg.png')"
+    width="100%"
+    height="186px"
+  >
+    <div name="topRight">
+      <TagButton
+        :area-list="areaList"
+        :time-list="timeList"
+        :kind-list="kindList"
+        :area="area"
+        :time="time"
+        :kind="kind"
+        @areaClick="areaClick"
+        @kindClick="kindClick"
+        @timeclick="timeclick"
+      />
     </div>
-    <div class="drop">
-      <el-dropdown>
-        <span class="el-dropdown-link">
-          {{ area }}<i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <el-dropdown-menu
-          slot="dropdown"
-          style="width: 110px;
-    text-align: center;
-     background: #559AF6 url('~@/assets/image/importPeople/button-bg.png')no-repeat center;
-    background-size: 100% 100%;
-    border: 0;"
-        >
-          <el-dropdown-item
-            @click.native="areaClick(item)"
-            v-for="(item, index) in areaList"
-            :key="index"
-            >{{ item }}</el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown>
-      <el-dropdown>
-        <span class="el-dropdown-link">
-          {{ time }}<i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <el-dropdown-menu
-          slot="dropdown"
-          style="width: 110px;
-    text-align: center;
-     background: #559AF6 url('~@/assets/image/importPeople/button-bg.png')no-repeat center;
-    background-size: 100% 100%;
-    border: 0;"
-        >
-          <el-dropdown-item
-            @click.native="timeclick(item)"
-            v-for="(item, index) in timeList"
-            :key="index"
-            >{{ item }}</el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown>
-      <el-dropdown>
-        <span class="el-dropdown-link">
-          {{ kind }}<i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <el-dropdown-menu
-          slot="dropdown"
-          style="width: 110px;
-    text-align: center;
-     background: #559AF6 url('~@/assets/image/importPeople/button-bg.png')no-repeat center;
-    background-size: 100% 100%;
-    border: 0;"
-        >
-          <el-dropdown-item
-            @click.native="kindClick(item)"
-            v-for="(item, index) in kindList"
-            :key="index"
-            >{{ item }}</el-dropdown-item
-          >
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
-    <v-chart :options="amountOptions" class="echarts" v-if="isShow" />
-  </div>
+    <v-chart
+      v-if="isShow"
+      :options="amountOptions"
+      class="echarts"
+    />
+  </InfoBlock>
 </template>
 <script>
 import { alertDate } from '@/api/intelligentDecisionMaking/mood'
+import TagButton from './TagButton'
 export default {
-  data() {
+  components: {
+    TagButton
+  },
+  data () {
     return {
       amountOptions: {
         grid: {
@@ -79,8 +41,8 @@ export default {
           right: 20,
           bottom: '13%',
           top: '5%',
-          height: '55%'
-          //     containLabel: true,
+          height: '75%'
+          // containLabel: true,
         },
         legend: [
           {
@@ -111,20 +73,7 @@ export default {
         xAxis: [
           {
             type: 'category',
-            data: [
-              '1月',
-              '2月',
-              '3月',
-              '4月',
-              '5月',
-              '6月',
-              '7月',
-              '8月',
-              '9月',
-              '10月',
-              '11月',
-              '12月'
-            ],
+            data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
             axisLabel: {
               show: true,
               color: '#ffffff'
@@ -265,20 +214,7 @@ export default {
         ]
       },
       area: '市县',
-      areaList: [
-        '南昌县',
-        '进贤县',
-        '安义县',
-        '东湖区',
-        '西湖区',
-        '青云谱区',
-        '湾里局',
-        '青山湖区',
-        '新建区',
-        '高新区',
-        '经开区',
-        '红谷滩区'
-      ],
+      areaList: ['南昌县', '进贤县', '安义县', '东湖区', '西湖区', '青云谱区', '湾里局', '青山湖区', '新建区', '高新区', '经开区', '红谷滩区'],
       time: '2020',
       timeList: ['2020', '2019', '2018', '2017', '2016'],
       kind: '全部',
@@ -292,27 +228,30 @@ export default {
       chartData2: []
     }
   },
+  created () {
+    this.alertDate()
+  },
   methods: {
-    areaClick(item) {
+    areaClick (item) {
       this.area = item
       this.alertDate()
     },
-    kindClick(item) {
+    kindClick (item) {
       this.kind = item
       this.alertDate()
     },
-    timeclick(item) {
+    timeclick (item) {
       this.time = item
       this.alertDate()
     },
-    traverseFun(data) {
+    traverseFun (data) {
       const arrayList = []
       for (let i = 0; i < data.length; i++) {
         arrayList.push(parseInt(data[i].num))
       }
       return arrayList
     },
-    alertDate() {
+    alertDate () {
       switch (this.area) {
         case '南昌县':
           this.areaData = '360121'
@@ -408,12 +347,12 @@ export default {
               ['7月', parseInt(this.chartData1[6].num)],
               ['7月', parseInt(this.chartData2[6].num)]
             ]
-          
+
             this.amountOptions.series[5].data = [
               ['2月', parseInt(this.chartData1[1].num)],
-              ['2月', parseInt(this.chartData2[1].num)],
+              ['2月', parseInt(this.chartData2[1].num)]
             ]
-          
+
             this.amountOptions.series[3].data = [
               ['10月', parseInt(this.chartData1[9].num)],
               ['10月', parseInt(this.chartData2[9].num)]
@@ -422,52 +361,11 @@ export default {
         })
       })
     }
-  },
-  created() {
-    this.alertDate()
   }
 }
 </script>
 <style lang="scss" scoped>
-.win-info {
-  position: relative;
-  width: 1017px;
-  height: 186px;
-  background: url("~@/assets/image/interviewSituation/center-bottom-bg.png")
-    no-repeat center;
-  background-size: 100% 100%;
-  .title {
-    line-height: 40px;
-    font-size: 16px;
-    color: #7dbcff;
-    margin-left: 29px;
-    font-weight: bold;
-  }
-  .drop {
-    position: absolute;
-    right: 30px;
-    top: 20px;
-    z-index: 40;
-  }
-  .el-dropdown {
-    margin-right: 20px;
-  }
-  .el-dropdown-link {
-    display: inline-block;
-    width: 110px;
-    line-height: 31px;
-    text-align: center;
-    font-size: 12px;
-    color: #b2d9fb;
-    background: url("~@/assets/image/interviewSituation/button-bg.png")
-      no-repeat center;
-    background-size: 100% 100%;
-    cursor: pointer;
-  }
-}
-</style>
-<style lang="scss" scoped>
-/deep/.el-scrollbar__wrap {
+::v-deep .el-scrollbar__wrap {
   overflow: auto;
 }
 </style>

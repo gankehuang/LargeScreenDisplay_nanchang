@@ -2,17 +2,32 @@
   <div class="mask-container">
     <div class="mask" />
     <div class="modal">
-      <div class="btn-close" @click="bindBtnClose"></div>
+      <div
+        class="btn-close"
+        @click="bindBtnClose"
+      />
       <div class="title-bar">
         公共安全 -{{ info.eventName ? formatField(info.eventName) : "" }}
       </div>
-      <div class="title">事件详情</div>
+      <div class="title">
+        事件详情
+      </div>
       <div class="dt-container">
-        <div class="dt">基础 信息</div>
-        <div class="dt">人员 信息</div>
-        <div class="dt">事件 图片</div>
-        <div class="dt">临近 摄像头</div>
-        <div class="dt">网格 人员</div>
+        <div class="dt">
+          基础 信息
+        </div>
+        <div class="dt">
+          人员 信息
+        </div>
+        <div class="dt">
+          事件 图片
+        </div>
+        <div class="dt">
+          临近 摄像头
+        </div>
+        <div class="dt">
+          网格 人员
+        </div>
       </div>
       <div class="dd-container">
         <div class="dd detail">
@@ -35,10 +50,11 @@
             姓名：<span
               v-for="(item, index) in info.peopleName.split(',')"
               :key="index"
-              >{{ item | hideName }}</span
-            >
+            >{{ item | hideName }}</span>
           </p>
-          <p v-else>姓名：{{ info.peopleName | hideName }}</p>
+          <p v-else>
+            姓名：{{ info.peopleName | hideName }}
+          </p>
           <p
             v-if="
               info.peopleIdNumber && info.peopleIdNumber.indexOf(',') !== -1
@@ -47,18 +63,18 @@
             身份证：<span
               v-for="(item, index) in info.peopleIdNumber.split(',')"
               :key="index"
-              >{{ item | hideIdCard }}</span
-            >
+            >{{ item | hideIdCard }}</span>
           </p>
-          <p v-else>身份证：{{ info.peopleIdNumber | hideIdCard }}</p>
+          <p v-else>
+            身份证：{{ info.peopleIdNumber | hideIdCard }}
+          </p>
           <p>人员类别：{{ info.peopleLabel }}</p>
           <!-- <p>事发地址：{{ info.location }}</p> -->
         </div>
-                <div class="dd">
+        <div class="dd">
           <div class="item">
             <div v-if="info.snapImageUrl.indexOf(',') === -1">
               <el-image
-                @click.native="isShowHkVideo = false"
                 :src="
                   info.snapImageUrl
                     ? info.snapImageUrl
@@ -70,13 +86,13 @@
                     ? info.snapImageUrl
                     : require('@/assets/image/warning/no-avatar.png')
                 ]"
+                @click.native="isShowHkVideo = false"
               />
             </div>
             <div v-else>
               <el-image
                 v-for="(item, index) in info.snapImageUrl.split(',')"
                 :key="index"
-                @click.native="isShowHkVideo = false"
                 :src="
                   item ? item : require('@/assets/image/warning/no-avatar.png')
                 "
@@ -84,32 +100,47 @@
                 :preview-src-list="[
                   item ? item : require('@/assets/image/warning/no-avatar.png')
                 ]"
+                @click.native="isShowHkVideo = false"
               />
             </div>
             <p>上报图片</p>
           </div>
-          <div class="item" v-if="info.processingImageUrl">
+          <div
+            v-if="info.processingImageUrl"
+            class="item"
+          >
             <el-image
-              @click.native="isShowHkVideo = false"
               :src="
                 info.processingImageUrl
                   ? info.processingImageUrl
                   : require('@/assets/image/warning/no-avatar.png')
               "
               class="img"
+              @click.native="isShowHkVideo = false"
             />
             <p>处理图片</p>
           </div>
         </div>
-        <div class="dd space" style="padding:0;">
-          <div v-if="playSrc" class="player" v-loading="loading">
+        <div
+          class="dd space"
+          style="padding:0;"
+        >
+          <div
+            v-if="playSrc"
+            v-loading="loading"
+            class="player"
+          >
             <div class="vtitle">
-              <img src="@/assets/image/common/controll.png" />
+              <img src="@/assets/image/common/controll.png">
               <div class="name">
                 {{ videoTitle }}
               </div>
             </div>
-            <flv-player :id="videoId" :src="playSrc" class="flvPlayer" />
+            <flv-player
+              :id="videoId"
+              :src="playSrc"
+              class="flvPlayer"
+            />
           </div>
           <div
             v-if="info.gbIndexCode || info.cameraIndexCode"
@@ -125,18 +156,28 @@
               height="200"
             />
           </div>
-          <div v-else style="padding-top:20px;padding-left: 20px;">
+          <div
+            v-else
+            style="padding-top:20px;padding-left: 20px;"
+          >
             暂无相关视频
           </div>
         </div>
         <div class="dd">
-          <div v-if="personList.length" class="people-list">
+          <div
+            v-if="personList.length"
+            class="people-list"
+          >
             <div class="p-title">
               <span>姓名</span>
               <span>性别</span>
               <span>手机号</span>
             </div>
-            <div class="p-mes" v-for="item in personList" :key="item.id">
+            <div
+              v-for="item in personList"
+              :key="item.id"
+              class="p-mes"
+            >
               <span>{{ item.name | hideName }}</span>
               <span>{{ item.gender === "1" ? "男" : "女" }}</span>
               <span>{{ item.phone | hidePhone }}</span>
@@ -154,14 +195,28 @@
         >
           指派
         </div>
-        <div class="btn btn2" @click="handelEventType('事件上报', info.id)">
+        <div
+          class="btn btn2"
+          @click="handelEventType('事件上报', info.id)"
+        >
           上报
         </div>
-        <div class="btn btn3" @click="handelEventType('事件处置', info.id)">
+        <div
+          class="btn btn3"
+          @click="handelEventType('事件处置', info.id)"
+        >
           处置
         </div>
-        <div class="btn btn4" @click="handelEventType('调度')">调度</div>
-        <div class="btn btn5" @click="handelEventType('事件详情', info.id)">
+        <div
+          class="btn btn4"
+          @click="handelEventType('调度')"
+        >
+          调度
+        </div>
+        <div
+          class="btn btn5"
+          @click="handelEventType('事件详情', info.id)"
+        >
           详情
         </div>
       </div>
@@ -178,11 +233,8 @@ export default {
   components: {
     FlvPlayer
   },
-  props: {
-    info: Object
-  },
   filters: {
-    statusFilter(value) {
+    statusFilter (value) {
       switch (value) {
         case 0:
           return '无效'
@@ -201,7 +253,13 @@ export default {
       }
     }
   },
-  data() {
+  props: {
+    info: {
+      type: Object,
+      default: () => {}
+    }
+  },
+  data () {
     return {
       videoTitle: '南门',
       loading: false,
@@ -210,16 +268,16 @@ export default {
       personList: []
     }
   },
-  mounted() {
+  mounted () {
     this.startVideo()
     this.getGroupForce()
   },
   methods: {
     // 关闭事件详情弹框
-    bindBtnClose() {
+    bindBtnClose () {
       this.$emit('bindBtnClose')
     },
-    getGroupForce() {
+    getGroupForce () {
       getGroupForce({
         gridCode: this.info.gridCode,
         eventId: this.info.eventId
@@ -242,7 +300,7 @@ export default {
       })
     },
     // 开启视频
-    async startVideo() {
+    async startVideo () {
       if (
         this.info.extension &&
         this.info.extension.deviceType &&
@@ -261,14 +319,19 @@ export default {
       }
     },
     // 处理不同按钮操作
-    handelEventType(dealType, id, gridCode) {
+    handelEventType (dealType, id, gridCode) {
       if (
         dealType === '事件指派' ||
         dealType === '事件上报' ||
         dealType === '事件处置' ||
         dealType === '事件详情'
       ) {
-        this.$emit('onEventModal', dealType, id, gridCode)
+        this.$emit('onEventModal',
+          dealType,
+          id,
+          gridCode,
+          this.personList.length ? this.personList[0] : []
+        )
         return
       }
 
@@ -284,7 +347,7 @@ export default {
       }
     },
     // 格式化数据
-    formatField(val) {
+    formatField (val) {
       return val || '-'
     }
   }
@@ -422,7 +485,6 @@ export default {
       .item {
         display: inline-block;
         text-align: center;
-        margin: 10px;
         cursor: pointer;
 
         .img {

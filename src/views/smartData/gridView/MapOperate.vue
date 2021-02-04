@@ -1,20 +1,27 @@
 <template>
   <div class="select-list">
     <div
-      class="select-item"
       v-for="(item, index) in menuList"
       :key="index"
+      class="select-item"
       :class="{ active: item.active }"
       @click.stop="handleMap(item, index)"
     >
-      <svg-icon :icon-class="item.iconSrc" class="icon"></svg-icon>
+      <svg-icon
+        :icon-class="item.iconSrc"
+        class="icon"
+      />
       <span>{{ item.name }}</span>
 
-      <div class="pullup-menu" v-if="item.active" v-clickoutside="handleClose">
+      <div
+        v-if="item.active"
+        v-clickoutside="handleClose"
+        class="pullup-menu"
+      >
         <div
-          class="menu-item"
           v-for="(item1, index1) in item.children"
           :key="index1"
+          class="menu-item"
           :class="{ active: item1.active }"
           @click.stop="handleChild(index, index1)"
         >
@@ -27,7 +34,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       curIndex: -1,
       menuList: [
@@ -96,11 +103,11 @@ export default {
     }
   },
   methods: {
-    handleMap(item, index) {
+    handleMap (item, index) {
       this.menuList.forEach(item => (item.active = false))
       this.menuList[index].active = true
     },
-    handleChild(index, index1) {
+    handleChild (index, index1) {
       const isSelect = this.menuList[index].children[index1].active
 
       this.menuList.forEach(item => {
@@ -116,7 +123,7 @@ export default {
       this.menuList[index].children[index1].active = !this.menuList[index]
         .children[index1].active
 
-      this.$emit('updateMapMarker', {
+      this.$emit('updateMenu', {
         name: this.menuList[index].children[index1].menuName,
         active: this.menuList[index].children[index1].active
       })
@@ -126,7 +133,7 @@ export default {
       })
     },
     // 点击空白处下拉框关闭
-    handleClose(e) {
+    handleClose (e) {
       this.menuList.forEach(item => {
         item.active = false
       })

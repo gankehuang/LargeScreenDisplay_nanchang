@@ -1,8 +1,13 @@
 <template>
   <div class="statistical-data-container">
-    <div class="title">网汇数据</div>
+    <div class="title">
+      网汇数据
+    </div>
     <ul>
-      <li v-for="(item, index) in dataList" :key="index">
+      <li
+        v-for="(item, index) in dataList"
+        :key="index"
+      >
         <!-- <svg-icon
           :icon-class="item.icon"
           class="icon"
@@ -10,8 +15,8 @@
         <span class="label">{{ item.label }}</span>
         <div class="data">
           <CountTo
-            :startVal="0"
-            :endVal="Number(item.number)"
+            :start-val="0"
+            :end-val="Number(item.number)"
             :duration="300"
             class="number"
           />
@@ -26,7 +31,7 @@
 <script>
 import { getDeptData } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       dataList: [
         {
@@ -57,11 +62,11 @@ export default {
       ]
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       getDeptData().then(res => {
         console.log(res)
         if (res.status === 200) {

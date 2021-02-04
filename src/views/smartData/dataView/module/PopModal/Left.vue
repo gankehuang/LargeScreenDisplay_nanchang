@@ -1,18 +1,29 @@
 <template>
   <div class="pop-modal-left">
-    <div class="household-icon"></div>
+    <div class="household-icon" />
     <div class="household-data">
-      <v-chart :options="householdOptions" class="chart" />
+      <v-chart
+        :options="householdOptions"
+        class="chart"
+      />
     </div>
 
-    <div class="oversea-icon"></div>
+    <div class="oversea-icon" />
     <div class="oversea-data">
-      <v-chart :options="overseaOptions" class="chart" />
+      <v-chart
+        :options="overseaOptions"
+        class="chart"
+      />
     </div>
 
     <div class="important-people-data">
-      <div class="important-people-title">重点人群</div>
-      <v-chart :options="importantOptions" class="chart" />
+      <div class="important-people-title">
+        重点人群
+      </div>
+      <v-chart
+        :options="importantOptions"
+        class="chart"
+      />
     </div>
   </div>
 </template>
@@ -93,7 +104,7 @@ const setOption = (title, axisData, itemNum, leftNum = 0) => {
   }
 }
 export default {
-  data() {
+  data () {
     return {
       householdOptions: setOption('户籍人口', ['评分条'], [684.48], -20),
       overseaOptions: setOption('海外人口', ['评分条'], [76.18], 50),

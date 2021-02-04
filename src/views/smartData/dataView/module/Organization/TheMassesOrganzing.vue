@@ -1,27 +1,35 @@
 <template>
   <div class="the-masses-organzing-container">
-    <div class="title">群防群治组织</div>
+    <div class="title">
+      群防群治组织
+    </div>
     <ul>
       <li>
         <div class="icon" />
         <div class="data">
           <span>{{ volunteer }}</span>
         </div>
-        <div class="label">志愿者队伍</div>
+        <div class="label">
+          志愿者队伍
+        </div>
       </li>
       <li>
         <div class="icon" />
         <div class="data">
           <span>{{ duty }}</span>
         </div>
-        <div class="label">义务巡逻队</div>
+        <div class="label">
+          义务巡逻队
+        </div>
       </li>
       <li>
         <div class="icon" />
         <div class="data">
           <span>{{ fullTime }}</span>
         </div>
-        <div class="label">专职巡逻队</div>
+        <div class="label">
+          专职巡逻队
+        </div>
       </li>
     </ul>
   </div>
@@ -30,7 +38,7 @@
 <script>
 import { queryOrgGeneral } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       volunteer: 0,
       duty: 0,
@@ -38,10 +46,10 @@ export default {
       code: '3601'
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  mounted() {
+  mounted () {
     this.handleQueryOrgGeneral()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -49,13 +57,13 @@ export default {
     })
   },
   methods: {
-    async handleQueryOrgGeneral() {
+    async handleQueryOrgGeneral () {
       try {
         const { status, data } = await queryOrgGeneral({ gridCode: this.code })
         if (status === 200) {
-          this.volunteer = data['volunteerTeam']
-          this.duty = data['obligationTeam']
-          this.fullTime = data['fullTeam']
+          this.volunteer = data.volunteerTeam
+          this.duty = data.obligationTeam
+          this.fullTime = data.fullTeam
         }
       } catch (error) {}
     }

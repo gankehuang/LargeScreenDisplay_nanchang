@@ -2,17 +2,32 @@
   <div class="mask-container">
     <div class="mask" />
     <div class="modal">
-      <div class="btn-close" @click="bindBtnClose"></div>
+      <div
+        class="btn-close"
+        @click="bindBtnClose"
+      />
       <div class="title-bar">
         {{ info.eventName ? formatField(info.eventName) : "" }}
       </div>
-      <div class="title">事件详情</div>
+      <div class="title">
+        事件详情
+      </div>
       <div class="dt-container">
-        <div class="dt">基础 信息</div>
-        <div class="dt">媒体 报告</div>
-        <div class="dt">事件 图片</div>
-        <div class="dt">事件 专报</div>
-        <div class="dt">处置 单位</div>
+        <div class="dt">
+          基础 信息
+        </div>
+        <div class="dt">
+          媒体 报告
+        </div>
+        <div class="dt">
+          事件 图片
+        </div>
+        <div class="dt">
+          事件 专报
+        </div>
+        <div class="dt">
+          处置 单位
+        </div>
       </div>
       <div class="dd-container">
         <div class="dd detail">
@@ -26,7 +41,12 @@
         <div class="dd mtbd">
           <!-- <p>新浪微博 <span>凤凰新闻</span></p>
         <p>新文化网<span>搜狐网</span></p> -->
-          <p v-for="(item, index) in info.media" :key="index">{{ item }}</p>
+          <p
+            v-for="(item, index) in info.media"
+            :key="index"
+          >
+            {{ item }}
+          </p>
         </div>
         <div class="dd">
           <div class="item">
@@ -38,38 +58,67 @@
             />
           </div>
         </div>
-        <div class="dd space" style="padding:0;">
+        <div
+          class="dd space"
+          style="padding:0;"
+        >
           <p>
             {{ info.description }}
           </p>
-          <p class="pdfs" @click="towatch">
+          <p
+            class="pdfs"
+            @click="towatch"
+          >
             舆情报告
           </p>
         </div>
         <div class="dd xgdw">
           <el-scrollbar style="height:100%;width:100%;">
-            <p v-for="(item, index) in info.comments" :key="index">
+            <p
+              v-for="(item, index) in info.comments"
+              :key="index"
+            >
               {{ item }}
             </p>
           </el-scrollbar>
         </div>
       </div>
       <div class="bottom-btn">
-        <div class="btn btn1" @click="handelEventType('事件指派', info.id)">
+        <div
+          class="btn btn1"
+          @click="handelEventType('事件指派', info.id)"
+        >
           指派
         </div>
-        <div class="btn btn2" @click="handelEventType('事件上报', info.id)">
+        <div
+          class="btn btn2"
+          @click="handelEventType('事件上报', info.id)"
+        >
           上报
         </div>
-        <div class="btn btn3" @click="handelEventType('事件处置', info.id)">
+        <div
+          class="btn btn3"
+          @click="handelEventType('事件处置', info.id)"
+        >
           处置
         </div>
-        <div class="btn btn4" @click="handelEventType('调度')">调度</div>
-        <div class="btn btn5" @click="handelEventType('事件详情', info.id)">
+        <div
+          class="btn btn4"
+          @click="handelEventType('调度')"
+        >
+          调度
+        </div>
+        <div
+          class="btn btn5"
+          @click="handelEventType('事件详情', info.id)"
+        >
           详情
         </div>
       </div>
-      <PdfModal :visible.sync="pdfModalVisible" :pdfFile="pdfFile" />
+      <PdfModal
+        :visible.sync="pdfModalVisible"
+        :pdf-file="pdfFile"
+      />
     </div>
   </div>
 </template>
@@ -84,11 +133,8 @@ export default {
     // FlvPlayer,
     PdfModal
   },
-  props: {
-    info: Object
-  },
   filters: {
-    statusFilter(value) {
+    statusFilter (value) {
       switch (value) {
         case 0:
           return '无效'
@@ -107,7 +153,10 @@ export default {
       }
     }
   },
-  data() {
+  props: {
+    info: Object
+  },
+  data () {
     return {
       pdfFile: {
         file: this.info.attachment,
@@ -121,20 +170,20 @@ export default {
       personList: []
     }
   },
-  mounted() {
+  mounted () {
     console.log(this.info)
     this.startVideo()
     this.getGroupForce()
   },
   methods: {
-    towatch() {
+    towatch () {
       this.pdfModalVisible = true
     },
     // 关闭事件详情弹框
-    bindBtnClose() {
+    bindBtnClose () {
       this.$emit('bindBtnClose')
     },
-    getGroupForce() {
+    getGroupForce () {
       getGroupForce({
         gridCode: this.info.gridCode,
         eventId: this.info.eventId
@@ -157,7 +206,7 @@ export default {
       })
     },
     // 开启视频
-    async startVideo() {
+    async startVideo () {
       if (
         this.info.extension &&
         this.info.extension.deviceType &&
@@ -176,14 +225,19 @@ export default {
       }
     },
     // 处理不同按钮操作
-    handelEventType(dealType, id, gridCode) {
+    handelEventType (dealType, id, gridCode) {
       if (
         dealType === '事件指派' ||
         dealType === '事件上报' ||
         dealType === '事件处置' ||
         dealType === '事件详情'
       ) {
-        this.$emit('onEventModal', dealType, id, gridCode)
+        this.$emit('onEventModal',
+          dealType,
+          id,
+          gridCode,
+          this.personList.length ? this.personList[0] : []
+        )
         return
       }
 
@@ -199,7 +253,7 @@ export default {
       }
     },
     // 格式化数据
-    formatField(val) {
+    formatField (val) {
       return val || '-'
     }
   }
@@ -339,7 +393,6 @@ export default {
       .item {
         display: inline-block;
         text-align: center;
-        margin: 10px;
         cursor: pointer;
 
         .img {

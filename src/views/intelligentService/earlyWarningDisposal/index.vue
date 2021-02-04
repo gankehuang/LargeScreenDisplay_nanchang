@@ -1,13 +1,18 @@
+<!-- 预警处置 页面 入口 -->
 <template>
   <div class="earlyWarningDisposal">
-    <Tabs :tab-list="tabList" width="500px" :cur-index="1" />
+    <Tabs
+      :tab-list="tabList"
+      width="500px"
+      :cur-index="1"
+    />
     <div class="con-top">
       <eventNum />
       <eventType />
       <eventDistrict />
     </div>
     <div class="con-bottom">
-      <bottomForm @busData="busData" />
+      <BottomForm @busData="busData" />
     </div>
   </div>
 </template>
@@ -15,28 +20,28 @@
 import eventNum from './top/eventNum'
 import eventType from './top/eventType'
 import eventDistrict from './top/eventDistrict'
-import bottomForm from './bottom/bottomForm'
+import BottomForm from './bottom/'
 import commonMixin from '../commonMixin'
 export default {
   components: {
     eventNum,
     eventType,
     eventDistrict,
-    bottomForm
+    BottomForm
   },
-  provide() {
+  provide () {
     return {
       injectData: this
     }
   },
   mixins: [commonMixin],
-  data() {
+  data () {
     return {
       eventData: ''
     }
   },
   methods: {
-    busData(data) {
+    busData (data) {
       this.eventData = data
     }
   }

@@ -3,7 +3,7 @@
     <div class="title">
       材料报送统计
     </div>
-    <div class="shuaxins"></div>
+    <div class="shuaxins" />
     <div class="shuaxin">
       刷新
     </div>
@@ -14,11 +14,11 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {}
   },
   computed: {
-    options() {
+    options () {
       return {
         color: ['#0054FF', '#02bed1'],
         tooltip: {

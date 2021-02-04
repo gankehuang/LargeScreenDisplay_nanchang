@@ -1,27 +1,27 @@
 <template>
-  <div class="locationType">
-    <div class="box">
-      <div
-        class="list"
-        v-for="(item, index) in leftTopList"
-        :key="index"
-        @click="tab(item)"
-        :class="selectedItem === item.name ? 'item-selected' : ''"
-      >
-        <p class="type-title">{{ item.name }}</p>
-      </div>
+  <div class="location-list">
+    <div
+      v-for="(item, index) in pageBottomTab"
+      :key="index"
+      class="item"
+      :class="selectedItem === item.name ? 'item-selected' : ''"
+      @click="tab(item)"
+    >
+      <p class="type-title">
+        {{ item.name }}
+      </p>
     </div>
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       selectedItem: '省行政中心',
-      leftTopList: [
+      pageBottomTab: [
         {
           isActive: false,
-          title: '省行政中心',
+          title: 'province',
           name: '省行政中心',
           lat: '28.640193',
           lon: '115.816114',
@@ -30,7 +30,7 @@ export default {
         },
         {
           isActive: false,
-          title: '市行政中心',
+          title: 'administration',
           name: '市行政中心',
           lat: '28.684541',
           lon: '115.859085',
@@ -39,7 +39,7 @@ export default {
         },
         {
           isActive: false,
-          title: '八一广场',
+          title: 'square',
           name: '八一广场',
           lat: '28.67401',
           lon: '115.904464',
@@ -48,7 +48,7 @@ export default {
         },
         {
           isActive: false,
-          title: '秋水广场',
+          title: 'qiushui',
           name: '秋水广场',
           lat: '28.682829',
           lon: '115.862542',
@@ -59,30 +59,26 @@ export default {
     }
   },
   methods: {
-    tab(item) {
+    tab (item) {
       this.selectedItem = item.name
-      this.$emit('focusKeyAreas', item)
+      this.$emit('switchRegion', item)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-.locationType {
-  width: 100%;
-  height: 95px;
-  position: absolute;
-  bottom: 30px;
-  display: flex;
-  justify-content: center; /* 水平居中 */
-  .box {
-    width: 455px;
+  .location-list {
     padding: 0 30px;
     height: 95px;
+    position: absolute;
+    left: 50%;
+    z-index: 99;
+    bottom: 30px;
+    transform: translateX(-50%);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .list {
-      cursor: pointer;
+    .item {
       width: 87px;
       height: 36px;
       background: url("~@/assets/image/command/map-select-item.png") no-repeat;
@@ -90,11 +86,15 @@ export default {
       text-align: center;
       font-weight: 300;
       color: #ffffff;
+      margin-left: 15px;
+      cursor: pointer;
+      &:first-child {
+      margin-left: 0;
+      }
     }
     .item-selected {
       background: url("~@/assets/image/KeyThrong/active0n.png") no-repeat;
       background-size: 100% 100%;
     }
   }
-}
 </style>

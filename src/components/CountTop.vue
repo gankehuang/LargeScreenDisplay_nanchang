@@ -1,6 +1,8 @@
 <template>
   <div class="vertical-num-to">
     <span
+      v-for="(item, index) in totalNumArr"
+      :key="index"
       :class="[
         'number',
         {
@@ -8,17 +10,17 @@
             index === totalNumArr.length - 4 || index === totalNumArr.length - 7
         }
       ]"
-      v-for="(item, index) in totalNumArr"
-      :key="index"
     >
-      <i class="num" ref="numberItem">0123456789</i>
       <i
-        class="count"
+        ref="numberItem"
+        class="num"
+      >0123456789</i>
+      <i
         v-if="
           index === totalNumArr.length - 4 || index === totalNumArr.length - 7
         "
-        >,</i
-      >
+        class="count"
+      >,</i>
     </span>
   </div>
 </template>
@@ -37,7 +39,7 @@ export default {
       default: () => false
     }
   },
-  data() {
+  data () {
     return {
       totalNumArr: [],
       setTimeOutId: 0,
@@ -47,24 +49,24 @@ export default {
   watch: {
     total: {
       immediate: true,
-      handler(total) {
+      handler (total) {
         this.handleTotalNumber(total)
       }
     }
   },
-  created() {
+  created () {
     // this.$nextTick(() => {
     //   this.timer = setInterval(() => {
     //     this.setOneByOneNumberTransform()
     //   }, 5000)
     // })
   },
-  beforeDestroy() {
+  beforeDestroy () {
     // clearInterval(this.timer)
   },
   methods: {
     // 处理数字成字符串
-    handleTotalNumber(total) {
+    handleTotalNumber (total) {
       // const that = this
       const totalLength = String(total).split('').length
       const length = String(total).split('').length
@@ -79,7 +81,7 @@ export default {
     },
     // 动画
     // 数字全部滚动
-    async setAllNumberTransform() {
+    async setAllNumberTransform () {
       const numberItems = this.$refs.numberItem // 拿到数字的ref，计算元素数量\
       if (!numberItems) return
       // debugger
@@ -94,7 +96,7 @@ export default {
       }
     },
     // 数字一个一个滚动
-    setOneByOneNumberTransform() {
+    setOneByOneNumberTransform () {
       const numberItems = this.$refs.numberItem // 拿到数字的ref，计算元素数量\
       if (!numberItems) return
       // debugger

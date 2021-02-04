@@ -1,6 +1,6 @@
 <template>
   <div class="page-box">
-    <div class="blacks"></div>
+    <div class="blacks" />
     <iframe
       style="position: absolute; left: 0; top: 0;z-index: 2;"
       :src="links"
@@ -9,24 +9,23 @@
       scrolling="no"
       marginheight="0"
       marginwidth="0"
-    >
-    </iframe>
+    />
   </div>
 </template>
 
 <script>
 import { getToken } from '@/api/intelligentOffice/intelligentOffice'
 export default {
-  data() {
+  data () {
     return {
       links: ''
     }
   },
-  mounted() {
+  mounted () {
     this.getTokens()
   },
   methods: {
-    getTokens() {
+    getTokens () {
       getToken({ account: 'ncwsbg' }).then(res => {
         console.log(res)
         if (res.status === 200) {

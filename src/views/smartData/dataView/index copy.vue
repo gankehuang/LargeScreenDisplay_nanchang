@@ -1,75 +1,147 @@
 <template>
   <div class="data-view-style">
     <div
-      class="person-bg1"
       v-if="isShowPerson2"
+      class="person-bg1"
       @click="handlePageShow('isShowPerson3')"
     />
     <div
-      class="person-bg2"
       v-if="isShowPerson3"
+      class="person-bg2"
       @click="handlePageShow('isShowPerson4')"
     />
     <div
-      class="person-bg3"
       v-if="isShowPerson4"
+      class="person-bg3"
       @click="handlePageShow('isShowPerson1')"
     />
-    <div v-if="isShowPerson1" class="data-view-map">
-      <img :src="bg" />
+    <div
+      v-if="isShowPerson1"
+      class="data-view-map"
+    >
+      <img :src="bg">
     </div>
-    <div v-if="isShowPerson1" class="data-view-left">
+    <div
+      v-if="isShowPerson1"
+      class="data-view-left"
+    >
       <ul>
-        <li :class="active == 1 ? 'hover' : ''" @click="active = 1">
-          <div><svg-icon icon-class="pandect" class="svg-icon" /></div>
+        <li
+          :class="active == 1 ? 'hover' : ''"
+          @click="active = 1"
+        >
+          <div>
+            <svg-icon
+              icon-class="pandect"
+              class="svg-icon"
+            />
+          </div>
           <div>总览</div>
         </li>
-        <li :class="active == 2 ? 'hover' : ''" @click="active = 2">
+        <li
+          :class="active == 2 ? 'hover' : ''"
+          @click="active = 2"
+        >
           <div @click="handlePageShow('isShowPerson2')">
-            <svg-icon icon-class="staff" class="svg-icon" />
+            <svg-icon
+              icon-class="staff"
+              class="svg-icon"
+            />
           </div>
           <div @click="handlePageShow('isShowPerson2')">
             人
           </div>
         </li>
-        <li :class="active == 3 ? 'hover' : ''" @click="active = 3">
-          <div><svg-icon icon-class="fangchan" class="svg-icon" /></div>
+        <li
+          :class="active == 3 ? 'hover' : ''"
+          @click="active = 3"
+        >
+          <div>
+            <svg-icon
+              icon-class="fangchan"
+              class="svg-icon"
+            />
+          </div>
           <div>地</div>
         </li>
-        <li :class="active == 4 ? 'hover' : ''" @click="active = 4">
-          <div><svg-icon icon-class="matter" class="svg-icon" /></div>
+        <li
+          :class="active == 4 ? 'hover' : ''"
+          @click="active = 4"
+        >
+          <div>
+            <svg-icon
+              icon-class="matter"
+              class="svg-icon"
+            />
+          </div>
           <div>事</div>
         </li>
-        <li :class="active == 5 ? 'hover' : ''" @click="active = 5">
-          <div><svg-icon icon-class="goods" class="svg-icon" /></div>
+        <li
+          :class="active == 5 ? 'hover' : ''"
+          @click="active = 5"
+        >
+          <div>
+            <svg-icon
+              icon-class="goods"
+              class="svg-icon"
+            />
+          </div>
           <div>物</div>
         </li>
-        <li :class="active == 6 ? 'hover' : ''" @click="active = 6">
-          <div><svg-icon icon-class="netSvg" class="svg-icon" /></div>
+        <li
+          :class="active == 6 ? 'hover' : ''"
+          @click="active = 6"
+        >
+          <div>
+            <svg-icon
+              icon-class="netSvg"
+              class="svg-icon"
+            />
+          </div>
           <div>网</div>
         </li>
-        <li :class="active == 7 ? 'hover' : ''" @click="active = 7">
-          <div><svg-icon icon-class="organization" class="svg-icon" /></div>
+        <li
+          :class="active == 7 ? 'hover' : ''"
+          @click="active = 7"
+        >
+          <div>
+            <svg-icon
+              icon-class="organization"
+              class="svg-icon"
+            />
+          </div>
           <div>组织</div>
         </li>
       </ul>
     </div>
-    <div v-if="isShowPerson1" class="data-view-right">
+    <div
+      v-if="isShowPerson1"
+      class="data-view-right"
+    >
       <div class="content">
         <div class="top">
-          <div class="grid-point" @click="gridNumberVisible = true">
+          <div
+            class="grid-point"
+            @click="gridNumberVisible = true"
+          >
             <div class="grid-module">
               <h1>911</h1>
               <p>网格数</p>
             </div>
           </div>
-          <div class="grid-point" @click="gridPersonVisible = true">
+          <div
+            class="grid-point"
+            @click="gridPersonVisible = true"
+          >
             <div class="grid-module">
               <h1>354</h1>
               <p>网格员</p>
             </div>
           </div>
-          <div class="grid-into" @click="gridMixVisible = true">
+          <div
+            class="grid-into"
+            @click="gridMixVisible = true"
+          >
             <div class="grid-module">
               <h1>2834</h1>
               <p>网格融合</p>
@@ -106,40 +178,52 @@
             <h1>实有单位</h1>
             <ul>
               <li @click="handleOpenModal1('governanceCenter')">
-                <span class="svn"
-                  ><svg-icon icon-class="v-dw" class="svg-icon"/></span
-                ><span class="title">行政单位</span
-                ><strong class="num">147</strong><span class="unit">个</span>
+                <span
+                  class="svn"
+                ><svg-icon
+                  icon-class="v-dw"
+                  class="svg-icon"
+                /></span><span class="title">行政单位</span><strong class="num">147</strong><span class="unit">个</span>
               </li>
               <li @click="handleOpenModal1('mechanism')">
-                <span class="svn"
-                  ><svg-icon icon-class="v-qt" class="svg-icon"/></span
-                ><span class="title">群团组织</span
-                ><strong class="num">147</strong><span class="unit">个</span>
+                <span
+                  class="svn"
+                ><svg-icon
+                  icon-class="v-qt"
+                  class="svg-icon"
+                /></span><span class="title">群团组织</span><strong class="num">147</strong><span class="unit">个</span>
               </li>
               <li @click="handleOpenModal1('governanceSafe')">
-                <span class="svn"
-                  ><svg-icon icon-class="v-qsy" class="svg-icon"/></span
-                ><span class="title">企事业单位</span
-                ><strong class="num">147</strong><span class="unit">个</span>
+                <span
+                  class="svn"
+                ><svg-icon
+                  icon-class="v-qsy"
+                  class="svg-icon"
+                /></span><span class="title">企事业单位</span><strong class="num">147</strong><span class="unit">个</span>
               </li>
               <li @click="handleOpenModal1('managementTeam')">
-                <span class="svn"
-                  ><svg-icon icon-class="v-qf" class="svg-icon"/></span
-                ><span class="title">群防群治队伍</span
-                ><strong class="num">3809</strong><span class="unit">人</span>
+                <span
+                  class="svn"
+                ><svg-icon
+                  icon-class="v-qf"
+                  class="svg-icon"
+                /></span><span class="title">群防群治队伍</span><strong class="num">3809</strong><span class="unit">人</span>
               </li>
               <li @click="handleOpenModal1('mechanism1')">
-                <span class="svn"
-                  ><svg-icon icon-class="v-zz" class="svg-icon"/></span
-                ><span class="title">社会组织</span
-                ><strong class="num">147</strong><span class="unit">个</span>
+                <span
+                  class="svn"
+                ><svg-icon
+                  icon-class="v-zz"
+                  class="svg-icon"
+                /></span><span class="title">社会组织</span><strong class="num">147</strong><span class="unit">个</span>
               </li>
               <li @click="handleOpenModal1('mechanism')">
-                <span class="svn"
-                  ><svg-icon icon-class="v-qsy" class="svg-icon"/></span
-                ><span class="title">综治责任单位</span
-                ><strong class="num">147</strong><span class="unit">个</span>
+                <span
+                  class="svn"
+                ><svg-icon
+                  icon-class="v-qsy"
+                  class="svg-icon"
+                /></span><span class="title">综治责任单位</span><strong class="num">147</strong><span class="unit">个</span>
               </li>
             </ul>
           </div>
@@ -147,20 +231,16 @@
             <h1>实有事件</h1>
             <ul>
               <li @click="openMes(12)">
-                <span class="title">AI识别</span><strong class="num">147</strong
-                ><span class="unit">件</span>
+                <span class="title">AI识别</span><strong class="num">147</strong><span class="unit">件</span>
               </li>
               <li @click="openMes(1)">
-                <span class="title">事件接报</span
-                ><strong class="num">147</strong><span class="unit">件</span>
+                <span class="title">事件接报</span><strong class="num">147</strong><span class="unit">件</span>
               </li>
               <li @click="openMes(10)">
-                <span class="title">群众上报</span
-                ><strong class="num">147</strong><span class="unit">件</span>
+                <span class="title">群众上报</span><strong class="num">147</strong><span class="unit">件</span>
               </li>
               <li @click="openMes(11)">
-                <span class="title">平安小区</span
-                ><strong class="num">3809</strong><span class="unit">件</span>
+                <span class="title">平安小区</span><strong class="num">3809</strong><span class="unit">件</span>
               </li>
             </ul>
           </div>
@@ -170,20 +250,24 @@
             <h1>实有人口</h1>
             <ul>
               <li @click="handleVisible('householdRegister')">
-                <span class="svn"
-                  ><svg-icon icon-class="v-hj" class="svg-icon"/></span
-                ><span class="title">户籍人口</span><span class="line" /><strong
+                <span
+                  class="svn"
+                ><svg-icon
+                  icon-class="v-hj"
+                  class="svg-icon"
+                /></span><span class="title">户籍人口</span><span class="line" /><strong
                   class="num"
-                  >280061</strong
-                ><span class="unit">人</span>
+                >280061</strong><span class="unit">人</span>
               </li>
               <li @click="handleVisible('floatingPopulation')">
-                <span class="svn"
-                  ><svg-icon icon-class="v-ld" class="svg-icon"/></span
-                ><span class="title">流动人口</span><span class="line" /><strong
+                <span
+                  class="svn"
+                ><svg-icon
+                  icon-class="v-ld"
+                  class="svg-icon"
+                /></span><span class="title">流动人口</span><span class="line" /><strong
                   class="num"
-                  >39838</strong
-                ><span class="unit">人</span>
+                >39838</strong><span class="unit">人</span>
               </li>
               <li
                 @click="
@@ -191,11 +275,12 @@
                   handleVisible('overseasPersonnel');
                 "
               >
-                <span class="svn"
-                  ><svg-icon icon-class="v-ss" class="svg-icon"/></span
-                ><span class="title">少数民族人口</span
-                ><span class="line" /><strong class="num">87</strong
-                ><span class="unit">人</span>
+                <span
+                  class="svn"
+                ><svg-icon
+                  icon-class="v-ss"
+                  class="svg-icon"
+                /></span><span class="title">少数民族人口</span><span class="line" /><strong class="num">87</strong><span class="unit">人</span>
               </li>
               <li
                 @click="
@@ -203,20 +288,24 @@
                   handleVisible('specialGroups');
                 "
               >
-                <span class="svn"
-                  ><svg-icon icon-class="v-zd" class="svg-icon"/></span
-                ><span class="title">重点人员</span><span class="line" /><strong
+                <span
+                  class="svn"
+                ><svg-icon
+                  icon-class="v-zd"
+                  class="svg-icon"
+                /></span><span class="title">重点人员</span><span class="line" /><strong
                   class="num"
-                  >452</strong
-                ><span class="unit">人</span>
+                >452</strong><span class="unit">人</span>
               </li>
               <li @click="handleVisible('specialGroups')">
-                <span class="svn"
-                  ><svg-icon icon-class="v-zd" class="svg-icon"/></span
-                ><span class="title">外籍人口</span><span class="line" /><strong
+                <span
+                  class="svn"
+                ><svg-icon
+                  icon-class="v-zd"
+                  class="svg-icon"
+                /></span><span class="title">外籍人口</span><span class="line" /><strong
                   class="num"
-                  >452</strong
-                ><span class="unit">人</span>
+                >452</strong><span class="unit">人</span>
               </li>
               <li
                 @click="
@@ -224,12 +313,14 @@
                   handleVisible('safe');
                 "
               >
-                <span class="svn"
-                  ><svg-icon icon-class="v-ga" class="svg-icon"/></span
-                ><span class="title">关爱人群</span><span class="line" /><strong
+                <span
+                  class="svn"
+                ><svg-icon
+                  icon-class="v-ga"
+                  class="svg-icon"
+                /></span><span class="title">关爱人群</span><span class="line" /><strong
                   class="num"
-                  >342</strong
-                ><span class="unit">人</span>
+                >342</strong><span class="unit">人</span>
               </li>
             </ul>
           </div>
@@ -238,9 +329,12 @@
             <ul>
               <li>
                 <p>
-                  <span class="svn"
-                    ><svg-icon icon-class="d-xq" class="svg-icon"/></span
-                  ><span class="title">小区总数</span>
+                  <span
+                    class="svn"
+                  ><svg-icon
+                    icon-class="d-xq"
+                    class="svg-icon"
+                  /></span><span class="title">小区总数</span>
                 </p>
                 <p class="pClass">
                   <strong class="num">23</strong><span class="unit">个</span>
@@ -248,9 +342,12 @@
               </li>
               <li>
                 <p>
-                  <span class="svn"
-                    ><svg-icon icon-class="d-zzfw" class="svg-icon"/></span
-                  ><span class="title">住宅房屋</span>
+                  <span
+                    class="svn"
+                  ><svg-icon
+                    icon-class="d-zzfw"
+                    class="svg-icon"
+                  /></span><span class="title">住宅房屋</span>
                 </p>
                 <p class="pClass">
                   <strong class="num">107</strong><span class="unit">个</span>
@@ -258,9 +355,12 @@
               </li>
               <li>
                 <p>
-                  <span class="svn"
-                    ><svg-icon icon-class="d-spf" class="svg-icon"/></span
-                  ><span class="title">商品房</span>
+                  <span
+                    class="svn"
+                  ><svg-icon
+                    icon-class="d-spf"
+                    class="svg-icon"
+                  /></span><span class="title">商品房</span>
                 </p>
                 <p class="pClass">
                   <strong class="num">84</strong><span class="unit">个</span>
@@ -268,9 +368,12 @@
               </li>
               <li>
                 <p>
-                  <span class="svn"
-                    ><svg-icon icon-class="d-qy" class="svg-icon"/></span
-                  ><span class="title">重点区域</span>
+                  <span
+                    class="svn"
+                  ><svg-icon
+                    icon-class="d-qy"
+                    class="svg-icon"
+                  /></span><span class="title">重点区域</span>
                 </p>
                 <p class="pClass">
                   <strong class="num">293</strong><span class="unit">个</span>
@@ -278,9 +381,12 @@
               </li>
               <li>
                 <p>
-                  <span class="svn"
-                    ><svg-icon icon-class="d-qy" class="svg-icon"/></span
-                  ><span class="title">重点场所</span>
+                  <span
+                    class="svn"
+                  ><svg-icon
+                    icon-class="d-qy"
+                    class="svg-icon"
+                  /></span><span class="title">重点场所</span>
                 </p>
                 <p class="pClass">
                   <strong class="num">118</strong><span class="unit">个</span>
@@ -288,9 +394,12 @@
               </li>
               <li>
                 <p>
-                  <span class="svn"
-                    ><svg-icon icon-class="d-gc" class="svg-icon"/></span
-                  ><span class="title">十大工程</span>
+                  <span
+                    class="svn"
+                  ><svg-icon
+                    icon-class="d-gc"
+                    class="svg-icon"
+                  /></span><span class="title">十大工程</span>
                 </p>
                 <p class="pClass">
                   <strong class="num">287</strong><span class="unit">个</span>
@@ -339,9 +448,9 @@
     />
     <mesDetail
       :visible.sync="dialogShow"
+      :type="type"
       @getModal="getModal"
       @refresh="refresh"
-      :type="type"
     />
     <EventModal
       v-if="modal === 'event'"
@@ -368,8 +477,8 @@
     />
 
     <DetailModal
-      :visible.sync="detailModal.visible"
       :id="detailModal.eventId"
+      :visible.sync="detailModal.visible"
     />
   </div>
 </template>
@@ -395,7 +504,6 @@ import EventModal from '../EventModal'
 import DealModal from '../DealModal'
 import ShowToast from '../ShowToast'
 export default {
-  mixins: [watchCurRegionCode, openModal, openZnypModal],
   components: {
     floatPeople,
     householdPeople,
@@ -414,7 +522,8 @@ export default {
     DealModal,
     ShowToast
   },
-  data() {
+  mixins: [watchCurRegionCode, openModal, openZnypModal],
+  data () {
     return {
       isShowPerson1: true,
       isShowPerson2: false,
@@ -456,7 +565,7 @@ export default {
     }
   },
   methods: {
-    handlePageShow(curPage) {
+    handlePageShow (curPage) {
       console.log(curPage)
       this.isShowPerson1 = false
       this.isShowPerson2 = false
@@ -464,7 +573,7 @@ export default {
       this.isShowPerson4 = false
       this[curPage] = true
     },
-    handleVisible(type) {
+    handleVisible (type) {
       switch (type) {
         case 'floatingPopulation':
           this.floatingPopulationVisible = true
@@ -479,7 +588,7 @@ export default {
           break
       }
     },
-    handleOpenModal1(iconName) {
+    handleOpenModal1 (iconName) {
       console.log(iconName)
       if (iconName === 'governanceCenter') {
         this.governmentCenterModal.visiable = true
@@ -499,11 +608,11 @@ export default {
         this.govermentSafeModal.visiable = true
       }
     },
-    openMes(type) {
+    openMes (type) {
       this.dialogShow = true
       this.type = type
     },
-    getModal(modal, id) {
+    getModal (modal, id) {
       switch (modal) {
         case 'order':
           this.onEventModal('事件指派', id)
@@ -523,13 +632,13 @@ export default {
       }
     },
     // 激活事件详情弹框
-    showEventDetail(info) {
+    showEventDetail (info) {
       console.log(info, 'event')
       this.eventInfo = info
       this.modal = 'event'
     },
     // 监听事件详情弹框
-    onEventModal(title, id) {
+    onEventModal (title, id) {
       if (title === '事件指派' || title === '事件上报') {
         this.modal = 'report'
         this.dealModalTitle = title
@@ -546,14 +655,14 @@ export default {
       this.modal = ''
     },
     // 监听事件指派和上报弹框
-    onDealModal() {
+    onDealModal () {
       this.modal = ''
     },
     // 监听事件处置弹框
-    onShowToast() {
+    onShowToast () {
       this.modal = ''
     },
-    refresh() {
+    refresh () {
       this.refreshCount++
     }
   }

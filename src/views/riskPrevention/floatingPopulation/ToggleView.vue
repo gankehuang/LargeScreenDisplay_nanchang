@@ -12,13 +12,13 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       mapOrEcharts: false
     }
   },
   methods: {
-    handlemMapOrEcharts(isShow) {
+    handlemMapOrEcharts (isShow) {
       this.mapOrEcharts = isShow
       this.$emit('updateView', isShow)
     }

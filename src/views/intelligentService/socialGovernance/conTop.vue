@@ -1,34 +1,42 @@
 <template>
   <div class="conTop">
-    <p class="title">辖区事件概况<span>（实时数据）</span></p>
+    <p class="title">
+      辖区事件概况<span>（实时数据）</span>
+    </p>
     <div class="conTop-one">
       <div
-        class="right-one"
         v-for="(item, index) in dataList"
         :key="index"
+        class="right-one"
         @click="handleItem(item)"
       >
         <p>{{ item.name }}</p>
-        <p class="nums">{{ item.num }}</p>
+        <p class="nums">
+          {{ item.num }}
+        </p>
       </div>
     </div>
-    <p class="title">事件来源<span>（实时数据）</span></p>
+    <p class="title">
+      事件来源<span>（实时数据）</span>
+    </p>
     <div class="conTop-two">
       <div
-        class="right-one"
         v-for="(item, index) in dataList1"
         :key="index"
+        class="right-one"
         @click="handleItem(item)"
       >
         <p>{{ item.name }}</p>
-        <p class="nums">{{ item.num }}</p>
+        <p class="nums">
+          {{ item.num }}
+        </p>
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       dataList: [
         {
@@ -73,7 +81,7 @@ export default {
     }
   },
   methods: {
-    handleItem(item) {
+    handleItem (item) {
       if (
         item.name === '事件总数' ||
         item.name === '待办事件' ||

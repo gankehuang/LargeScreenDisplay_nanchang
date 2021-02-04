@@ -1,10 +1,14 @@
 <template>
   <div class="eventNum">
-    <div class="title">督导数量分析</div>
+    <div class="title">
+      督导数量分析
+    </div>
     <div class="contain">
-      <div class="lefts"></div>
+      <div class="lefts" />
       <div class="middles">
-        <p class="alls">{{ num }}</p>
+        <p class="alls">
+          {{ num }}
+        </p>
         <p>督导事件总数</p>
       </div>
       <div class="rights">
@@ -25,7 +29,7 @@ export default {
   props: {
     num: Number
   },
-  mounted() {}
+  mounted () {}
 }
 </script>
 <style lang="scss" scoped>

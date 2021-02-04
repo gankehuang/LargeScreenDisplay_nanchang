@@ -1,19 +1,19 @@
 <template>
   <div class="page-right">
-    <LineInfo />
-    <ListInfo />
+    <EarlyWarningTrend />
+    <DynamicEarlyWarning />
   </div>
 </template>
 
 <script>
-import LineInfo from './LineInfo'
-import ListInfo from './ListInfo'
+import EarlyWarningTrend from './EarlyWarningTrend'
+import DynamicEarlyWarning from './DynamicEarlyWarning'
 export default {
   components: {
-    LineInfo,
-    ListInfo
+    EarlyWarningTrend,
+    DynamicEarlyWarning
   },
-  data() {
+  data () {
     return {}
   }
 }

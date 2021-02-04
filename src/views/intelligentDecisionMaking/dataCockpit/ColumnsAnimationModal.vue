@@ -1,11 +1,17 @@
 <template>
-  <div class="modal-container" v-if="visible" :style="modalPositionObj">
+  <div
+    v-if="visible"
+    class="modal-container"
+    :style="modalPositionObj"
+  >
     <img
       class="btn-close"
       src="@/assets/image/common/close-btn.png"
       @click="bindBtnClose"
-    />
-    <div class="modal-title">{{ info.title }}</div>
+    >
+    <div class="modal-title">
+      {{ info.title }}
+    </div>
     <Visual
       v-bind="$attrs"
       style="transform: scale(0.65);position:relative;top:-130px;left:-70px;"
@@ -16,6 +22,9 @@
 <script>
 import Visual from '@/components/Visual/Visual'
 export default {
+  components: {
+    Visual
+  },
   inheritAttrs: false,
   props: {
     visible: {
@@ -27,16 +36,13 @@ export default {
       default: () => null
     }
   },
-  components: {
-    Visual
-  },
-  data() {
+  data () {
     return {
       loading: false
     }
   },
   computed: {
-    modalPositionObj() {
+    modalPositionObj () {
       if (this.info && this.info.position === 'left') {
         return {
           left: '20px'
@@ -51,7 +57,7 @@ export default {
     }
   },
   methods: {
-    bindBtnClose() {
+    bindBtnClose () {
       this.$emit('update:visible', false)
     }
   }

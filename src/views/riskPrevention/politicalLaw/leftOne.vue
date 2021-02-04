@@ -1,14 +1,23 @@
 <template>
   <div class="leftOne">
-    <div class="title">舆情统计</div>
+    <div class="title">
+      舆情统计
+    </div>
     <div class="con-top">
       <div class="con-top-left">
-        <div class="con-top-left-num">94.2%</div>
-        <div class="con-top-left-name">安全指数</div>
+        <div class="con-top-left-num">
+          94.2%
+        </div>
+        <div class="con-top-left-name">
+          安全指数
+        </div>
       </div>
       <div class="con-top-right">
         <div class="totals">
-          <svg-icon icon-class="yuqing1" style="color:#17FBFF;font-size:16px" />
+          <svg-icon
+            icon-class="yuqing1"
+            style="color:#17FBFF;font-size:16px"
+          />
           今日预警舆情总数<span>1733</span>条
         </div>
         <div>
@@ -33,7 +42,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {}
   }
 }

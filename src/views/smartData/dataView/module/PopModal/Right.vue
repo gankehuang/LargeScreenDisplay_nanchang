@@ -1,33 +1,46 @@
 <template>
   <div class="pop-modal-left">
-    <div class="foreign-icon"></div>
+    <div class="foreign-icon" />
     <div class="foreign-data">
-      <v-chart :options="foreignOptions" class="chart" />
+      <v-chart
+        :options="foreignOptions"
+        class="chart"
+      />
     </div>
     <div class="minority-people-data">
-      <div class="minority-people-title">少数民族</div>
-      <v-chart :options="importantOptions" class="chart" />
+      <div class="minority-people-title">
+        少数民族
+      </div>
+      <v-chart
+        :options="importantOptions"
+        class="chart"
+      />
     </div>
     <div class="caring-people-data">
-      <div class="caring-people-title">关爱人群</div>
+      <div class="caring-people-title">
+        关爱人群
+      </div>
       <div class="caring-people-list">
         <div class="children">
           儿童
-          <div class="num">123322%</div>
+          <div class="num">
+            123322%
+          </div>
         </div>
         <div class="charts">
           <RingPerChart
             :number="caringOptions.number"
             :total="caringOptions.total"
             :color="caringOptions.color"
-            :styleObj="caringOptions.styleObj"
-            :isPerBool="false"
-          >
-          </RingPerChart>
+            :style-obj="caringOptions.styleObj"
+            :is-per-bool="false"
+          />
         </div>
         <div class="old-people">
           老年人
-          <div class="num">121232%</div>
+          <div class="num">
+            121232%
+          </div>
         </div>
       </div>
     </div>
@@ -114,7 +127,7 @@ export default {
   components: {
     RingPerChart
   },
-  data() {
+  data () {
     return {
       caringOptions: {
         label: '公交车在线数',

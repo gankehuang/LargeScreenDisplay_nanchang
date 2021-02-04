@@ -1,31 +1,46 @@
 <template>
   <div class="page-right">
     <div class="top">
-      <div class="title">警情分析报告</div>
+      <div class="title">
+        警情分析报告
+      </div>
       <div class="list">
         <el-scrollbar style="height:202px">
           <div
-            class="item"
             v-for="(item, index) in rightTopList"
             :key="index"
+            class="item"
             @click="watchPdf(item)"
           >
-            <div class="label">{{ item.label }}</div>
-            <div class="date">{{ item.date }}</div>
+            <div class="label">
+              {{ item.label }}
+            </div>
+            <div class="date">
+              {{ item.date }}
+            </div>
             <a
+              v-if="item.url"
               target="_blank"
               :download="item.label"
               :href="item.url"
-              v-if="item.url"
               @click.stop=""
             >
               <div class="download">
-                <svg-icon icon-class="download" class="svg-icon" />
+                <svg-icon
+                  icon-class="download"
+                  class="svg-icon"
+                />
               </div>
             </a>
-            <a @click.stop="downloadReport" v-else>
+            <a
+              v-else
+              @click.stop="downloadReport"
+            >
               <div class="download">
-                <svg-icon icon-class="download" class="svg-icon" />
+                <svg-icon
+                  icon-class="download"
+                  class="svg-icon"
+                />
               </div>
             </a>
           </div>
@@ -33,33 +48,52 @@
       </div>
     </div>
     <div class="top center">
-      <div class="title">警情问题突出领域</div>
+      <div class="title">
+        警情问题突出领域
+      </div>
       <div class="list">
         <ul>
-          <li v-for="(item, index) in top5" :key="index">
+          <li
+            v-for="(item, index) in top5"
+            :key="index"
+          >
             <div class="icon">
-              <svg-icon icon-class="ranking" class="svg-icon" />
-              <div class="serial">{{ index + 1 }}</div>
+              <svg-icon
+                icon-class="ranking"
+                class="svg-icon"
+              />
+              <div class="serial">
+                {{ index + 1 }}
+              </div>
             </div>
-            <div class="names">{{ item.name }}</div>
-            <div class="line"></div>
-            <div class="num">{{ item.value }}</div>
+            <div class="names">
+              {{ item.name }}
+            </div>
+            <div class="line" />
+            <div class="num">
+              {{ item.value }}
+            </div>
           </li>
         </ul>
       </div>
     </div>
     <div class="bottom">
-      <div class="title">警情类型分布</div>
+      <div class="title">
+        警情类型分布
+      </div>
       <v-chart :options="rightBottomOptions" />
     </div>
-    <PdfDialog :visible.sync="pdfModalVisible" :pdfFile="pdfFile" />
+    <PdfDialog
+      :visible.sync="pdfModalVisible"
+      :pdf-file="pdfFile"
+    />
   </div>
 </template>
 
 <script>
 import { alertTop5, alertNumber } from '@/api/intelligentDecisionMaking/special'
 export default {
-  data() {
+  data () {
     return {
       top5: [],
       pdfModalVisible: false,
@@ -196,8 +230,12 @@ export default {
       }
     }
   },
+  mounted () {
+    this.getTop5()
+    this.alertNumber()
+  },
   methods: {
-    watchPdf(item) {
+    watchPdf (item) {
       if (item.url) {
         this.pdfModalVisible = true
         this.pdfFile.file = item.url
@@ -206,17 +244,17 @@ export default {
         this.downloadReport()
       }
     },
-    downloadReport() {
+    downloadReport () {
       this.$message.warning('暂无报告')
     },
-    getTop5() {
+    getTop5 () {
       alertTop5().then(res => {
         if (res.status === 200) {
           this.top5 = res.data
         }
       })
     },
-    alertNumber() {
+    alertNumber () {
       alertNumber().then(res => {
         if (res.status === 200) {
           const dataList = []
@@ -249,7 +287,7 @@ export default {
         }
       })
     },
-    sortList(dataList) {
+    sortList (dataList) {
       this.rightBottomOptions.series[0].data = []
       this.rightBottomOptions.xAxis.data = []
       const newArr = dataList.sort(this._compare('value'))
@@ -258,17 +296,13 @@ export default {
         this.rightBottomOptions.xAxis.data.unshift(item.name)
       })
     },
-    _compare(property) {
-      return function(a, b) {
+    _compare (property) {
+      return function (a, b) {
         const value1 = a[property]
         const value2 = b[property]
         return value1 - value2
       }
     }
-  },
-  mounted() {
-    this.getTop5()
-    this.alertNumber()
   }
 }
 </script>

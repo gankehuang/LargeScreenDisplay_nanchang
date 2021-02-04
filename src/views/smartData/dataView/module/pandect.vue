@@ -36,12 +36,10 @@
         <h1>实有房屋</h1>
         <ul>
           <li>
-            <span class="title">小区总数</span><strong class="num">300</strong
-            ><span class="unit">个</span>
+            <span class="title">小区总数</span><strong class="num">300</strong><span class="unit">个</span>
           </li>
           <li>
-            <span class="title">房屋总数</span><strong class="num">400</strong
-            ><span class="unit">间</span>
+            <span class="title">房屋总数</span><strong class="num">400</strong><span class="unit">间</span>
           </li>
         </ul>
       </div>
@@ -49,12 +47,10 @@
         <h1>实有事件</h1>
         <ul>
           <li>
-            <span class="title">案事件总数</span
-            ><strong class="num">12000</strong><span class="unit">件</span>
+            <span class="title">案事件总数</span><strong class="num">12000</strong><span class="unit">件</span>
           </li>
           <li>
-            <span class="title">处置完成</span><strong class="num">1210</strong
-            ><span class="unit">件</span>
+            <span class="title">处置完成</span><strong class="num">1210</strong><span class="unit">件</span>
           </li>
         </ul>
       </div>
@@ -65,25 +61,19 @@
           <h1>公共视频</h1>
           <ul>
             <li>
-              <span class="icon"><i class="iconfont icon-shexiangtou"/></span
-              ><span class="title">天网总数</span><span class="line" /><strong
+              <span class="icon"><i class="iconfont icon-shexiangtou" /></span><span class="title">天网总数</span><span class="line" /><strong
                 class="num"
-                >8989</strong
-              ><span class="unit">个</span>
+              >8989</strong><span class="unit">个</span>
             </li>
             <li>
-              <span class="icon"
-                ><i class="iconfont icon-shujumofangdiwang"/></span
-              ><span class="title">地网总数</span><span class="line" /><strong
+              <span
+                class="icon"
+              ><i class="iconfont icon-shujumofangdiwang" /></span><span class="title">地网总数</span><span class="line" /><strong
                 class="num"
-                >999</strong
-              ><span class="unit">个</span>
+              >999</strong><span class="unit">个</span>
             </li>
             <li>
-              <span class="icon"><i class="iconfont icon-diannao1"/></span
-              ><span class="title">社会资源总数</span
-              ><span class="line" /><strong class="num">999</strong
-              ><span class="unit">个</span>
+              <span class="icon"><i class="iconfont icon-diannao1" /></span><span class="title">社会资源总数</span><span class="line" /><strong class="num">999</strong><span class="unit">个</span>
             </li>
           </ul>
         </div>
@@ -91,52 +81,34 @@
           <h1>综治组织</h1>
           <ul>
             <li>
-              <span class="icon"><i class="iconfont icon-target"/></span
-              ><span class="title">综治中心</span
-              ><span class="total"
-                ><strong class="num">1</strong
-                ><span class="unit">个</span></span
-              >
+              <span class="icon"><i class="iconfont icon-target" /></span><span class="title">综治中心</span><span
+                class="total"
+              ><strong class="num">1</strong><span class="unit">个</span></span>
             </li>
             <li>
-              <span class="icon"><i class="iconfont icon-qunfangqunzhi"/></span
-              ><span class="title">志愿者队伍</span
-              ><span class="total"
-                ><strong class="num">999</strong
-                ><span class="unit">个</span></span
-              >
+              <span class="icon"><i class="iconfont icon-qunfangqunzhi" /></span><span class="title">志愿者队伍</span><span
+                class="total"
+              ><strong class="num">999</strong><span class="unit">个</span></span>
             </li>
             <li>
-              <span class="icon"><i class="iconfont icon-jigou"/></span
-              ><span class="title">综治责任单位</span
-              ><span class="total"
-                ><strong class="num">19</strong
-                ><span class="unit">个</span></span
-              >
+              <span class="icon"><i class="iconfont icon-jigou" /></span><span class="title">综治责任单位</span><span
+                class="total"
+              ><strong class="num">19</strong><span class="unit">个</span></span>
             </li>
             <li>
-              <span class="icon"><i class="iconfont icon-quncequnfang"/></span
-              ><span class="title">社会组织</span
-              ><span class="total"
-                ><strong class="num">999</strong
-                ><span class="unit">人</span></span
-              >
+              <span class="icon"><i class="iconfont icon-quncequnfang" /></span><span class="title">社会组织</span><span
+                class="total"
+              ><strong class="num">999</strong><span class="unit">人</span></span>
             </li>
             <li>
-              <span class="icon"><i class="iconfont icon-duiwu"/></span
-              ><span class="title">群防群治单位</span
-              ><span class="total"
-                ><strong class="num">999</strong
-                ><span class="unit">个</span></span
-              >
+              <span class="icon"><i class="iconfont icon-duiwu" /></span><span class="title">群防群治单位</span><span
+                class="total"
+              ><strong class="num">999</strong><span class="unit">个</span></span>
             </li>
             <li>
-              <span class="icon"><i class="iconfont icon-zhiyuanzhe1"/></span
-              ><span class="title">必防组织</span
-              ><span class="total"
-                ><strong class="num">999</strong
-                ><span class="unit">个</span></span
-              >
+              <span class="icon"><i class="iconfont icon-zhiyuanzhe1" /></span><span class="title">必防组织</span><span
+                class="total"
+              ><strong class="num">999</strong><span class="unit">个</span></span>
             </li>
           </ul>
         </div>
@@ -165,8 +137,7 @@
         <ul class="reseau">
           <li>
             <p>
-              <span class="icon"><i class="iconfont icon-wangge1"/></span
-              ><span class="title">网格总数</span>
+              <span class="icon"><i class="iconfont icon-wangge1" /></span><span class="title">网格总数</span>
             </p>
             <p class="pClass">
               <strong class="num">24</strong>
@@ -174,8 +145,7 @@
           </li>
           <li>
             <p>
-              <span class="icon"><i class="iconfont icon-renyuan"/></span
-              ><span class="title">网格员数</span>
+              <span class="icon"><i class="iconfont icon-renyuan" /></span><span class="title">网格员数</span>
             </p>
             <p class="pClass">
               <strong class="num">999</strong>
@@ -183,9 +153,9 @@
           </li>
           <li>
             <p>
-              <span class="icon"
-                ><i class="iconfont icon-ronghezongliang"/></span
-              ><span class="title">网格融合</span>
+              <span
+                class="icon"
+              ><i class="iconfont icon-ronghezongliang" /></span><span class="title">网格融合</span>
             </p>
             <p class="pClass">
               <strong class="num">99</strong>
@@ -196,8 +166,7 @@
         <p class="connected">
           <span class="title">打通单位数</span><span class="img" /><strong
             class="num"
-            >87/93</strong
-          ><span class="unit">家</span>
+          >87/93</strong><span class="unit">家</span>
         </p>
       </div>
     </div>

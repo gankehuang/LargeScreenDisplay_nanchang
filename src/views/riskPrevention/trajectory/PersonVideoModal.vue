@@ -1,10 +1,13 @@
 <template>
-  <div class="modal" v-if="visible">
+  <div
+    v-if="visible"
+    class="modal"
+  >
     <img
       class="btn-close"
       src="@/assets/image/KeyThrong/close.png"
       @click="bindBtnClose"
-    />
+    >
     <div class="player-container">
       <IframeVideoPlay
         v-if="info.gbIndexCode || info.cameraIndexCode"
@@ -24,11 +27,11 @@ export default {
     info: Object,
     visible: Boolean
   },
-  data() {
+  data () {
     return {}
   },
   methods: {
-    bindBtnClose() {
+    bindBtnClose () {
       this.$emit('update:visible', false)
     }
   }

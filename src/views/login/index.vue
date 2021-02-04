@@ -14,8 +14,8 @@
         </div>
         <div class="form-bg">
           <el-input
-            class="password"
             v-model="form.password"
+            class="password"
             type="password"
             placeholder="密码"
           />
@@ -34,7 +34,7 @@ import { countCameraByRegion } from '@/api/smartData/gridView'
 
 export default {
   name: 'Login',
-  data() {
+  data () {
     return {
       form: {
         username: '',
@@ -46,7 +46,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         const query = route.query
         if (query) {
           this.redirect = query.redirect
@@ -56,7 +56,7 @@ export default {
       immediate: true
     }
   },
-  created() {
+  created () {
     // eslint-disable-next-line handle-callback-err
     window.localforage.getItem('regionVideoObj', (err, value) => {
       if (value) {
@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     // 开始获取天网视频列表worker
-    async startVideoWorker() {
+    async startVideoWorker () {
       const worker = new Worker('../../videoWorker.js')
       let saveNum = 0
       worker.onmessage = ({ data }) => {
@@ -108,9 +108,9 @@ export default {
       }
     },
     // 存储天网视频列表
-    _saveVideoData({ gridType, markers }) {
+    _saveVideoData ({ gridType, markers }) {
       // eslint-disable-next-line handle-callback-err
-      window.localforage.getItem('regionVideoObj', function(err, value) {
+      window.localforage.getItem('regionVideoObj', function (err, value) {
         let regionVideoObj = value
         if (!regionVideoObj) {
           regionVideoObj = {}
@@ -119,7 +119,7 @@ export default {
         window.localforage.setItem('regionVideoObj', regionVideoObj)
       })
     },
-    handleLogin() {
+    handleLogin () {
       this.$store.dispatch('user/login', this.form).then(
         () => {
           this.$router.push({
@@ -136,7 +136,7 @@ export default {
         }
       )
     },
-    getOtherQuery(query) {
+    getOtherQuery (query) {
       return Object.keys(query).reduce((acc, cur) => {
         if (cur !== 'redirect') {
           acc[cur] = query[cur]

@@ -3,16 +3,22 @@
     <div class="title">
       各县区综合排名
     </div>
-    <div class="pingan-box" @click="watchBaogao">
-      <svg-icon icon-class="baogao" style="color:#17FBFF;font-size:16px" />
+    <div
+      class="pingan-box"
+      @click="watchBaogao"
+    >
+      <svg-icon
+        icon-class="baogao"
+        style="color:#17FBFF;font-size:16px"
+      />
       平安报告
     </div>
     <div class="tabs">
       <div
-        class="tab"
-        :class="selectedItem.index === index ? 'tab-selected' : ''"
         v-for="(item, index) in tabs"
         :key="index"
+        class="tab"
+        :class="selectedItem.index === index ? 'tab-selected' : ''"
         @click="handleTab({ index, ...item })"
       >
         <div
@@ -21,10 +27,10 @@
           @click="
             index === 0
               ? handleSelectedIndicator({
-                  label: '综合',
-                  indicatorName: '综合',
-                  level: 0
-                })
+                label: '综合',
+                indicatorName: '综合',
+                level: 0
+              })
               : ''
           "
         >
@@ -85,23 +91,48 @@
     <div class="samrt-make-policy-list">
       <ul>
         <li>
-          <div class="index">排名</div>
-          <div class="countyName">县区</div>
-          <div class="county">指标名称</div>
-          <div class="score">分数</div>
-          <div class="sort-change">排名变化</div>
-          <div class="edit">操作</div>
+          <div class="index">
+            排名
+          </div>
+          <div class="countyName">
+            县区
+          </div>
+          <div class="county">
+            指标名称
+          </div>
+          <div class="score">
+            分数
+          </div>
+          <div class="sort-change">
+            排名变化
+          </div>
+          <div class="edit">
+            操作
+          </div>
         </li>
         <el-scrollbar style="width:100%;height:650px">
-          <li v-for="(item, index) in listData" :key="index">
-            <div class="index">{{ index + 1 }}</div>
-            <div class="countyName text-overflows" :title="item.name">
+          <li
+            v-for="(item, index) in listData"
+            :key="index"
+          >
+            <div class="index">
+              {{ index + 1 }}
+            </div>
+            <div
+              class="countyName text-overflows"
+              :title="item.name"
+            >
               {{ item.name }}
             </div>
-            <div class="county text-overflows" :title="item.indexName">
+            <div
+              class="county text-overflows"
+              :title="item.indexName"
+            >
               {{ item.indexName }}
             </div>
-            <div class="score">{{ item.score }}</div>
+            <div class="score">
+              {{ item.score }}
+            </div>
             <div class="sort-change">
               <!-- <el-image
               :src="
@@ -143,21 +174,7 @@ export default {
       default: false
     }
   },
-  beforeDestroy() {
-    this.$EventBus.$off('update:selectedItemCode')
-  },
-  mounted() {
-    this.$EventBus.$on('selectedItemCode', code => {
-      this.selectedItemCode = code
-      if (code !== '3601') {
-        this.handleGetGridLine(code)
-      } else {
-        this.handleQuerySecurityAssessList(initListData)
-      }
-    })
-    this.handleQuerySecurityAssessList()
-  },
-  data() {
+  data () {
     return {
       selectedCounty: undefined,
       selectedItemCode: '',
@@ -205,25 +222,39 @@ export default {
     }
   },
   watch: {
-    oneLevelItem(oneLevelItem) {
+    oneLevelItem (oneLevelItem) {
       this.twoLevel = initTwoLevel
       this.twoLevel = this.twoLevel.filter(
         item => item.upLevelLabel === oneLevelItem.label
       )
     },
-    twoLevelItem(twoLevelItem) {
+    twoLevelItem (twoLevelItem) {
       this.threeLevel = initThreeLevel
       this.threeLevel = this.threeLevel.filter(
         item => item.upLevelLabel === twoLevelItem.label
       )
     }
   },
+  beforeDestroy () {
+    this.$EventBus.$off('update:selectedItemCode')
+  },
+  mounted () {
+    this.$EventBus.$on('selectedItemCode', code => {
+      this.selectedItemCode = code
+      if (code !== '3601') {
+        this.handleGetGridLine(code)
+      } else {
+        this.handleQuerySecurityAssessList(initListData)
+      }
+    })
+    this.handleQuerySecurityAssessList()
+  },
   methods: {
-    watchBaogao() {
+    watchBaogao () {
       // this.pdfModalVisible = true
       this.$emit('watchBaogao', true)
     },
-    handleTab(item) {
+    handleTab (item) {
       if (item.index === 0) {
         this.handleOneLevel({ label: '一级指标' })
         this.handleTwoLevel({ label: '二级指标' })
@@ -235,25 +266,25 @@ export default {
         this.selectedItem = item
       }
     },
-    handleOneLevel(item) {
+    handleOneLevel (item) {
       this.oneLevelItem = { label: item.label }
       this.tabs[1] = { label: item.label }
       this.handleTwoLevel({ label: '二级指标' })
       this.handleThreeLevel({ label: '三级指标' })
     },
-    handleTwoLevel(item) {
+    handleTwoLevel (item) {
       this.twoLevelItem = { label: item.label }
       this.tabs[2] = { label: item.label }
     },
-    handleThreeLevel(item) {
+    handleThreeLevel (item) {
       this.tabs[3] = { label: item.label }
     },
-    open() {
+    open () {
       this.$emit('update:visible', true)
       // this.$emit('update:buttonVisible', true)
     },
     // 整合各县区综合排名列表后端联调数据
-    handleBackenddata(data, listData) {
+    handleBackenddata (data, listData) {
       this.listData = data.map(item => {
         for (let index = 0; index < listData.length; index++) {
           const element = listData[index]
@@ -270,12 +301,12 @@ export default {
       })
     },
     // 获取当前选中县区
-    handleSelectedCounty(county) {
+    handleSelectedCounty (county) {
       this.$EventBus.$emit('update:selectedCounty', county)
       this.selectedCounty = county
     },
     // 获取当前选中指标
-    handleSelectedIndicator(indicator) {
+    handleSelectedIndicator (indicator) {
       this.$EventBus.$emit('update:selectedIndicator', indicator)
       this.selectedIndicator = indicator
       if (this.selectedItemCode === '3601') {
@@ -285,7 +316,7 @@ export default {
       }
     },
     // 获取各县区得分
-    async handleQuerySecurityAssessList(listData) {
+    async handleQuerySecurityAssessList (listData) {
       // debugger
       try {
         const { status, data } = await querySecurityAssessList({
@@ -298,7 +329,7 @@ export default {
       } catch (error) {}
     },
     // 获取各县区下属乡镇、社区
-    async handleGetGridLine(code) {
+    async handleGetGridLine (code) {
       try {
         const { status, data } = await getGridLine({ code, gridLevel: 3 })
         if (status === 200) {

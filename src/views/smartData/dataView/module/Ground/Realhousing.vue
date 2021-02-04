@@ -1,6 +1,8 @@
 <template>
   <div class="realhousing-container">
-    <div class="title">实有房屋</div>
+    <div class="title">
+      实有房屋
+    </div>
     <!-- <div class="total">
       <svg-icon
         icon-class="realhousing-total"
@@ -17,7 +19,9 @@
           <span>{{ housingTotal }}</span>
           <span>套</span>
         </div>
-        <div class="label">房屋总数</div>
+        <div class="label">
+          房屋总数
+        </div>
       </li>
       <!-- @click="handleOpenBuildModal" -->
       <li style="cursor: pointer;">
@@ -26,7 +30,9 @@
           <span>{{ renthousing }}</span>
           <span>套</span>
         </div>
-        <div class="label">出租房屋</div>
+        <div class="label">
+          出租房屋
+        </div>
       </li>
     </ul>
   </div>
@@ -36,7 +42,7 @@
 // import { queryRoomCount, queryRentRoomCount } from '@/api/smartData/dataView'
 import { queryRoomGeneral } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       housingTotal: 0,
       renthousing: 0,
@@ -45,13 +51,13 @@ export default {
       // name: '江西'
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  async mounted() {
+  async mounted () {
     await this.handleQueryRoomCount()
     // await this.handleQueryRentRoomCount()
-    this.$EventBus.$on('update:dataViewSeleItem', async({ code, name }) => {
+    this.$EventBus.$on('update:dataViewSeleItem', async ({ code, name }) => {
       this.code = code
       this.name = name.slice(0, name.length - 1)
       console.log(name)
@@ -81,17 +87,17 @@ export default {
     //   } catch (error) {}
     // },
     // 打开人口弹窗
-    handleOpenBuildModal() {
+    handleOpenBuildModal () {
       this.$EventBus.$emit('update:buildModalVisible', true)
     },
-    async handleQueryRoomCount() {
+    async handleQueryRoomCount () {
       try {
         const { status, data } = await queryRoomGeneral({
           gridCode: this.code
         })
         if (status === 200) {
-          this.housingTotal = data['room']
-          this.renthousing = data['rent']
+          this.housingTotal = data.room
+          this.renthousing = data.rent
         }
       } catch (error) {}
     }

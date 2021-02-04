@@ -1,6 +1,8 @@
 <template>
   <div class="structure-container">
-    <div class="title">人口结构</div>
+    <div class="title">
+      人口结构
+    </div>
     <v-chart
       :options="famaleOptions"
       style="display:inline-block;width:40%;height:100%"
@@ -15,7 +17,7 @@
 <script>
 import { structure } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       famale: [-185800, -710399, -712292, -355646, -444803].fill(0).reverse(),
       male: [203146, 776508, 778802, 388851, 486993].fill(0).reverse(),
@@ -23,7 +25,7 @@ export default {
     }
   },
   computed: {
-    famaleOptions() {
+    famaleOptions () {
       return {
         tooltip: {
           trigger: 'axis',
@@ -110,7 +112,7 @@ export default {
         ]
       }
     },
-    maleOptions() {
+    maleOptions () {
       return {
         tooltip: {
           trigger: 'axis',
@@ -197,10 +199,10 @@ export default {
       }
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  mounted() {
+  mounted () {
     this.handleStructure()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -208,7 +210,7 @@ export default {
     })
   },
   methods: {
-    async handleStructure() {
+    async handleStructure () {
       const that = this
       try {
         const { status, data } = await structure({ code: this.code })
@@ -220,7 +222,7 @@ export default {
         this.$message.error(error)
       }
     },
-    groupData(obj) {
+    groupData (obj) {
       if (obj[0].gender === 'M') {
         delete obj[0].gender
         delete obj[0].total

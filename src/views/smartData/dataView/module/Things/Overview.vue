@@ -1,30 +1,50 @@
 <template>
   <div class="realhousing-container">
-    <div class="title">事件概况</div>
+    <div class="title">
+      事件概况
+    </div>
     <ul>
       <li>
         <div class="icon" />
         <div class="data">
           <!-- <span>{{report}}</span> -->
-          <CountTo :startVal="0" :endVal="report" :duration="300" />
+          <CountTo
+            :start-val="0"
+            :end-val="report"
+            :duration="300"
+          />
         </div>
-        <div class="label">上报数</div>
+        <div class="label">
+          上报数
+        </div>
       </li>
       <li>
         <div class="icon" />
         <div class="data">
           <!-- <span>{{receive}}</span> -->
-          <CountTo :startVal="0" :endVal="receive" :duration="300" />
+          <CountTo
+            :start-val="0"
+            :end-val="receive"
+            :duration="300"
+          />
         </div>
-        <div class="label">分派数</div>
+        <div class="label">
+          分派数
+        </div>
       </li>
       <li>
         <div class="icon" />
         <div class="data">
           <!-- <span>{{reject}}</span> -->
-          <CountTo :startVal="0" :endVal="reject" :duration="300" />
+          <CountTo
+            :start-val="0"
+            :end-val="reject"
+            :duration="300"
+          />
         </div>
-        <div class="label">驳回数</div>
+        <div class="label">
+          驳回数
+        </div>
       </li>
     </ul>
   </div>
@@ -33,7 +53,7 @@
 <script>
 import { queryEventGeneral } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       code: '3601',
       report: 0,
@@ -41,15 +61,15 @@ export default {
       reject: 0
     }
   },
-  mounted() {
+  mounted () {
     this.getAsyncData()
-    this.$EventBus.$on('update:dataViewSeleItem', async({ code }) => {
+    this.$EventBus.$on('update:dataViewSeleItem', async ({ code }) => {
       this.code = code
       await this.getAsyncData()
     })
   },
   methods: {
-    async getAsyncData() {
+    async getAsyncData () {
       try {
         const { status, data } = await queryEventGeneral({
           gridCode: this.code

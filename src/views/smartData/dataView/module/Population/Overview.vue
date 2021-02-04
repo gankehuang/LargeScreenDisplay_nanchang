@@ -1,23 +1,42 @@
 <template>
   <div class="overview-container">
-    <div class="title">人口概况</div>
-    <div class="total" @click="handleOpenPopModal">
-      <svg-icon icon-class="population-people" class="icon" />
+    <div class="title">
+      人口概况
+    </div>
+    <div
+      class="total"
+      @click="handleOpenPopModal"
+    >
+      <svg-icon
+        icon-class="population-people"
+        class="icon"
+      />
       <span>实有人口：</span>
-      <CountTo :startVal="0" :endVal="populationTotal" :duration="300" />
+      <CountTo
+        :start-val="0"
+        :end-val="populationTotal"
+        :duration="300"
+      />
       <span>人</span>
     </div>
     <ul>
-      <li v-for="(item, index) in dataList" :key="index">
+      <li
+        v-for="(item, index) in dataList"
+        :key="index"
+      >
         <RingPerChart
           :number="item.number"
           :total="populationTotal"
           :color="item.color"
-          :styleObj="item.styleObj"
+          :style-obj="item.styleObj"
         >
           <div class="data">
             <div>{{ item.label }}</div>
-            <CountTo :startVal="0" :endVal="item.number" :duration="300" />
+            <CountTo
+              :start-val="0"
+              :end-val="item.number"
+              :duration="300"
+            />
           </div>
         </RingPerChart>
       </li>
@@ -32,7 +51,7 @@ export default {
   components: {
     RingPerChart
   },
-  data() {
+  data () {
     return {
       populationTotal: 0,
       code: '3601',
@@ -80,10 +99,10 @@ export default {
       ]
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  mounted() {
+  mounted () {
     this.handleQueryOverview()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -91,7 +110,7 @@ export default {
     })
   },
   methods: {
-    async handleQueryOverview() {
+    async handleQueryOverview () {
       try {
         const { status, data } = await queryOverview({ code: this.code })
         if (status === 200) {
@@ -103,7 +122,7 @@ export default {
       }
     },
     // 分类对接数据
-    groupData(data) {
+    groupData (data) {
       // console.log(data)
       // this.populationTotal = 6800124
       this.populationTotal = 0
@@ -144,13 +163,13 @@ export default {
       // console.log(impPeoTotal)
       // this.handleDataToOptions(impPeoTotal, this.dataList[2], 2)
     },
-    handleDataToOptions(param, obj, index) {
+    handleDataToOptions (param, obj, index) {
       obj.number = Number(param)
       console.log(obj)
       this.dataList.splice(index, 1, obj)
     },
     // 打开人口弹窗
-    handleOpenPopModal() {
+    handleOpenPopModal () {
       this.$EventBus.$emit('update:popModalVisible', true)
     }
   }

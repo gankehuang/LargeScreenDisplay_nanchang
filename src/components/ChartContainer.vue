@@ -1,6 +1,11 @@
 <template>
-  <div class="chart-container" :style="chartStyle">
-    <div class="title">{{ title }}</div>
+  <div
+    class="chart-container"
+    :style="chartStyle"
+  >
+    <div class="title">
+      {{ title }}
+    </div>
     <div class="btn-slot">
       <slot name="btn" />
     </div>
@@ -13,11 +18,11 @@
 <script>
 export default {
   props: ['title', 'height'],
-  data() {
+  data () {
     return {}
   },
   computed: {
-    chartStyle() {
+    chartStyle () {
       return {
         height: `${this.height / 8.7}%`
       }

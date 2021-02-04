@@ -1,27 +1,35 @@
 <template>
   <div class="grid-management">
-    <div class="title">基层党组织</div>
+    <div class="title">
+      基层党组织
+    </div>
     <ul>
       <li>
         <div class="icon" />
         <div class="data">
           <span>{{ grid }}</span>
         </div>
-        <div class="label">红色网格</div>
+        <div class="label">
+          红色网格
+        </div>
       </li>
       <li>
         <div class="icon" />
         <div class="data">
           <span>{{ tenement }}</span>
         </div>
-        <div class="label">红色物业</div>
+        <div class="label">
+          红色物业
+        </div>
       </li>
       <li>
         <div class="icon" />
         <div class="data">
           <span>{{ stage }}</span>
         </div>
-        <div class="label">红色驿站</div>
+        <div class="label">
+          红色驿站
+        </div>
       </li>
     </ul>
   </div>
@@ -30,7 +38,7 @@
 <script>
 import { getDangOrg } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       code: '3601',
       grid: 0,
@@ -38,10 +46,10 @@ export default {
       stage: 266
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  async mounted() {
+  async mounted () {
     await this.handleGetDangOrg()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -49,7 +57,7 @@ export default {
     })
   },
   methods: {
-    async handleGetDangOrg() {
+    async handleGetDangOrg () {
       try {
         const { status, data } = await getDangOrg({ gridCode: this.code })
         if (status === 200) {
@@ -57,9 +65,9 @@ export default {
             (total, cur) => total + cur,
             0
           )
-          this.grid = data['hswg']
-          this.tenement = data['hswy']
-          this.stage = data['hsyz']
+          this.grid = data.hswg
+          this.tenement = data.hswy
+          this.stage = data.hsyz
         }
       } catch (error) {}
     }

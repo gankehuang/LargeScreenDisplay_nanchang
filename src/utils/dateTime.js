@@ -1,4 +1,4 @@
-export function dateFormat() {
+export function dateFormat () {
   const date = new Date()
   const year = date.getFullYear()
   const month =
@@ -17,7 +17,7 @@ export function dateFormat() {
 }
 
 // 获取前n天的日期
-export function getBeforeDate(number) {
+export function getBeforeDate (number) {
   const num = number
   const date = new Date()
   let year = date.getFullYear()
@@ -45,7 +45,7 @@ export function getBeforeDate(number) {
 }
 
 // 获取N个月前/后年月
-export function getBeforeAndAfterDate(n) {
+export function getBeforeAndAfterDate (n) {
   const datePre = new Date()
   const nowYearPre = datePre.getFullYear()
   const nowMonthPre = datePre.getMonth() + 1
@@ -75,7 +75,7 @@ export function getBeforeAndAfterDate(n) {
 }
 
 // 返回MM格式的月
-const getMonInMM = function(mon) {
+const getMonInMM = function (mon) {
   if (mon < 10) {
     return '0' + mon
   } else {

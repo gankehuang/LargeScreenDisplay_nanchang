@@ -1,7 +1,9 @@
 <template>
   <div class="page-right">
     <div class="right-top">
-      <div class="title">流动人口结构</div>
+      <div class="title">
+        流动人口结构
+      </div>
       <v-chart
         :options="famaleOptions"
         style="display:inline-block;width:43%;height:100%"
@@ -32,30 +34,45 @@
       <v-chart :options="jyqkOptions" v-else /> -->
     </div>
     <div class="right-middle">
-      <div class="title">高危地区流入TOP5</div>
-      <v-chart style="width:100%;height:100%" :options="rklrOptions" />
+      <div class="title">
+        高危地区流入TOP5
+      </div>
+      <v-chart
+        style="width:100%;height:100%"
+        :options="rklrOptions"
+      />
     </div>
     <div class="right-bottom">
-      <div class="title">人员流动实时预警</div>
+      <div class="title">
+        人员流动实时预警
+      </div>
       <div class="list">
         <el-scrollbar style="height:100%;">
           <div
-            class="item"
             v-for="(item, index) in rightBottomList"
             :key="index"
+            class="item"
           >
-            <div class="time">{{ item.time }}</div>
+            <div class="time">
+              {{ item.time }}
+            </div>
             <div class="detail">
               <el-image
                 style="width:64px;height:64px"
                 :src="item.imageUrl"
-              ></el-image>
+              />
               <div class="info">
-                <div class="thing">{{ item.thing }}</div>
-                <div class="veh-name">{{ item.vehName }}</div>
-                <div class="veh-address">{{ item.vehAddress }}</div>
+                <div class="thing">
+                  {{ item.thing }}
+                </div>
+                <div class="veh-name">
+                  {{ item.vehName }}
+                </div>
+                <div class="veh-address">
+                  {{ item.vehAddress }}
+                </div>
               </div>
-              <div class="icon"></div>
+              <div class="icon" />
             </div>
           </div>
         </el-scrollbar>
@@ -66,7 +83,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       rightTopTab: '落脚点',
       rightBottomList: [
@@ -90,7 +107,7 @@ export default {
     }
   },
   computed: {
-    ljdOptions() {
+    ljdOptions () {
       return {
         color: [
           '#0055FF',
@@ -188,7 +205,7 @@ export default {
                 // 柱形图圆角，初始化效果
                 barBorderRadius: [10, 10, 10, 10],
                 // 每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
-                color: function(params) {
+                color: function (params) {
                   var colorList = [
                     '#0055FF',
                     '#E6B00E',
@@ -219,7 +236,7 @@ export default {
         ]
       }
     },
-    jyqkOptions() {
+    jyqkOptions () {
       return {
         color: ['#3C9AFE', '#00FFFF', '#0056FF', '#E6B00E', '#AADAFF'],
         angleAxis: {
@@ -317,7 +334,7 @@ export default {
         }
       }
     },
-    rklrOptions() {
+    rklrOptions () {
       return {
         // color: ['#3398DB'],
         tooltip: {
@@ -406,7 +423,7 @@ export default {
         ]
       }
     },
-    famaleOptions() {
+    famaleOptions () {
       return {
         tooltip: {
           trigger: 'axis',
@@ -493,7 +510,7 @@ export default {
         ]
       }
     },
-    maleOptions() {
+    maleOptions () {
       return {
         tooltip: {
           trigger: 'axis',

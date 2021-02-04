@@ -33,11 +33,11 @@ import Hamburger from '@/components/Hamburger'
 
 export default {
   components: { SidebarItem, Hamburger },
-  data() {
+  data () {
     return {}
   },
   computed: {
-    activeMenu() {
+    activeMenu () {
       const route = this.$route
       const { meta, path } = route
       if (meta.activeMenu) {
@@ -45,20 +45,20 @@ export default {
       }
       return path
     },
-    routes() {
+    routes () {
       return this.$store.state.asideRouters.adminRouters
     },
-    isCollapse() {
+    isCollapse () {
       return this.$store.getters['asideRouters/isCollapse']
     },
-    styleObj1() {
+    styleObj1 () {
       return {
         width: this.$store.getters['asideRouters/isCollapse'] ? '54px' : '230px'
       }
     }
   },
   methods: {
-    toggleSideBar() {
+    toggleSideBar () {
       this.$store.commit('asideRouters/SET_ASIDESTATUS', !this.isCollapse)
     }
   }

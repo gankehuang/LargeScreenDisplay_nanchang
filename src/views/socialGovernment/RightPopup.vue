@@ -1,23 +1,35 @@
 <template>
-  <div class="time-line-container" v-if="visible">
-    <div class="close" @click="close"></div>
+  <div
+    v-if="visible"
+    class="time-line-container"
+  >
+    <div
+      class="close"
+      @click="close"
+    />
     <el-scrollbar style="height: 800px;margin: 20px 46px 0 48px;">
       <div class="time-first" />
       <div
-        class="time-first-block"
-        :key="index"
         v-for="(item, index) in item.list"
+        :key="index"
+        class="time-first-block"
         @click="tabPdf(item)"
       >
         <div class="line" />
         <div class="time-node-title">
-          <div class="time">{{ item.time }}</div>
+          <div class="time">
+            {{ item.time }}
+          </div>
           <div class="node" />
-          <div class="title">{{ item.name }}</div>
+          <div class="title">
+            {{ item.name }}
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
-          <div class="info">{{ item.post }}</div>
+          <div class="info">
+            {{ item.post }}
+          </div>
         </div>
         <!-- <div class="info-node">
           <div class="node" />
@@ -33,7 +45,10 @@
         </div> -->
       </div>
     </el-scrollbar>
-    <PdfModal :visible.sync="pdfModalVisible" :pdfFile="pdfFile" />
+    <PdfModal
+      :visible.sync="pdfModalVisible"
+      :pdf-file="pdfFile"
+    />
   </div>
 
   <!-- <div class="social-government-right-popup fadeIn" v-if="visible">
@@ -81,15 +96,15 @@ export default {
       default: undefined
     }
   },
-  data() {
-    return { pdfModalVisible: false, pdfFile: {}}
+  data () {
+    return { pdfModalVisible: false, pdfFile: {} }
   },
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
       this.$emit('update:leftClickItemIndex', undefined)
     },
-    tabPdf(item) {
+    tabPdf (item) {
       this.pdfModalVisible = true
       this.pdfFile = item.pdfFile
     }

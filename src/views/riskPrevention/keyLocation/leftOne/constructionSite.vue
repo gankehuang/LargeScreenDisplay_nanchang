@@ -1,12 +1,21 @@
 <template>
   <div class="leftOneSchool">
-    <div class="title">建筑工地数量</div>
+    <div class="title">
+      建筑工地数量
+    </div>
     <div class="items">
-      <p class="alls">建筑工地总数 <span>305</span>个</p>
+      <p class="alls">
+        建筑工地总数 <span>305</span>个
+      </p>
       <div class="list">
-        <div v-for="(item, index) in leftTopList" :key="index">
+        <div
+          v-for="(item, index) in leftTopList"
+          :key="index"
+        >
           <p>{{ item.title }}</p>
-          <p class="list-nums">{{ item.num }}</p>
+          <p class="list-nums">
+            {{ item.num }}
+          </p>
         </div>
       </div>
     </div>
@@ -20,13 +29,7 @@ export default {
       type: Number
     }
   },
-  watch: {
-    clientDetails: {
-      immediate: true,
-      handler: curValue => {}
-    }
-  },
-  data() {
+  data () {
     return {
       num: null,
       leftTopList: [
@@ -51,6 +54,12 @@ export default {
           num: 36
         }
       ]
+    }
+  },
+  watch: {
+    clientDetails: {
+      immediate: true,
+      handler: curValue => {}
     }
   }
 }

@@ -1,6 +1,8 @@
 <template>
   <div class="eventType">
-    <div class="title">活动规模统计</div>
+    <div class="title">
+      活动规模统计
+    </div>
     <div class="contain">
       <v-chart :options="options" />
     </div>
@@ -9,7 +11,7 @@
 <script>
 import { selectActivity } from '@/api/adminIntelligentService/activityCommand'
 export default {
-  data() {
+  data () {
     return {
       dataList: [
         { value: 0, name: '超大型' },
@@ -19,31 +21,8 @@ export default {
       ]
     }
   },
-  mounted() {
-    this.getList()
-  },
-  methods: {
-    getList() {
-      selectActivity({}, 1, 1000).then(res => {
-        if (res.status === 200) {
-          this.total = res.data.length
-          res.data.forEach(item => {
-            if (item.scaleText === '超大型') {
-              this.dataList[0].value++
-            } else if (item.scaleText === '大型') {
-              this.dataList[1].value++
-            } else if (item.scaleText === '中型') {
-              this.dataList[2].value++
-            } else if (item.scaleText === '小型') {
-              this.dataList[3].value++
-            }
-          })
-        }
-      })
-    }
-  },
   computed: {
-    options() {
+    options () {
       return {
         color: ['#0054FF', '#5aa3df', '#0DE0A7', '#ADD14D'],
         tooltip: {
@@ -94,6 +73,29 @@ export default {
           }
         ]
       }
+    }
+  },
+  mounted () {
+    this.getList()
+  },
+  methods: {
+    getList () {
+      selectActivity({}, 1, 1000).then(res => {
+        if (res.status === 200) {
+          this.total = res.data.length
+          res.data.forEach(item => {
+            if (item.scaleText === '超大型') {
+              this.dataList[0].value++
+            } else if (item.scaleText === '大型') {
+              this.dataList[1].value++
+            } else if (item.scaleText === '中型') {
+              this.dataList[2].value++
+            } else if (item.scaleText === '小型') {
+              this.dataList[3].value++
+            }
+          })
+        }
+      })
     }
   }
 }

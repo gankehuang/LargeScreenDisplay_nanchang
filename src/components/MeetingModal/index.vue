@@ -1,34 +1,34 @@
 <template>
   <div
-    class="mask-container"
     v-if="visible"
+    class="mask-container"
   >
-    <div class="mask"></div>
+    <div class="mask" />
     <div class="meeting-modal-container">
       <div
         class="popup-close"
         @click="close"
-      ></div>
+      />
 
       <div
-        class="video-content"
         v-if="gridMemberInfo.callType===1"
+        class="video-content"
       >
         <div
-          class="video-one"
           v-if="joinList.length===1"
+          class="video-one"
         >
           <div
             :id="'join'+joinList[0].id"
             class="video-view"
-          ></div>
+          />
           <div class="edit-block">
             <div class="info">
               <svg-icon
                 icon-class="population-people"
                 class="icon"
               />
-              <span class="name">{{joinList[0].name}}</span>
+              <span class="name">{{ joinList[0].name }}</span>
               <span class="name">专职网格员</span>
             </div>
             <div class="edit">
@@ -38,37 +38,38 @@
               />
               <div
                 class="camera"
-                @click="handleRemoteCamera(joinList[0])"
                 :class="{'camera-none':!joinList[0].camera }"
-              ></div>
+                @click="handleRemoteCamera(joinList[0])"
+              />
               <div
                 class="mic"
-                @click="handleRemoteMic(joinList[0])"
                 :class="{'mic-none':!joinList[0].mic }"
-              ></div>
+                @click="handleRemoteMic(joinList[0])"
+              />
             </div>
           </div>
         </div>
         <div
-          class="video-many"
           v-else
+          class="video-many"
         >
           <div
-            class="video-number"
             v-for="(item,index) in joinList"
             :id="'join'+item.id"
-            :style="{width: comWidth,height: comHeight}"
             :key="index"
-          >
-          </div>
+            class="video-number"
+            :style="{width: comWidth,height: comHeight}"
+          />
         </div>
         <div class="hangup-block">
-          <div class="time-record">{{videoTimer}}</div>
+          <div class="time-record">
+            {{ videoTimer }}
+          </div>
           <div class="edit">
             <div
               class="mic"
-              @click="handleLocalMic"
               :class="{'mic-none': !localMic}"
+              @click="handleLocalMic"
             />
             <div
               class="hangup"
@@ -83,16 +84,18 @@
         </div>
       </div>
       <div
-        class="mic-content"
         v-if="gridMemberInfo.callType===0"
+        class="mic-content"
       >
         <div class="mic-content-bg" />
         <div class="hangup-block">
           <div
             :id="'join'+joinList[0].id"
             style="visibility: hidden;"
-          ></div>
-          <div class="time-record">{{micTimer}}</div>
+          />
+          <div class="time-record">
+            {{ micTimer }}
+          </div>
           <div class="edit">
             <!-- <div
               class="mic"
@@ -113,7 +116,9 @@
               slot="prepend"
               icon="el-icon-search"
             />
-            <el-button slot="append">邀请视频</el-button>
+            <el-button slot="append">
+              邀请视频
+            </el-button>
           </el-input>
         </div>
         <div class="tabs">
@@ -121,50 +126,62 @@
             class="tab"
             :class="{active:activeName==='join'}"
             @click="handleTab('join')"
-          >已加入({{this.joinList.length}})</div>
+          >
+            已加入({{ this.joinList.length }})
+          </div>
           <div
             class="tab"
             :class="{active:activeName==='waitJoin'}"
             @click="handleTab('waitJoin')"
-          >未加入(0)</div>
+          >
+            未加入(0)
+          </div>
         </div>
         <div class="list custom-scrollbar">
           <div
-            class="list-item"
             v-for="(item,index) in joinList"
             :key="index"
+            class="list-item"
           >
             <el-image
               class="el-image"
               :src="item.avatar"
             />
             <div class="info">
-              <div class="name">{{item.name}}</div>
-              <div class="grid-name">{{item.gridName}}</div>
+              <div class="name">
+                {{ item.name }}
+              </div>
+              <div class="grid-name">
+                {{ item.gridName }}
+              </div>
             </div>
             <div class="edit">
-              <div class="kick-out">移除</div>
-              <div class="voice-button"></div>
+              <div class="kick-out">
+                移除
+              </div>
+              <div class="voice-button" />
             </div>
           </div>
         </div>
         <div
-          class="video-self-content"
           v-if="gridMemberInfo.callType===1"
+          class="video-self-content"
         >
-          <div class="video-self-title">本地视频</div>
+          <div class="video-self-title">
+            本地视频
+          </div>
           <div
-            class="video-self"
             id="me"
+            class="video-self"
           />
         </div>
         <div
-          class="mic-self-content"
           v-if="gridMemberInfo.callType===0"
+          class="mic-self-content"
         >
           <div
-            class="mic-self"
             id="me"
+            class="mic-self"
           />
         </div>
       </div>
@@ -173,6 +190,15 @@
 </template>
 
 <script>
+import {
+  // selectByGridAdminClientById,
+  transmission,
+  notification
+} from '@/api/intelligentCommand/command'
+import TRTC from 'trtc-js-sdk'
+import trtcCallConfig from '@/config/trtcCallConfig'
+import checkTRTC from '@/utils/checkTRTC'
+import { genTestUserSig } from '@/utils/GenerateTestUserSig'
 const testGridMember = {
   address: '江西省南昌市青山湖区京东镇京安社区京安社区第七网格',
   createTime: null,
@@ -186,15 +212,6 @@ const testGridMember = {
   sex: null,
   tel: '15079155973'
 }
-import {
-  // selectByGridAdminClientById,
-  transmission,
-  notification
-} from '@/api/intelligentCommand/command'
-import TRTC from 'trtc-js-sdk'
-import trtcCallConfig from '@/config/trtcCallConfig'
-import checkTRTC from '@/utils/checkTRTC'
-import { genTestUserSig } from '@/utils/GenerateTestUserSig'
 let x = 0
 let a = 0
 let b = 0
@@ -216,7 +233,7 @@ export default {
       default: () => { }
     }
   },
-  data() {
+  data () {
     return {
       master: null,
       activeName: 'join',
@@ -235,10 +252,10 @@ export default {
     }
   },
   computed: {
-    remoteStreams() {
+    remoteStreams () {
       return []
     },
-    comWidth() {
+    comWidth () {
       if (this.joinList.length <= 4) {
         return 98 / 2 + '%'
       } else {
@@ -246,7 +263,7 @@ export default {
       }
       // return 98 / this.joinList.length + '%'
     },
-    comHeight() {
+    comHeight () {
       if (this.joinList.length <= 2) {
         return 98 + '%'
       } else if (this.joinList.length <= 6) {
@@ -257,9 +274,9 @@ export default {
     }
   },
   watch: {
-    async visible(val) {
+    async visible (val) {
       if (val) {
-        this.gridMemberInfo.divId = 'join' + this.gridMemberInfo['id']
+        this.gridMemberInfo.divId = 'join' + this.gridMemberInfo.id
         this.gridMemberInfo.camera = true
         this.gridMemberInfo.mic = true
         this.gridMemberInfo.fullscreen = true
@@ -280,7 +297,7 @@ export default {
         this.joinList = []
       }
     },
-    joinList(arr) {
+    joinList (arr) {
       if (arr.length === 5 || arr.length === 7) {
         // this.joinList.push(...[{}, {}])
       } else if (arr.length === 3 || arr.length === 8) {
@@ -290,14 +307,14 @@ export default {
     }
   },
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     },
-    handleTab(flag) {
+    handleTab (flag) {
       this.activeName = flag
     },
     // 控制远端摄像头
-    handleRemoteCamera(item) {
+    handleRemoteCamera (item) {
       const remoteStreamObj = this.remoteStreams.find((cur) => {
         return cur.divId === item.divId
       })
@@ -311,7 +328,7 @@ export default {
       this.joinList.splice(seleIndex, 1, item)
     },
     // 控制远端麦克风
-    handleRemoteMic(item) {
+    handleRemoteMic (item) {
       const remoteStreamObj = this.remoteStreams.find((cur) => {
         return cur.divId === item.divId
       })
@@ -324,20 +341,20 @@ export default {
       })
       this.joinList.splice(seleIndex, 1, item)
     },
-    handleLocalCamera() {
+    handleLocalCamera () {
       this.localCamera
         ? this.localStream.muteVideo()
         : this.localStream.unmuteVideo()
       this.localCamera = !this.localCamera
     },
-    handleLocalMic() {
+    handleLocalMic () {
       this.localCamera
         ? this.localStream.muteAudio()
         : this.localStream.unmuteAudio()
       this.localMic = !this.localMic
     },
     // 加入房间
-    joinRoom(client, roomId) {
+    joinRoom (client, roomId) {
       client
         .join({ roomId })
         .catch((error) => {
@@ -352,7 +369,7 @@ export default {
         })
     },
     // 创建本地音视频流
-    createStream(userId, callType) {
+    createStream (userId, callType) {
       const localStream = TRTC.createStream({
         userId,
         audio: true,
@@ -374,7 +391,7 @@ export default {
         })
     },
     // 发布本地音视频流
-    publishStream(localStream, client) {
+    publishStream (localStream, client) {
       client
         .publish(localStream)
         .catch((error) => {
@@ -385,7 +402,7 @@ export default {
         })
     },
     // 订阅远端流--加入房间之前
-    subscribeStream(client) {
+    subscribeStream (client) {
       client.on('stream-added', (event) => {
         const remoteStream = event.stream
         this.remoteStreams.push({
@@ -407,7 +424,7 @@ export default {
       })
     },
     // 播放远端流
-    playStream(client) {
+    playStream (client) {
       client.on('stream-subscribed', (event) => {
         const remoteStream = event.stream
         console.log('远端流订阅成功：' + remoteStream.getId())
@@ -415,7 +432,7 @@ export default {
       })
     },
     // 退出音视频
-    leaveRoom(client) {
+    leaveRoom (client) {
       this.handleInitTimer()
       if (!client) return
       client
@@ -440,7 +457,7 @@ export default {
         })
     },
     // 通话计时器
-    beginS(type) {
+    beginS (type) {
       // 计算秒
       x++
       if (x < 10) {
@@ -476,7 +493,7 @@ export default {
       }
     },
     // 初始化计时器
-    handleInitTimer() {
+    handleInitTimer () {
       x = 0
       a = 0
       b = 0
@@ -485,7 +502,7 @@ export default {
       clearInterval(this.setIntervalId)
     },
     // 创建通话客户端
-    async createClient(userId) {
+    async createClient (userId) {
       const resultBool = await checkTRTC()
       if (!resultBool) {
         return this.$message.error('该浏览器不支持webRTC')
@@ -511,7 +528,7 @@ export default {
       this.joinRoom(this.client, this.roomId)
     },
     // 呼叫通知栏通知
-    async handleNotification() {
+    async handleNotification () {
       const params = { clientId: this.clientId }
       switch (this.gridMemberInfo.callType) {
         case 0:
@@ -531,7 +548,7 @@ export default {
       }
     },
     // 呼叫透传通知
-    async handleTransmission() {
+    async handleTransmission () {
       this.master = {
         name: '市综治中心',
         callType: this.gridMemberInfo.callType
@@ -546,7 +563,7 @@ export default {
       this.handleNotification()
     },
     // 挂断透传通知
-    async handleHangupTransmission() {
+    async handleHangupTransmission () {
       this.master = {
         isHangup: true
       }

@@ -1,13 +1,20 @@
 <template>
   <div class="net-mix-contianer">
-    <div class="title">全网融通</div>
+    <div class="title">
+      全网融通
+    </div>
     <div class="total">
       <span class="label">网汇数据总数</span>
       <span class="data">198.6万</span>
     </div>
-    <div class="sub-title">网汇数据</div>
+    <div class="sub-title">
+      网汇数据
+    </div>
     <ul>
-      <li v-for="(item, index) in dataList" :key="index">
+      <li
+        v-for="(item, index) in dataList"
+        :key="index"
+      >
         <div class="icon">
           <v-chart :options="item.options" />
         </div>
@@ -17,11 +24,20 @@
         </div>
       </li>
     </ul>
-    <div class="sub-title">网格管理</div>
+    <div class="sub-title">
+      网格管理
+    </div>
     <div class="grid-management">
-      <div class="grid-item" v-for="(item, index) in gridData" :key="index">
+      <div
+        v-for="(item, index) in gridData"
+        :key="index"
+        class="grid-item"
+      >
         <div class="label-container">
-          <svg-icon :icon-class="item.icon" class="icon" />
+          <svg-icon
+            :icon-class="item.icon"
+            class="icon"
+          />
           <span class="label">{{ item.label }}</span>
         </div>
         <div class="data">
@@ -30,10 +46,19 @@
         </div>
       </div>
     </div>
-    <div class="sub-title">网络连通</div>
+    <div class="sub-title">
+      网络连通
+    </div>
     <div class="net-work-list">
-      <div class="item" v-for="(item, index) in netWorkList" :key="index">
-        <svg-icon :icon-class="item.icon" class="icon" />
+      <div
+        v-for="(item, index) in netWorkList"
+        :key="index"
+        class="item"
+      >
+        <svg-icon
+          :icon-class="item.icon"
+          class="icon"
+        />
         <span class="label">{{ item.label }}</span>
         <div class="data">
           <span class="number">{{ item.number }}</span>
@@ -46,7 +71,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       dataList: [
         {

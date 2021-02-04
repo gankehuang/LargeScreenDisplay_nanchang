@@ -13,7 +13,7 @@
       </div>
     </div>
     <LeftPopup
-      :rightClickItemIndex.sync="rightClickItemIndex"
+      :right-click-item-index.sync="rightClickItemIndex"
       :visible.sync="leftPopupVisible"
       :item.sync="rightItem"
     />
@@ -27,15 +27,15 @@
     <div :class="['left-list', leftListAnimation]">
       <!-- 'breathe-animation' -->
       <div
+        v-for="(item, index) in leftList"
+        :key="index"
         :class="[
           'left-list-item',
           { 'breathe-animation': handleInnerCircle(index) }
         ]"
-        v-for="(item, index) in leftList"
         @mouseover="mouOveLeftItem(index)"
         @mouseleave="mouLeaItem"
         @click="tabLeftItem({ item, index })"
-        :key="index"
       >
         <div
           :class="[
@@ -57,19 +57,19 @@
         </div>
         <RightPopup
           :visible.sync="rightPopupVisible"
-          :leftClickItemIndex.sync="leftClickItemIndex"
+          :left-click-item-index.sync="leftClickItemIndex"
           :item.sync="leftItem"
         />
       </div>
     </div>
     <div :class="['right-list', rightListAnimation]">
       <div
+        v-for="(item, index) in rightList"
+        :key="index"
         :class="[
           'right-list-item',
           { 'breathe-animation': handleOuterCircle(index) }
         ]"
-        v-for="(item, index) in rightList"
-        :key="index"
         @mouseover="mouOveRightItem(index)"
         @mouseleave="mouLeaItem"
         @click="tabRightItem({ item, index })"
@@ -89,25 +89,25 @@
         </div> -->
       </div>
     </div>
-    <div :class="['top', topAnimation]"></div>
+    <div :class="['top', topAnimation]" />
     <CenterTurntable
-      :leftListAnimation.sync="leftListAnimation"
-      :rightListAnimation.sync="rightListAnimation"
-      :halfLeftAnimation.sync="halfLeftAnimation"
-      :halfRightAnimation.sync="halfRightAnimation"
-      :topAnimation.sync="topAnimation"
-      :bottomAnimation.sync="bottomAnimation"
-      :leftItemIndex.sync="leftItemIndex"
-      :leftClickItemIndex.sync="leftClickItemIndex"
-      :rightItemIndex.sync="rightItemIndex"
-      :rightClickItemIndex.sync="rightClickItemIndex"
-      :innerCircleIndex.sync="innerCircleIndex"
-      :outerCircleIndex.sync="outerCircleIndex"
-      :halfLeftNone.sync="halfLeftNone"
-      :leftPopupVisible.sync="leftPopupVisible"
-      :rightPopupVisible.sync="rightPopupVisible"
+      :left-list-animation.sync="leftListAnimation"
+      :right-list-animation.sync="rightListAnimation"
+      :half-left-animation.sync="halfLeftAnimation"
+      :half-right-animation.sync="halfRightAnimation"
+      :top-animation.sync="topAnimation"
+      :bottom-animation.sync="bottomAnimation"
+      :left-item-index.sync="leftItemIndex"
+      :left-click-item-index.sync="leftClickItemIndex"
+      :right-item-index.sync="rightItemIndex"
+      :right-click-item-index.sync="rightClickItemIndex"
+      :inner-circle-index.sync="innerCircleIndex"
+      :outer-circle-index.sync="outerCircleIndex"
+      :half-left-none.sync="halfLeftNone"
+      :left-popup-visible.sync="leftPopupVisible"
+      :right-popup-visible.sync="rightPopupVisible"
     />
-    <div :class="['bottom', bottomAnimation]"></div>
+    <div :class="['bottom', bottomAnimation]" />
   </div>
 </template>
 
@@ -122,7 +122,7 @@ export default {
     LeftPopup,
     RightPopup
   },
-  data() {
+  data () {
     return {
       leftListAnimation: '',
       rightListAnimation: '',
@@ -146,19 +146,19 @@ export default {
     }
   },
   methods: {
-    mouOveLeftItem(index) {
+    mouOveLeftItem (index) {
       this.rightItemIndex = undefined
       this.leftItemIndex = index
     },
-    mouOveRightItem(index) {
+    mouOveRightItem (index) {
       this.leftItemIndex = undefined
       this.rightItemIndex = index
     },
-    mouLeaItem() {
+    mouLeaItem () {
       this.rightItemIndex = undefined
       this.leftItemIndex = undefined
     },
-    tabRightItem({ item, index }) {
+    tabRightItem ({ item, index }) {
       if (this.rightClickItemIndex === index) {
         this.leftPopupVisible = false
       } else {
@@ -171,7 +171,7 @@ export default {
         this.rightClickItemIndex === index ? undefined : index
       this.rightItem = item
     },
-    tabLeftItem({ item, index }) {
+    tabLeftItem ({ item, index }) {
       if (this.leftClickItemIndex === index) {
         this.rightPopupVisible = false
       } else {
@@ -181,7 +181,7 @@ export default {
         this.leftClickItemIndex === index ? undefined : index
       this.leftItem = item
     },
-    handleInnerCircle(index) {
+    handleInnerCircle (index) {
       if (typeof this.innerCircleIndex === 'undefined') return false
       if (this.innerCircleIndex === 0 && index === 8) {
         return true
@@ -193,7 +193,7 @@ export default {
         return false
       }
     },
-    handleOuterCircle(index) {
+    handleOuterCircle (index) {
       if (typeof this.outerCircleIndex === 'undefined') return false
       else {
         return true

@@ -1,49 +1,59 @@
 <template>
   <div class="dataCockpit-right page-right">
-    <div class="title">风险预警</div>
+    <div class="title">
+      风险预警
+    </div>
     <div class="risk-Warning">
       <div class="Warning-top">
-        <div class="Warning-top-left"></div>
+        <div class="Warning-top-left" />
         <div class="Warning-top-center">
           <p>预警总数</p>
           <p>2723<span>件</span></p>
         </div>
         <div class="Warning-top-right">
-          <div class="arrow"></div>
+          <div class="arrow" />
           完成率<span>96.12%</span>
         </div>
       </div>
       <div class="Warning-bottom">
         <v-chart :options="options" />
-        <div class="bottom-bgm"></div>
+        <div class="bottom-bgm" />
       </div>
     </div>
-    <div class="title">事项通办</div>
+    <div class="title">
+      事项通办
+    </div>
     <div class="general-affairs">
       <div class="Warning-top">
-        <div class="Warning-top-left"></div>
-        <div class="Warning-top-center" @click="handleVisible">
+        <div class="Warning-top-left" />
+        <div
+          class="Warning-top-center"
+          @click="handleVisible"
+        >
           <p>事件总数</p>
           <p>820642<span>件</span></p>
         </div>
         <div class="Warning-top-right">
-          <div class="arrow"></div>
+          <div class="arrow" />
           完成率<span>96.12%</span>
         </div>
       </div>
       <div class="Warning-bottom">
         <div class="bottom-tab">
           <div
-            :class="['tab-list', { selected: selectedIndex === index }]"
             v-for="(item, index) in tabList"
             :key="index"
+            :class="['tab-list', { selected: selectedIndex === index }]"
             @click="changeTab(index)"
           >
             {{ item }}
           </div>
         </div>
         <template>
-          <el-table :data="tableData" style="width: 100%">
+          <el-table
+            :data="tableData"
+            style="width: 100%"
+          >
             <el-table-column
               prop="date"
               :label="selectedIndex === 0 ? '事件类型' : '事件来源'"
@@ -58,8 +68,14 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="name" label="数量"> </el-table-column>
-            <el-table-column prop="address" label="占比">
+            <el-table-column
+              prop="name"
+              label="数量"
+            />
+            <el-table-column
+              prop="address"
+              label="占比"
+            >
               <template slot-scope="scope">
                 <span style="color: #00FFFF">
                   {{ scope.row.address }}
@@ -70,24 +86,35 @@
         </template>
       </div>
     </div>
-    <div class="title">治理力量</div>
+    <div class="title">
+      治理力量
+    </div>
     <div class="governance-power">
       <div class="governance-power-top">
-        <div class="top-list" v-for="(item, index) in powerList" :key="index">
+        <div
+          v-for="(item, index) in powerList"
+          :key="index"
+          class="top-list"
+        >
           <div class="list-left">
             <p>{{ item.date }}</p>
             <p>{{ item.name }}</p>
           </div>
-          <div class="list-right" v-if="index + 1 !== powerList.length"></div>
+          <div
+            v-if="index + 1 !== powerList.length"
+            class="list-right"
+          />
         </div>
       </div>
       <div class="governance-power-bottom">
         <div
-          class="bottom-list"
           v-for="(item, index) in governanceList"
           :key="index"
+          class="bottom-list"
         >
-          <p :class="'power' + index">{{ item.value }}</p>
+          <p :class="'power' + index">
+            {{ item.value }}
+          </p>
           <p>{{ item.name }}</p>
         </div>
       </div>
@@ -96,7 +123,7 @@
     <ColumnsAnimationModal
       :visible.sync="columnsAnimationModal.visible"
       :info="columnsAnimationModal.info"
-      pageType="eventRank"
+      page-type="eventRank"
     />
   </div>
 </template>
@@ -105,16 +132,16 @@
 import { typeMostList, originMostList } from './mock'
 import ColumnsAnimationModal from './ColumnsAnimationModal'
 export default {
+  components: {
+    ColumnsAnimationModal
+  },
   props: {
     visible: {
       type: Boolean,
       default: false
     }
   },
-  components: {
-    ColumnsAnimationModal
-  },
-  data() {
+  data () {
     return {
       columnsAnimationModal: {
         visible: false,
@@ -158,7 +185,7 @@ export default {
     }
   },
   computed: {
-    options() {
+    options () {
       return {
         color: ['#A9DAFF', '#00FFFF', '#0055FF', '#E6B00E', '#FE573B'],
         tooltip: {
@@ -231,7 +258,7 @@ export default {
     }
   },
   methods: {
-    changeTab(index) {
+    changeTab (index) {
       this.selectedIndex = index
       switch (index) {
         case 0:
@@ -245,7 +272,7 @@ export default {
       }
     },
     // 打开弹窗
-    handleVisible() {
+    handleVisible () {
       this.columnsAnimationModal.visible = true
       this.columnsAnimationModal.info = {
         title: '事件排名',

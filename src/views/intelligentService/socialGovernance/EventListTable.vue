@@ -1,23 +1,36 @@
 <template>
   <div
-    class="form-page"
     v-loading="isLoading"
+    class="form-page"
     element-loading-text="加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba( 0, 0, 0, 0.7)"
   >
     <div class="search-bar">
-      <div class="left"></div>
+      <div class="left" />
       <div class="right">
         <el-cascader
           v-model="advancedForm.gridCode"
           placeholder="所属网格"
           :props="gridCodeProps"
-        ></el-cascader>
-        <el-button type="primary" @click="fetchEventList">查询</el-button>
-        <el-button plain @click="advancedSearchShow = true">高级搜索</el-button>
+        />
+        <el-button
+          type="primary"
+          @click="fetchEventList"
+        >
+          查询
+        </el-button>
+        <el-button
+          plain
+          @click="advancedSearchShow = true"
+        >
+          高级搜索
+        </el-button>
 
-        <span class="back-btn" @click="backPage">
+        <span
+          class="back-btn"
+          @click="backPage"
+        >
           <svg-icon icon-class="page-back" />
           返回
         </span>
@@ -25,23 +38,39 @@
     </div>
 
     <search-advance v-show="advancedSearchShow">
-      <el-form ref="advancedForm" :model="advancedForm" label-width="140px">
+      <el-form
+        ref="advancedForm"
+        :model="advancedForm"
+        label-width="140px"
+      >
         <el-form-item label="所属网格">
           <el-cascader
             v-model="advancedForm.gridCode"
             placeholder="请选择所属网格"
             :props="gridCodeProps"
-          ></el-cascader>
+          />
         </el-form-item>
         <el-form-item label="事件影响程度">
           <el-select
             v-model="advancedForm.effectScope"
             placeholder="请选择事件影响程度"
           >
-            <el-option label="小" value="01"></el-option>
-            <el-option label="中" value="02"></el-option>
-            <el-option label="大" value="03"></el-option>
-            <el-option label="重大" value="04"></el-option>
+            <el-option
+              label="小"
+              value="01"
+            />
+            <el-option
+              label="中"
+              value="02"
+            />
+            <el-option
+              label="大"
+              value="03"
+            />
+            <el-option
+              label="重大"
+              value="04"
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="事件名称">
@@ -52,15 +81,15 @@
         </el-form-item>
         <el-form-item label="事件分类">
           <el-cascader
-            placeholder="请选择事件分类"
             v-model="advancedForm.eventType"
+            placeholder="请选择事件分类"
             :options="eventCategoryList"
             :props="{
               label: 'dictLabel',
               value: 'dictValue',
               checkStrictly: true
             }"
-          ></el-cascader>
+          />
         </el-form-item>
         <el-form-item label="事发时间阶段">
           <el-date-picker
@@ -71,27 +100,67 @@
             range-separator="至"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
-          >
-          </el-date-picker>
+          />
         </el-form-item>
-        <el-form-item label="事件状态" v-if="pageName !== '待办事件'">
-          <el-select v-model="advancedForm.status" placeholder="请选择事件状态">
-            <el-option label="不限" value="00,01,02,03,04"></el-option>
-            <el-option label="受理" value="00"></el-option>
-            <el-option label="处理中(上报)" value="01"></el-option>
-            <el-option label="处理中(交办)" value="02"></el-option>
-            <el-option label="结案" value="03,04"></el-option>
+        <el-form-item
+          v-if="pageName !== '待办事件'"
+          label="事件状态"
+        >
+          <el-select
+            v-model="advancedForm.status"
+            placeholder="请选择事件状态"
+          >
+            <el-option
+              label="不限"
+              value="00,01,02,03,04"
+            />
+            <el-option
+              label="受理"
+              value="00"
+            />
+            <el-option
+              label="处理中(上报)"
+              value="01"
+            />
+            <el-option
+              label="处理中(交办)"
+              value="02"
+            />
+            <el-option
+              label="结案"
+              value="03,04"
+            />
           </el-select>
         </el-form-item>
         <el-form-item class="buttons">
-          <el-button type="primary" @click="searchAdvance">查询</el-button>
-          <el-button type="primary" @click="resetSearchForm">重置</el-button>
-          <el-button plain @click="advancedSearchShow = false">取消</el-button>
+          <el-button
+            type="primary"
+            @click="searchAdvance"
+          >
+            查询
+          </el-button>
+          <el-button
+            type="primary"
+            @click="resetSearchForm"
+          >
+            重置
+          </el-button>
+          <el-button
+            plain
+            @click="advancedSearchShow = false"
+          >
+            取消
+          </el-button>
         </el-form-item>
       </el-form>
     </search-advance>
 
-    <el-table :data="tableData" current-row-key="id" height="100%" stripe>
+    <el-table
+      :data="tableData"
+      current-row-key="id"
+      height="100%"
+      stripe
+    >
       <el-table-column label="事件标题">
         <template slot-scope="scope">
           <span style="color: #7ff2f4;">
@@ -99,15 +168,35 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column label="事件时间" prop="happenTime" />
-      <el-table-column label="办结期限" prop="handleDate" />
-      <el-table-column label="事件分类" prop="typeText" />
-      <el-table-column label="所属网格" prop="gridName" />
-      <el-table-column label="当前状态" prop="status" />
-      <el-table-column label="采集时间" prop="collectDate" />
+      <el-table-column
+        label="事件时间"
+        prop="happenTime"
+      />
+      <el-table-column
+        label="办结期限"
+        prop="handleDate"
+      />
+      <el-table-column
+        label="事件分类"
+        prop="typeText"
+      />
+      <el-table-column
+        label="所属网格"
+        prop="gridName"
+      />
+      <el-table-column
+        label="当前状态"
+        prop="status"
+      />
+      <el-table-column
+        label="采集时间"
+        prop="collectDate"
+      />
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button @click="handleEventDetails(scope.row)">查看详情</el-button>
+          <el-button @click="handleEventDetails(scope.row)">
+            查看详情
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -134,13 +223,13 @@ import {
 } from '@/api/intelligentService/socialGovernance'
 import EventDetailsModal from './EventDetailsModal'
 export default {
-  props: {
-    pageName: String
-  },
   components: {
     EventDetailsModal
   },
-  data() {
+  props: {
+    pageName: String
+  },
+  data () {
     return {
       isLoading: false,
       tableData: [],
@@ -170,7 +259,7 @@ export default {
       gridCodeProps: {
         lazy: true,
         checkStrictly: true,
-        lazyLoad(node, resolve) {
+        lazyLoad (node, resolve) {
           const { data } = node
           let parentId = ''
           if (data && data.id) {
@@ -194,7 +283,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     switch (this.pageName) {
       case '待办事件':
         this.advancedForm.status = '00,01,02'
@@ -222,7 +311,7 @@ export default {
     this.fetchEventCategoryList()
   },
   methods: {
-    fetchEventList() {
+    fetchEventList () {
       const postData = {
         ...this.advancedForm
       }
@@ -269,11 +358,11 @@ export default {
         }
       })
     },
-    searchAdvance() {
+    searchAdvance () {
       this.advancedSearchShow = false
       this.fetchEventList()
     },
-    fetchEventCategoryList() {
+    fetchEventCategoryList () {
       treeList({
         dictTypeCode: 'GOVERN_EVENT_TYPE'
       }).then(res => {
@@ -283,17 +372,17 @@ export default {
         }
       })
     },
-    resetSearchForm() {
+    resetSearchForm () {
       this.advancedForm = this.$options.data().advancedForm
       this.fetchEventList()
     },
-    backPage() {
+    backPage () {
       this.$EventBus.$emit('backPage', {
         pageName: 'home',
         pageType: 'home'
       })
     },
-    handleEventDetails(rowData) {
+    handleEventDetails (rowData) {
       this.eventDetailsModal.visible = true
       this.eventDetailsModal.info = rowData
     }

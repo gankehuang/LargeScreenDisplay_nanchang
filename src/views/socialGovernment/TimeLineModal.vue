@@ -1,20 +1,39 @@
 <template>
-  <div class="time-line-container" v-if="visible">
-    <div class="close" @click="close"></div>
+  <div
+    v-if="visible"
+    class="time-line-container"
+  >
+    <div
+      class="close"
+      @click="close"
+    />
     <el-scrollbar style="height: 800px;margin: 20px 46px 0 48px;">
       <div class="time-first" />
-      <div class="time-first-block" :key="index" v-for="(item, index) in list">
+      <div
+        v-for="(item, index) in list"
+        :key="index"
+        class="time-first-block"
+      >
         <div class="line" />
         <div class="time-node-title">
-          <div class="time">{{ item.time }}</div>
+          <div class="time">
+            {{ item.time }}
+          </div>
           <div class="node" />
-          <div class="title">{{ item.title }}</div>
+          <div class="title">
+            {{ item.title }}
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
-          <div class="info">{{ item.info }}</div>
+          <div class="info">
+            {{ item.info }}
+          </div>
         </div>
-        <div class="image-node" :class="{ none: !item.imageUrl }">
+        <div
+          class="image-node"
+          :class="{ none: !item.imageUrl }"
+        >
           <div class="node" />
           <el-image
             :src="item.imageUrl"
@@ -40,24 +59,24 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       list: []
     }
   },
-  mounted() {},
   watch: {
-    visible(visible) {
+    visible (visible) {
       if (visible) {
         this.handleValue()
       }
     }
   },
+  mounted () {},
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     },
-    handleValue() {
+    handleValue () {
       switch (this.value) {
         case 'dwzs':
           this.list = nanChangBigEvent

@@ -3,7 +3,7 @@ import qs from 'querystring'
 import { getSeq } from '@/api/intelligentCommand/command'
 
 class Call {
-  constructor(voiceType) {
+  constructor (voiceType) {
     this.isTalking = false // 正在对讲
     this.voiceType = voiceType // 呼叫类型 0-临时组呼 1-单呼
     this.groupId = '' // 群组ID
@@ -16,7 +16,7 @@ class Call {
   }
 
   // 检测插件是否正常运行
-  async checkPlugin() {
+  async checkPlugin () {
     return new Promise((resolve, reject) => {
       axios({
         url: this.clientUrl,
@@ -42,7 +42,7 @@ class Call {
   }
 
   // 设备连接,创建群组
-  async link(userIds) {
+  async link (userIds) {
     const { seq, sign } = await getSeq()
     const res = await axios({
       url: '/voice/thirdSystem/facade_start_voice.htm',
@@ -66,7 +66,7 @@ class Call {
   }
 
   // 设备断连,解散群组
-  async unlink() {
+  async unlink () {
     if (!this.groupId) return false
     const { seq, sign } = await getSeq()
     await axios({
@@ -82,7 +82,7 @@ class Call {
   }
 
   // 群组添加成员
-  async addMembers(userIds) {
+  async addMembers (userIds) {
     const { seq, sign } = await getSeq()
     await axios({
       url: '/voice/thirdSystem/facade_add_group_user_mapping.htm',
@@ -97,7 +97,7 @@ class Call {
   }
 
   // 群组移除成员
-  async removeMembers(userIds) {
+  async removeMembers (userIds) {
     const { seq, sign } = await getSeq()
     await axios({
       url: '/voice/thirdSystem/facade_delete_member.htm',
@@ -112,7 +112,7 @@ class Call {
   }
 
   // 开始呼叫
-  async startTalking() {
+  async startTalking () {
     if (this.isTalking) return true
     await axios({
       method: 'get',
@@ -125,7 +125,7 @@ class Call {
   }
 
   // 停止呼叫
-  async stopTalking() {
+  async stopTalking () {
     if (!this.isTalking) return false
     axios({
       method: 'get',

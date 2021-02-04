@@ -11,21 +11,25 @@
     @opened="opened"
   >
     <template slot="title">
-      <DetailTab @tabActiveName="tabActiveName" :name="activeName" />
+      <DetailTab
+        :name="activeName"
+        @tabActiveName="tabActiveName"
+      />
     </template>
     <div class="tab-content">
       <el-scrollbar style="height:95%">
         <DetailInfo
           v-if="activeName === 'DetailInfo'"
           :data="tableData"
-        ></DetailInfo>
+          :info="info"
+        />
         <DetailRecord
           v-if="activeName === 'DetailRecord'"
           :data="tableData"
-        ></DetailRecord>
+        />
         <DetailGridObject
           v-if="activeName === 'DetailGridObject'"
-        ></DetailGridObject>
+        />
       </el-scrollbar>
     </div>
   </el-dialog>
@@ -39,35 +43,38 @@ import DetailGridObject from './DetailGridObject'
 import { getEventById } from '@/api/intelligentCommand/warning'
 
 export default {
-  props: {
-    info: Object,
-    visible: Boolean
-  },
   components: {
     DetailTab,
     DetailInfo,
     DetailRecord,
     DetailGridObject
   },
-  data() {
+  props: {
+    info: {
+      type: Object,
+      default: () => {}
+    },
+    visible: Boolean
+  },
+  data () {
     return {
       activeName: '',
       tableData: {}
     }
   },
   methods: {
-    opened() {
+    opened () {
       this.activeName = 'DetailInfo'
       this.getList()
     },
-    dialogClose() {
+    dialogClose () {
       this.$emit('update:visible', false)
     },
-    tabActiveName(activeName) {
+    tabActiveName (activeName) {
       this.activeName = activeName
       this.getList()
     },
-    async getList() {
+    async getList () {
       const param = {
         id: this.info.id
       }

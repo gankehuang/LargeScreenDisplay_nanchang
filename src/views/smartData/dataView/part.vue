@@ -1,57 +1,100 @@
 <template>
   <div class="data-view-style">
-    <socialGovernment style="z-index:2001" v-if="socialGovernmentVisible" />
-    <Tabs :tab-list="tabList" width="260px" :cur-index="0" />
+    <socialGovernment
+      v-if="socialGovernmentVisible"
+      style="z-index:2001"
+    />
+    <Tabs
+      :tab-list="tabList"
+      width="260px"
+      :cur-index="0"
+    />
     <div class="data-view-map">
       <div
+        v-for="(item, index) in buttonList"
+        :key="index"
         :class="[
           'data-view-map-button',
           { selected: selectedItem.name === item.name }
         ]"
-        v-for="(item, index) in buttonList"
-        :key="index"
         :style="item.style"
         @click="changeData(item)"
       >
         {{ item.name }}
       </div>
-      <img :src="bg" />
+      <img :src="bg">
     </div>
     <div class="data-view-left">
       <ul>
-        <li :class="active == 2 ? 'hover' : ''" @click="handleTab(2)">
+        <li
+          :class="active == 2 ? 'hover' : ''"
+          @click="handleTab(2)"
+        >
           <div>
-            <img src="@/assets/image/dataView/summary-left-icon1.png" alt="" />
+            <img
+              src="@/assets/image/dataView/summary-left-icon1.png"
+              alt=""
+            >
           </div>
           <div>人</div>
         </li>
-        <li :class="active == 3 ? 'hover' : ''" @click="handleTab(3)">
+        <li
+          :class="active == 3 ? 'hover' : ''"
+          @click="handleTab(3)"
+        >
           <div>
-            <img src="@/assets/image/dataView/summary-left-icon2.png" alt="" />
+            <img
+              src="@/assets/image/dataView/summary-left-icon2.png"
+              alt=""
+            >
           </div>
           <div>地</div>
         </li>
-        <li :class="active == 4 ? 'hover' : ''" @click="handleTab(4)">
+        <li
+          :class="active == 4 ? 'hover' : ''"
+          @click="handleTab(4)"
+        >
           <div>
-            <img src="@/assets/image/dataView/summary-left-icon3.png" alt="" />
+            <img
+              src="@/assets/image/dataView/summary-left-icon3.png"
+              alt=""
+            >
           </div>
           <div>事</div>
         </li>
-        <li :class="active == 5 ? 'hover' : ''" @click="handleTab(5)">
+        <li
+          :class="active == 5 ? 'hover' : ''"
+          @click="handleTab(5)"
+        >
           <div>
-            <img src="@/assets/image/dataView/summary-left-icon4.png" alt="" />
+            <img
+              src="@/assets/image/dataView/summary-left-icon4.png"
+              alt=""
+            >
           </div>
           <div>物</div>
         </li>
-        <li :class="active == 6 ? 'hover' : ''" @click="handleTab(6)">
+        <li
+          :class="active == 6 ? 'hover' : ''"
+          @click="handleTab(6)"
+        >
           <div>
-            <img src="@/assets/image/dataView/summary-left-icon5.png" alt="" />
+            <img
+              src="@/assets/image/dataView/summary-left-icon5.png"
+              alt=""
+            >
           </div>
           <div>网</div>
         </li>
-        <li :class="active == 7 ? 'hover' : ''" @click="handleTab(7)">
+        <li
+          :class="active == 7 ? 'hover' : ''"
+          @click="handleTab(7)"
+        >
           <div>
-            <img src="@/assets/image/dataView/summary-left-icon6.png" alt="" />
+            <img
+              src="@/assets/image/dataView/summary-left-icon6.png"
+              alt=""
+            >
           </div>
           <div>组织</div>
         </li>
@@ -59,27 +102,45 @@
     </div>
     <div class="data-view-right">
       <div class="data-view-right">
-        <div class="pandect" v-if="active == 2">
+        <div
+          v-if="active == 2"
+          class="pandect"
+        >
           <Poplation />
           <!-- <img src="@/assets/image/dataView/ren.png"> -->
         </div>
-        <div class="pandect" v-if="active == 3">
+        <div
+          v-if="active == 3"
+          class="pandect"
+        >
           <Ground />
           <!-- <img src="@/assets/image/dataView/di.png"> -->
         </div>
-        <div class="pandect" v-if="active == 4">
+        <div
+          v-if="active == 4"
+          class="pandect"
+        >
           <Things />
           <!-- <img src="@/assets/image/dataView/shi.png"> -->
         </div>
-        <div class="pandect" v-if="active == 5">
+        <div
+          v-if="active == 5"
+          class="pandect"
+        >
           <Matter />
           <!-- <img src="@/assets/image/dataView/wu.png"> -->
         </div>
-        <div class="pandect" v-if="active == 6">
+        <div
+          v-if="active == 6"
+          class="pandect"
+        >
           <NetWork />
           <!-- <img src="@/assets/image/dataView/wang.png"> -->
         </div>
-        <div class="organization" v-if="active == 7">
+        <div
+          v-if="active == 7"
+          class="organization"
+        >
           <!-- <img src="@/assets/image/dataView/zuzhi1.png"> -->
           <Organization />
         </div>
@@ -89,15 +150,6 @@
 </template>
 
 <script>
-const initBg = require('@/assets/image/dataView/map.png')
-const initTotalData = {
-  name: '南昌市',
-  code: '3601',
-  area: '7402km²',
-  produce: '5596.18亿元',
-  totalThing: 560,
-  endThing: 500
-}
 // import pandect from './module/pandect'
 import commonMixin from '../commonMixin'
 import Ground from './module/Ground'
@@ -107,6 +159,15 @@ import Matter from './module/Matter'
 import NetWork from './module/Network'
 import Organization from './module/Organization/index'
 import socialGovernment from '@/views/socialGovernment/index'
+const initBg = require('@/assets/image/dataView/map.png')
+const initTotalData = {
+  name: '南昌市',
+  code: '3601',
+  area: '7402km²',
+  produce: '5596.18亿元',
+  totalThing: 560,
+  endThing: 500
+}
 export default {
   components: {
     // pandect,
@@ -118,18 +179,8 @@ export default {
     Organization,
     socialGovernment
   },
-  beforeDestroy() {
-    this.$EventBus.$off('update:socialGovernmentVisible')
-  },
-  mounted() {
-    this.$EventBus.$on(
-      'update:socialGovernmentVisible',
-      res => (this.socialGovernmentVisible = res)
-    )
-    this.socialGovernmentVisible = this.$route.query.socialGovernment
-  },
   mixins: [commonMixin],
-  data() {
+  data () {
     return {
       bg: initBg,
       active: this.$route.query.active,
@@ -277,8 +328,18 @@ export default {
       ]
     }
   },
+  beforeDestroy () {
+    this.$EventBus.$off('update:socialGovernmentVisible')
+  },
+  mounted () {
+    this.$EventBus.$on(
+      'update:socialGovernmentVisible',
+      res => (this.socialGovernmentVisible = res)
+    )
+    this.socialGovernmentVisible = this.$route.query.socialGovernment
+  },
   methods: {
-    changeData(item) {
+    changeData (item) {
       if (item.name === '进贤县' && this.tabName !== '进贤县') {
         this.tabName = item.name
       } else {
@@ -295,14 +356,14 @@ export default {
 
       this.$EventBus.$emit('update:dataViewSeleItem', this.selectedItem)
     },
-    compare(property) {
-      return function(a, b) {
+    compare (property) {
+      return function (a, b) {
         var value1 = a[property]
         var value2 = b[property]
         return value2 - value1
       }
     },
-    handleTab(activeIndex) {
+    handleTab (activeIndex) {
       this.active = activeIndex
       this.changeData(this.selectedItem)
     }

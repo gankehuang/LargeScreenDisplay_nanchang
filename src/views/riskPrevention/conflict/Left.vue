@@ -5,14 +5,20 @@
       <div class="content">
         <el-row>
           <el-col :span="8">
-            <svg-icon icon-class="conflict-org" class="icon"></svg-icon>
+            <svg-icon
+              icon-class="conflict-org"
+              class="icon"
+            />
             <div class="info">
               <span class="label">调解组织</span>
-              <br />
+              <br>
               <span class="data">{{ org }}</span>
             </div>
           </el-col>
-          <el-col :span="16" class="grid">
+          <el-col
+            :span="16"
+            class="grid"
+          >
             <div class="grid-item">
               <span class="label">矛盾纠纷数</span>
               <span class="data">{{ yearCheckAmount }}</span>
@@ -25,14 +31,20 @@
         </el-row>
         <el-row>
           <el-col :span="8">
-            <svg-icon icon-class="conflict-peo" class="icon"></svg-icon>
+            <svg-icon
+              icon-class="conflict-peo"
+              class="icon"
+            />
             <div class="info">
               <span class="label">调解人员</span>
-              <br />
+              <br>
               <span class="data">{{ peo }}</span>
             </div>
           </el-col>
-          <el-col :span="16" class="grid">
+          <el-col
+            :span="16"
+            class="grid"
+          >
             <div class="grid-item">
               <span class="label">一般矛盾</span>
               <span class="data">{{ normalConflict }}</span>
@@ -48,7 +60,10 @@
     <div class="middle">
       <span class="title">矛盾纠纷类型</span>
       <div class="content">
-        <v-chart :options="middleOption" class="chart" />
+        <v-chart
+          :options="middleOption"
+          class="chart"
+        />
       </div>
     </div>
     <div class="bottom">
@@ -65,11 +80,26 @@
             }
           "
         >
-          <el-table-column prop="name" label="群体"> </el-table-column>
-          <el-table-column prop="count" label="成员数"> </el-table-column>
-          <el-table-column prop="backbone" label="骨干人数"> </el-table-column>
-          <el-table-column prop="activity" label="活跃度"> </el-table-column>
-          <el-table-column prop="distribute" label="成员分布">
+          <el-table-column
+            prop="name"
+            label="群体"
+          />
+          <el-table-column
+            prop="count"
+            label="成员数"
+          />
+          <el-table-column
+            prop="backbone"
+            label="骨干人数"
+          />
+          <el-table-column
+            prop="activity"
+            label="活跃度"
+          />
+          <el-table-column
+            prop="distribute"
+            label="成员分布"
+          >
             <template slot-scope="scope">
               <svg-icon
                 icon-class="location"
@@ -78,7 +108,7 @@
                     curShowMakerName === scope.row.name && scope.row.active
                 }"
                 @click.stop="focusMapMaker(scope.row)"
-              ></svg-icon>
+              />
             </template>
           </el-table-column>
         </el-table>
@@ -99,7 +129,7 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       curShowMakerName: '',
       org: 2166,
@@ -156,7 +186,7 @@ export default {
     }
   },
   computed: {
-    middleOption() {
+    middleOption () {
       return {
         color: ['#3B9AFE', '#00FFFF', '#A9DAFF', '#02C439', '#0055FF'],
         tooltip: {
@@ -221,7 +251,7 @@ export default {
     }
   },
   methods: {
-    navTo(row) {
+    navTo (row) {
       switch (row.name) {
         case '禁渔禁捕':
           this.$router.push('/riskPrevention/keyWaters')
@@ -232,7 +262,7 @@ export default {
           break
       }
     },
-    focusMapMaker(rowData) {
+    focusMapMaker (rowData) {
       this.curShowMakerName = rowData.name
       this.tableData.forEach(item => {
         if (item.name === rowData.name) {

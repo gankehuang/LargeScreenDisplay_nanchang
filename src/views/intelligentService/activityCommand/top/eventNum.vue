@@ -1,10 +1,14 @@
 <template>
   <div class="eventNum">
-    <div class="title">活动数量统计</div>
+    <div class="title">
+      活动数量统计
+    </div>
     <div class="contain">
-      <div class="lefts"></div>
+      <div class="lefts" />
       <div class="middles">
-        <p class="alls">{{ total }}</p>
+        <p class="alls">
+          {{ total }}
+        </p>
         <p>活动总数</p>
       </div>
       <div class="rights">
@@ -23,16 +27,16 @@
 <script>
 import { selectActivity } from '@/api/adminIntelligentService/activityCommand'
 export default {
-  data() {
+  data () {
     return {
       total: null
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       selectActivity({}, 1, 1000).then(res => {
         if (res.status === 200) {
           this.total = res.data.length

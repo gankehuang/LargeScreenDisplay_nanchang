@@ -1,10 +1,17 @@
 <template>
   <div class="page-container">
-    <Tabs :tab-list="tabList" width="600px" :cur-index="1" />
+    <Tabs
+      :tab-list="tabList"
+      width="600px"
+      :cur-index="1"
+    />
     <div class="container">
       <div class="form-search">
         <el-scrollbar style="height:100%">
-          <el-form :model="form" label-width="90px">
+          <el-form
+            :model="form"
+            label-width="90px"
+          >
             <el-form-item label="人员图片">
               <div class="form-avatar">
                 <el-upload
@@ -18,19 +25,32 @@
                   :on-change="handleChange"
                   :before-upload="beforeAvatarUpload"
                 >
-                  <img v-if="imgUrl" :src="imgUrl" class="avatar" />
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                  <img
+                    v-if="imgUrl"
+                    :src="imgUrl"
+                    class="avatar"
+                  >
+                  <i
+                    v-else
+                    class="el-icon-plus avatar-uploader-icon"
+                  />
                 </el-upload>
                 <p>注：图片大小不能超过10MB,仅支持JPGE/PNG</p>
               </div>
             </el-form-item>
 
             <el-form-item label="姓名">
-              <el-input v-model="form.name" placeholder="请输入" />
+              <el-input
+                v-model="form.name"
+                placeholder="请输入"
+              />
             </el-form-item>
 
             <el-form-item label="证件号码">
-              <el-input v-model="form.certificateNumber" placeholder="请输入" />
+              <el-input
+                v-model="form.certificateNumber"
+                placeholder="请输入"
+              />
             </el-form-item>
 
             <el-form-item label="相似度">
@@ -49,7 +69,10 @@
             </el-form-item>
 
             <el-form-item label="监控资源">
-              <el-input v-model="form.cameraName" placeholder="请输入" />
+              <el-input
+                v-model="form.cameraName"
+                placeholder="请输入"
+              />
             </el-form-item>
 
             <el-form-item label="开始时间">
@@ -71,18 +94,42 @@
             </el-form-item>
 
             <el-form-item label="是否戴眼镜">
-              <el-select v-model="form.glass" clearable>
-                <el-option label="未知" value="0" />
-                <el-option label="有" value="1" />
-                <el-option label="无" value="2" />
+              <el-select
+                v-model="form.glass"
+                clearable
+              >
+                <el-option
+                  label="未知"
+                  value="0"
+                />
+                <el-option
+                  label="有"
+                  value="1"
+                />
+                <el-option
+                  label="无"
+                  value="2"
+                />
               </el-select>
             </el-form-item>
 
             <el-form-item label="性别">
-              <el-select v-model="form.sex" clearable>
-                <el-option label="未知" value="0" />
-                <el-option label="男" value="1" />
-                <el-option label="女" value="2" />
+              <el-select
+                v-model="form.sex"
+                clearable
+              >
+                <el-option
+                  label="未知"
+                  value="0"
+                />
+                <el-option
+                  label="男"
+                  value="1"
+                />
+                <el-option
+                  label="女"
+                  value="2"
+                />
               </el-select>
             </el-form-item>
             <el-button
@@ -90,34 +137,59 @@
               size="medium"
               class="btn-submit"
               @click="search"
-              >搜索</el-button
             >
+              搜索
+            </el-button>
           </el-form>
         </el-scrollbar>
       </div>
 
-      <div class="list-container" v-loading="isLoading">
+      <div
+        v-loading="isLoading"
+        class="list-container"
+      >
         <el-scrollbar style="width:100%;height:100%;">
           <div class="items">
-            <div v-if="noData" class="empty">暂无数据</div>
-            <div v-else v-for="item in list" :key="item.id" class="item">
+            <div
+              v-if="noData"
+              class="empty"
+            >
+              暂无数据
+            </div>
+            <div
+              v-for="item in list"
+              v-else
+              :key="item.id"
+              class="item"
+            >
               <el-image
                 style="width:30%;height:100px;"
                 :src="item.imageUrl"
                 :preview-src-list="[item.bkgUrl]"
-              ></el-image>
+              />
               <div
                 class="info"
                 style="line-height: 1.8;width:70%;"
                 @click="showDetail(item)"
               >
-                <div class="name" style="color: #2188ed; ">
+                <div
+                  class="name"
+                  style="color: #2188ed; "
+                >
                   {{ item.cameraName }}
                 </div>
-                <div class="address" style="color: #fff;">
+                <div
+                  class="address"
+                  style="color: #fff;"
+                >
                   {{ item.gridSubPath }}
                 </div>
-                <div class="time" style="color:#fff;">{{ item.shootTime }}</div>
+                <div
+                  class="time"
+                  style="color:#fff;"
+                >
+                  {{ item.shootTime }}
+                </div>
               </div>
             </div>
           </div>
@@ -149,10 +221,10 @@ export default {
     dialogSnapshot
   },
   mixins: [commonMixin],
-  data() {
+  data () {
     return {
       url: network + '/' + webPlatform,
-      uploadUrl: `/police/uploadImage`,
+      uploadUrl: '/police/uploadImage',
       gridName: '',
       imgUrl: '',
       form: {
@@ -187,7 +259,7 @@ export default {
       fd: new FormData()
     }
   },
-  mounted() {
+  mounted () {
     // this.getList()
 
     const date1 = new Date()
@@ -212,7 +284,7 @@ export default {
     this.form.endTime = nowDay
   },
   methods: {
-    srcList(path) {
+    srcList (path) {
       const list = []
       if (path.indexOf('http') !== -1) {
         list.push(path)
@@ -222,7 +294,7 @@ export default {
         return list
       }
     },
-    async getList() {
+    async getList () {
       if (this.fd.get('file') && (!this.form.beginTime || !this.form.endTime)) {
         this.$message.warning('上传搜图图片后，必须选择开始时间和结束时间！')
         return
@@ -251,17 +323,17 @@ export default {
         }
       )
     },
-    search() {
+    search () {
       this.pageNum = 1
       this.getList()
     },
-    showDetail(info) {
+    showDetail (info) {
       this.dialogDetail = {
         display: true,
         info
       }
     },
-    beforeAvatarUpload(file) {
+    beforeAvatarUpload (file) {
       console.log(file)
       const isJPG = file.type === 'image/jpeg'
       const isLt10M = file.size / 1024 / 1024 < 10
@@ -271,10 +343,10 @@ export default {
 
       return isJPG && isLt10M
     },
-    handleChange(file) {
+    handleChange (file) {
       this.imgUrl = URL.createObjectURL(file.raw)
     },
-    httpRequest(param) {
+    httpRequest (param) {
       console.log(param)
       const fileObj = param.file
       this.fd.append('file', fileObj)

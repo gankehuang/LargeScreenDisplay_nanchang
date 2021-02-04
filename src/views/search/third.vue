@@ -1,18 +1,21 @@
 <template>
   <div class="search">
-    <img src="@/assets/image/search3.png" />
-    <div class="search" @click="search"></div>
+    <img src="@/assets/image/search3.png">
+    <div
+      class="search"
+      @click="search"
+    />
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       input: ''
     }
   },
   methods: {
-    search() {
+    search () {
       this.$router.push({ path: '/search/second' })
     }
   }

@@ -1,12 +1,21 @@
 <template>
   <div class="leftOneSchool">
-    <div class="title">加油站数量</div>
+    <div class="title">
+      加油站数量
+    </div>
     <div class="items">
-      <p class="alls">加油站总数 <span>106</span>个</p>
+      <p class="alls">
+        加油站总数 <span>106</span>个
+      </p>
       <div class="list">
-        <div v-for="(item, index) in leftTopList" :key="index">
+        <div
+          v-for="(item, index) in leftTopList"
+          :key="index"
+        >
           <p>{{ item.title }}</p>
-          <p class="list-nums">{{ item.num }}</p>
+          <p class="list-nums">
+            {{ item.num }}
+          </p>
         </div>
       </div>
     </div>
@@ -20,13 +29,7 @@ export default {
       type: Number
     }
   },
-  watch: {
-    clientDetails: {
-      immediate: true,
-      handler: curValue => {}
-    }
-  },
-  data() {
+  data () {
     return {
       leftTopList: [
         {
@@ -42,6 +45,12 @@ export default {
           num: 14
         }
       ]
+    }
+  },
+  watch: {
+    clientDetails: {
+      immediate: true,
+      handler: curValue => {}
     }
   }
 }

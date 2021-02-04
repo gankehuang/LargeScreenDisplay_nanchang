@@ -1,6 +1,10 @@
 <template>
   <div class="vertical-num-to">
-    <span class="number" v-for="(item, index) in totalNumArr" :key="index">
+    <span
+      v-for="(item, index) in totalNumArr"
+      :key="index"
+      class="number"
+    >
       <i ref="numberItem">0123456789</i>
     </span>
   </div>
@@ -25,7 +29,7 @@ export default {
       default: () => false
     }
   },
-  data() {
+  data () {
     return {
       totalNumArr: [],
       setTimeOutId: 0
@@ -34,12 +38,12 @@ export default {
   watch: {
     total: {
       immediate: true,
-      handler(total) {
+      handler (total) {
         this.handleTotalNumber(total)
       }
     }
   },
-  created() {
+  created () {
     this.$nextTick(() => {
       if (this.oneByOne) {
         this.setOneByOneNumberTransform()
@@ -50,7 +54,7 @@ export default {
   },
   methods: {
     // 处理数字成字符串
-    handleTotalNumber(total) {
+    handleTotalNumber (total) {
       // const that = this
       const totalLength = this.bits
       const length = String(total).split('').length
@@ -62,7 +66,7 @@ export default {
     },
     // 动画
     // 数字全部滚动
-    setAllNumberTransform() {
+    setAllNumberTransform () {
       const numberItems = this.$refs.numberItem // 拿到数字的ref，计算元素数量\
       if (!numberItems) return
       // debugger
@@ -77,7 +81,7 @@ export default {
       }
     },
     // 数字一个一个滚动
-    setOneByOneNumberTransform() {
+    setOneByOneNumberTransform () {
       const numberItems = this.$refs.numberItem // 拿到数字的ref，计算元素数量\
       if (!numberItems) return
       // debugger

@@ -1,6 +1,8 @@
 <template>
   <div class="eventDistrict">
-    <div class="title">督导事件分布</div>
+    <div class="title">
+      督导事件分布
+    </div>
     <div class="contain">
       <v-chart :options="options" />
     </div>
@@ -9,13 +11,13 @@
 <script>
 import { queryEventList } from '@/api/intelligentService/regionSupervision'
 export default {
-  data() {
+  data () {
     return {
       num: null
     }
   },
   computed: {
-    options() {
+    options () {
       return {
         // color: ['#3398DB'],
         tooltip: {
@@ -121,18 +123,18 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       queryEventList(1, 10, {}).then(res => {
         if (res.status === 200) {
           this.num = res.data.total
         }
       })
     },
-    percentage(per) {
+    percentage (per) {
       return parseInt(this.num * per)
     }
   }

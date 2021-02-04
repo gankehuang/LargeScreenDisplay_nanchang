@@ -1,23 +1,32 @@
 <template>
-  <div class="device-contaier" slot="tool">
-    <div class="device-selector" @click="switchMenu">
+  <div
+    slot="tool"
+    class="device-container"
+  >
+    <div
+      class="device-selector"
+      @click="switchMenu"
+    >
       <span class="title">工具</span>
       <img
         class="arrow"
         :class="menuActive && 'active'"
         src="@/assets/image/common/select-arrow.png"
-      />
+      >
     </div>
     <transition name="menu">
-      <div class="menu" v-if="menuActive">
+      <div
+        v-if="menuActive"
+        class="menu"
+      >
         <div
-          class="item"
           v-for="menu in menuList"
           :key="menu.name"
+          class="item"
           :class="menu.active && 'active'"
           @click="bindToolBtn(menu.type)"
         >
-          <img :src="menu.src" />
+          <img :src="menu.src">
           <div>{{ menu.name }}</div>
         </div>
       </div>
@@ -27,8 +36,7 @@
 
 <script>
 export default {
-  props: ['selected'],
-  data() {
+  data () {
     return {
       menuActive: false,
       menuList: [
@@ -56,22 +64,18 @@ export default {
     }
   },
   watch: {
-    selected() {
+    selected () {
       this.menuList.forEach(menu => {
-        if (this.selected.includes(menu.name)) {
-          menu.active = true
-        } else {
-          menu.active = false
-        }
+        menu.active = !!this.selected.includes(menu.name)
       })
     }
   },
   methods: {
-    bindToolBtn(type) {
+    bindToolBtn (type) {
       this.$emit('bindToolBtn', type)
       this.menuActive = false
     },
-    switchMenu() {
+    switchMenu () {
       this.menuActive = !this.menuActive
     }
   }
@@ -79,7 +83,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.device-contaier {
+.device-container {
   position: absolute;
   top: 95px;
   left: 25%;

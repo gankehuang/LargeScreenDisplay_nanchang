@@ -2,16 +2,22 @@
   <div class="win-info">
     <div class="search-box">
       <el-input
-        placeholder="搜索特殊人员"
         v-model="searchVal"
+        placeholder="搜索特殊人员"
         class="input-with-select"
-      >
-      </el-input>
-      <svg-icon icon-class="search" class="svg-icon" />
+      />
+      <svg-icon
+        icon-class="search"
+        class="svg-icon"
+      />
     </div>
     <div class="list">
       <el-scrollbar style="height: 100%;">
-        <div v-for="(item, index) in list" :key="index" class="list-item">
+        <div
+          v-for="(item, index) in list"
+          :key="index"
+          class="list-item"
+        >
           <div class="left">
             <el-image
               v-if="item.xp"
@@ -20,15 +26,27 @@
             />
           </div>
           <div class="right">
-            <div class="title">{{ item.xm }} {{ item.phone }}</div>
+            <div class="title">
+              {{ item.xm }} {{ item.phone }}
+            </div>
             <div class="tip">
               {{ item.memo }}
             </div>
-            <div class="idNumber">身份证号: {{ item.gmsfhm }}</div>
-            <div class="address">地址: {{ item.residenceaddr }}</div>
+            <div class="idNumber">
+              身份证号: {{ item.gmsfhm }}
+            </div>
+            <div class="address">
+              地址: {{ item.residenceaddr }}
+            </div>
           </div>
-          <div class="position" @click="changeEvent(item)">
-            <img src="@/assets/image/importPeople/position.png" alt="" />
+          <div
+            class="position"
+            @click="changeEvent(item)"
+          >
+            <img
+              src="@/assets/image/importPeople/position.png"
+              alt=""
+            >
           </div>
         </div>
       </el-scrollbar>
@@ -39,7 +57,7 @@
 <script>
 import { getZhqList } from '@/api/riskPrevention/specialPeople'
 export default {
-  data() {
+  data () {
     return {
       searchVal: '',
       list: [
@@ -86,18 +104,18 @@ export default {
       ]
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       getZhqList({ name: '中华情' }).then(res => {
         if (res.status === 200) {
           this.list = res.data
         }
       })
     },
-    changeEvent(item) {
+    changeEvent (item) {
       this.$EventBus.$emit('update: selectedItem', item)
     }
   }

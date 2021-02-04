@@ -1,27 +1,31 @@
 <template>
   <div class="page-box">
-    <Tabs :tab-list="tabList" width="600px" :cur-index="0" />
+    <Tabs
+      :tab-list="tabList"
+      width="600px"
+      :cur-index="0"
+    />
     <div class="content">
       <!-- <div class="annulus-box"> -->
-        <!-- <div class="annulus"> -->
-          <!-- <div class="torus"></div> -->
-          <!-- <div class="line"> -->
-            <!-- <div class="line-box"></div> -->
-            <!-- <div class="line-list">
+      <!-- <div class="annulus"> -->
+      <!-- <div class="torus"></div> -->
+      <!-- <div class="line"> -->
+      <!-- <div class="line-box"></div> -->
+      <!-- <div class="line-list">
 <!--              <ul>-->
-<!--                <li-->
-<!--                  v-for="(item, index) in selectList"-->
-<!--                  :key="index"-->
-<!--                  :class="setClass(index)"-->
-<!--                >-->
-<!--                  <div class="lines">{{ item.name }}</div>-->
-<!--                </li>-->
-<!--              </ul>-->
-            <!-- </div> -->
-          </div>
-        </div>
-      </div>
+      <!--                <li-->
+      <!--                  v-for="(item, index) in selectList"-->
+      <!--                  :key="index"-->
+      <!--                  :class="setClass(index)"-->
+      <!--                >-->
+      <!--                  <div class="lines">{{ item.name }}</div>-->
+      <!--                </li>-->
+      <!--              </ul>-->
+      <!-- </div> -->
     </div>
+  </div>
+  </div>
+  </div>
   </div>
 </template>
 

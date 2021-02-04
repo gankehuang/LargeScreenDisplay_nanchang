@@ -1,7 +1,7 @@
 <template>
   <div
-    class="float-people-modal-container"
     v-loading="loading"
+    class="float-people-modal-container"
     element-loading-text="数据加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="transparent"
@@ -20,34 +20,38 @@
       <el-button
         type="primary"
         @click="getList"
-      >查询</el-button>
+      >
+        查询
+      </el-button>
       <el-button
         type="primary"
         @click="
           searchForm.idNumber = '';
           searchForm.name = '';
         "
-      >重置</el-button>
+      >
+        重置
+      </el-button>
     </div>
     <el-scrollbar
-      style="height:80%;width:100%;"
       v-loading="tableLoading"
+      style="height:80%;width:100%;"
       element-loading-text="数据加载中"
       element-loading-spinner="el-icon-loading"
       element-loading-background="transparent"
     >
       <div
-        class="list"
+        v-if="tableData.length !== 0"
         v-loading="loading"
+        class="list"
         element-loading-text="数据加载中"
         element-loading-spinner="el-icon-loading"
         element-loading-background="transparent"
-        v-if="tableData.length !== 0"
       >
         <div
-          class="list-item"
           v-for="(item, index) in tableData"
           :key="index"
+          class="list-item"
         >
           <el-row :gutter="64">
             <el-col :span="4">
@@ -66,7 +70,9 @@
                 :src="photoUrl"
                 :preview-src-list="[photoUrl]"
               />
-              <div class="image-explain">采集照片</div>
+              <div class="image-explain">
+                采集照片
+              </div>
             </el-col>
             <el-col :span="20">
               <el-row>
@@ -126,8 +132,8 @@
         </div>
       </div>
       <div
-        class="empty"
         v-if="tableData.length === 0 && !tableLoading"
+        class="empty"
       >
         暂无数据
       </div>
@@ -148,7 +154,7 @@ export default {
   props: {
     provinceCode: undefined
   },
-  data() {
+  data () {
     return {
       searchForm: {
         idNumber: '',
@@ -163,11 +169,11 @@ export default {
       loading: false
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    async getList() {
+    async getList () {
       this.tableLoading = true
       const params = {
         ...this.searchForm

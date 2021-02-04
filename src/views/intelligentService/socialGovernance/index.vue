@@ -1,42 +1,53 @@
+<!-- 智慧服务 页面组件 -->
 <template>
   <div class="socialGovernance">
-    <Tabs :tab-list="tabList" width="500px" :cur-index="0" />
-    <div class="con-top" v-if="curPageType === 'home'">
-      <conTop />
+    <Tabs
+      :tab-list="tabList"
+      width="500px"
+      :cur-index="0"
+    />
+    <div
+      v-if="curPageType === 'home'"
+      class="con-top"
+    >
+      <ConTop />
     </div>
-    <div class="con-bottom" v-if="curPageType === 'home'">
-      <conBottom />
+    <div
+      v-if="curPageType === 'home'"
+      class="con-bottom"
+    >
+      <ConBottom />
     </div>
 
     <EventListTable
       v-if="curPageType === 'EventListTable'"
-      :pageName="curPageName"
+      :page-name="curPageName"
     />
   </div>
 </template>
 
 <script>
-import conTop from './conTop'
-import conBottom from './conBottom'
+import ConTop from './conTop'
+import ConBottom from './conBottom'
 import commonMixin from '../commonMixin'
-import EventListTable from './EventListTable'
+import EventListTable from './eventListTable/index'
 export default {
   components: {
-    conTop,
-    conBottom,
+    ConTop,
+    ConBottom,
     EventListTable
   },
   mixins: [commonMixin],
-  data() {
+  data () {
     return {
       curPageType: 'home',
       curPageName: ''
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('backPage')
   },
-  mounted() {
+  mounted () {
     this.$EventBus.$on('backPage', res => {
       this.curPageType = res.pageType
       this.curPageName = res.pageName

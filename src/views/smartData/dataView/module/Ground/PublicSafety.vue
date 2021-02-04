@@ -1,10 +1,18 @@
 <template>
   <div class="public-safety-container">
-    <div class="title">公共场所</div>
+    <div class="title">
+      公共场所
+    </div>
     <ul>
-      <li v-for="(item, index) in dataList" :key="index">
+      <li
+        v-for="(item, index) in dataList"
+        :key="index"
+      >
         <div class="label-container">
-          <svg-icon :icon-class="item.icon" class="icon" />
+          <svg-icon
+            :icon-class="item.icon"
+            class="icon"
+          />
           <span class="label">{{ item.label }}</span>
         </div>
         <div class="data">
@@ -20,7 +28,7 @@
 // import { queryKeyPlaceCount } from '@/api/smartData/dataView'
 import { queryCommonPlace } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       dataList: [
         {
@@ -46,10 +54,10 @@ export default {
       code: '3601'
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  mounted() {
+  mounted () {
     this.handleQueryPubSafetyCount()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -70,16 +78,16 @@ export default {
     //     }
     //   } catch (error) {}
     // }
-    async handleQueryPubSafetyCount() {
+    async handleQueryPubSafetyCount () {
       try {
         const { status, data } = await queryCommonPlace({
           gridCode: this.code
         })
         if (status === 200) {
-          this.dataList[0].number = data['hcz']
-          this.dataList[1].number = data['gjcz']
-          this.dataList[2].number = data['qcz']
-          this.dataList[3].number = data['jc']
+          this.dataList[0].number = data.hcz
+          this.dataList[1].number = data.gjcz
+          this.dataList[2].number = data.qcz
+          this.dataList[3].number = data.jc
         }
       } catch (error) {}
     }

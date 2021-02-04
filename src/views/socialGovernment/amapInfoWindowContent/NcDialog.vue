@@ -1,11 +1,17 @@
 <template>
   <div class="nc-dialog">
-    <div class="title">{{ select0ne.name }}{{ select0ne.type }}情况</div>
+    <div class="title">
+      {{ select0ne.name }}{{ select0ne.type }}情况
+    </div>
     <div class="line" />
     <el-scrollbar style="width: 100%; height: 300px">
-      <div class="nc-num" v-for="(item, index) in select0ne.data" :key="index">
+      <div
+        v-for="(item, index) in select0ne.data"
+        :key="index"
+        class="nc-num"
+      >
         <span>{{ item.name }}</span>
-        {{ item.value }}{{item.unit}}
+        {{ item.value }}{{ item.unit }}
       </div>
     </el-scrollbar>
   </div>
@@ -19,12 +25,12 @@ export default {
       default: () => {}
     }
   },
-  data() {
+  data () {
     return {}
   },
-  mounted() {},
+  mounted () {},
   methods: {
-    close() {
+    close () {
       this.$emit('update:dialogVisable', false)
     }
   }

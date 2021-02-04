@@ -2,7 +2,7 @@ import request from '@/utils/request'
 import { network, webPlatform } from '@/config/gateway'
 
 // 分页查询事件列表
-export const queryEventList = function(pageNum, pageSize, params) {
+export const queryEventList = function (pageNum, pageSize, params) {
   return request({
     url: `${network}/${webPlatform}/event/pageQuery/${pageNum}/${pageSize}`,
     method: 'get',
@@ -11,7 +11,7 @@ export const queryEventList = function(pageNum, pageSize, params) {
 }
 
 // 分页查询事件列表
-export const countSuperviseEventStatus = function() {
+export const countSuperviseEventStatus = function () {
   return request({
     url: `${network}/${webPlatform}/event/countSuperviseEventStatus`,
     method: 'get'

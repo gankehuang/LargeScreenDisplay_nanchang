@@ -1,21 +1,35 @@
 <template>
   <div class="nc-dialog">
-    <div class="title">{{ select0ne.name }}{{ select0ne.type }}</div>
+    <div class="title">
+      {{ select0ne.name }}{{ select0ne.type }}
+    </div>
     <div class="line" />
 
     <div class="dialog-content">
       <div class="total-list">
         <div class="total-item">
-          <div class="total-num">{{ grid.gridMember }}</div>
-          <div class="total-name">网格员</div>
+          <div class="total-num">
+            {{ grid.gridMember }}
+          </div>
+          <div class="total-name">
+            网格员
+          </div>
         </div>
         <div class="total-item">
-          <div class="total-num">{{ grid.grid }}</div>
-          <div class="total-name">网格数</div>
+          <div class="total-num">
+            {{ grid.grid }}
+          </div>
+          <div class="total-name">
+            网格数
+          </div>
         </div>
         <div class="total-item">
-          <div class="total-num">{{ grid.gridFuse }}</div>
-          <div class="total-name">网格融入</div>
+          <div class="total-num">
+            {{ grid.gridFuse }}
+          </div>
+          <div class="total-name">
+            网格融入
+          </div>
         </div>
       </div>
 
@@ -85,11 +99,11 @@ export default {
       default: () => null
     }
   },
-  data() {
+  data () {
     return {}
   },
   computed: {
-    grid() {
+    grid () {
       return this.select0ne && this.select0ne.data
         ? this.select0ne.data.grid
         : {
@@ -98,7 +112,7 @@ export default {
           gridFuse: ''
         }
     },
-    gridFuse() {
+    gridFuse () {
       return this.select0ne && this.select0ne.data
         ? this.select0ne.data.gridFuse
         : {

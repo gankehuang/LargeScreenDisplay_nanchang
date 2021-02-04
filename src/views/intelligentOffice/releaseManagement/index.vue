@@ -1,6 +1,10 @@
 <template>
   <div class="releaseManagement">
-    <Tabs :tab-list="tabList" width="500px" :cur-index="1" />
+    <Tabs
+      :tab-list="tabList"
+      width="500px"
+      :cur-index="1"
+    />
     <AdminView />
     <!-- <router-view></router-view> -->
   </div>
@@ -9,10 +13,10 @@
 import AdminView from '@/components/AdminView'
 import commonMixin from '../commonMixin'
 export default {
-  mixins: [commonMixin],
   components: {
     AdminView
-  }
+  },
+  mixins: [commonMixin]
 }
 </script>
 <style lang="scss" scoped>

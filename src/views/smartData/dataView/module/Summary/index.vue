@@ -49,34 +49,64 @@
         </div>
         <div class="bottom-center">
           <div class="item">
-            <svg-icon icon-class="summary-icon1" class="svg-icon"></svg-icon>
+            <svg-icon
+              icon-class="summary-icon1"
+              class="svg-icon"
+            />
             人口库
-            <div class="count">{{ personNum }} <span>条</span></div>
+            <div class="count">
+              {{ personNum }} <span>条</span>
+            </div>
           </div>
           <div class="item">
-            <svg-icon icon-class="summary-icon2" class="svg-icon"></svg-icon>
+            <svg-icon
+              icon-class="summary-icon2"
+              class="svg-icon"
+            />
             地址库
-            <div class="count">{{ placeNum }}<span>条</span></div>
+            <div class="count">
+              {{ placeNum }}<span>条</span>
+            </div>
           </div>
           <div class="item">
-            <svg-icon icon-class="summary-icon3" class="svg-icon"></svg-icon>
+            <svg-icon
+              icon-class="summary-icon3"
+              class="svg-icon"
+            />
             事件库
-            <div class="count">{{ eventNum }}<span>条</span></div>
+            <div class="count">
+              {{ eventNum }}<span>条</span>
+            </div>
           </div>
           <div class="item">
-            <svg-icon icon-class="summary-icon4" class="svg-icon"></svg-icon>
+            <svg-icon
+              icon-class="summary-icon4"
+              class="svg-icon"
+            />
             物品库
-            <div class="count">{{ goodsNum }}<span>条</span></div>
+            <div class="count">
+              {{ goodsNum }}<span>条</span>
+            </div>
           </div>
           <div class="item">
-            <svg-icon icon-class="summary-icon5" class="svg-icon"></svg-icon>
+            <svg-icon
+              icon-class="summary-icon5"
+              class="svg-icon"
+            />
             组织库
-            <div class="count">{{ organNum }}<span>条</span></div>
+            <div class="count">
+              {{ organNum }}<span>条</span>
+            </div>
           </div>
           <div class="item">
-            <svg-icon icon-class="summary-icon6" class="svg-icon"></svg-icon>
+            <svg-icon
+              icon-class="summary-icon6"
+              class="svg-icon"
+            />
             舆情库
-            <div class="count">{{ mediaNum }}<span>条</span></div>
+            <div class="count">
+              {{ mediaNum }}<span>条</span>
+            </div>
           </div>
         </div>
       </div>
@@ -90,8 +120,14 @@
       </div>
       <div class="right-center">
         <div class="flex-left">
-          <div v-for="(item, index) in leftList" :key="index" class="item">
-            <div class="count">{{ item.sum }} <span>条</span></div>
+          <div
+            v-for="(item, index) in leftList"
+            :key="index"
+            class="item"
+          >
+            <div class="count">
+              {{ item.sum }} <span>条</span>
+            </div>
             {{ item.name }}
           </div>
         </div>
@@ -99,11 +135,17 @@
           class="tree"
           src="@/assets/image/dataView/summary-right-tree.png"
           alt=""
-        />
+        >
         <div class="flex-right">
-          <div v-for="(item, index) in rightList" :key="index" class="item">
+          <div
+            v-for="(item, index) in rightList"
+            :key="index"
+            class="item"
+          >
             {{ item.name }}
-            <div class="count">{{ item.sum }} <span>条</span></div>
+            <div class="count">
+              {{ item.sum }} <span>条</span>
+            </div>
           </div>
         </div>
       </div>
@@ -114,7 +156,7 @@
 <script>
 import { getDeptData, getThemeLibrary } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       leftList: [
         {
@@ -192,11 +234,11 @@ export default {
       mediaNum: 0
     }
   },
-  mounted() {
+  mounted () {
     this.getDeptData()
   },
   methods: {
-    getDeptData() {
+    getDeptData () {
       getDeptData().then(res => {
         if (res.status === 200) {
           this.leftList = res.data.filter((item, index) => index % 2 === 0)
@@ -212,7 +254,7 @@ export default {
         }
       })
     },
-    toThousands(num) {
+    toThousands (num) {
       const result = []
       var counter = 0
       num = (num || 0).toString().split('')

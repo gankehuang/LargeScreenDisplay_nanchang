@@ -1,31 +1,51 @@
 <template>
-  <div class="page-container">
-    <Tabs :tab-list="tabList" width="300px" :cur-index="1" />
-    <Pageleft />
-    <centerMap />
-    <PageRight />
-    <PageCenter />
-  </div>
+  <Container>
+    <Tabs
+      :tab-list="tabList"
+      width="300px"
+      :cur-index="1"
+    />
+    <Map />
+    <template v-slot:pageLeft>
+      <PoliceInformationNum />
+      <PoliceInformationNumDistribution />
+    </template>
+    <template v-slot:pageRight>
+      <PoliceInformationReport />
+      <PoliceInformationProblem />
+      <PoliceInformationType />
+    </template>
+    <div class="center">
+      <PageCenter />
+    </div>
+  </Container>
 </template>
 
 <script>
-import centerMap from './centerMap'
-import Pageleft from './PageLeft'
-import PageRight from './PageRight'
+import Map from './Map'
+import PoliceInformationNum from './Left/PoliceInformationNum'
+import PoliceInformationNumDistribution from './Left/PoliceInformationNumDistribution'
+import PoliceInformationReport from './Right/PoliceInformationReport'
+import PoliceInformationProblem from './Right/PoliceInformationProblem'
+import PoliceInformationType from './Right/PoliceInformationType'
 import PageCenter from './PageCenter'
 import commonMixin from '../../commonMixin'
 export default {
   components: {
-    Pageleft,
-    PageRight,
+    PoliceInformationNum,
+    PoliceInformationNumDistribution,
+    PoliceInformationReport,
+    PoliceInformationProblem,
+    PoliceInformationType,
     PageCenter,
-    centerMap
+    Map
   },
   mixins: [commonMixin],
-  data() {
-    return {}
-  },
-  methods: {}
+  data () {
+    return {
+      pdfModalVisible: false
+    }
+  }
 }
 </script>
 
@@ -49,5 +69,12 @@ export default {
   .nums {
     color: #f2bd1b;
   }
+}
+.center {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1017px;
 }
 </style>

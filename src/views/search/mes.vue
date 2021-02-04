@@ -11,11 +11,20 @@
           {{ item.name }}
         </div>
       </div>
-      <div class="btn-close" @click="bindBtnClose">
-        <i class="el-icon-close"></i>
+      <div
+        class="btn-close"
+        @click="bindBtnClose"
+      >
+        <i class="el-icon-close" />
       </div>
-      <div class="basic" v-if="tab == 0">
-        <div class="item" v-if="list.name">
+      <div
+        v-if="tab == 0"
+        class="basic"
+      >
+        <div
+          v-if="list.name"
+          class="item"
+        >
           <div class="img">
             <!-- <CustomImage
               v-if="list.photoUrl"
@@ -27,7 +36,11 @@
               :src="list.photoUrl"
               :preview-src-list="[list.photoUrl]"
             />
-            <img v-else src="@/assets/image/search/avatar.png" alt="" />
+            <img
+              v-else
+              src="@/assets/image/search/avatar.png"
+              alt=""
+            >
           </div>
           <div class="mes">
             <div class="mes-bottom">
@@ -66,13 +79,23 @@
             </div>
           </div>
         </div>
-        <div v-else class="none">
+        <div
+          v-else
+          class="none"
+        >
           暂无数据
         </div>
       </div>
-      <div class="basic room" v-if="tab == 1">
+      <div
+        v-if="tab == 1"
+        class="basic room"
+      >
         <div v-if="roomList.length > 0">
-          <div v-for="(item, index) in roomList" :key="index" class="item">
+          <div
+            v-for="(item, index) in roomList"
+            :key="index"
+            class="item"
+          >
             <div class="mes">
               <div class="mes-bottom">
                 <div class="mes-flex">
@@ -141,13 +164,23 @@
             </div>
           </div>
         </div>
-        <div v-else class="none">
+        <div
+          v-else
+          class="none"
+        >
           暂无数据
         </div>
       </div>
-      <div class="basic car" v-if="tab === 2">
+      <div
+        v-if="tab === 2"
+        class="basic car"
+      >
         <div v-if="carList.length > 0">
-          <div v-for="(item, index) in carList" :key="index" class="item">
+          <div
+            v-for="(item, index) in carList"
+            :key="index"
+            class="item"
+          >
             <div class="img">
               <CustomImage
                 v-if="list.vehiclePhotoUrl"
@@ -155,7 +188,11 @@
                 :preview-src-list="[item.vehiclePhotoUrl]"
               />
               <!-- <img v-if="item.vehiclePhotoUrl" :src="item.vehiclePhotoUrl" alt=""> -->
-              <img v-else src="@/assets/image/search/car.png" alt="" />
+              <img
+                v-else
+                src="@/assets/image/search/car.png"
+                alt=""
+              >
             </div>
             <div class="mes">
               <div class="mes-bottom">
@@ -205,19 +242,28 @@
             </div>
           </div>
         </div>
-        <div v-else class="none">
+        <div
+          v-else
+          class="none"
+        >
           暂无数据
         </div>
       </div>
-      <div class="basic" v-if="tab === 3">
+      <div
+        v-if="tab === 3"
+        class="basic"
+      >
         <div class="echartLayout">
           <div
             id="container"
             ref="echa"
             style="width:100%; height:600px; overflow:hidden;"
-          ></div>
+          />
         </div>
-        <Popup title="个人信息" v-if="showMessage1">
+        <Popup
+          v-if="showMessage1"
+          title="个人信息"
+        >
           <div class="pop">
             <el-form>
               <el-form-item>
@@ -276,19 +322,30 @@
               </el-form-item>
             </el-form>
             <div class="img">
-              <img :src="info.imageUrl" alt="" />
+              <img
+                :src="info.imageUrl"
+                alt=""
+              >
             </div>
-            <el-button @click="showMessage = false"
-type="primary"
-              >关闭</el-button
+            <el-button
+              type="primary"
+              @click="showMessage = false"
             >
+              关闭
+            </el-button>
           </div>
         </Popup>
-        <div v-if="chartData.length == 0" class="none">
+        <div
+          v-if="chartData.length == 0"
+          class="none"
+        >
           暂无数据
         </div>
       </div>
-      <div class="basic record" v-if="tab == 4">
+      <div
+        v-if="tab == 4"
+        class="basic record"
+      >
         <div v-if="recordsList.length > 0">
           <div class="search-time">
             <span>通行时间:</span>
@@ -305,10 +362,19 @@ type="primary"
               placeholder="结束时间"
               value-format="yyyy-MM-dd"
             />
-            <el-button @click="getList" type="primary">查询</el-button>
+            <el-button
+              type="primary"
+              @click="getList"
+            >
+              查询
+            </el-button>
           </div>
           <div class="list">
-            <div v-for="(item, index) in recordsList" :key="index" class="item">
+            <div
+              v-for="(item, index) in recordsList"
+              :key="index"
+              class="item"
+            >
               <div class="img">
                 <CustomImage
                   v-if="item.accessImgUrl"
@@ -351,19 +417,24 @@ type="primary"
           <div class="pagination1">
             <el-pagination
               :current-page.sync="pageNum"
-              @current-change="getList"
               :page-size="pageSize"
               layout="total, prev, pager, next"
               :total="total"
-            >
-            </el-pagination>
+              @current-change="getList"
+            />
           </div>
         </div>
-        <div v-else class="none">
+        <div
+          v-else
+          class="none"
+        >
           暂无数据
         </div>
       </div>
-      <div class="basic catch" v-if="tab == 5">
+      <div
+        v-if="tab == 5"
+        class="basic catch"
+      >
         <div v-if="catchList.length > 0">
           <div class="search-time">
             <span>抓拍时间:</span>
@@ -380,10 +451,19 @@ type="primary"
               placeholder="结束时间"
               value-format="yyyy-MM-dd HH:mm:ss"
             />
-            <el-button @click="getList" type="primary">查询</el-button>
+            <el-button
+              type="primary"
+              @click="getList"
+            >
+              查询
+            </el-button>
           </div>
           <div class="list">
-            <div v-for="(item, index) in catchList" :key="index" class="item">
+            <div
+              v-for="(item, index) in catchList"
+              :key="index"
+              class="item"
+            >
               <div class="img">
                 <!-- <img :src="item.imageUrl" alt=""> -->
                 <CustomImage
@@ -401,16 +481,17 @@ type="primary"
                     >
                       <span
                         style="display: block;text-align: left;width: 150px; white-space: nowrap;overflow: hidden;text-overflow:ellipsis;line-clamp: 2;"
-                        >{{ item.cameraName }}
+                      >{{ item.cameraName }}
                       </span>
                       {{ item.gridSubPath }}
                       <p>{{ item.shootTime }}</p>
                       <el-button
                         style="position: absolute;bottom: 20px; left: 0;"
-                        @click="pop(item)"
                         type="primary"
-                        >查看详情</el-button
+                        @click="pop(item)"
                       >
+                        查看详情
+                      </el-button>
                     </div>
                   </div>
                 </div>
@@ -420,14 +501,16 @@ type="primary"
           <div class="pagination1">
             <el-pagination
               :current-page.sync="pageNum"
-              @current-change="getList"
               page-size="9"
               layout="total, prev, pager, next"
               :total="total"
-            >
-            </el-pagination>
+              @current-change="getList"
+            />
           </div>
-          <Popup title="抓拍信息" v-if="showMessage">
+          <Popup
+            v-if="showMessage"
+            title="抓拍信息"
+          >
             <div class="pop">
               <el-form>
                 <el-form-item>
@@ -486,18 +569,26 @@ type="primary"
                   :preview-src-list="[info.imageUrl]"
                 />
               </div>
-              <el-button @click="showMessage = false"
-type="primary"
-                >关闭</el-button
+              <el-button
+                type="primary"
+                @click="showMessage = false"
               >
+                关闭
+              </el-button>
             </div>
           </Popup>
         </div>
-        <div v-else class="none">
+        <div
+          v-else
+          class="none"
+        >
           暂无数据
         </div>
       </div>
-      <div class="basic alarm" v-if="tab == 6">
+      <div
+        v-if="tab == 6"
+        class="basic alarm"
+      >
         <div v-if="alarmList.length > 0">
           <div class="search-time">
             <span>告警时间:</span>
@@ -514,10 +605,19 @@ type="primary"
               placeholder="结束时间"
               value-format="yyyy-MM-dd"
             />
-            <el-button @click="getList" type="primary">查询</el-button>
+            <el-button
+              type="primary"
+              @click="getList"
+            >
+              查询
+            </el-button>
           </div>
           <div class="list">
-            <div v-for="(item, index) in alarmList" :key="index" class="item">
+            <div
+              v-for="(item, index) in alarmList"
+              :key="index"
+              class="item"
+            >
               <div class="img">
                 <div class="img-tip">
                   <!-- <img :src="item.snapImageUrl" alt=""> -->
@@ -541,7 +641,9 @@ type="primary"
                     对比
                   </div>
                 </div>
-                <div class="point">{{ item.similarity }}%</div>
+                <div class="point">
+                  {{ item.similarity }}%
+                </div>
               </div>
               <div class="mes">
                 <div class="mes-bottom">
@@ -560,15 +662,17 @@ type="primary"
           <div class="pagination1">
             <el-pagination
               :current-page.sync="pageNum"
-              @current-change="getList"
               :page-size="pageSize"
               layout="total, prev, pager, next"
               :total="total"
-            >
-            </el-pagination>
+              @current-change="getList"
+            />
           </div>
         </div>
-        <div v-else class="none">
+        <div
+          v-else
+          class="none"
+        >
           暂无数据
         </div>
       </div>
@@ -599,7 +703,7 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       myChart: null,
       chartData: [],
@@ -651,11 +755,11 @@ export default {
       ]
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    change(id) {
+    change (id) {
       this.tab = id
       this.startTime = ''
       this.endTime = ''
@@ -663,11 +767,11 @@ export default {
       this.showMessage = false
       this.getList()
     },
-    pop(item) {
+    pop (item) {
       this.showMessage = true
       this.info = item
     },
-    async getList() {
+    async getList () {
       switch (this.tab) {
         case 0:
           await getPopulationList({ id: this.id }).then(res => {
@@ -691,7 +795,7 @@ export default {
           })
           break
         case 3:
-          this.$nextTick(function() {
+          this.$nextTick(function () {
             this.initEchart()
           })
           break
@@ -735,10 +839,10 @@ export default {
           break
       }
     },
-    bindBtnClose() {
+    bindBtnClose () {
       this.$emit('bindBtnClose')
     },
-    async initEchart() {
+    async initEchart () {
       const dom = this.$refs.echa
       this.myChart = echarts.init(dom)
       await getRelationList({ id: this.id, idNumber: this.idNumber }).then(
@@ -836,7 +940,7 @@ export default {
         ]
       }
       this.myChart.setOption(option)
-      this.myChart.on('click', function(params) {
+      this.myChart.on('click', function (params) {
         this.showMessage1 = true
         this.info = params.data
       })
@@ -848,7 +952,7 @@ export default {
     /**
      * 关系数据集合
      */
-    linkEChart(edgeList) {
+    linkEChart (edgeList) {
       const dataLink = []
       for (let i = 0; i < edgeList.length; i++) {
         dataLink.push({
@@ -869,7 +973,7 @@ export default {
       // ];
       return dataLink
     },
-    showStatus(status) {
+    showStatus (status) {
       switch (status) {
         case '006':
           return '户籍人口'

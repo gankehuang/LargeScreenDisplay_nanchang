@@ -1,6 +1,12 @@
 <template>
-  <section class="app-main" :style="styleObj">
-    <transition name="fade-transform" mode="out-in">
+  <section
+    class="app-main"
+    :style="styleObj"
+  >
+    <transition
+      name="fade-transform"
+      mode="out-in"
+    >
       <router-view :key="key" />
     </transition>
   </section>
@@ -10,10 +16,10 @@
 export default {
   name: 'AppMain',
   computed: {
-    key() {
+    key () {
       return this.$route.path
     },
-    styleObj() {
+    styleObj () {
       return {
         width: this.$store.getters['asideRouters/isCollapse']
           ? 'calc(100% - 54px)'

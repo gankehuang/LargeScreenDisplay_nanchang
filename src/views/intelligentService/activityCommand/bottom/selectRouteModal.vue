@@ -1,22 +1,33 @@
 <template>
-  <div class="map-operate" v-if="visible">
-    <div class="close-btn" @click="bindBtnClose">×</div>
-    <div class="modal-title">活动路线</div>
+  <div
+    v-if="visible"
+    class="map-operate"
+  >
+    <div
+      class="close-btn"
+      @click="bindBtnClose"
+    >
+      ×
+    </div>
+    <div class="modal-title">
+      活动路线
+    </div>
     <div class="content">
-      <SimpleMap @mapInit="mapInit"></SimpleMap>
+      <SimpleMap @mapInit="mapInit" />
     </div>
     <div class="modal-bottom">
-      <el-button class="btn-save" @click="saveActiveRoute">保存</el-button>
+      <el-button
+        class="btn-save"
+        @click="saveActiveRoute"
+      >
+        保存
+      </el-button>
     </div>
   </div>
 </template>
 
 <script>
-import SimpleMap from '@/components/SimpleMap'
 export default {
-  components: {
-    SimpleMap
-  },
   props: {
     visible: {
       type: Boolean,
@@ -27,7 +38,7 @@ export default {
       default: () => null
     }
   },
-  data() {
+  data () {
     return {
       map: null,
       mapRuler: null,
@@ -39,7 +50,7 @@ export default {
     }
   },
   methods: {
-    mapInit(map) {
+    mapInit (map) {
       this.map = map
       // 反显路线
       const lineList = []
@@ -74,6 +85,7 @@ export default {
         // this.map.setCenter(this.info.addressList[0].longitude, this.info.addressList[0].latitude)
       }
       this.map.add(videoMarkerList)
+      this.map.setCenter([115.873996, 28.622754])
       this.map.setZoom(12)
       this.mapRuler = new window.AMap.RangingTool(map, {
         lineOptions: {
@@ -119,7 +131,7 @@ export default {
       })
     },
     // 提取删除的点
-    samePointer(array1, array2) {
+    samePointer (array1, array2) {
       var result = []
       for (let i = 0; i < array2.length; i++) {
         const obj = array2[i]
@@ -140,7 +152,7 @@ export default {
       return result
     },
     // 存储路线点
-    saveActiveRoute() {
+    saveActiveRoute () {
       this.inNodeList.forEach((item, index) => {
         item.seq = index
       })
@@ -150,11 +162,11 @@ export default {
       this.mapRuler.turnOff()
       this.removeStatus = 1
     },
-    bindBtnClose() {
+    bindBtnClose () {
       this.$emit('update:visible', false)
     },
     // 创建地图标记点
-    _createMarker(icon, pos, item) {
+    _createMarker (icon, pos, item) {
       const marker = new window.AMap.Marker({
         icon: new window.AMap.Icon({
           image: icon,
@@ -183,7 +195,7 @@ export default {
       return marker
     },
     // 创建地图标记点
-    _createLine(pos) {
+    _createLine (pos) {
       const marker = new window.AMap.Polyline({
         path: pos,
         zIndex: 999,

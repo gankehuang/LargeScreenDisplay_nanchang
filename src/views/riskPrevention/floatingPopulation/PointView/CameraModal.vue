@@ -1,12 +1,15 @@
 <template>
-  <div class="mask-container" v-if="visible">
+  <div
+    v-if="visible"
+    class="mask-container"
+  >
     <div class="mask" />
     <div class="modal">
       <img
         class="btn-close"
         src="@/assets/image/common/close-btn.png"
         @click="bindBtnClose"
-      />
+      >
       <div class="title">
         视频预览
       </div>
@@ -17,12 +20,18 @@
               <img
                 class="controll-icon"
                 src="@/assets/image/gridView/controll.png"
-              />
-              <span class="bayonet-name" v-if="info">{{
+              >
+              <span
+                v-if="info"
+                class="bayonet-name"
+              >{{
                 info.positionName
               }}</span>
 
-              <img class="toggle-icon" src="@/assets/image/gridView/menu.png" />
+              <img
+                class="toggle-icon"
+                src="@/assets/image/gridView/menu.png"
+              >
             </div>
             <div class="player-container">
               <IframeVideoPlay
@@ -197,7 +206,7 @@ export default {
     info: Object,
     visible: Boolean
   },
-  data() {
+  data () {
     return {
       playerSrc: '',
       loading: false,
@@ -218,7 +227,7 @@ export default {
     }
   },
   computed: {
-    recordList() {
+    recordList () {
       if (this.curPersonTypeName === '普通人员') {
         return this.personListObj.generalList
       } else if (this.curPersonTypeName === '重点人员') {
@@ -231,7 +240,7 @@ export default {
     }
   },
   watch: {
-    info() {
+    info () {
       if (this.info && this.info.type === 1) {
         this.startVideo()
       }
@@ -241,7 +250,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     document.addEventListener('click', this.handleCloseImg)
 
     this.$once('hook:beforeDestroy', () => {
@@ -249,15 +258,15 @@ export default {
     })
   },
   methods: {
-    handleCloseImg(e) {
+    handleCloseImg (e) {
       if (e.target.className === 'el-icon-circle-close') {
         this.isShowHkVideo = true
       }
     },
-    bindBtnClose() {
+    bindBtnClose () {
       this.$emit('update:visible', false)
     },
-    async getDeviceInfo() {
+    async getDeviceInfo () {
       const { status, data } = await selectSnapFaceBy({
         code: this.info.cameraIndexCode
       })
@@ -275,7 +284,7 @@ export default {
       }
     },
     // 获取RTC视频地址
-    async startVideo() {
+    async startVideo () {
       this.playerSrc = ''
 
       const { status, data, message } = await startVideo(this.info.id)
@@ -287,20 +296,20 @@ export default {
         this.$message.error(message[0].message)
       }
     },
-    scrollToLeft() {
+    scrollToLeft () {
       if (this.translateX < -250) {
         this.translateX = this.translateX + 120
       } else {
         this.translateX = 0
       }
     },
-    scrollToRight() {
-      const width = this.$refs['container'].offsetWidth
+    scrollToRight () {
+      const width = this.$refs.container.offsetWidth
       if (this.translateX > -width + 640) {
         this.translateX = this.translateX - 80
       }
     },
-    handlePersonType(item, index) {
+    handlePersonType (item, index) {
       this.curPersonType = index
       this.curPersonTypeName = item
     }

@@ -1,44 +1,64 @@
 <template>
   <div class="page-left">
     <div class="top">
-      <div class="title">渔民信息</div>
+      <div class="title">
+        渔民信息
+      </div>
       <div class="total">
-        <div class="number">4242</div>
-        <div class="label">渔民总数</div>
+        <div class="number">
+          4242
+        </div>
+        <div class="label">
+          渔民总数
+        </div>
       </div>
       <div class="detail-list">
-        <div class="item" :key="index" v-for="(item, index) in leftTopList">
+        <div
+          v-for="(item, index) in leftTopList"
+          :key="index"
+          class="item"
+        >
           <span class="item-label">{{ item.label }}</span>
           <span class="item-number">
-            <font>{{ item.number }}</font
-            >人
+            <font>{{ item.number }}</font>人
           </span>
         </div>
       </div>
       <div class="type-list">
-        <div class="type-item" v-for="(item, index) in typeList" :key="index">
-          <div class="label">{{ item.label }}</div>
-          <div class="number">{{ item.number }}</div>
+        <div
+          v-for="(item, index) in typeList"
+          :key="index"
+          class="type-item"
+        >
+          <div class="label">
+            {{ item.label }}
+          </div>
+          <div class="number">
+            {{ item.number }}
+          </div>
         </div>
       </div>
       <div class="market-list">
         <div
-          class="market-item"
           v-for="(item, index) in marketList"
           :key="index"
+          class="market-item"
         >
           <span class="icon" />
           <span class="label">{{ item.label }}</span>
           <span class="number">
-            <font>{{ item.number }}</font
-            >个
+            <font>{{ item.number }}</font>个
           </span>
         </div>
       </div>
     </div>
     <div class="bottom">
-      <div class="title">渔民人均收入</div>
-      <p class="pieces">单位:元</p>
+      <div class="title">
+        渔民人均收入
+      </div>
+      <p class="pieces">
+        单位:元
+      </p>
       <v-chart :options="options" />
     </div>
   </div>
@@ -47,7 +67,7 @@
 <script>
 import { fishingIncome } from '@/api/riskPrevention/keyWaters'
 export default {
-  data() {
+  data () {
     return {
       fishCount: {},
       leftTopList: [],
@@ -65,11 +85,11 @@ export default {
       options: {}
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       fishingIncome({}).then(res => {
         if (res.status === 200) {
           this.fishCount = res.data

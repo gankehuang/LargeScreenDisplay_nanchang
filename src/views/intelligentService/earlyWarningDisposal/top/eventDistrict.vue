@@ -1,49 +1,25 @@
 <template>
   <div class="eventDistrict">
-    <div class="title">事件县区分布</div>
+    <div class="title">
+      事件县区分布
+    </div>
     <div class="contain">
       <v-chart :options="options" />
     </div>
   </div>
 </template>
 <script>
+import echarts from 'vue-echarts'
 import { countEventByRegion } from '@/api/intelligentCommand/warning'
 export default {
-  data() {
+  data () {
     return {
       regionlist: [],
       countList: []
     }
   },
-  created() {
-    this.countEventByRegion()
-  },
-  methods: {
-    countEventByRegion() {
-      countEventByRegion().then(res => {
-        const { status, data } = res
-        if (status === 200) {
-          const newArr = data.sort(this._compare('totalCount'))
-          newArr.forEach((item, index) => {
-            this.regionlist.push(item.regionCode)
-            this.countList.push({
-              value: item.totalCount,
-              name: item.regionCode
-            })
-          })
-        }
-      })
-    },
-    _compare(property) {
-      return function(a, b) {
-        const value1 = a[property]
-        const value2 = b[property]
-        return value1 - value2
-      }
-    }
-  },
   computed: {
-    options() {
+    options () {
       return {
         // color: ['#3398DB'],
         tooltip: {
@@ -81,7 +57,7 @@ export default {
           axisTick: {
             show: false
           },
-          data: this.regionlist.reverse()
+          data: this.regionlist?.reverse()
         },
         yAxis: {
           type: 'value',
@@ -108,17 +84,52 @@ export default {
             name: '事件县区分布',
             type: 'bar',
             barWidth: '16',
-            data: this.countList.reverse(),
+            data: this.countList?.reverse(),
             label: {
               show: false,
               position: 'top',
               color: '#AADAFF'
             },
+            // itemStyle: {
+            //   color: '#3B9AFE'
+            // }
             itemStyle: {
-              color: '#3B9AFE'
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: '#4FA2FF' },
+                  { offset: 1, color: '#68E0CF' }
+                ])
+              }
             }
           }
         ]
+      }
+    }
+  },
+  created () {
+    this.countEventByRegion()
+  },
+  methods: {
+    countEventByRegion () {
+      countEventByRegion().then(res => {
+        const { status, data } = res
+        if (status === 200) {
+          const newArr = data.sort(this._compare('totalCount'))
+          newArr.forEach((item, index) => {
+            this.regionlist.push(item.regionCode)
+            this.countList.push({
+              value: item.totalCount,
+              name: item.regionCode
+            })
+          })
+        }
+      })
+    },
+    _compare (property) {
+      return function (a, b) {
+        const value1 = a[property]
+        const value2 = b[property]
+        return value1 - value2
       }
     }
   }
@@ -129,8 +140,8 @@ export default {
   width: 618px;
   height: 275px;
   background-color: #1d293b;
-  background: url("~@/assets/image/intelligentService/con_top_bgm.png")
-    no-repeat;
+  background: url("~@/assets/image/intelligentService/con_top_bgm.png") no-repeat;
+  // background: url("~@/assets/image/common/info-block-title-bg.png") no-repeat;
   background-size: 100% 100%;
   padding: 15px;
   .title {

@@ -1,13 +1,21 @@
 <template>
   <div class="important-person-container">
-    <div class="title">重点关注人员</div>
+    <div class="title">
+      重点关注人员
+    </div>
     <div class="total">
-      <svg-icon icon-class="population-people" class="icon" />
+      <svg-icon
+        icon-class="population-people"
+        class="icon"
+      />
       <span>重点关注人员：</span>
       <span>{{ parseInt(importantPersonTotal) }}</span>
       <span>人</span>
     </div>
-    <v-chart :options="options" style="width:100%;height: 100%" />
+    <v-chart
+      :options="options"
+      style="width:100%;height: 100%"
+    />
   </div>
 </template>
 
@@ -15,7 +23,7 @@
 import { queryKeyPersonnel } from '@/api/smartData/dataView'
 
 export default {
-  data() {
+  data () {
     return {
       importantPersonTotal: 0,
       initFriMax: 0,
@@ -31,7 +39,7 @@ export default {
     }
   },
   computed: {
-    options() {
+    options () {
       const that = this
       return {
         tooltip: {},
@@ -113,19 +121,19 @@ export default {
       }
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  async mounted() {
+  async mounted () {
     this.handleQueryKeyPersonnel()
-    this.$EventBus.$on('update:dataViewSeleItem', async({ code }) => {
+    this.$EventBus.$on('update:dataViewSeleItem', async ({ code }) => {
       this.code = code
       await this.handleQueryKeyPersonnel()
       this.updateRadar()
     })
   },
   methods: {
-    async handleQueryKeyPersonnel() {
+    async handleQueryKeyPersonnel () {
       const that = this
       try {
         const { status, data } = await queryKeyPersonnel({ code: this.code })
@@ -154,7 +162,7 @@ export default {
       }
     },
     // 更新雷达图
-    updateRadar() {
+    updateRadar () {
       this.importantPersonTotal += 0.01
     }
   }

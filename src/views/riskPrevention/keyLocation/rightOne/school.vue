@@ -1,14 +1,20 @@
 <template>
   <div class="info-block">
     <div class="block-title">
-      <a href="http://172.118.210.201:9020/hdhw" target="_blank">安全趋势</a>
+      <a
+        href="http://172.118.210.201:9020/hdhw"
+        target="_blank"
+      >安全趋势</a>
     </div>
-    <v-chart :options="expChaOption" class="exp-cha-chart" />
+    <v-chart
+      :options="expChaOption"
+      class="exp-cha-chart"
+    />
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       expChaOption: {
         tooltip: {

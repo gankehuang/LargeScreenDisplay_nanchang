@@ -53,7 +53,7 @@ const SECRETKEY =
  *
  * Reference：https://cloud.tencent.com/document/product/647/17275#Server
  */
-export function genTestUserSig(userID) {
+export function genTestUserSig (userID) {
   const generator = new LibGenerateTestUserSig(SDKAPPID, SECRETKEY, EXPIRETIME)
   const userSig = generator.genTestUserSig(userID)
 

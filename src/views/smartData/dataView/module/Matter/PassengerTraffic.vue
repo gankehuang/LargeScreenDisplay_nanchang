@@ -1,13 +1,18 @@
 <template>
   <div class="passenger-taffic-container">
-    <div class="title">公共交通</div>
+    <div class="title">
+      公共交通
+    </div>
     <ul>
-      <li v-for="(item, index) in dataList" :key="index">
+      <li
+        v-for="(item, index) in dataList"
+        :key="index"
+      >
         <RingPerChart
           :number="item.number"
           :total="item.total"
           :color="item.color"
-          :styleObj="item.styleObj"
+          :style-obj="item.styleObj"
         >
           <div class="data">
             <div>{{ item.label }}</div>
@@ -26,17 +31,7 @@ export default {
   components: {
     RingPerChart
   },
-  beforeDestroy() {
-    this.$EventBus.$off('update:dataViewSeleItem')
-  },
-  async mounted() {
-    await this.handleQueryCommonCarNum()
-    this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
-      this.code = code
-      this.handleQueryCommonCarNum()
-    })
-  },
-  data() {
+  data () {
     return {
       code: '3601',
       dataList: [
@@ -87,8 +82,18 @@ export default {
       ]
     }
   },
+  beforeDestroy () {
+    this.$EventBus.$off('update:dataViewSeleItem')
+  },
+  async mounted () {
+    await this.handleQueryCommonCarNum()
+    this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
+      this.code = code
+      this.handleQueryCommonCarNum()
+    })
+  },
   methods: {
-    async handleQueryCommonCarNum() {
+    async handleQueryCommonCarNum () {
       try {
         const { status, data } = await queryCommonCarNum({
           gridCode: this.code
@@ -98,10 +103,10 @@ export default {
             (total, cur) => total + cur,
             0
           )
-          this.dataList[0].number = data['kyc']
-          this.dataList[1].number = data['whpc']
-          this.dataList[2].number = data['zxhc']
-          this.dataList[3].number = data['xxhc']
+          this.dataList[0].number = data.kyc
+          this.dataList[1].number = data.whpc
+          this.dataList[2].number = data.zxhc
+          this.dataList[3].number = data.xxhc
           this.dataList = this.dataList.map(item => {
             return {
               ...item,

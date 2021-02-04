@@ -1,6 +1,10 @@
 <template>
   <div class="materialSubmit">
-    <Tabs :tab-list="tabList" width="500px" :cur-index="3" />
+    <Tabs
+      :tab-list="tabList"
+      width="500px"
+      :cur-index="3"
+    />
     <AdminView />
     <!-- <router-view></router-view> -->
   </div>
@@ -9,10 +13,10 @@
 import commonMixin from '../commonMixin'
 import AdminView from '@/components/AdminView'
 export default {
-  mixins: [commonMixin],
   components: {
     AdminView
-  }
+  },
+  mixins: [commonMixin]
 }
 </script>
 <style lang="scss" scoped>

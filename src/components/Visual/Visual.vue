@@ -1,5 +1,8 @@
 <template>
-  <div class="visual-box" ref="visual-box"></div>
+  <div
+    ref="visual-box"
+    class="visual-box"
+  />
 </template>
 <script>
 // import $ from 'jquery'
@@ -11,10 +14,10 @@ export default {
   props: {
     pageType: String
   },
-  data() {
+  data () {
     return {}
   },
-  async mounted() {
+  async mounted () {
     let date = []
     let isFirst = 1
     let TotalData = []
@@ -49,7 +52,7 @@ export default {
     }
 
     TotalData.forEach(elem => {
-      if (date.indexOf(elem['date']) === -1) date.push(elem['date'])
+      if (date.indexOf(elem.date) === -1) date.push(elem.date)
     })
 
     date = date.sort((x, y) => new Date(x) - new Date(y))
@@ -116,7 +119,7 @@ export default {
       .attr('x', innerWidth - 150)
       .attr('y', innerHeight)
 
-    function getColorClass(d) {
+    function getColorClass (d) {
       // let tmp = 0
       // for (let index = 0; index < d.name.length; index++) {
       //   tmp = tmp + d.name.charCodeAt(index)
@@ -125,18 +128,18 @@ export default {
       return d.color
     }
 
-    function getDataByDate(date) {
+    function getDataByDate (date) {
       isFirst = 0
       timeCounter.value = Number(date)
 
       var data = []
       TotalData.forEach(elem => {
-        if (elem['date'] === date) data.push(elem)
+        if (elem.date === date) data.push(elem)
       })
       return data.slice(0, config.MaxNumber)
     }
 
-    function refresh(data) {
+    function refresh (data) {
       yScale.domain(data.map(yValue).reverse()).range([innerHeight, 0])
       xScale.domain([0, d3.max(data, xValue)]).range([0, innerWidth])
       xAxisG
@@ -160,7 +163,7 @@ export default {
         .text(data[0].date)
 
       // start
-      var bar = g.selectAll('.bar').data(data, function(d) {
+      var bar = g.selectAll('.bar').data(data, function (d) {
         return d.name
       })
 
@@ -169,10 +172,10 @@ export default {
         .enter()
         .insert('g', '.axis')
         .attr('class', 'bar')
-        .attr('transform', function(d) {
+        .attr('transform', function (d) {
           return 'translate(0,' + yScale(yValue(d)) + ')'
         })
-      barEnter.append('g').attr('class', function(d) {
+      barEnter.append('g').attr('class', function (d) {
         return getColorClass(d)
       })
 
@@ -199,7 +202,7 @@ export default {
         .duration(2490 * intervalTime)
         .attr('fill-opacity', 1)
         .attr('y', 0)
-        .attr('class', function(d) {
+        .attr('class', function (d) {
           return 'label'
         })
         // .attr('class', function(d) {
@@ -221,13 +224,13 @@ export default {
         .duration(2490 * intervalTime)
         .attr('fill-opacity', 1)
         .attr('y', 0)
-        .attr('class', function(d) {
+        .attr('class', function (d) {
           return 'value ' + getColorClass(d)
         })
-        .tween('text', function(d) {
+        .tween('text', function (d) {
           var self = this // why?
           var i = d3.interpolate(self.textContent, Number(d.value))
-          return function(t) {
+          return function (t) {
             self.textContent = Math.round(i(t))
           }
         })
@@ -270,10 +273,10 @@ export default {
 
       barUpdate
         .select('.value')
-        .tween('text', function(d) {
+        .tween('text', function (d) {
           var self = this
           var i = d3.interpolate(self.textContent, Number(d.value))
-          return function(t) {
+          return function (t) {
             self.textContent = Math.round(i(t))
           }
         })
@@ -304,14 +307,14 @@ export default {
         .transition()
         .delay(500 * intervalTime)
         .duration(2490 * intervalTime)
-        .attr('transform', function(d) {
+        .attr('transform', function (d) {
           return 'translate(0,' + yScale(yValue(d)) + ')'
         })
     }
 
     let iter = 0
     refresh(getDataByDate(date[0]))
-    const inter = setInterval(function() {
+    const inter = setInterval(function () {
       refresh(getDataByDate(date[1 + iter++]))
       if (iter >= date.length - 1) {
         iter = 0

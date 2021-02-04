@@ -1,38 +1,67 @@
 <template>
-  <div class="toast-container">
-    <div class="toast-title">传达县区</div>
-
+  <Dialog
+    width="35%"
+    top="20vh"
+    title="传达区县"
+    :visible.sync="dialogVisible"
+    append-to-body
+  >
     <div class="form-item">
-      <div class="label">县区：</div>
-      <el-select v-model="value" placeholder="请选择">
+      <div class="label">
+        县区：
+      </div>
+      <el-select
+        v-model="value"
+        placeholder="请选择"
+      >
         <el-option
           v-for="item in options"
           :key="item.value"
           :label="item.label"
           :value="item.value"
-        >
-        </el-option>
+        />
       </el-select>
     </div>
 
     <div class="form-item">
-      <div class="label">处理说明：</div>
-      <el-input class="input" type="textarea" v-model="content"></el-input>
+      <div class="label">
+        处理说明：
+      </div>
+      <el-input
+        v-model="content"
+        class="input"
+        type="textarea"
+      />
     </div>
-
-    <div class="toast-bottom">
-      <div class="button" @click="closeModal">取消</div>
-      <div class="button" @click="submit">确定</div>
-    </div>
-  </div>
+    <template v-slot:footer>
+      <div
+        class="base-btn"
+        @click="handleBtn('取消')"
+      >
+        取消
+      </div>
+      <div
+        class="base-btn"
+        @click="handleBtn('确定')"
+      >
+        确定
+      </div>
+    </template>
+  </Dialog>
 </template>
+
 <script>
+
 export default {
   props: {
-    eventId: Number
+    info: {
+      type: Object,
+      default: () => null
+    }
   },
-  data() {
+  data () {
     return {
+      dialogVisible: false,
       content: '',
       value: '0006',
       options: [
@@ -88,87 +117,70 @@ export default {
     }
   },
   methods: {
-    closeModal() {
-      this.$emit('closeModal')
+    // 打开弹框
+    openModal () {
+      this.dialogVisible = true
     },
-    submit() {
-      this.$message({
-        message: '操作成功',
-        type: 'success'
-      })
+    // 关闭弹框
+    closeModal () {
+      this.dialogVisible = false
+      this.personInfo = this.$options.data().personInfo
+    },
+    async handleBtn (btnTypeText) {
+      if (btnTypeText === '确定') {
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        })
 
-      this.$emit('closeModal')
+        this.closeModal()
+        return
+      }
+
+      if (btnTypeText === '取消') {
+        this.closeModal()
+      }
     }
   }
 }
 </script>
+
 <style lang="scss" scoped>
-.toast-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -103px 0 0 -162px;
-  width: 550px;
-  height: 280px;
-  border: 1px solid #0b61a0;
-  background: #03223c;
-  border-radius: 8px;
-  z-index: 8;
-  text-align: center;
-
-  .toast-title {
-    line-height: 50px;
-    font-size: 14px;
+.form-item {
+  padding: 10px;
+  display: flex;
+  .label {
+    width: 120px;
     color: #fff;
-    border-bottom: 1px solid #0b61a0;
   }
+  .input {
+    color: #fff;
 
-  .form-item {
-    padding: 10px;
-    display: flex;
-    .label {
-      width: 120px;
+    ::v-deep .el-textarea__inner {
+      background-color: #03223c;
+      border: 1px solid #0b61a0 !important;
       color: #fff;
-    }
-    .input {
-      color: #fff;
-
-      ::v-deep.el-textarea__inner {
-        background-color: #03223c;
-        border: 1px solid #0b61a0 !important;
-        color: #fff;
-        height: 90px;
-        &::-webkit-scrollbar {
-          width: 0;
-        }
+      height: 90px;
+      &::-webkit-scrollbar {
+        width: 0;
       }
     }
   }
+}
 
-  .toast-bottom {
-    border-top: 1px solid #0b61a0;
-    padding: 9px 0;
-    display: flex;
-    justify-content: flex-end;
-
-    .button {
-      width: 48px;
-      line-height: 30px;
-      border: 1px solid #0b61a0;
-      border-radius: 4px;
-      font-size: 14px;
-      color: #fff;
-      cursor: pointer;
-      margin-left: 20px;
-
-      &:hover {
-        background: #0b61a0;
-      }
-
-      &:nth-child(2) {
-        margin-right: 10px;
-      }
-    }
+::v-deep .el-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  .base-btn {
+    width: 100px;
+    height: 30px;
+    margin-left: 13px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    background: url("~@/assets/image/event/event-home-btn.png") no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
   }
 }
 </style>

@@ -2,15 +2,28 @@
   <div class="mask-container">
     <div class="mask" />
     <div class="toast-container">
-      <div class="toast-title">事件核查</div>
+      <div class="toast-title">
+        事件核查
+      </div>
 
       <div class="form-item">
-        <div class="label">核查说明：</div>
-        <el-input class="input" type="textarea" v-model="verifyDesc"></el-input>
+        <div class="label">
+          核查说明：
+        </div>
+        <el-input
+          v-model="verifyDesc"
+          class="input"
+          type="textarea"
+        />
       </div>
 
       <el-row>
-        <el-col class="rate-title" :span="4">评价信息：</el-col>
+        <el-col
+          class="rate-title"
+          :span="4"
+        >
+          评价信息：
+        </el-col>
       </el-row>
       <el-row class="evaluate-info">
         <el-col :span="4">
@@ -27,12 +40,26 @@
         </el-col>
 
         <el-col :span="8">
-          <el-rate v-model="rate" show-text :texts="texts" />
+          <el-rate
+            v-model="rate"
+            show-text
+            :texts="texts"
+          />
         </el-col>
       </el-row>
       <div class="toast-bottom">
-        <div class="button" @click="closeModal">取消</div>
-        <div class="button" @click="submit">确定</div>
+        <div
+          class="button"
+          @click="closeModal"
+        >
+          取消
+        </div>
+        <div
+          class="button"
+          @click="submit"
+        >
+          确定
+        </div>
       </div>
     </div>
   </div>
@@ -47,10 +74,7 @@ export default {
     processingDesc: String,
     processingTime: String
   },
-  watch: {
-    processingDesc() {}
-  },
-  data() {
+  data () {
     return {
       verifyDesc: '',
       rate: '5',
@@ -73,11 +97,14 @@ export default {
       ]
     }
   },
+  watch: {
+    processingDesc () {}
+  },
   methods: {
-    closeModal() {
+    closeModal () {
       this.$emit('closeModal')
     },
-    async submit() {
+    async submit () {
       await eventVerify({
         eventId: this.eventId,
         verifyDesc: this.verifyDesc

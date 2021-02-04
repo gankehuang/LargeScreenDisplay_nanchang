@@ -1,4 +1,4 @@
-export function IdCard(UUserCard, num) {
+export function IdCard (UUserCard, num) {
   if (num === 1) {
     // 获取出生日期
     const birth =

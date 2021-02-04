@@ -1,7 +1,14 @@
 <template>
   <div class="page-container">
-    <Tabs :tab-list="tabList" width="600px" :cur-index="2" />
-    <p class="btns" @click="changeClisk()"></p>
+    <Tabs
+      :tab-list="tabList"
+      width="600px"
+      :cur-index="2"
+    />
+    <p
+      class="btns"
+      @click="changeClisk()"
+    />
     <SimpleMap @mapInit="mapInit">
       <el-amap-marker
         v-for="item in markingPointList"
@@ -9,8 +16,8 @@
         :vid="item.id"
         :position="[item.lon, item.lat]"
         :offset="[-70, -153]"
-        :topWhenClick="true"
-        :zIndex="999"
+        :top-when-click="true"
+        :z-index="999"
       >
         <div class="eventMarker twinkle1">
           <div>{{ item.name }}</div>
@@ -18,18 +25,25 @@
       </el-amap-marker>
     </SimpleMap>
 
-    <transition name="ani-left" mode="out-in" appear>
+    <transition
+      name="ani-left"
+      mode="out-in"
+      appear
+    >
       <left />
     </transition>
 
-    <transition name="ani-right" mode="out-in" appear>
+    <transition
+      name="ani-right"
+      mode="out-in"
+      appear
+    >
       <right />
     </transition>
   </div>
 </template>
 
 <script>
-import SimpleMap from '@/components/SimpleMap'
 import left from './left'
 import right from './right'
 import commonMixin from '../commonMixin'
@@ -37,11 +51,10 @@ import { largeBuilding, jinjiang, ganjiang, poyanghu } from './mock'
 export default {
   components: {
     left,
-    right,
-    SimpleMap
+    right
   },
   mixins: [commonMixin],
-  data() {
+  data () {
     return {
       map: null,
       markingPointList: [
@@ -77,7 +90,7 @@ export default {
     }
   },
   methods: {
-    mapInit(map) {
+    mapInit (map) {
       this.map = map
       // 抚河
       let list = ''
@@ -160,7 +173,7 @@ export default {
       this.map.setZoom(10)
       this.map.add([this.ploygon, this.ploygon1, this.ploygon2, this.ploygon3])
     },
-    changeClisk() {
+    changeClisk () {
       window.open('http://172.118.210.198:9000/#/me/homepage', '_blank')
     }
   }

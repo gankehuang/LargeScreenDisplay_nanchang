@@ -1,6 +1,8 @@
 <template>
   <div class="left-one">
-    <div class="title">实时视频</div>
+    <div class="title">
+      实时视频
+    </div>
     <div class="video-play">
       <IframeVideoPlay
         v-for="(item, index) in cameraIndexCode"
@@ -16,7 +18,7 @@
 <script>
 export default {
   props: ['isType'],
-  data() {
+  data () {
     return {
       codeList: [
         {
@@ -58,7 +60,7 @@ export default {
             '36010203001320000422',
             '36010203001320000516',
             '36010203001320000470',
-            '36010203001320000435'
+            '36010203001310507522'
           ]
         },
         {
@@ -79,13 +81,13 @@ export default {
   watch: {
     isType: {
       immediate: true,
-      handler() {
+      handler () {
         this.updataVideo()
       }
     }
   },
   methods: {
-    updataVideo() {
+    updataVideo () {
       for (let i = 0; i < this.codeList.length; i++) {
         if (this.codeList[i].label === this.isType) {
           this.cameraIndexCode = this.codeList[i].code

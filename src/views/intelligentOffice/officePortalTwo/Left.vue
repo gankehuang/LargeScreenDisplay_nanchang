@@ -2,46 +2,93 @@
   <div class="page-left">
     <!-- 通知公告 -->
     <div class="tzgg-container block-bg-container">
-      <div class="title">通知公告</div>
-      <svg-icon class="refresh-icon" icon-class="refresh" />
+      <div class="title">
+        通知公告
+      </div>
+      <svg-icon
+        class="refresh-icon"
+        icon-class="refresh"
+      />
       <el-scrollbar class="list">
-        <div class="list-item" v-for="(item, index) in tzggList" :key="index">
-          <svg-icon class="list-icon" icon-class="notice" />
-          <div class="list-content text-overflow" :title="item.title">
+        <div
+          v-for="(item, index) in tzggList"
+          :key="index"
+          class="list-item"
+        >
+          <svg-icon
+            class="list-icon"
+            icon-class="notice"
+          />
+          <div
+            class="list-content text-overflow"
+            :title="item.title"
+          >
             {{ item.title }}
           </div>
-          <div class="list-time">{{ item.time }}</div>
+          <div class="list-time">
+            {{ item.time }}
+          </div>
         </div>
       </el-scrollbar>
     </div>
     <!-- 制度建设 -->
     <div class="zdjs-container block-bg-container">
-      <div class="title">制度建设</div>
-      <svg-icon class="refresh-icon" icon-class="refresh" />
+      <div class="title">
+        制度建设
+      </div>
+      <svg-icon
+        class="refresh-icon"
+        icon-class="refresh"
+      />
       <el-scrollbar class="list">
-        <div class="list-item" v-for="(item, index) in zdjsList" :key="index">
-          <svg-icon class="list-icon" icon-class="list" />
-          <div class="list-content text-overflow" :title="item.title">
+        <div
+          v-for="(item, index) in zdjsList"
+          :key="index"
+          class="list-item"
+        >
+          <svg-icon
+            class="list-icon"
+            icon-class="list"
+          />
+          <div
+            class="list-content text-overflow"
+            :title="item.title"
+          >
             {{ item.title }}
           </div>
-          <div class="list-time">{{ item.time }}</div>
+          <div class="list-time">
+            {{ item.time }}
+          </div>
         </div>
       </el-scrollbar>
     </div>
     <!-- 他山之石 -->
     <div class="tszs-container block-bg-container">
-      <div class="title">他山之石</div>
-      <svg-icon class="refresh-icon" icon-class="refresh" />
+      <div class="title">
+        他山之石
+      </div>
+      <svg-icon
+        class="refresh-icon"
+        icon-class="refresh"
+      />
       <el-scrollbar class="list">
-        <div class="list-item" v-for="(item, index) in tszsList" :key="index">
+        <div
+          v-for="(item, index) in tszsList"
+          :key="index"
+          class="list-item"
+        >
           <el-image
             :src="item.image"
             :preview-src-list="[item.image]"
             class="el-image"
           />
           <div class="list-content">
-            <div class="title text-overflows">{{ item.title }}</div>
-            <div class="content text-overflows">{{ item.content }}</div>
+            <div class="title text-overflows">
+              {{ item.title }}
+            </div>
+            <div class="content text-overflows">
+              {{ item.content }}
+            </div>
           </div>
         </div>
       </el-scrollbar>
@@ -51,7 +98,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       tzggList: [
         {

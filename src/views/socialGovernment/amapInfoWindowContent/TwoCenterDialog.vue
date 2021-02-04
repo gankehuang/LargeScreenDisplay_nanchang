@@ -1,12 +1,17 @@
 <template>
   <div class="nc-dialog">
-    <div class="title">{{ select0ne.name }}{{ select0ne.type }}</div>
+    <div class="title">
+      {{ select0ne.name }}{{ select0ne.type }}
+    </div>
     <div class="line" />
-    <div class="info-list" v-if="select0ne && select0ne.data">
+    <div
+      v-if="select0ne && select0ne.data"
+      class="info-list"
+    >
       <el-scrollbar style="height:300px;">
         <div class="list-item">
           <div class="item-title">
-            <i class="item-icon"></i>
+            <i class="item-icon" />
             <span>司法所</span>
           </div>
 
@@ -28,7 +33,7 @@
         </div>
         <div class="list-item">
           <div class="item-title">
-            <i class="item-icon"></i>
+            <i class="item-icon" />
             <span>派出所</span>
           </div>
 
@@ -48,7 +53,7 @@
             </div>
           </div>
           <div class="item-title">
-            <i class="item-icon"></i>
+            <i class="item-icon" />
             <span>法庭</span>
           </div>
 
@@ -70,7 +75,7 @@
         </div>
         <div class="list-item">
           <div class="item-title">
-            <i class="item-icon"></i>
+            <i class="item-icon" />
             <span>乡镇（街道）信访接待中心</span>
           </div>
 
@@ -90,7 +95,7 @@
             </div>
           </div>
           <div class="item-title">
-            <i class="item-icon"></i>
+            <i class="item-icon" />
             <span>乡镇（街道）综治中心</span>
           </div>
 
@@ -112,7 +117,7 @@
         </div>
         <div class="list-item">
           <div class="item-title">
-            <i class="item-icon"></i>
+            <i class="item-icon" />
             <span>交警中队营房</span>
           </div>
 
@@ -148,7 +153,7 @@ export default {
       default: () => {}
     }
   },
-  data() {
+  data () {
     return {}
   }
 }

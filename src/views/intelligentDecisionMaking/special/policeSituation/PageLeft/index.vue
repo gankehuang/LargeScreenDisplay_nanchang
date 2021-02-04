@@ -1,35 +1,50 @@
 <template>
   <div class="page-left jingqing">
     <div class="top">
-      <div class="title">警情数量</div>
+      <div class="title">
+        警情数量
+      </div>
       <div class="total">
         <span class="label">警情总数</span>
-        <VerticalNumTo :total="total" :bits="9" />
+        <VerticalNumTo
+          :total="total"
+          :bits="9"
+        />
       </div>
       <div class="row">
-        <div class="col" :key="index" v-for="(item, index) in rows">
-          <div class="number">{{ item.number }}</div>
-          <div class="label">{{ item.label }}</div>
+        <div
+          v-for="(item, index) in rows"
+          :key="index"
+          class="col"
+        >
+          <div class="number">
+            {{ item.number }}
+          </div>
+          <div class="label">
+            {{ item.label }}
+          </div>
         </div>
       </div>
     </div>
     <div class="bottom">
-      <div class="title">警情县区分布</div>
+      <div class="title">
+        警情县区分布
+      </div>
       <div class="legand">
         <div class="item">
-          <span></span>
+          <span />
           已处理
         </div>
         <div class="item">
-          <span></span>
+          <span />
           总数
         </div>
       </div>
       <div class="processlist">
         <div
-          class="list-item"
           v-for="(item, index) in this.datalist"
           :key="index"
+          class="list-item"
         >
           <span class="item-name">{{ item.name }}</span>
           <div style="flex: 0 0 calc(100% - 70px);display:flex;">
@@ -40,7 +55,7 @@
               :title="percentageList(item) + '%'"
               :percentage="percentageList(item)"
               color="#3B9AFE"
-            ></el-progress>
+            />
             <span class="item-total">{{ item.value }}</span>
           </div>
         </div>
@@ -85,7 +100,7 @@ export default {
   components: {
     VerticalNumTo
   },
-  data() {
+  data () {
     return {
       total: 0,
       rows: [
@@ -120,16 +135,16 @@ export default {
     }
   },
 
-  created() {
+  created () {
     this.alertNumber()
     this.alertDistribution()
   },
   methods: {
-    setNumber(total, value) {
+    setNumber (total, value) {
       const percentages = (Number(value) / Number(total)) * 100
       return parseFloat(percentages.toFixed(2))
     },
-    alertNumber() {
+    alertNumber () {
       alertNumber().then(res => {
         if (res.status === 200) {
           this.total = res.data.total
@@ -139,7 +154,7 @@ export default {
         }
       })
     },
-    alertDistribution() {
+    alertDistribution () {
       alertDistribution().then(res => {
         this.datalist = []
         if (res.status === 200) {
@@ -154,15 +169,15 @@ export default {
         }
       })
     },
-    percentageList(item) {
+    percentageList (item) {
       return Number(((item.processed / item.value) * 100).toFixed(2))
     },
-    widthList(item) {
+    widthList (item) {
       return Number(parseInt((item.value / this.datalist[0].value) * 250))
     },
 
-    _compare(property) {
-      return function(a, b) {
+    _compare (property) {
+      return function (a, b) {
         const value1 = a[property]
         const value2 = b[property]
         return value1 - value2

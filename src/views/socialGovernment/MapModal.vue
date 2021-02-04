@@ -1,19 +1,29 @@
 <template>
   <div
-    class="map-modal-container"
     v-if="visible"
     v-loading="loading"
+    class="map-modal-container"
     element-loading-text="加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba( 0, 0, 0, 0.3)"
   >
-    <div class="close" @click="close" />
-    <SimpleMap @mapInit="mapInit" @zoomChange="zoomChange" class="map" />
+    <div
+      class="close"
+      @click="close"
+    />
+    <SimpleMap
+      class="map"
+      @mapInit="mapInit"
+      @zoomChange="zoomChange"
+    />
     <ConflictModal
       :visible.sync="conflictmodalVisible"
-      :modalValue.sync="conflictmodalValue"
+      :modal-value.sync="conflictmodalValue"
     />
-    <PostInfo :visible.sync="postVisible" :info="info" />
+    <PostInfo
+      :visible.sync="postVisible"
+      :info="info"
+    />
   </div>
 </template>
 
@@ -43,7 +53,6 @@ import {
 } from '@/api/smartData/gridView'
 import { queryConflictCenter } from '@/api/riskPrevention/conflict'
 import ConflictModal from '@/views/riskPrevention/conflict/Modal'
-import SimpleMap from '@/components/SimpleMap'
 import PostInfo from './PostInfo'
 
 import {
@@ -80,7 +89,6 @@ const codeList = [
 ]
 export default {
   components: {
-    SimpleMap,
     PostInfo,
     ConflictModal
   },
@@ -94,15 +102,7 @@ export default {
       default: ''
     }
   },
-  watch: {
-    visible(val) {
-      if (!val) {
-        this.postVisible = false
-        this.conflictmodalVisible = false
-      }
-    }
-  },
-  data() {
+  data () {
     return {
       map: null,
       loading: false,
@@ -112,21 +112,29 @@ export default {
       info: {}
     }
   },
-  beforeDestroy() {
+  watch: {
+    visible (val) {
+      if (!val) {
+        this.postVisible = false
+        this.conflictmodalVisible = false
+      }
+    }
+  },
+  beforeDestroy () {
     window.clusterer = null
   },
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
       toRegionMarkerList = []
       isPolymerization = false
     },
-    mapInit(map) {
+    mapInit (map) {
       this.map = map
       this.map.setZoom(10)
       this.selectMarketType()
     },
-    zoomChange(zoom) {
+    zoomChange (zoom) {
       // 以下逻辑针对重点人群图标撒点
       if (
         !personTypeEnum.hasOwnProperty(this.type) &&
@@ -151,7 +159,7 @@ export default {
         isPolymerization = false
       }
     },
-    selectMarketType() {
+    selectMarketType () {
       if (personTypeEnum.hasOwnProperty(this.type)) {
         this.fetchAboutPersonList(personTypeEnum[this.type])
         return
@@ -205,14 +213,14 @@ export default {
       }
     },
     // 获取红色驿站撒点
-    async handleGetSCHsPost() {
+    async handleGetSCHsPost () {
       try {
         const { status, data } = await getSCHsPost()
         if (status === 200) {
           createMapMarkerList(
             this.map,
             data,
-            function(item) {
+            function (item) {
               return {
                 icon: require('@/assets/image/gridView/hsyzz-1.png'),
                 position: [item.jd, item.wd],
@@ -237,14 +245,14 @@ export default {
       } catch (error) {}
     },
     // 红色物业撒点
-    async handleGetSCHsProperty() {
+    async handleGetSCHsProperty () {
       try {
         const { status, data } = await getSCHsProperty()
         if (status === 200) {
           createMapMarkerList(
             this.map,
             data,
-            function(item) {
+            function (item) {
               return {
                 icon: require('@/assets/image/gridView/hswyy-1.png'),
                 position: [item.hswyszjd, item.hswyszwd],
@@ -269,14 +277,14 @@ export default {
     },
 
     // 获取社会组织
-    async handleGetquerySocialOrg() {
+    async handleGetquerySocialOrg () {
       try {
         const { status, data } = await getquerySocialOrg()
         if (status === 200) {
           createMapMarkerList(
             this.map,
             data,
-            function(item) {
+            function (item) {
               return {
                 icon: require('@/assets/image/gridView/shzzz-1.png'),
                 position: [item.hswyszjd, item.hswyszwd],
@@ -302,14 +310,14 @@ export default {
     },
 
     // 获取基层民主协商
-    async getJCMZXSData() {
+    async getJCMZXSData () {
       try {
         const { status, data } = await getJCMZXSData()
         if (status === 200) {
           createMapMarkerList(
             this.map,
             data,
-            function(item) {
+            function (item) {
               if (item.jd && item.wd) {
                 return {
                   icon: require('@/assets/image/gridView/jcmzxs.png'),
@@ -337,14 +345,14 @@ export default {
     },
 
     // 获取孵化中心
-    async getqueryHFZX() {
+    async getqueryHFZX () {
       try {
         const { status, data } = await getqueryHFZX()
         if (status === 200) {
           createMapMarkerList(
             this.map,
             data,
-            function(item) {
+            function (item) {
               return {
                 icon: require('@/assets/image/gridView/fhhh-1.png'),
                 position: [item.lon, item.lat],
@@ -370,14 +378,14 @@ export default {
     },
 
     // 获取综治中心
-    async handleGetqueryZZZX() {
+    async handleGetqueryZZZX () {
       try {
         const { status, data } = await getqueryZZZX()
         if (status === 200) {
           createMapMarkerList(
             this.map,
             data,
-            function(item) {
+            function (item) {
               return {
                 icon: require('@/assets/image/gridView/health.png'),
                 position: [item.lon, item.lat],
@@ -403,7 +411,7 @@ export default {
     },
 
     // 获取宗教活动场所
-    async getZJHDCSData() {
+    async getZJHDCSData () {
       this.loading = true
       try {
         getZJHDCSData().then(res => {
@@ -434,14 +442,14 @@ export default {
     },
 
     // 党群服务
-    async handleGetQueryDQFWZX() {
+    async handleGetQueryDQFWZX () {
       try {
         const { status, data } = await getQueryDQFWZX()
         if (status === 200) {
           createMapMarkerList(
             this.map,
             data,
-            function(item) {
+            function (item) {
               return {
                 icon: require('@/assets/image/gridView/dqfww-1.png'),
                 position: [item.lon, item.lat],
@@ -467,13 +475,13 @@ export default {
     },
 
     // 获取法制宣传教育
-    async handleSelectSafetyLocation() {
+    async handleSelectSafetyLocation () {
       const { status, data } = await queryFZWHGY()
       if (status === 200) {
         createMapMarkerList(
           this.map,
           data,
-          function(item) {
+          function (item) {
             return {
               icon: require('@/assets/image/gridView/fzxcjy.png'),
               position: [item.jd, item.wd],
@@ -498,13 +506,13 @@ export default {
     },
 
     // 获取公共法律服务
-    async getFLFWData() {
+    async getFLFWData () {
       const { status, data } = await getFLFWData()
       if (status === 200) {
         createMapMarkerList(
           this.map,
           data,
-          function(item) {
+          function (item) {
             return {
               icon: require('@/assets/image/gridView/ggflfw.png'),
               position: [item.jd, item.wd],
@@ -528,13 +536,13 @@ export default {
       }
     },
     // 获取邻里中心
-    async getLLZXData() {
+    async getLLZXData () {
       const { status, data } = await getLLZXData()
       if (status === 200) {
         createMapMarkerList(
           this.map,
           data,
-          function(item) {
+          function (item) {
             return {
               icon: require('@/assets/image/gridView/llzx.png'),
               position: [item.jd, item.wd],
@@ -558,13 +566,13 @@ export default {
       }
     },
     // 获取智慧小区
-    async getZHPAXQData() {
+    async getZHPAXQData () {
       const { status, data } = await getZHPAXQData()
       if (status === 200) {
         createMapMarkerList(
           this.map,
           data,
-          function(item) {
+          function (item) {
             return {
               icon: require('@/assets/image/gridView/zhpaxq.png'),
               position: [item.jd, item.wd],
@@ -588,7 +596,7 @@ export default {
     },
 
     // 获取红色网格
-    async handleGetSCHsGrid() {
+    async handleGetSCHsGrid () {
       className = 'redGrid-point'
       this.renderGrid()
       const { data, status } = await queryCountRedGrid()
@@ -641,7 +649,7 @@ export default {
     },
 
     // 获取刑满释放人员，社区矫正人员，精神障碍人员，信访人员 聚合点
-    fetchAboutPersonList(type) {
+    fetchAboutPersonList (type) {
       className = this.type
       this.renderGrid()
       // 创建按照区域划分的markers列表
@@ -675,7 +683,7 @@ export default {
     },
 
     // 获取矛调中心
-    async handleQueryConflictCenter() {
+    async handleQueryConflictCenter () {
       const { status, data } = await queryConflictCenter()
       if (status === 200) {
         createMapMarkerList(
@@ -748,7 +756,7 @@ export default {
       }
     },
     // 初始化图层
-    async renderGrid() {
+    async renderGrid () {
       let gridArr = []
       const polygons = []
       const { status, data } = await queryGridThreeLine()
@@ -781,7 +789,7 @@ export default {
       this.map.setFitView(polygons)
     },
     // 随机颜色
-    _randomColor() {
+    _randomColor () {
       const colorArr = ['#3B9AFE', '#00FFFF', '#246BBB', '#0055FF', '#A9DAFF']
       return colorArr[Math.floor(Math.random() * colorArr.length)]
     }

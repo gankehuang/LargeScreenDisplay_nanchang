@@ -1,19 +1,34 @@
 <template>
   <div class="index-map-contianer">
-    <SimpleMap class="map" ref="AMap" @mapInit="mapInit" :zIndex="999">
-      <div class="total-score" v-if="county">
-        <span>当前位置</span>：<el-button type="text"
-@click.stop="ncClick"
-          >南昌市</el-button
+    <SimpleMap
+      ref="AMap"
+      class="map"
+      :z-index="999"
+      @mapInit="mapInit"
+    >
+      <div
+        v-if="county"
+        class="total-score"
+      >
+        <span>当前位置</span>：<el-button
+          type="text"
+          @click.stop="ncClick"
         >
+          南昌市
+        </el-button>
         > {{ county }}
       </div>
 
-      <div class="total-score" v-else>
-        <span>当前位置</span>：<el-button type="text"
-@click.stop="ncClick"
-          >南昌市</el-button
+      <div
+        v-else
+        class="total-score"
+      >
+        <span>当前位置</span>：<el-button
+          type="text"
+          @click.stop="ncClick"
         >
+          南昌市
+        </el-button>
       </div>
     </SimpleMap>
   </div>
@@ -21,15 +36,11 @@
 
 <script>
 import { buttonList, initTotalData } from './mock'
-import { mapData } from '@/api/intelligentDecisionMaking/mood'
 import { monthlyVisits } from '@/api/intelligentDecisionMaking/mood'
+
 import { queryGridThreeLine } from '@/api/smartData/gridView'
-import SimpleMap from '@/components/SimpleMap'
 export default {
-  components: {
-    SimpleMap
-  },
-  data() {
+  data () {
     return {
       county: null,
       map: null,
@@ -44,13 +55,13 @@ export default {
       ]
     }
   },
-  async mounted() {},
+  async mounted () {},
   methods: {
-    ncClick() {
+    ncClick () {
       this.county = null
       this.$emit('mapEvent', null)
     },
-    async mapInit(map) {
+    async mapInit (map) {
       this.map = map
       await this.handleQuerySecurityAssessList()
       await this.renderGrid()
@@ -58,7 +69,7 @@ export default {
       this.map.setZoom(10)
     },
     // 整合地图分数后端联调数据
-    handleBackenddata(data, buttonList) {
+    handleBackenddata (data, buttonList) {
       this.buttonList = data.map(item => {
         for (let index = 0; index < buttonList.length; index++) {
           const element = buttonList[index]
@@ -73,7 +84,7 @@ export default {
       })
     },
     // 获取各县区得分
-    async handleQuerySecurityAssessList() {
+    async handleQuerySecurityAssessList () {
       try {
         const objects = {
           date: '2020-10'
@@ -89,7 +100,7 @@ export default {
     },
 
     // 绘制地图 初始化图层
-    async renderGrid() {
+    async renderGrid () {
       let gridArr = []
       const polygons = []
       const { status, data } = await queryGridThreeLine()
@@ -234,7 +245,7 @@ export default {
       this.map.add(this.textList)
     },
     // 处理地区颜色
-    handleColor(total) {
+    handleColor (total) {
       if (total >= 100) {
         return this.colorLegend[0].color
       } else if (total < 100 && total >= 50) {
@@ -248,7 +259,7 @@ export default {
       }
     },
     // 悬浮处理
-    handleAmapText(flag) {
+    handleAmapText (flag) {
       if (!flag) {
         this.textList.forEach(item => {
           item.hide()

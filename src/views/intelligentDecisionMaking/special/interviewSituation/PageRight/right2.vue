@@ -5,14 +5,26 @@
     </div>
     <div class="list">
       <ul>
-        <li v-for="(item, index) in itemList" :key="index">
+        <li
+          v-for="(item, index) in itemList"
+          :key="index"
+        >
           <div class="icon">
-            <svg-icon icon-class="ranking" class="svg-icon" />
-            <div class="serial">{{ index + 1 }}</div>
+            <svg-icon
+              icon-class="ranking"
+              class="svg-icon"
+            />
+            <div class="serial">
+              {{ index + 1 }}
+            </div>
           </div>
-          <div class="names">{{ item.name }}</div>
-          <div class="line"></div>
-          <div class="num">{{ item.data }}</div>
+          <div class="names">
+            {{ item.name }}
+          </div>
+          <div class="line" />
+          <div class="num">
+            {{ item.data }}
+          </div>
         </li>
       </ul>
     </div>
@@ -21,16 +33,16 @@
 <script>
 import { getTop5 } from '@/api/intelligentDecisionMaking/mood'
 export default {
-  data() {
+  data () {
     return {
       itemList: []
     }
   },
-  created() {
+  created () {
     this.getTop5()
   },
   methods: {
-    getTop5() {
+    getTop5 () {
       getTop5().then(res => {
         console.log(res)
         this.itemList = [

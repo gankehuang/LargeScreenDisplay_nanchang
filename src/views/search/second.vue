@@ -1,7 +1,7 @@
 <template>
   <div
-    class="search"
     v-loading="loading"
+    class="search"
     element-loading-text="拼命加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.4)"
@@ -9,13 +9,20 @@
     <Search
       :input1="input1"
       :select="type"
-      @search="searchStatus"
       width="958px"
-    ></Search>
+      @search="searchStatus"
+    />
     <div style="height: 80%">
       <el-scrollbar style="height: 100%;">
-        <div class="list" v-if="type == 1 && list.length > 0">
-          <div v-for="(item, index) in list" :key="index" class="item">
+        <div
+          v-if="type == 1 && list.length > 0"
+          class="list"
+        >
+          <div
+            v-for="(item, index) in list"
+            :key="index"
+            class="item"
+          >
             <div class="img">
               <!-- <CustomImage
                 style="width: 112px;height: 136px;"
@@ -24,12 +31,16 @@
                 :src="item.photoUrl"
               /> -->
               <el-image
-                style="width: 112px;height: 136px;"
                 v-if="item.photoUrl && item.photoUrl != '无'"
+                style="width: 112px;height: 136px;"
                 :preview-src-list="[item.photoUrl]"
                 :src="item.photoUrl"
               />
-              <img v-else src="~@/assets/image/search/avatar.jpg" alt="" />
+              <img
+                v-else
+                src="~@/assets/image/search/avatar.jpg"
+                alt=""
+              >
             </div>
             <div class="mes">
               <div class="name">
@@ -37,7 +48,10 @@
                 <!-- <span>
               {{ item.type }}
             </span> -->
-                <div class="check" @click="search(item.id, item.idNumber)">
+                <div
+                  class="check"
+                  @click="search(item.id, item.idNumber)"
+                >
                   查看多维信息
                 </div>
               </div>
@@ -86,10 +100,20 @@
             </div>
           </div>
         </div>
-        <div class="list" v-else-if="type == 2 && unitList.length > 0">
-          <div v-for="(item, index) in unitList" :key="index" class="item">
+        <div
+          v-else-if="type == 2 && unitList.length > 0"
+          class="list"
+        >
+          <div
+            v-for="(item, index) in unitList"
+            :key="index"
+            class="item"
+          >
             <div class="img">
-              <img :src="item.photoUrl" alt="" />
+              <img
+                :src="item.photoUrl"
+                alt=""
+              >
             </div>
             <div class="mes">
               <div class="name">
@@ -97,7 +121,10 @@
                 <!-- <span>
               {{ item.type }}
             </span> -->
-                <div class="check" @click="search(item.id)">
+                <div
+                  class="check"
+                  @click="search(item.id)"
+                >
                   查看多维信息
                 </div>
               </div>
@@ -146,16 +173,27 @@
             </div>
           </div>
         </div>
-        <div class="list car" v-else-if="type == 3 && list.length > 0">
-          <div v-for="(item, index) in list" :key="index" class="item">
+        <div
+          v-else-if="type == 3 && list.length > 0"
+          class="list car"
+        >
+          <div
+            v-for="(item, index) in list"
+            :key="index"
+            class="item"
+          >
             <div class="img">
               <CustomImage
-                style="width: 155px;height: 108px;"
                 v-if="item.vehiclePhotoUrl && item.vehiclePhotoUrl != '无'"
+                style="width: 155px;height: 108px;"
                 :preview-src-list="[item.vehiclePhotoUrl]"
                 :src="item.vehiclePhotoUrl"
               />
-              <img v-else src="~@/assets/image/search/car.png" alt="" />
+              <img
+                v-else
+                src="~@/assets/image/search/car.png"
+                alt=""
+              >
             </div>
             <div class="mes">
               <div class="mes-bottom">
@@ -206,10 +244,10 @@
           </div>
         </div>
         <div
-          class="list"
           v-else-if="
             loading == false && list.length == 0 && unitList.length == 0
           "
+          class="list"
         >
           <div class="none">
             暂无数据
@@ -220,20 +258,18 @@
     <div class="pagination1">
       <el-pagination
         :current-page.sync="pageNum"
-        @current-change="getList"
         :page-size="pageSize"
         layout="total, prev, pager, next"
         :total="total"
-      >
-      </el-pagination>
+        @current-change="getList"
+      />
     </div>
     <Mes
       v-if="display"
       :id="id"
-      :idNumber="idNumber"
+      :id-number="idNumber"
       @bindBtnClose="display = false"
-    >
-    </Mes>
+    />
   </div>
 </template>
 <script>
@@ -249,7 +285,7 @@ export default {
     Search,
     Mes
   },
-  data() {
+  data () {
     return {
       display: false,
       id: '',
@@ -267,11 +303,11 @@ export default {
       loading: true
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    async getList() {
+    async getList () {
       this.loading = true
       const param = { keyWord: this.input1 }
       if (this.type !== this.type1 || this.input1 !== this.input2) {
@@ -319,7 +355,7 @@ export default {
       }
       this.loading = false
     },
-    showStatus(status) {
+    showStatus (status) {
       switch (status) {
         case '006':
           return '户籍人口'
@@ -331,12 +367,12 @@ export default {
           break
       }
     },
-    search(id, idNumber) {
+    search (id, idNumber) {
       this.display = true
       this.id = id
       this.idNumber = idNumber
     },
-    searchStatus(type, input1) {
+    searchStatus (type, input1) {
       this.loading = true
       this.type = type
       this.input1 = input1

@@ -1,14 +1,19 @@
 <template>
   <div class="rtmpPlayer-container">
     <video-player
+      ref="videoPlayer"
       class="video-player-box"
       :class="loading && 'vjs-waiting'"
-      ref="videoPlayer"
       :options="playerOption"
       @waiting="onPlayerWaiting($event)"
       @loadeddata="onPlayerLoadeddata($event)"
     />
-    <div v-if="isNeedMask" class="mask" @click="handlerCilck" @dblclick="displayFullScreen"></div>
+    <div
+      v-if="isNeedMask"
+      class="mask"
+      @click="handlerCilck"
+      @dblclick="displayFullScreen"
+    />
   </div>
 </template>
 
@@ -17,6 +22,9 @@ import { videoPlayer } from 'vue-video-player'
 import { hasUsableFlash } from '@/utils/check.js'
 import 'videojs-flash'
 export default {
+  components: {
+    videoPlayer
+  },
   props: {
     src: String,
     mute: Boolean,
@@ -29,10 +37,7 @@ export default {
       default: false
     }
   },
-  components: {
-    videoPlayer
-  },
-  data() {
+  data () {
     return {
       loading: false,
       player: null,
@@ -57,33 +62,33 @@ export default {
     }
   },
   watch: {
-    mute() {
+    mute () {
       this.player.muted(this.mute)
     }
   },
-  methods: {
-    handlerCilck() {
-      this.$emit('handlerCilck')
-    },
-    onPlayerWaiting() {
-      // this.loading = true
-    },
-    onPlayerLoadeddata() {
-      // this.loading = false
-    },
-    displayFullScreen() {
-      this.player.requestFullscreen()
-    }
-  },
-  mounted() {
+  mounted () {
     this.player = this.$refs.videoPlayer.player
     if (!hasUsableFlash()) {
       this.$message.error('请启用 flash 插件')
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     if (this.player) {
       this.player.dispose()
+    }
+  },
+  methods: {
+    handlerCilck () {
+      this.$emit('handlerCilck')
+    },
+    onPlayerWaiting () {
+      // this.loading = true
+    },
+    onPlayerLoadeddata () {
+      // this.loading = false
+    },
+    displayFullScreen () {
+      this.player.requestFullscreen()
     }
   }
 }

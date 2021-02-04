@@ -1,10 +1,13 @@
 <template>
   <div class="ring-per-chart-container">
-    <div class="ring-per-chart" :style="styleObj">
+    <div
+      class="ring-per-chart"
+      :style="styleObj"
+    >
       <v-chart :options="options" />
     </div>
     <!-- 说明性标签、数据 -->
-    <slot></slot>
+    <slot />
   </div>
 </template>
 
@@ -63,9 +66,8 @@ export default {
       }
     }
   },
-  watch: {},
   computed: {
-    options() {
+    options () {
       return {
         legend: {
           show: false
@@ -125,7 +127,8 @@ export default {
         ]
       }
     }
-  }
+  },
+  watch: {}
 }
 </script>
 

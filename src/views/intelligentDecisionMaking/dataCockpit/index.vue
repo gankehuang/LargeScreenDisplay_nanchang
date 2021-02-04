@@ -1,26 +1,53 @@
 <template>
-  <div class="tab-container">
-    <div class="icon" @click="toNewPage"></div>
+  <!-- <div class="tab-container">
+    <div
+      class="icon"
+      @click="toNewPage"
+    />
     <div class="page-container data-cockpit">
-      <Tabs :tab-list="tabList" width="300px" :cur-index="8" />
+      <Tabs
+        :tab-list="tabList"
+        width="300px"
+        :cur-index="8"
+      />
       <Top />
       <Left />
       <Right />
       <ImgMap />
       <Bottom />
     </div>
-  </div>
+  </div> -->
+  <Container
+    :is-need-page-center="true"
+    :container-style-obj="{background: `url(${url})`}"
+  >
+    <Tabs
+      :tab-list="tabList"
+      width="300px"
+      :cur-index="8"
+    />
+    <template v-slot:pageLeft>
+      <Left />
+    </template>
+    <template v-slot:pageCenter>
+      <Top />
+      <ImgMap />
+      <Bottom />
+    </template>
+    <template v-slot:pageRight>
+      <Right />
+    </template>
+  </Container>
 </template>
 
 <script>
 import commonMixin from '../commonMixin'
-import ImgMap from './ImgMap'
-import Left from './Left'
-import Right from './Right'
-import Top from './Top'
-import Bottom from './Bottom'
+import Left from './Left/index'
+import Right from './Right/index'
+import Top from './Center/Top'
+import ImgMap from './Center/ImgMap'
+import Bottom from './Center/Bottom'
 export default {
-  mixins: [commonMixin],
   components: {
     ImgMap,
     Left,
@@ -28,24 +55,26 @@ export default {
     Top,
     Bottom
   },
-  data() {
+  mixins: [commonMixin],
+  data () {
     return {
-      iframeVisible: false
+      iframeVisible: false,
+      url: require('@/assets/image/dataCockpit/container-bg.png')
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:iframeVisible')
   },
-  mounted() {
+  mounted () {
     this.$EventBus.$on('update:iframeVisible', res => {
       this.iframeVisible = res
     })
   },
   methods: {
-    handleClickPage() {
+    handleClickPage () {
       this.columnsAnimationModal.visible = true
     },
-    toNewPage() {
+    toNewPage () {
       const url =
         'http://172.10.16.244/static/weber/designer.html?pageId=603955a9ef53b45db0c3e5309f17d02f&accessToken=a2816f8ca41e4b4fb55c11896d2b6a66'
       window.open(url, '_blank')

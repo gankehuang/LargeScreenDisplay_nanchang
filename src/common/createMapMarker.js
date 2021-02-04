@@ -1,5 +1,5 @@
 // 创建普通div类型图标标记
-function createMapMarker(config) {
+function createMapMarker (config) {
   const {
     icon, // 本地图标地址
     size = [49, 60], // 图标尺寸
@@ -24,7 +24,7 @@ function createMapMarker(config) {
     raiseOnDrag
   }
   if (icon && !content) {
-    markerObj['icon'] = new window.AMap.Icon({
+    markerObj.icon = new window.AMap.Icon({
       image: icon,
       size: new window.AMap.Size(size[0], size[1]), // 图标所处区域大小
       imageSize: new window.AMap.Size(imageSize[0], imageSize[1]) // 图标大小
@@ -32,11 +32,11 @@ function createMapMarker(config) {
   }
 
   if (content) {
-    markerObj['content'] = content
+    markerObj.content = content
   }
 
   if (title) {
-    markerObj['title'] = title
+    markerObj.title = title
   }
 
   return new window.AMap.Marker(markerObj)
@@ -50,11 +50,11 @@ resultMarkFunc 对某一项数据处理的函数(选填)
 markClickFunc 标记点点击函数(选填)
 return 创建好的标记点列表
 */
-function createMapMarkerList(map, list, resultMarkFunc, markClickFunc) {
+function createMapMarkerList (map, list, resultMarkFunc, markClickFunc) {
   const markerList = []
   list.forEach(item => {
     const handledItem = resultMarkFunc(item)
-    if (handledItem && handledItem.hasOwnProperty('configItem')) {
+    if (handledItem && 'configItem' in handledItem) {
       const { configItem, dataItem } = handledItem
       const baseConfig = {
         isNeedMarkClickFunc: false // 是否需要点击事件
@@ -92,7 +92,7 @@ function createMapMarkerList(map, list, resultMarkFunc, markClickFunc) {
 
 // 创建聚合类型图标标记
 // window.clusterer 重新设置聚合列表 例如：window.clusterer.setMarkers([]) 清空聚合点
-function createPolymerizationMarker(
+function createPolymerizationMarker (
   map, // 地图容器（必填）
   polymerizationList, // 原始数据列表（必填）
   config, // 配置项（选填）
@@ -113,7 +113,10 @@ function createPolymerizationMarker(
     }
   } = config
 
-  window.clusterer ? window.clusterer.setMarkers([]) : null
+  if (window.clusterer) {
+    window.clusterer.setMarkers([])
+  }
+
   let markers = []
 
   if (polymerizationList.length) {
@@ -130,7 +133,7 @@ function createPolymerizationMarker(
   }
 
   const count = polymerizationList.length
-  const _renderClusterMarker = function(context) {
+  const _renderClusterMarker = function (context) {
     const size = Math.round(30 + Math.pow(context.count / count, 1 / 5) * 20)
     context.marker.setOffset(new window.AMap.Pixel(-size / 2, -size / 2))
     context.marker.setContent(`<div class="massive-point ${className}">
@@ -151,7 +154,7 @@ function createPolymerizationMarker(
 }
 
 // 创建聚合点markers
-function createMassiveMakerList(
+function createMassiveMakerList (
   list,
   config,
   onePointClickCallback,
@@ -167,10 +170,9 @@ function createMassiveMakerList(
     title: 'name'
   }
 
-  compatibleKeys &&
-  Object.prototype.toString.call(compatibleKeys) === '[object Object]'
-    ? Object.assign(baseCompatibleKeys, compatibleKeys)
-    : null
+  if (compatibleKeys && Object.prototype.toString.call(compatibleKeys) === '[object Object]') {
+    Object.assign(baseCompatibleKeys, compatibleKeys)
+  }
 
   const markers = []
   list.forEach(item => {

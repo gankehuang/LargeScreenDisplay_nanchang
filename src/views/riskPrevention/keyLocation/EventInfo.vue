@@ -1,14 +1,22 @@
 <template>
   <div class="info-block">
-    <div class="block-title">实时预警</div>
+    <div class="block-title">
+      实时预警
+    </div>
     <div class="list-container">
       <el-scrollbar style="height: 100%">
-        <div class="list-item" v-for="item in eventAllList" :key="item.id">
+        <div
+          v-for="item in eventAllList"
+          :key="item.id"
+          class="list-item"
+        >
           <p class="item-title">
             {{ item.happenedTime }}
           </p>
           <div class="item-con">
-            <div class="item-status">{{ item.statusText }}</div>
+            <div class="item-status">
+              {{ item.statusText }}
+            </div>
             <div class="img-row">
               <el-image
                 v-if="item.eventCode === '62053'"
@@ -36,8 +44,8 @@
               />
             </div>
             <div
-              class="content-row"
               v-if="item.eventName === '人员布控告警'"
+              class="content-row"
               @click="showDialog(item)"
             >
               <div class="row-label">
@@ -52,10 +60,14 @@
                   src="@/assets/image/KeyThrong/position.png"
                   class="position-icon"
                   @click.stop="focusEvent(item)"
-                />
+                >
               </div>
             </div>
-            <div class="content-row" v-else @click="showDialog(item)">
+            <div
+              v-else
+              class="content-row"
+              @click="showDialog(item)"
+            >
               <div class="row-label">
                 <span>{{ item.eventName }}</span>
               </div>
@@ -65,7 +77,7 @@
                   src="@/assets/image/KeyThrong/position.png"
                   class="position-icon"
                   @click.stop="focusEvent(item)"
-                />
+                >
               </div>
             </div>
           </div>
@@ -82,18 +94,18 @@ export default {
       default: () => []
     }
   },
-  data() {
+  data () {
     return {}
   },
-  mounted() {},
+  mounted () {},
   methods: {
-    focusEvent(item) {
+    focusEvent (item) {
       this.$emit('focusEvent', {
         ...item,
         position: [item.longitude, item.latitude]
       })
     },
-    showDialog(item) {
+    showDialog (item) {
       console.log(item)
       this.$emit('detailsEvent', {
         ...item,

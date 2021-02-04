@@ -1,26 +1,39 @@
 <template>
   <div
-    class="map-modal-container"
     v-if="visible"
     v-loading="loading"
+    class="map-modal-container"
     element-loading-text="加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba( 0, 0, 0, 0.3)"
   >
-    <div class="close" @click="close" />
-    <div v-if="sumList.length > 0" class="sumList">
-      <div class="sum" v-for="(item, index) in sumList" :key="index">
+    <div
+      class="close"
+      @click="close"
+    />
+    <div
+      v-if="sumList.length > 0"
+      class="sumList"
+    >
+      <div
+        v-for="(item, index) in sumList"
+        :key="index"
+        class="sum"
+      >
         {{ item.name }}
         <span>
           {{ item.count }}
         </span>
       </div>
     </div>
-    <SimpleMap @mapInit="mapInit" class="map">
+    <SimpleMap
+      class="map"
+      @mapInit="mapInit"
+    >
       <el-amap-info-window
         v-if="infoWindowData && select0ne.data"
-        :autoMove="true"
-        :showShadow="true"
+        :auto-move="true"
+        :show-shadow="true"
         :position="[infoWindowData.lng, infoWindowData.lat]"
         :events="infoWindowEvents"
         :is-custom="true"
@@ -29,12 +42,12 @@
         <div class="modal-content">
           <img
             class="close-btn"
+            src="@/assets/image/KeyThrong/close.png"
             @click="
               infoWindowData = null
               select0ne.data = null
             "
-            src="@/assets/image/KeyThrong/close.png"
-          />
+          >
           <TwoCenterDialog
             v-if="typeNc === 'TwoCenterNcMap'"
             :select0ne="select0ne"
@@ -43,7 +56,10 @@
             v-else-if="typeNc === 'GriddingNcMap'"
             :select0ne="select0ne"
           />
-          <NcDialog v-else :select0ne="select0ne" />
+          <NcDialog
+            v-else
+            :select0ne="select0ne"
+          />
         </div>
       </el-amap-info-window>
     </SimpleMap>
@@ -64,7 +80,6 @@ import {
   getSFZRZData,
   queryXSDWMCJZ
 } from '@/api/smartData/dataView'
-import SimpleMap from '@/components/SimpleMap'
 import NcDialog from './amapInfoWindowContent/NcDialog'
 import TwoCenterDialog from './amapInfoWindowContent/TwoCenterDialog'
 import GridDialog from './amapInfoWindowContent/GridDialog'
@@ -127,7 +142,6 @@ const TwoCenterNcMapObj = [
 
 export default {
   components: {
-    SimpleMap,
     NcDialog,
     TwoCenterDialog,
     GridDialog
@@ -142,15 +156,7 @@ export default {
       default: ''
     }
   },
-  watch: {
-    visible(val) {
-      if (!val) {
-        this.infoWindowData = null
-        this.sumList = []
-      }
-    }
-  },
-  data() {
+  data () {
     return {
       loading: false,
       map: null,
@@ -174,9 +180,17 @@ export default {
       sumList: []
     }
   },
-  mounted() {},
+  watch: {
+    visible (val) {
+      if (!val) {
+        this.infoWindowData = null
+        this.sumList = []
+      }
+    }
+  },
+  mounted () {},
   methods: {
-    async mapInit(map) {
+    async mapInit (map) {
       this.map = map
       await this.renderGrid()
       this.map.setCenter([116.026842, 28.688883])
@@ -184,7 +198,7 @@ export default {
       this.getList()
     },
     // 绘制地图 初始化图层
-    async renderGrid() {
+    async renderGrid () {
       let gridArr = []
       const polygons = []
       const { status, data } = await queryGridThreeLine()
@@ -322,7 +336,7 @@ export default {
       this.map.add(this.textList)
     },
 
-    async getList() {
+    async getList () {
       switch (this.typeNc) {
         case 'GroupDefenseNcMap': {
           const { status, data } = await queryQFQZ()
@@ -517,15 +531,15 @@ export default {
       }
     },
     // 随机颜色
-    randomColor() {
+    randomColor () {
       const colorArr = ['#3B9AFE', '#00FFFF', '#246BBB', '#0055FF', '#A9DAFF']
       return colorArr[Math.floor(Math.random() * colorArr.length)]
     },
-    close() {
+    close () {
       this.$emit('update:visible', false)
       this.markerList = []
     },
-    changeData(data, lat, lng) {
+    changeData (data, lat, lng) {
       switch (this.typeNc) {
         case 'GroupDefenseNcMap':
           this.handleBackendData('xq', data, GroupDefenseNcMapObj, '群防群治')
@@ -585,7 +599,7 @@ export default {
       this.infoWindowData = { lng, lat }
     },
     // 处理返回后台返回数据
-    handleBackendData(compatibleName, data, modalKeysObj, title, sum) {
+    handleBackendData (compatibleName, data, modalKeysObj, title, sum) {
       this.select0ne.data = []
       const curItem = this.dataList.find(item => {
         if (item[compatibleName].indexOf('湾里') > -1) {
@@ -626,7 +640,7 @@ export default {
       }
     },
     // 悬浮处理
-    handleAmapText(flag) {
+    handleAmapText (flag) {
       if (!flag) {
         this.textList.forEach(item => {
           item.hide()

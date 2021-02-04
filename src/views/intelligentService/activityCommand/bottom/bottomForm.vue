@@ -1,18 +1,20 @@
 <template>
   <div
-    class="form-page"
     v-loading="isLoading"
+    class="form-page"
     element-loading-text="加载中"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba( 0, 0, 0, 0.7)"
   >
     <div class="search-bar">
       <div class="left">
-        <el-button type="primary"
-icon="el-icon-plus"
-@click="add()"
-          >录入信息</el-button
+        <el-button
+          type="primary"
+          icon="el-icon-plus"
+          @click="add()"
         >
+          录入信息
+        </el-button>
         <!-- <el-button
           plain
           icon="el-icon-delete"
@@ -25,13 +27,27 @@ icon="el-icon-plus"
           clearable
           class="search-input"
         />
-        <el-button type="primary" @click="getList">查询</el-button>
-        <el-button plain @click="advancedSearchShow = true">高级搜索</el-button>
+        <el-button
+          type="primary"
+          @click="getList"
+        >
+          查询
+        </el-button>
+        <el-button
+          plain
+          @click="advancedSearchShow = true"
+        >
+          高级搜索
+        </el-button>
       </div>
     </div>
 
     <search-advance v-show="advancedSearchShow">
-      <el-form ref="advancedForm" :model="advancedForm" label-width="140px">
+      <el-form
+        ref="advancedForm"
+        :model="advancedForm"
+        label-width="140px"
+      >
         <el-form-item label="活动规模">
           <el-select
             v-model="advancedForm.scale"
@@ -43,19 +59,21 @@ icon="el-icon-plus"
               :key="item.value"
               :label="item.name"
               :value="item.value"
-            >
-            </el-option>
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="活动类型">
-          <el-select v-model="advancedForm.type" placeholder="请选择" clearable>
+          <el-select
+            v-model="advancedForm.type"
+            placeholder="请选择"
+            clearable
+          >
             <el-option
               v-for="item in typeList"
               :key="item.value"
               :label="item.name"
               :value="item.value"
-            >
-            </el-option>
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="活动状态">
@@ -69,8 +87,7 @@ icon="el-icon-plus"
               :key="item.value"
               :label="item.name"
               :value="item.value"
-            >
-            </el-option>
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="活动时间">
@@ -82,13 +99,27 @@ icon="el-icon-plus"
             range-separator="至"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
-          >
-          </el-date-picker>
+          />
         </el-form-item>
         <el-form-item class="buttons">
-          <el-button type="primary" @click="searchAdvance">查询</el-button>
-          <el-button type="primary" @click="resetSearchForm">重置</el-button>
-          <el-button plain @click="advancedSearchShow = false">取消</el-button>
+          <el-button
+            type="primary"
+            @click="searchAdvance"
+          >
+            查询
+          </el-button>
+          <el-button
+            type="primary"
+            @click="resetSearchForm"
+          >
+            重置
+          </el-button>
+          <el-button
+            plain
+            @click="advancedSearchShow = false"
+          >
+            取消
+          </el-button>
         </el-form-item>
       </el-form>
     </search-advance>
@@ -100,34 +131,76 @@ icon="el-icon-plus"
       stripe
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" fixed="left" />
-      <el-table-column label="活动名称" prop="name" />
-      <el-table-column label="活动时间" prop="activityStartTime" />
-      <el-table-column label="活动地点" prop="activityAddresses">
+      <el-table-column
+        type="selection"
+        width="55"
+        fixed="left"
+      />
+      <el-table-column
+        label="活动名称"
+        prop="name"
+      />
+      <el-table-column
+        label="活动时间"
+        prop="activityStartTime"
+      />
+      <el-table-column
+        label="活动地点"
+        prop="activityAddresses"
+      >
         <template slot-scope="scope">
           {{
             scope.row.activityAddresses &&
-            scope.row.activityAddresses.length > 0
+              scope.row.activityAddresses.length > 0
               ? scope.row.activityAddresses[0].address
               : ""
           }}
         </template>
       </el-table-column>
-      <el-table-column label="活动类型" prop="typeText" />
-      <el-table-column label="活动规模" prop="scaleText" />
-      <el-table-column label="涉及人数" prop="involveNumber" />
-      <el-table-column label="活动状态" prop="statusText" />
-      <el-table-column label="活动简介" prop="introduction" />
-      <el-table-column label="操作" width="300" fixed="right">
+      <el-table-column
+        label="活动类型"
+        prop="typeText"
+      />
+      <el-table-column
+        label="活动规模"
+        prop="scaleText"
+      />
+      <el-table-column
+        label="涉及人数"
+        prop="involveNumber"
+      />
+      <el-table-column
+        label="活动状态"
+        prop="statusText"
+      />
+      <el-table-column
+        label="活动简介"
+        prop="introduction"
+      />
+      <el-table-column
+        label="操作"
+        width="300"
+        fixed="right"
+      >
         <template slot-scope="scope">
-          <td-btn content="上传" icon="el-icon-s-promotion" />
+          <td-btn
+            content="上传"
+            icon="el-icon-s-promotion"
+          />
           <td-btn
             content="修改"
             icon="el-icon-edit"
             @click="editMes(scope.row)"
           />
-          <td-btn content="回放" icon="el-icon-bicycle" @click="Replay()" />
-          <td-btn content="指挥记录" icon="el-icon-alarm-clock" />
+          <td-btn
+            content="回放"
+            icon="el-icon-bicycle"
+            @click="Replay()"
+          />
+          <td-btn
+            content="指挥记录"
+            icon="el-icon-alarm-clock"
+          />
           <td-btn
             content="删除"
             icon="el-icon-delete"
@@ -157,7 +230,7 @@ icon="el-icon-plus"
       <video-player
         class="vjs-custom-skin"
         :options="playerOptions"
-      ></video-player>
+      />
     </el-dialog>
   </div>
 </template>
@@ -174,14 +247,7 @@ export default {
     AddActiveModal,
     videoPlayer
   },
-  watch: {
-    addActiveModal() {
-      if (!this.addActiveModal.visible) {
-        this.getList()
-      }
-    }
-  },
-  data() {
+  data () {
     return {
       dataList: [],
       playerOptions: {
@@ -248,11 +314,18 @@ export default {
       ]
     }
   },
-  mounted() {
+  watch: {
+    addActiveModal () {
+      if (!this.addActiveModal.visible) {
+        this.getList()
+      }
+    }
+  },
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       if (this.dataList && this.dataList.length > 0) {
         this.advancedForm.startTime = this.dataList[0] + ' 00:00:00'
         this.advancedForm.endTime = this.dataList[1] + ' 23:59:59'
@@ -272,29 +345,29 @@ export default {
         }
       })
     },
-    editMes(rowData) {
+    editMes (rowData) {
       this.addActiveModal.visible = true
       this.addActiveModal.info = rowData
     },
-    searchAdvance() {
+    searchAdvance () {
       this.getList()
       this.advancedSearchShow = false
     },
-    handleSelectionChange() {},
-    resetSearchForm() {
+    handleSelectionChange () {},
+    resetSearchForm () {
       this.dataList = []
       this.advancedForm = this.$options.data().advancedForm
       this.getList()
     },
     // 回放
-    Replay() {
+    Replay () {
       this.dialogVisible = true
     },
-    add() {
+    add () {
       this.addActiveModal.visible = true
     },
     // 删除
-    deletes(row) {
+    deletes (row) {
       this.$confirm('删除该活动, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

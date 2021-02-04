@@ -1,32 +1,32 @@
 <template>
-  <div class="win-info">
-    <div class="title">区域分布</div>
-    <v-chart :options="amountOptions" class="echarts" />
-  </div>
+  <InfoBlock
+    title="区域分布"
+    height="520px"
+  >
+    <v-chart
+      :options="amountOptions"
+      class="echarts"
+    />
+  </InfoBlock>
 </template>
 
 <script>
 import echarts from 'vue-echarts'
 import { queryRetiredDistributed } from '@/api/riskPrevention/importPeople'
 export default {
-  data() {
+  data () {
     return {
       dataList: [],
-      datalist1: [8, 8, 6, 18, 27, 36, 4, 27, 14, 21, 12, 20],
-      nameList: [],
-      title: '精神病患者',
-      level: '3级',
-      levelList: ['3级', '4级', '5级']
+      nameList: []
     }
   },
   computed: {
-    amountOptions() {
+    amountOptions () {
       return {
         grid: {
           left: '18%',
-          top: '10%',
-          height: '85%'
-          //     containLabel: true,
+          top: 0,
+          height: '100%'
         },
         xAxis: [
           {
@@ -99,11 +99,11 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       queryRetiredDistributed().then(res => {
         if (res.status === 200) {
           res.data.forEach(item => {
@@ -118,36 +118,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .rentalHousing-right-container {
-//   position: absolute;
-//   top: 0;
-//   right: 16px;
-//   //   width: 100%;
-//   height: 98%;
-//   z-index: 10;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-// }
-.echarts {
-  width: 100%;
-  height: 100%;
-}
-.win-info {
-  position: relative;
-  width: 420px;
-  height: 512px;
-  background: url("~@/assets/image/importPeople/xf-right-bg1.png") no-repeat
-    center center;
-  background-size: 100% 100%;
-  .title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #7dbcff;
-    line-height: 18px;
-    position: absolute;
-    top: 10px;
-    left: 20px;
-  }
-}
+
 </style>

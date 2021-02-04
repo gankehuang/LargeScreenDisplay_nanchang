@@ -2,22 +2,29 @@
   <div>
     <div class="search-box">
       <el-input
-        placeholder="搜索特殊人员"
         v-model="searchVal"
+        placeholder="搜索特殊人员"
         class="input-with-select"
-      >
-      </el-input>
-      <svg-icon icon-class="search" class="svg-icon" @click="getSearch" />
+      />
+      <svg-icon
+        icon-class="search"
+        class="svg-icon"
+        @click="getSearch"
+      />
     </div>
     <div
-      class="list"
       v-loading="loading"
+      class="list"
       element-loading-text="加载中"
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba( 0, 0, 0, 0.7)"
     >
       <el-scrollbar style="height: 70%;">
-        <div v-for="(item, index) in list" :key="index" class="list-item">
+        <div
+          v-for="(item, index) in list"
+          :key="index"
+          class="list-item"
+        >
           <div class="left">
             <!--            <el-image-->
             <!--              v-if="item.xp"-->
@@ -31,12 +38,18 @@
             />
           </div>
           <div class="right">
-            <div class="title">{{ item.xm }} {{ item.phone }}</div>
+            <div class="title">
+              {{ item.xm }} {{ item.phone }}
+            </div>
             <div class="tip">
               {{ item.memo }}
             </div>
-            <div class="idNumber">身份证号: {{ item.gmsfhm }}</div>
-            <div class="address">地址: {{ item.residenceaddr }}</div>
+            <div class="idNumber">
+              身份证号: {{ item.gmsfhm }}
+            </div>
+            <div class="address">
+              地址: {{ item.residenceaddr }}
+            </div>
           </div>
           <!--          <div class="position" @click="changeEvent(item)">-->
           <!--            <img src="@/assets/image/importPeople/position.png" />-->
@@ -53,7 +66,7 @@ import {
   getZhqInfoByName
 } from '@/api/riskPrevention/specialPeople'
 export default {
-  data() {
+  data () {
     return {
       searchVal: '',
       loading: false,
@@ -101,11 +114,11 @@ export default {
       ]
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       this.loading = true
       getZhqList({ name: '中华情' }).then(res => {
         if (res.status === 200) {
@@ -114,7 +127,7 @@ export default {
         }
       })
     },
-    getSearch() {
+    getSearch () {
       this.loading = true
       if (this.searchVal) {
         getZhqInfoByName({ name: this.searchVal }).then(res => {

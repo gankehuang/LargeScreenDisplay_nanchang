@@ -1,18 +1,32 @@
 <template>
-  <div class="postInfo" v-if="visible">
-    <div class="close" @click="close" />
-    <div class="title">{{ info.name }}</div>
+  <div
+    v-if="visible"
+    class="postInfo"
+  >
+    <div
+      class="close"
+      @click="close"
+    />
+    <div class="title">
+      {{ info.name }}
+    </div>
     <div class="infobox">
       <p>
-        <svg-icon icon-class="dizhi" style="color:#95D6FF" /> {{ info.address }}
+        <svg-icon
+          icon-class="dizhi"
+          style="color:#95D6FF"
+        /> {{ info.address }}
       </p>
       <el-image
         v-if="info.img && info.img.indexOf('http') === -1"
         :src="'http://172.11.16.241:5054' + info.img"
         :preview-src-list="['http://172.11.16.241:5054' + info.img]"
       >
-        <div slot="placeholder" class="image-slot">
-          <img src="@/assets/image/socialGovernment/loading-img.gif" />
+        <div
+          slot="placeholder"
+          class="image-slot"
+        >
+          <img src="@/assets/image/socialGovernment/loading-img.gif">
         </div>
       </el-image>
       <el-image
@@ -20,11 +34,17 @@
         :src="info.img"
         :preview-src-list="[info.img]"
       >
-        <div slot="placeholder" class="image-slot">
-          <img src="@/assets/image/socialGovernment/loading-img.gif" />
+        <div
+          slot="placeholder"
+          class="image-slot"
+        >
+          <img src="@/assets/image/socialGovernment/loading-img.gif">
         </div>
       </el-image>
-      <img v-else src="@/assets/image/socialGovernment/no.png" />
+      <img
+        v-else
+        src="@/assets/image/socialGovernment/no.png"
+      >
     </div>
   </div>
 </template>
@@ -42,7 +62,7 @@ export default {
     }
   },
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     }
   }

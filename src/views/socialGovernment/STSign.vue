@@ -1,31 +1,44 @@
 <template>
-  <div class="time-line-container" v-if="visible">
-    <div class="close" @click="close"></div>
+  <div
+    v-if="visible"
+    class="time-line-container"
+  >
+    <div
+      class="close"
+      @click="close"
+    />
     <div class="sidebarList">
       <div
-        :class="['sidebarOne', { currentOne: currentIndex === index }]"
         v-for="(item, index) in cityTitle"
         :key="index"
+        :class="['sidebarOne', { currentOne: currentIndex === index }]"
         @click="sidebarClick(index, item)"
       >
         {{ item }}
       </div>
     </div>
     <el-scrollbar
-      style="height: 800px;margin: 20px 46px 0 48px;"
       v-if="value === 'CitySTSign' ? true : false"
       ref="elscrollbar"
+      style="height: 800px;margin: 20px 46px 0 48px;"
     >
       <div class="time-first" />
       <div class="time-first-block">
         <div class="line" />
-        <div class="time-node-title" ref="blockScroll1">
+        <div
+          ref="blockScroll1"
+          class="time-node-title"
+        >
           <div class="node" />
-          <div class="title">城市大脑</div>
+          <div class="title">
+            城市大脑
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
-          <div class="info">投资额：约<span>1.8亿</span></div>
+          <div class="info">
+            投资额：约<span>1.8亿</span>
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
@@ -122,23 +135,29 @@
       </div>
     </el-scrollbar>
     <el-scrollbar
-      style="height: 800px;margin: 20px 46px 0 48px;"
       v-if="value === 'BrightSTSign' ? true : false"
+      style="height: 800px;margin: 20px 46px 0 48px;"
     >
       <div class="time-first" />
       <div class="time-first-block">
         <div class="line" />
         <div class="time-node-title">
           <div class="node" />
-          <div class="title">雪亮工程</div>
+          <div class="title">
+            雪亮工程
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
-          <div class="info">一类天网探头：<span>6万个</span></div>
+          <div class="info">
+            一类天网探头：<span>6万个</span>
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
-          <div class="info">社会面二、三类探头<span>7万个</span></div>
+          <div class="info">
+            社会面二、三类探头<span>7万个</span>
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
@@ -174,19 +193,19 @@ export default {
       default: ''
     }
   },
-  data() {
+  data () {
     return {
       cityTitle: ['城市大脑'],
       currentIndex: 0
     }
   },
   watch: {
-    visible(newVal) {
+    visible (newVal) {
       if (newVal) {
         this.currentIndex = 0
       }
     },
-    value(newVal) {
+    value (newVal) {
       if (newVal === 'CitySTSign') {
         this.cityTitle = ['城市大脑']
       } else {
@@ -195,23 +214,23 @@ export default {
     }
   },
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     },
-    sidebarClick(index, item) {
+    sidebarClick (index, item) {
       this.currentIndex = index
       if (index === 0) {
         this.$nextTick(() => {
-          const div = this.$refs['elscrollbar'].$refs['wrap']
+          const div = this.$refs.elscrollbar.$refs.wrap
           div.scrollTop = 0
         })
         return
       }
       this.$nextTick(() => {
-        const div = this.$refs['elscrollbar'].$refs['wrap']
+        const div = this.$refs.elscrollbar.$refs.wrap
         switch (index) {
           case 1:
-            div.scrollTop = this.$refs['blockScroll2'].offsetTop
+            div.scrollTop = this.$refs.blockScroll2.offsetTop
             break
         }
       })

@@ -1,9 +1,17 @@
 <template>
   <div class="key-place-container">
-    <div class="title">公共设施</div>
+    <div class="title">
+      公共设施
+    </div>
     <ul>
-      <li v-for="(item, index) in dataList" :key="index">
-        <svg-icon :icon-class="item.icon" class="icon" />
+      <li
+        v-for="(item, index) in dataList"
+        :key="index"
+      >
+        <svg-icon
+          :icon-class="item.icon"
+          class="icon"
+        />
         <span class="label">{{ item.label }}</span>
         <div class="data">
           <span class="number">{{ item.number }}</span>
@@ -17,7 +25,7 @@
 <script>
 import { queryCommonPlay } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       code: '3601',
       dataList: [
@@ -54,10 +62,10 @@ export default {
       ]
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  async mounted() {
+  async mounted () {
     await this.handleQueryCommonCarNum()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -65,17 +73,17 @@ export default {
     })
   },
   methods: {
-    async handleQueryCommonCarNum() {
+    async handleQueryCommonCarNum () {
       try {
         const { status, data } = await queryCommonPlay({
           gridCode: this.code
         })
         if (status === 200) {
-          this.dataList[0].number = data['xfss']
-          this.dataList[1].number = data['axcp']
-          this.dataList[2].number = data['txjjx']
-          this.dataList[3].number = data['cdz']
-          this.dataList[4].number = data['bdz']
+          this.dataList[0].number = data.xfss
+          this.dataList[1].number = data.axcp
+          this.dataList[2].number = data.txjjx
+          this.dataList[3].number = data.cdz
+          this.dataList[4].number = data.bdz
         }
       } catch (error) {}
     }

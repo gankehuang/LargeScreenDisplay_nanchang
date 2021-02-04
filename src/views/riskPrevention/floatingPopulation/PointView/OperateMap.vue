@@ -1,12 +1,12 @@
 <template>
   <div class="dots">
     <div
-      :class="['dot', { active: item1.visible }]"
       v-for="(item1, index1) in dotList"
       :key="index1"
+      :class="['dot', { active: item1.visible }]"
       @click="changeDot(item1, index1)"
     >
-      <img :src="item1.visible ? item1.url : item1.url1" />
+      <img :src="item1.visible ? item1.url : item1.url1">
       {{ item1.name }}
     </div>
   </div>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       dotList: [
         {
@@ -56,7 +56,7 @@ export default {
     }
   },
   methods: {
-    changeDot(item, index) {
+    changeDot (item, index) {
       if (item.visible) {
         this.dotList.splice(index, 1, { ...item, visible: false })
         this.$emit('updateMapMarker', {

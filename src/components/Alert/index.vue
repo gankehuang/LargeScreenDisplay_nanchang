@@ -1,12 +1,21 @@
 <template>
-  <transition name="ani-right" mode="out-in" appear>
-    <div class="modal" :style="{ background: 'url(' + alertBg + ')' }">
-      <div class="title">事件提醒</div>
+  <transition
+    name="ani-right"
+    mode="out-in"
+    appear
+  >
+    <div
+      class="modal"
+      :style="{ background: 'url(' + alertBg + ')' }"
+    >
+      <div class="title">
+        事件提醒
+      </div>
       <img
         class="btn-close"
         src="@/assets/image/common/close-btn.png"
         @click="bindBtnClose"
-      />
+      >
       <div class="event-img">
         <el-image
           :z-index="999"
@@ -15,15 +24,15 @@
             alertInfo.snapBakUrl
               ? alertInfo.snapBakUrl
               : alertInfo.originImageUrl
-              ? alertInfo.originImageUrl
-              : require('@/assets/image/warning/no-avatar.png')
+                ? alertInfo.originImageUrl
+                : require('@/assets/image/warning/no-avatar.png')
           ]"
           :src="
             alertInfo.snapImageUrl
               ? alertInfo.snapImageUrl
               : alertInfo.originImageUrl
-              ? alertInfo.originImageUrl
-              : require('@/assets/image/warning/no-avatar.png')
+                ? alertInfo.originImageUrl
+                : require('@/assets/image/warning/no-avatar.png')
           "
         />
       </div>
@@ -43,17 +52,22 @@
         </p>
         <p>
           <span>事件级别：</span>
-          <span class="label" :style="{ background: btnColor }">{{
+          <span
+            class="label"
+            :style="{ background: btnColor }"
+          >{{
             alertInfo.emergencyLevelText
           }}</span>
         </p>
         <span
           class="look-btn"
-          @click="bindShowDetail"
           :style="{ color: btnColor }"
-          >查看详情</span
-        >
-        <audio :src="warningAudio" ref="audio" />
+          @click="bindShowDetail"
+        >查看详情</span>
+        <audio
+          ref="audio"
+          :src="warningAudio"
+        />
       </div>
     </div>
   </transition>
@@ -63,14 +77,8 @@
 import warningAudio from '@/assets/voice/warning.mp3'
 
 export default {
-  props: { alertInfo: Object },
-  data() {
-    return {
-      warningAudio
-    }
-  },
   filters: {
-    statusFilter(value) {
+    statusFilter (value) {
       switch (value) {
         case 0:
           return '无效'
@@ -89,11 +97,14 @@ export default {
       }
     }
   },
-  mounted() {
-    this.$refs.audio.play()
+  props: { alertInfo: Object },
+  data () {
+    return {
+      warningAudio
+    }
   },
   computed: {
-    alertBg: function() {
+    alertBg: function () {
       if (this.alertInfo.emergencyLevel === '1') {
         return require('./alert-bg1.png')
       } else if (this.alertInfo.emergencyLevel === '2') {
@@ -106,7 +117,7 @@ export default {
         return require('./alert-bg4.png')
       }
     },
-    btnColor: function() {
+    btnColor: function () {
       if (this.alertInfo.emergencyLevel === '1') {
         return '#FD2B34'
       } else if (this.alertInfo.emergencyLevel === '2') {
@@ -120,11 +131,14 @@ export default {
       }
     }
   },
+  mounted () {
+    this.$refs.audio.play()
+  },
   methods: {
-    bindBtnClose() {
+    bindBtnClose () {
       this.$emit('bindBtnClose')
     },
-    bindShowDetail() {
+    bindShowDetail () {
       this.$emit('bindShowDetail', this.alertInfo)
     }
   }

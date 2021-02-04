@@ -1,6 +1,10 @@
 <template>
   <div class="nanchang-map">
-    <v-chart id="nanChang" style="width:100%;height:100%" :options="options" />
+    <v-chart
+      id="nanChang"
+      style="width:100%;height:100%"
+      :options="options"
+    />
   </div>
 </template>
 
@@ -10,7 +14,7 @@ import nanChangMap from './nanChang.json'
 ECharts.registerMap('nanChang', nanChangMap)
 export default {
   computed: {
-    options() {
+    options () {
       return {
         geo: {
           type: 'map',
@@ -82,7 +86,7 @@ export default {
                 fontSize: 16,
                 color: '#fff'
               },
-              formatter: function(params) {
+              formatter: function (params) {
                 return params.name + '\n' + params.value
               },
               emphasis: {
@@ -99,7 +103,7 @@ export default {
     },
     methods: {
       // 初始化地图添加点击事件
-      initMapClick() {
+      initMapClick () {
         const that = this
         that.$nextTick(() => {
           that.nanChangMapEchart = ECharts.init(

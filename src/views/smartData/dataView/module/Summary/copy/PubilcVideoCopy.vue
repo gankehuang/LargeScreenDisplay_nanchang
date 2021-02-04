@@ -1,9 +1,17 @@
 <template>
   <div class="key-place-container">
-    <div class="title">公共视频</div>
+    <div class="title">
+      公共视频
+    </div>
     <ul>
-      <li v-for="(item, index) in dataList" :key="index">
-        <svg-icon :icon-class="item.icon" class="icon" />
+      <li
+        v-for="(item, index) in dataList"
+        :key="index"
+      >
+        <svg-icon
+          :icon-class="item.icon"
+          class="icon"
+        />
         <span class="label">{{ item.label }}</span>
         <div class="data">
           <span class="number">{{ item.number }}</span>
@@ -16,7 +24,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       dataList: [
         {

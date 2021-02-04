@@ -11,11 +11,13 @@
           :key="item.id"
           :label="item.name"
           :value="item"
-        >
-        </el-option>
+        />
       </el-select>
     </div>
-    <div @click="switchRoute()" class="button">
+    <div
+      class="button"
+      @click="switchRoute()"
+    >
       活动路线
     </div>
   </div>
@@ -25,17 +27,17 @@
 import { selectActivityBasePage } from '@/api/intelligentCommand/command'
 export default {
   props: {},
-  data() {
+  data () {
     return {
       activeList: [],
-      selectedActive: ''
+      selectedActive: {}
     }
   },
-  created() {
+  created () {
     this.fetchActiveList()
   },
   methods: {
-    fetchActiveList() {
+    fetchActiveList () {
       selectActivityBasePage(1, 10).then(res => {
         const { status, data } = res
         if (status === 200) {
@@ -43,12 +45,14 @@ export default {
 
           if (this.activeList && this.activeList.length) {
             this.selectedActive = this.activeList[0]
+            // 设置默认活动路线
             this.$emit('switchActiveRoute', this.selectedActive)
           }
         }
       })
     },
-    switchRoute() {
+    // 切换活动路线
+    switchRoute () {
       this.$emit('switchActiveRoute', this.selectedActive)
     }
   }
@@ -70,7 +74,7 @@ export default {
     .el-select {
       width: 100%;
       height: 36px;
-      /deep/.el-input__inner {
+      ::v-deep .el-input__inner {
         border: 0;
       }
     }

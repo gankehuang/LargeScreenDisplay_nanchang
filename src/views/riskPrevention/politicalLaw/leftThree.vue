@@ -1,12 +1,22 @@
 <template>
   <div class="leftOne">
-    <div class="title">舆情采集源</div>
+    <div class="title">
+      舆情采集源
+    </div>
     <div class="con-bottom">
-      <div class="con-bottom-list" v-for="(item, index) in lists" :key="index">
-        <p class="name">{{ item.name }}</p>
-        <p class="num">{{ item.num }}</p>
+      <div
+        v-for="(item, index) in lists"
+        :key="index"
+        class="con-bottom-list"
+      >
+        <p class="name">
+          {{ item.name }}
+        </p>
+        <p class="num">
+          {{ item.num }}
+        </p>
         <p class="progress">
-          <el-progress :percentage="item.percentage"></el-progress>
+          <el-progress :percentage="item.percentage" />
         </p>
       </div>
     </div>
@@ -14,7 +24,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       lists: [
         {

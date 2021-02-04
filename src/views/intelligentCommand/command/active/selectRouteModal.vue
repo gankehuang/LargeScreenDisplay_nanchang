@@ -1,22 +1,33 @@
 <template>
-  <div class="map-operate" v-if="visible">
-    <div class="close-btn" @click="bindBtnClose">×</div>
-    <div class="modal-title">活动路线</div>
+  <div
+    v-if="visible"
+    class="map-operate"
+  >
+    <div
+      class="close-btn"
+      @click="bindBtnClose"
+    >
+      ×
+    </div>
+    <div class="modal-title">
+      活动路线
+    </div>
     <div class="content">
-      <SimpleMap @mapInit="mapInit"></SimpleMap>
+      <SimpleMap @mapInit="mapInit" />
     </div>
     <div class="modal-bottom">
-      <el-button class="btn-save" @click="saveActiveRoute">保存</el-button>
+      <el-button
+        class="btn-save"
+        @click="saveActiveRoute"
+      >
+        保存
+      </el-button>
     </div>
   </div>
 </template>
 
 <script>
-import SimpleMap from '@/components/SimpleMap'
 export default {
-  components: {
-    SimpleMap
-  },
   props: {
     visible: {
       type: Boolean,
@@ -27,7 +38,7 @@ export default {
       default: () => null
     }
   },
-  data() {
+  data () {
     return {
       map: null,
       mapRuler: null,
@@ -39,7 +50,7 @@ export default {
     }
   },
   methods: {
-    mapInit(map) {
+    mapInit (map) {
       this.map = map
       // 绘制点
       const videoMarkerList = []
@@ -102,27 +113,27 @@ export default {
         this.lineArr = points
       })
     },
-    bindBtnClose() {
+    bindBtnClose () {
       this.$emit('update:visible', false)
     },
-    saveActiveRoute() {
+    saveActiveRoute () {
       this.$emit('update:nodeList', this.inNodeList)
       this.$emit('update:visible', false)
       this.inNodeList = []
       this.mapRuler.turnOff()
     },
-    getDifference(arr1, arr2) {
+    getDifference (arr1, arr2) {
       arr1 = arr1.map(JSON.stringify)
       arr2 = arr2.map(JSON.stringify)
       return arr1
         .concat(arr2)
-        .filter(function(v, i, arr) {
+        .filter(function (v, i, arr) {
           return arr.indexOf(v) === arr.lastIndexOf(v)
         })
         .map(JSON.parse)
     },
     // 创建地图标记点
-    _createMarker(icon, pos, item) {
+    _createMarker (icon, pos, item) {
       const marker = new window.AMap.Marker({
         icon: new window.AMap.Icon({
           image: icon,

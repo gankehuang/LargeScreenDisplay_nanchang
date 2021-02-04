@@ -1,33 +1,44 @@
 <template>
   <div class="model">
     <div class="model-box">
-      <el-form ref="form" :rules="rules" :model="form" label-width="120px">
+      <el-form
+        ref="form"
+        :rules="rules"
+        :model="form"
+        label-width="120px"
+      >
         <el-row :gutter="20">
           <el-col :span="24">
-            <el-form-item label="重点区域名称:" prop="name">
+            <el-form-item
+              label="重点区域名称:"
+              prop="name"
+            >
               <el-input
                 v-model="form.name"
                 placeholder="请输入重点区域名称"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
     </div>
-    <div class="model-map"><SimpleMap></SimpleMap></div>
+    <div class="model-map">
+      <SimpleMap />
+    </div>
     <div class="model-footer">
-      <el-button type="primary" @click="submitClick">提交</el-button>
+      <el-button
+        type="primary"
+        @click="submitClick"
+      >
+        提交
+      </el-button>
     </div>
   </div>
 </template>
 
 <script>
-import SimpleMap from '@/components/SimpleMap'
 export default {
-  components: {
-    SimpleMap
-  },
-  data() {
+  data () {
     return {
       center: [115.791124, 28.611357],
       map: null,
@@ -224,7 +235,7 @@ export default {
     }
   },
   methods: {
-    submitClick() {
+    submitClick () {
       this.$refs.form.validate(valid => {
         if (valid) {
           this.getRandomInt(10)
@@ -232,7 +243,7 @@ export default {
         }
       })
     },
-    getRandomInt(data) {
+    getRandomInt (data) {
       let number = ''
       for (let i = 0; i < data; i++) {
         number += Math.floor(Math.random() * 10)

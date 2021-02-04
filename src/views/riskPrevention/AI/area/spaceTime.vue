@@ -1,26 +1,36 @@
 <template>
   <div class="model">
     <div class="model-box">
-      <el-form ref="form" :rules="rules" :model="form" label-width="120px">
+      <el-form
+        ref="form"
+        :rules="rules"
+        :model="form"
+        label-width="120px"
+      >
         <el-row :gutter="20">
           <el-col :span="24">
-            <el-form-item label="规则名称:" prop="name">
+            <el-form-item
+              label="规则名称:"
+              prop="name"
+            >
               <el-input
                 v-model="form.name"
                 placeholder="请输入规则名称"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="关注日期:">
-              <el-select v-model="form.date" placeholder="请选择持续时间">
+              <el-select
+                v-model="form.date"
+                placeholder="请选择持续时间"
+              >
                 <el-option
                   v-for="item in dateOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
@@ -28,56 +38,65 @@
             <el-form-item label="关注时段:">
               <div style="padding:0px 20px;">
                 <el-slider
-                  range
                   v-model="form.pay"
+                  range
                   :marks="marks"
                   :show-tooltip="false"
-                >
-                </el-slider>
+                />
               </div>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="持续时间:">
-              <el-select v-model="form.duration" placeholder="请选择持续时间">
+              <el-select
+                v-model="form.duration"
+                placeholder="请选择持续时间"
+              >
                 <el-option
                   v-for="item in durationOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="第一圈层:">
-              <el-input v-model="form.tier1" style="width: 80px"></el-input
-              ><label>米</label>
+              <el-input
+                v-model="form.tier1"
+                style="width: 80px"
+              /><label>米</label>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="第二圈层:">
-              <el-input v-model="form.tier2" style="width: 80px"></el-input
-              ><label>米</label>
+              <el-input
+                v-model="form.tier2"
+                style="width: 80px"
+              /><label>米</label>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="第三圈层:">
-              <el-input v-model="form.tier3" style="width: 80px"></el-input
-              ><label>米</label>
+              <el-input
+                v-model="form.tier3"
+                style="width: 80px"
+              /><label>米</label>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="监控区域:">
-              <el-select v-model="form.monitor" placeholder="请选择监控区域">
+              <el-select
+                v-model="form.monitor"
+                placeholder="请选择监控区域"
+              >
                 <el-option
                   v-for="item in monitorOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
@@ -85,14 +104,19 @@
       </el-form>
     </div>
     <div class="model-footer">
-      <el-button type="primary" @click="submitClick">提交</el-button>
+      <el-button
+        type="primary"
+        @click="submitClick"
+      >
+        提交
+      </el-button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       form: {
         name: '',
@@ -222,7 +246,7 @@ export default {
     }
   },
   methods: {
-    submitClick() {
+    submitClick () {
       this.$refs.form.validate(valid => {
         if (valid) {
           this.getRandomInt(10)
@@ -230,7 +254,7 @@ export default {
         }
       })
     },
-    getRandomInt(data) {
+    getRandomInt (data) {
       let number = ''
       for (let i = 0; i < data; i++) {
         number += Math.floor(Math.random() * 10)

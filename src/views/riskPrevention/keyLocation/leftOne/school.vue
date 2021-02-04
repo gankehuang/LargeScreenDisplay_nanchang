@@ -1,12 +1,21 @@
 <template>
   <div class="leftOneSchool">
-    <div class="title">学校数量</div>
+    <div class="title">
+      学校数量
+    </div>
     <div class="items">
-      <p class="alls">学校总数 <span>1213</span>所</p>
+      <p class="alls">
+        学校总数 <span>1213</span>所
+      </p>
       <div class="list">
-        <div v-for="(item, index) in leftTopList" :key="index">
+        <div
+          v-for="(item, index) in leftTopList"
+          :key="index"
+        >
           <p>{{ item.title }}</p>
-          <p class="list-nums">{{ item.num }}</p>
+          <p class="list-nums">
+            {{ item.num }}
+          </p>
         </div>
       </div>
     </div>
@@ -20,7 +29,7 @@ export default {
       type: Number
     }
   },
-  data() {
+  data () {
     return {
       nums: null,
       leftTopList: [
@@ -49,7 +58,7 @@ export default {
       handler: curValue => {}
     }
   },
-  mounted() {}
+  mounted () {}
 }
 </script>
 

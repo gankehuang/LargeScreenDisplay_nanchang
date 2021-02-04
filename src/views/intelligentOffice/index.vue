@@ -8,7 +8,7 @@ export default {
   components: {
     AdminView
   },
-  data() {
+  data () {
     return {}
   }
 }

@@ -3,13 +3,20 @@
     <div class="title">
       文件办理提醒
     </div>
-    <div class="shuaxins"></div>
+    <div class="shuaxins" />
     <div class="shuaxin">
       刷新
     </div>
     <div class="box">
-      <div class="box-list" v-for="(item, index) in list" :key="index">
-        <svg-icon :icon-class="item.icon" class="icon" />
+      <div
+        v-for="(item, index) in list"
+        :key="index"
+        class="box-list"
+      >
+        <svg-icon
+          :icon-class="item.icon"
+          class="icon"
+        />
         <p>{{ item.title }}</p>
       </div>
     </div>
@@ -17,7 +24,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       list: [
         {

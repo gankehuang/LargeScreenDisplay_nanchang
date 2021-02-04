@@ -1,30 +1,43 @@
 <template>
-  <div class="time-line-container" v-if="visible">
-    <div class="close" @click="close"></div>
+  <div
+    v-if="visible"
+    class="time-line-container"
+  >
+    <div
+      class="close"
+      @click="close"
+    />
     <div class="sidebarList">
       <div
-        :class="['sidebarOne', { currentOne: currentIndex === index }]"
         v-for="(item, index) in cityTitle"
         :key="index"
+        :class="['sidebarOne', { currentOne: currentIndex === index }]"
         @click="sidebarClick(index, item)"
       >
         {{ item }}
       </div>
     </div>
     <el-scrollbar
-      style="height: 800px;margin: 20px 46px 0 48px;"
       ref="elscrollbar"
+      style="height: 800px;margin: 20px 46px 0 48px;"
     >
       <div class="time-first" />
-      <div class="time-first-block" ref="blockScroll1">
+      <div
+        ref="blockScroll1"
+        class="time-first-block"
+      >
         <div class="line" />
         <div class="time-node-title">
           <div class="node" />
-          <div class="title">智慧法院</div>
+          <div class="title">
+            智慧法院
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
-          <div class="info">地址：南昌市中级人民法院位于北京东路1858号</div>
+          <div class="info">
+            地址：南昌市中级人民法院位于北京东路1858号
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
@@ -140,15 +153,22 @@
           </div>
         </div>
       </div>
-      <div class="time-first-block" ref="blockScroll2">
+      <div
+        ref="blockScroll2"
+        class="time-first-block"
+      >
         <div class="line" />
         <div class="time-node-title">
           <div class="node" />
-          <div class="title">智慧检察院</div>
+          <div class="title">
+            智慧检察院
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
-          <div class="info">地址：南昌市红谷滩新区庐山南大道426号负一楼</div>
+          <div class="info">
+            地址：南昌市红谷滩新区庐山南大道426号负一楼
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
@@ -212,15 +232,22 @@
           </div>
         </div>
       </div>
-      <div class="time-first-block" ref="blockScroll3">
+      <div
+        ref="blockScroll3"
+        class="time-first-block"
+      >
         <div class="line" />
         <div class="time-node-title">
           <div class="node" />
-          <div class="title">智慧公安</div>
+          <div class="title">
+            智慧公安
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
-          <div class="info">地址：红谷滩新区凤凰中大道1866号</div>
+          <div class="info">
+            地址：红谷滩新区凤凰中大道1866号
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
@@ -286,9 +313,7 @@
         <div class="info-node">
           <div class="node" />
           <div class="info">
-            智慧视觉中心：投资<span>2亿元</span>，占地<span>3600余平方</span>，存储容量<span
-              >100PB</span
-            >
+            智慧视觉中心：投资<span>2亿元</span>，占地<span>3600余平方</span>，存储容量<span>100PB</span>
           </div>
         </div>
         <div class="info-node">
@@ -344,15 +369,22 @@
           </div>
         </div>
       </div>
-      <div class="time-first-block" ref="blockScroll4">
+      <div
+        ref="blockScroll4"
+        class="time-first-block"
+      >
         <div class="line" />
         <div class="time-node-title">
           <div class="node" />
-          <div class="title">智慧司法</div>
+          <div class="title">
+            智慧司法
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
-          <div class="info">地址：红谷滩区祥瑞路89号市法律服务中心二楼</div>
+          <div class="info">
+            地址：红谷滩区祥瑞路89号市法律服务中心二楼
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
@@ -383,7 +415,7 @@
         <div class="info-node">
           <div class="node" />
           <div class="info">
-            应用系统：“南昌市掌上12348”微信公众号<br />司法行政应急指挥平台<br />社区矫正执法监管综合管理平台<br />安置帮教数据库平台<br />执法监督平台<br />
+            应用系统：“南昌市掌上12348”微信公众号<br>司法行政应急指挥平台<br>社区矫正执法监管综合管理平台<br>安置帮教数据库平台<br>执法监督平台<br>
           </div>
         </div>
       </div>
@@ -404,45 +436,45 @@ export default {
     //   default: ''
     // }
   },
-  data() {
+  data () {
     return {
       cityTitle: ['智慧法院', '智慧检察院', '智慧公安', '智慧司法'],
       currentIndex: 0
     }
   },
-  mounted() {},
   watch: {
-    visible(newVal) {
+    visible (newVal) {
       if (newVal) {
         this.currentIndex = 0
       }
     }
   },
+  mounted () {},
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     },
-    sidebarClick(index, item) {
+    sidebarClick (index, item) {
       this.currentIndex = index
       if (index === 0) {
         this.$nextTick(() => {
-          const div = this.$refs['elscrollbar'].$refs['wrap']
+          const div = this.$refs.elscrollbar.$refs.wrap
           div.scrollTop = 0
         })
         return
       }
-      console.log('12232', this.$refs['blockScroll4'])
+      console.log('12232', this.$refs.blockScroll4)
       this.$nextTick(() => {
-        const div = this.$refs['elscrollbar'].$refs['wrap']
+        const div = this.$refs.elscrollbar.$refs.wrap
         switch (index) {
           case 1:
-            div.scrollTop = this.$refs['blockScroll2'].offsetTop
+            div.scrollTop = this.$refs.blockScroll2.offsetTop
             break
           case 2:
-            div.scrollTop = this.$refs['blockScroll3'].offsetTop
+            div.scrollTop = this.$refs.blockScroll3.offsetTop
             break
           case 3:
-            div.scrollTop = this.$refs['blockScroll4'].offsetTop
+            div.scrollTop = this.$refs.blockScroll4.offsetTop
             break
         }
       })

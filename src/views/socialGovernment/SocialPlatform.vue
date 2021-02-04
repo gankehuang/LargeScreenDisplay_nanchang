@@ -1,26 +1,34 @@
 <template>
-  <div class="time-line-container" v-if="visible">
-    <div class="close" @click="close"></div>
+  <div
+    v-if="visible"
+    class="time-line-container"
+  >
+    <div
+      class="close"
+      @click="close"
+    />
     <div class="sidebarList">
       <div
-        :class="['sidebarOne', { currentOne: currentIndex === index }]"
         v-for="(item, index) in cityTitle"
         :key="index"
+        :class="['sidebarOne', { currentOne: currentIndex === index }]"
         @click="sidebarClick(index, item)"
       >
         {{ item }}
       </div>
     </div>
     <el-scrollbar
-      style="height: 800px;margin: 20px 46px 0 48px;"
       ref="elscrollbar"
+      style="height: 800px;margin: 20px 46px 0 48px;"
     >
       <div class="time-first" />
       <div class="time-first-block">
         <div class="line" />
         <div class="time-node-title">
           <div class="node" />
-          <div class="title">市域社会治理平台</div>
+          <div class="title">
+            市域社会治理平台
+          </div>
         </div>
         <div class="info-node">
           <div class="node" />
@@ -32,8 +40,7 @@
           <div class="node" />
           <div class="info">
             打通部门数:
-            <span>19个</span
-            >市直部门，<span>394个</span>综治责任单位，<span>2092个</span>综治中心
+            <span>19个</span>市直部门，<span>394个</span>综治责任单位，<span>2092个</span>综治中心
           </div>
         </div>
         <div class="info-node">
@@ -116,13 +123,12 @@ export default {
     //   default: ''
     // }
   },
-  data() {
+  data () {
     return {
       cityTitle: ['市域社会治理平台'],
       currentIndex: 0
     }
   },
-  mounted() {},
   watch: {
     // visible(visible) {
     //   if (visible) {
@@ -130,18 +136,18 @@ export default {
     //   }
     // }
   },
+  mounted () {},
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     },
-    sidebarClick(index, item) {
+    sidebarClick (index, item) {
       this.currentIndex = index
       if (index === 0) {
         this.$nextTick(() => {
-          const div = this.$refs['elscrollbar'].$refs['wrap']
+          const div = this.$refs.elscrollbar.$refs.wrap
           div.scrollTop = 0
         })
-        return
       }
     }
   }

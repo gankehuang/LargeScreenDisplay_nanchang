@@ -1,61 +1,87 @@
 <template>
-  <div class="shade" v-if="visible">
+  <div
+    v-if="visible"
+    class="shade"
+  >
     <div class="container">
       <div class="title">
         权限设置
       </div>
-      <div @click="closeModal" class="close">
-        <img src="@/assets/image/layout/close.png" alt="" />
+      <div
+        class="close"
+        @click="closeModal"
+      >
+        <img
+          src="@/assets/image/layout/close.png"
+          alt=""
+        >
       </div>
       <div class="line">
         <div class="label">
           角色名称
         </div>
         <div class="select">
-          <el-select v-model="selected" placeholder="请选择角色">
+          <el-select
+            v-model="selected"
+            placeholder="请选择角色"
+          >
             <el-option
               v-for="item in options"
               :key="item.value"
               :label="item.label"
               :value="item.value"
-            >
-            </el-option>
+            />
           </el-select>
         </div>
       </div>
-      <div class="line" style="height: 500px;">
+      <div
+        class="line"
+        style="height: 500px;"
+      >
         <div class="label">
           权限分配
         </div>
         <el-scrollbar style="width: 1140px;height: 100%;">
           <div class="right">
-            <div v-for="(item, index) in list" :key="index" class="check">
+            <div
+              v-for="(item, index) in list"
+              :key="index"
+              class="check"
+            >
               <el-checkbox
-                style="width: 200px;"
                 v-model="checkAll[index].status"
+                style="width: 200px;"
                 @change="handleCheckAllChange"
-                >{{ item.selectAll }}</el-checkbox
               >
+                {{ item.selectAll }}
+              </el-checkbox>
               <el-checkbox-group
                 v-model="checkedCities[index]"
                 @change="handleCheckedCitiesChange(index)"
               >
                 <el-checkbox
                   v-for="city in item.authorityList"
-                  :label="city"
                   :key="city"
-                  >{{ city }}</el-checkbox
+                  :label="city"
                 >
+                  {{ city }}
+                </el-checkbox>
               </el-checkbox-group>
             </div>
           </div>
         </el-scrollbar>
       </div>
       <div class="buttons">
-        <div class="button" @click="closeModal">
+        <div
+          class="button"
+          @click="closeModal"
+        >
           取消
         </div>
-        <div class="button" @click="sureModal">
+        <div
+          class="button"
+          @click="sureModal"
+        >
           确定
         </div>
       </div>
@@ -68,7 +94,7 @@ export default {
   props: {
     visible: Boolean
   },
-  data() {
+  data () {
     return {
       selected: '',
       isIndeterminate: '',
@@ -255,7 +281,7 @@ export default {
       ]
     }
   },
-  mounted() {
+  mounted () {
     for (let i = 0; i < this.list.length; i++) {
       this.checkAll.push({ status: false })
       this.checkedCities.push([])
@@ -263,19 +289,19 @@ export default {
     // this.checkedCities[3] = ['查看', '轨迹查询', '新增']
   },
   methods: {
-    closeModal() {
+    closeModal () {
       this.$emit('update:visible', false)
     },
-    sureModal() {
+    sureModal () {
       this.$emit('update:visible', false)
       this.$message.success('权限修改成功！')
     },
-    handleCheckedCitiesChange(index) {
+    handleCheckedCitiesChange (index) {
       this.checkAll[index].status =
         this.list[index].authorityList.length ===
         this.checkedCities[index].length
     },
-    handleCheckAllChange() {
+    handleCheckAllChange () {
       this.checkAll.forEach((item, index) => {
         if (item.status) {
           this.checkedCities[index] = this.list[index].authorityList

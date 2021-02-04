@@ -1,9 +1,12 @@
 <template>
-  <div class="modal-box" v-if="visible">
-    <div class="mask"></div>
+  <div
+    v-if="visible"
+    class="modal-box"
+  >
+    <div class="mask" />
     <div
-      class="modal-container"
       v-loading="loading"
+      class="modal-container"
       element-loading-text="加载中"
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba( 0, 0, 0, 0.7)"
@@ -12,9 +15,13 @@
         class="btn-close"
         src="@/assets/image/common/close-btn.png"
         @click="bindBtnClose"
-      />
+      >
       <div class="item-block">
-        <div class="video-box" v-for="(item, index) in videoList1" :key="index">
+        <div
+          v-for="(item, index) in videoList1"
+          :key="index"
+          class="video-box"
+        >
           <IframeVideoPlay
             :camera-index-code="item.code"
             class="video-item"
@@ -32,30 +39,33 @@
         />
       </div>
       <div class="item-block">
-        <SimpleMap @mapInit="mapInit" :isNeedSetMapStyle="false" />
+        <SimpleMap
+          :is-need-set-map-style="false"
+          @mapInit="mapInit"
+        />
       </div>
       <div class="item-block">
         <div class="top-imgs">
           <div class="img-item">
-            <img src="./person1.jpg" />
+            <img src="./person1.jpg">
           </div>
           <div class="img-item">
-            <img src="./person1.jpg" />
+            <img src="./person1.jpg">
           </div>
           <div class="img-item">
-            <img src="./person1.jpg" />
+            <img src="./person1.jpg">
           </div>
         </div>
 
         <div class="bottom-imgs">
           <div class="img-item">
-            <img src="./person1.jpg" />
+            <img src="./person1.jpg">
           </div>
           <div class="img-item">
-            <img src="./person1.jpg" />
+            <img src="./person1.jpg">
           </div>
           <div class="img-item">
-            <img src="./person1.jpg" />
+            <img src="./person1.jpg">
           </div>
         </div>
       </div>
@@ -64,12 +74,8 @@
 </template>
 
 <script>
-import SimpleMap from '@/components/SimpleMap'
 import { searchSnap } from '@/api/riskPrevention/KeyThrong'
 export default {
-  components: {
-    SimpleMap
-  },
   props: {
     visible: {
       type: Boolean,
@@ -80,14 +86,7 @@ export default {
       default: () => null
     }
   },
-  watch: {
-    visible(val) {
-      if (val) {
-        this.getSnap()
-      }
-    }
-  },
-  data() {
+  data () {
     return {
       map: null,
       loading: false,
@@ -175,8 +174,15 @@ export default {
       ]
     }
   },
+  watch: {
+    visible (val) {
+      if (val) {
+        this.getSnap()
+      }
+    }
+  },
   methods: {
-    mapInit(map) {
+    mapInit (map) {
       this.map = map
 
       const videoMarkerList = []
@@ -194,17 +200,17 @@ export default {
       this.map.setCenter([115.859492, 28.684543])
       this.map.setZoom(16)
     },
-    bindBtnClose() {
+    bindBtnClose () {
       this.$emit('update:visible', false)
     },
-    getSnap() {
+    getSnap () {
       searchSnap({
         eventId: this.info.id,
         similarity: 70
       }).then(res => {})
     },
     // 创建地图标记点
-    _createMarker(icon, pos, item) {
+    _createMarker (icon, pos, item) {
       const marker = new window.AMap.Marker({
         icon: new window.AMap.Icon({
           image: icon,

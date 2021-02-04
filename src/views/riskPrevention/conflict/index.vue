@@ -1,10 +1,18 @@
 <template>
   <div class="conflict-container page-container">
-    <Tabs :tab-list="tabList" width="600px" :cur-index="2" />
+    <Tabs
+      :tab-list="tabList"
+      width="600px"
+      :cur-index="2"
+    />
 
     <!-- 关闭轨迹 -->
-    <div v-if="navg" class="hide-path-button" @click="hidePath">
-      <div class="close"></div>
+    <div
+      v-if="navg"
+      class="hide-path-button"
+      @click="hidePath"
+    >
+      <div class="close" />
       <span>关闭轨迹</span>
     </div>
 
@@ -14,28 +22,34 @@
         :vid="eventInfo.info.id"
         :position="[eventInfo.info.longitude, eventInfo.info.latitude]"
         :offset="[-27, -40]"
-        :topWhenClick="true"
+        :top-when-click="true"
       >
-        <div class="md-text-twinkle" @click="showEventInfoModal">
+        <div
+          class="md-text-twinkle"
+          @click="showEventInfoModal"
+        >
           <p>{{ eventInfo.info.typeText }}</p>
-          <div class="md-twinkle"></div>
+          <div class="md-twinkle" />
         </div>
       </el-amap-marker>
     </SimpleMap>
 
     <Left
       :visible.sync="modalVisible"
-      :modalType.sync="modalType"
+      :modal-type.sync="modalType"
       @showMapMarkerList="showMapMarkerList"
     />
     <Xuanze />
-    <Right @focusEvent="focusEvent" @detailsEvent="detailsEvent" />
+    <Right
+      @focusEvent="focusEvent"
+      @detailsEvent="detailsEvent"
+    />
     <Bottom />
 
     <Modal
       :visible.sync="modalVisible"
-      :modalType.sync="modalType"
-      :modalValue.sync="modalValue"
+      :modal-type.sync="modalType"
+      :modal-value.sync="modalValue"
     />
 
     <!--人员信息-->
@@ -56,7 +70,6 @@
 <script>
 import commonMixin from '../commonMixin'
 import trajectoryMixin from './trajectoryMixin'
-import SimpleMap from '@/components/SimpleMap'
 import Left from './Left'
 import Right from './Right'
 import Modal from './Modal'
@@ -67,9 +80,7 @@ import EventInfoModal from './EventInfoModal'
 import { queryConflictCenter } from '@/api/riskPrevention/conflict'
 import { getZhqList } from '@/api/riskPrevention/specialPeople'
 export default {
-  mixins: [commonMixin, trajectoryMixin],
   components: {
-    SimpleMap,
     Left,
     Right,
     Modal,
@@ -78,7 +89,8 @@ export default {
     Xuanze,
     EventInfoModal
   },
-  data() {
+  mixins: [commonMixin, trajectoryMixin],
+  data () {
     return {
       modalVisible: false,
       markerList: [],
@@ -97,14 +109,14 @@ export default {
     }
   },
   methods: {
-    async mapInit(map) {
+    async mapInit (map) {
       this.map = map
       this.map.setZoom(13)
       this.map.setCenter([115.874384, 28.667946])
       this.handleQueryConflictCenter()
       this.getZhqList()
     },
-    async handleQueryConflictCenter() {
+    async handleQueryConflictCenter () {
       const { status, data } = await queryConflictCenter()
       if (status === 200) {
         this.markerList = data.map(item => {
@@ -116,7 +128,7 @@ export default {
                 ...item,
                 name: `${item.name}(${item.addr})`
               },
-              function(data) {
+              function (data) {
                 this.modalVisible = true
                 this.modalType = 'VR'
                 this.modalValue = 'https://67elemu5d.wasee.com/wt/67elemu5d'
@@ -130,7 +142,7 @@ export default {
                 ...item,
                 name: `${item.name}(${item.addr})`
               },
-              function(data) {
+              function (data) {
                 this.modalVisible = true
                 this.modalType = 'VR'
                 this.modalValue = 'https://93d1f1ntx.wasee.com/wt/93d1f1ntx'
@@ -144,7 +156,7 @@ export default {
                 ...item,
                 name: `${item.name}(${item.addr})`
               },
-              function(data) {
+              function (data) {
                 this.modalVisible = true
                 this.modalType = 'VR'
                 this.modalValue = 'https://93dxbvnvc.wasee.com/wt/93dxbvnvc'
@@ -158,7 +170,7 @@ export default {
                 ...item,
                 name: `${item.name}(${item.addr})`
               },
-              function(data) {
+              function (data) {
                 this.modalVisible = true
                 this.modalType = 'VR'
                 this.modalValue = 'https://93dfteo0i.wasee.com/wt/93dfteo0i'
@@ -172,7 +184,7 @@ export default {
                 ...item,
                 name: `${item.name}(${item.addr})`
               },
-              function(data) {
+              function (data) {
                 this.modalVisible = false
                 // this.modalType = 'zhq'
               }
@@ -183,7 +195,7 @@ export default {
       }
     },
     // 获取中华情列表
-    async getZhqList() {
+    async getZhqList () {
       const { status, data } = await getZhqList({ name: '中华情' })
       if (status === 200) {
         this.zhqMarkerList = data.map(item => {
@@ -195,7 +207,7 @@ export default {
               name: `${item.xm}`,
               id: `${item.id}`
             },
-            function(data) {
+            function (data) {
               this.personModal.visible = true
               this.personModal.info = data
             }
@@ -204,7 +216,7 @@ export default {
       }
     },
     // 中华情人员切换
-    showMapMarkerList(name) {
+    showMapMarkerList (name) {
       this.map.remove(this.markerList)
       this.map.remove(this.zhqMarkerList)
 
@@ -218,7 +230,7 @@ export default {
           break
       }
     },
-    createMarker(icon, pos, item, pointClick = function() {}) {
+    createMarker (icon, pos, item, pointClick = function () {}) {
       const marker = new window.AMap.Marker({
         icon: new window.AMap.Icon({
           image: icon,
@@ -238,7 +250,7 @@ export default {
       return marker
     },
     // 地图标点
-    focusEvent(item) {
+    focusEvent (item) {
       if (item.longitude && item.latitude) {
         this.eventInfo.info = item
         this.map.setCenter([item.longitude, item.latitude])
@@ -247,12 +259,12 @@ export default {
         this.$message.warning('未获取到该事件的位置信息')
       }
     },
-    detailsEvent(item) {
+    detailsEvent (item) {
       this.eventInfo.info = item
       this.showEventInfoModal()
     },
     // 弹出弹窗
-    showEventInfoModal() {
+    showEventInfoModal () {
       this.eventInfo.modalVisible = true
     }
   }

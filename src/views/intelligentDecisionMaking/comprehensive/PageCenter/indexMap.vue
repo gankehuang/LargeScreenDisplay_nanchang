@@ -1,12 +1,24 @@
 <template>
   <div class="index-map-contianer">
-    <SimpleMap class="map" ref="AMap" @mapInit="mapInit" :zIndex="999">
+    <SimpleMap
+      ref="AMap"
+      class="map"
+      :z-index="999"
+      @mapInit="mapInit"
+    >
       <div class="total-score">
         {{ selectedItem.name }}总分：<span>{{ selectedItem.total }}</span>
       </div>
       <div class="index-img-map-legend">
-        <div class="item" v-for="(item, index) in colorLegend" :key="index">
-          <span class="color" :style="{ background: item.color }"></span>
+        <div
+          v-for="(item, index) in colorLegend"
+          :key="index"
+          class="item"
+        >
+          <span
+            class="color"
+            :style="{ background: item.color }"
+          />
           <span class="data">{{ item.score }}</span>
         </div>
       </div>
@@ -22,12 +34,8 @@ import {
   monthDataList
 } from '@/api/intelligentDecisionMaking/comprehensive'
 import { queryGridThreeLine } from '@/api/smartData/gridView'
-import SimpleMap from '@/components/SimpleMap'
 export default {
-  components: {
-    SimpleMap
-  },
-  data() {
+  data () {
     return {
       map: null,
       buttonList: buttonList,
@@ -41,14 +49,14 @@ export default {
       ]
     }
   },
-  async mounted() {
+  async mounted () {
     // await this.handleQuerySecurityAssessList()
     await this.handleQuerySecurityAssessInfo()
     await this.handleMonthDataList()
     await this.changeData(this.selectedItem)
   },
   methods: {
-    async mapInit(map) {
+    async mapInit (map) {
       this.map = map
       await this.handleQuerySecurityAssessList()
       await this.renderGrid()
@@ -56,7 +64,7 @@ export default {
       this.map.setZoom(10)
     },
     // 整合地图分数后端联调数据
-    handleBackenddata(data, buttonList) {
+    handleBackenddata (data, buttonList) {
       this.buttonList = data.map(item => {
         for (let index = 0; index < buttonList.length; index++) {
           const element = buttonList[index]
@@ -71,7 +79,7 @@ export default {
       })
     },
     // 整合指数详情后端联调数据
-    handleBackendAssessInfodata(data, buttonList) {
+    handleBackendAssessInfodata (data, buttonList) {
       const flagArr = [
         '政治安全',
         '治安安全',
@@ -97,7 +105,7 @@ export default {
       }
     },
     // 切换数据
-    async changeData(item) {
+    async changeData (item) {
       if (item.name === this.selectedItem.name) {
         this.selectedItem = initTotalData
       } else {
@@ -109,7 +117,7 @@ export default {
       this.$EventBus.$emit('selectedItemCode', this.selectedItem.code)
     },
     // 获取各县区得分
-    async handleQuerySecurityAssessList() {
+    async handleQuerySecurityAssessList () {
       try {
         const { status, data } = await querySecurityAssessList({
           indicatorName: '综合',
@@ -123,7 +131,7 @@ export default {
       } catch (error) {}
     },
     // 获取各县区安全指数统计详情
-    async handleQuerySecurityAssessInfo() {
+    async handleQuerySecurityAssessInfo () {
       try {
         const { status, data } = await querySecurityAssessInfo({
           code: this.selectedItem.code
@@ -134,7 +142,7 @@ export default {
       } catch (error) {}
     },
     // 安全评分按按月变化情况
-    async handleMonthDataList() {
+    async handleMonthDataList () {
       try {
         const { status, data } = await monthDataList({
           code: this.selectedItem.code,
@@ -146,7 +154,7 @@ export default {
       } catch (error) {}
     },
     // 绘制地图 初始化图层
-    async renderGrid() {
+    async renderGrid () {
       let gridArr = []
       const polygons = []
       const { status, data } = await queryGridThreeLine()
@@ -290,7 +298,7 @@ export default {
       this.map.add(this.textList)
     },
     // 处理地区颜色
-    handleColor(total) {
+    handleColor (total) {
       if (total >= 90) {
         return this.colorLegend[0].color
       } else if (total < 90 && total >= 87.5) {
@@ -304,7 +312,7 @@ export default {
       }
     },
     // 悬浮处理
-    handleAmapText(flag) {
+    handleAmapText (flag) {
       if (!flag) {
         this.textList.forEach(item => {
           item.hide()

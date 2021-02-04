@@ -1,6 +1,8 @@
 <template>
   <div class="gov-organizing-container">
-    <div class="title">综治组织</div>
+    <div class="title">
+      综治组织
+    </div>
     <ul>
       <li>
         <div class="icon" />
@@ -8,7 +10,9 @@
           <span>{{ center }}</span>
           <span>个</span>
         </div>
-        <div class="label">综治中心</div>
+        <div class="label">
+          综治中心
+        </div>
       </li>
       <li>
         <div class="icon" />
@@ -16,7 +20,9 @@
           <span>{{ unit }}</span>
           <span>个</span>
         </div>
-        <div class="label">综治责任单位</div>
+        <div class="label">
+          综治责任单位
+        </div>
       </li>
     </ul>
   </div>
@@ -26,17 +32,17 @@
 // import { queryOrgGeneral } from '@/api/smartData/dataView'
 import { getZZOrg } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       center: 2956,
       unit: 6072,
       code: '3601'
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  mounted() {
+  mounted () {
     this.handleQueryOrgGeneral()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -44,7 +50,7 @@ export default {
     })
   },
   methods: {
-    async handleQueryOrgGeneral() {
+    async handleQueryOrgGeneral () {
       try {
         // const { status, data } = await queryOrgGeneral({ gridCode: this.code })
         // if (status === 200) {
@@ -53,8 +59,8 @@ export default {
         // }
         const { status, data } = await getZZOrg({ gridCode: this.code })
         if (status === 200) {
-          this.center = data['zzzx']
-          this.unit = data['zzzrdw']
+          this.center = data.zzzx
+          this.unit = data.zzzrdw
         }
       } catch (error) {}
     }

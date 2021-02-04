@@ -1,6 +1,8 @@
 <template>
   <div class="structure-container">
-    <div class="title">事件分类</div>
+    <div class="title">
+      事件分类
+    </div>
     <v-chart
       :options="options"
       style="display:inline-block;width:100%;height:100%"
@@ -11,22 +13,15 @@
 <script>
 import { queryEventType } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       code: '3601',
       typeList: [],
       optionData: [].fill(undefined, 0, 7)
     }
   },
-  mounted() {
-    this.getAsyncData()
-    this.$EventBus.$on('update:dataViewSeleItem', async({ code }) => {
-      this.code = code
-      await this.getAsyncData()
-    })
-  },
   computed: {
-    options() {
+    options () {
       return {
         tooltip: {
           trigger: 'axis',
@@ -108,8 +103,15 @@ export default {
       }
     }
   },
+  mounted () {
+    this.getAsyncData()
+    this.$EventBus.$on('update:dataViewSeleItem', async ({ code }) => {
+      this.code = code
+      await this.getAsyncData()
+    })
+  },
   methods: {
-    async getAsyncData() {
+    async getAsyncData () {
       try {
         const { status, data } = await queryEventType({
           gridCode: this.code

@@ -1,39 +1,51 @@
 <template>
   <div class="model">
     <div class="model-box">
-      <el-form ref="form" :rules="rules" :model="form" label-width="120px">
+      <el-form
+        ref="form"
+        :rules="rules"
+        :model="form"
+        label-width="120px"
+      >
         <el-row :gutter="20">
           <el-col :span="24">
-            <el-form-item label="规则名称:" prop="name">
+            <el-form-item
+              label="规则名称:"
+              prop="name"
+            >
               <el-input
                 v-model="form.name"
                 placeholder="请输入规则名称"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="人员去向:">
-              <el-select v-model="form.staff" placeholder="请选择人员去向">
+              <el-select
+                v-model="form.staff"
+                placeholder="请选择人员去向"
+              >
                 <el-option
                   v-for="item in staffOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="出现频次:">
-              <el-select v-model="form.frequency" placeholder="请选择出现频次">
+              <el-select
+                v-model="form.frequency"
+                placeholder="请选择出现频次"
+              >
                 <el-option
                   v-for="item in frequencyOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
@@ -43,43 +55,52 @@
               <el-input
                 v-model="form.gatherNumber"
                 style="width: 80px"
-              ></el-input
-              ><label>人</label>
+              /><label>人</label>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="同行人数:">
               <label>大于等于</label>
-              <el-input v-model="form.peerNumber" style="width: 80px"></el-input
-              ><label>人</label>
+              <el-input
+                v-model="form.peerNumber"
+                style="width: 80px"
+              /><label>人</label>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="同行次数:">
               <label>大于等于</label>
-              <el-input v-model="form.peerTime" style="width: 80px"></el-input
-              ><label>次</label>
+              <el-input
+                v-model="form.peerTime"
+                style="width: 80px"
+              /><label>次</label>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="相继出没时间:">
               <label>相继出没时间</label>
-              <el-input v-model="form.truth" style="width: 80px"></el-input
-              ><label>分钟</label>
+              <el-input
+                v-model="form.truth"
+                style="width: 80px"
+              /><label>分钟</label>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="未出现时间:">
               <label>未出现时间</label>
-              <el-input v-model="form.noTruth" style="width: 80px"></el-input
-              ><label>分钟</label>
+              <el-input
+                v-model="form.noTruth"
+                style="width: 80px"
+              /><label>分钟</label>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="同行间隔时间:">
               <label>同行间隔时间</label>
-              <el-input v-model="form.between" style="width: 80px"></el-input
-              ><label>分钟</label>
+              <el-input
+                v-model="form.between"
+                style="width: 80px"
+              /><label>分钟</label>
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -88,7 +109,9 @@
                 v-model="form.peerTime"
                 placeholder="请输入出现次数占比"
               >
-                <template slot="append">%</template>
+                <template slot="append">
+                  %
+                </template>
               </el-input>
             </el-form-item>
           </el-col>
@@ -96,14 +119,19 @@
       </el-form>
     </div>
     <div class="model-footer">
-      <el-button type="primary" @click="submitClick">提交</el-button>
+      <el-button
+        type="primary"
+        @click="submitClick"
+      >
+        提交
+      </el-button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       form: {
         name: '',
@@ -143,7 +171,7 @@ export default {
     }
   },
   methods: {
-    submitClick() {
+    submitClick () {
       this.$refs.form.validate(valid => {
         if (valid) {
           this.getRandomInt(10)
@@ -151,7 +179,7 @@ export default {
         }
       })
     },
-    getRandomInt(data) {
+    getRandomInt (data) {
       let number = ''
       for (let i = 0; i < data; i++) {
         number += Math.floor(Math.random() * 10)

@@ -1,7 +1,7 @@
 <template>
   <video
-    class="container"
     ref="player"
+    class="container"
     autoplay
     controls
     controlslist="noremoteplayback"
@@ -25,19 +25,19 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       player: null
     }
   },
-  mounted() {
+  mounted () {
     this.playStart()
   },
-  destroyed() {
+  destroyed () {
     this.id ? this.playerStop() : null
   },
   methods: {
-    playStart() {
+    playStart () {
       this.id ? localStorage.setItem('flvVideoId', this.id) : null
       this.player = flvjs.createPlayer({
         type: 'flv',
@@ -51,11 +51,11 @@ export default {
         lazyLoadMaxDuration: 3 * 60,
         seekType: 'range'
       })
-      this.player.attachMediaElement(this.$refs['player'])
+      this.player.attachMediaElement(this.$refs.player)
       this.player.load()
       this.player.play()
     },
-    playerStop() {
+    playerStop () {
       this.player && this.player.destroy()
       localStorage.removeItem('flvVideoId')
       if (this.isNew) {

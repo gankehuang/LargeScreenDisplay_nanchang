@@ -3,12 +3,10 @@
     <h1>实有房屋</h1>
     <ul>
       <li>
-        <span class="title">小区总数</span><strong class="num">176</strong
-        ><span class="unit">个</span>
+        <span class="title">小区总数</span><strong class="num">176</strong><span class="unit">个</span>
       </li>
       <li>
-        <span class="title">房屋总数</span><strong class="num">189762</strong
-        ><span class="unit">间</span>
+        <span class="title">房屋总数</span><strong class="num">189762</strong><span class="unit">间</span>
       </li>
     </ul>
   </div>

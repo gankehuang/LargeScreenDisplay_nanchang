@@ -1,19 +1,19 @@
 <template>
   <div class="page-left">
-    <CountInfo />
-    <WatchInfo />
+    <PersonnelProfile />
+    <PersonnelDistribution />
   </div>
 </template>
 
 <script>
-import CountInfo from './CountInfo'
-import WatchInfo from './WatchInfo'
+import PersonnelProfile from './PersonnelProfile'
+import PersonnelDistribution from './PersonnelDistribution'
 export default {
   components: {
-    CountInfo,
-    WatchInfo
+    PersonnelProfile,
+    PersonnelDistribution
   },
-  data() {
+  data () {
     return {}
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <div :class="['data-view-style', { 'summary-bg': active === 1 }]">
     <socialGovernment
-      style="z-index:10000"
       v-if="socialGovernmentVisible"
+      style="z-index:10000"
     />
     <Tabs
       :tab-list="tabList"
@@ -18,7 +18,7 @@
           <img
             src="@/assets/image/dataView/summary-left-icon1.png"
             alt=""
-          />
+          >
           人
         </div>
         <div class="item-right">
@@ -36,7 +36,7 @@
           <img
             src="@/assets/image/dataView/summary-left-icon2.png"
             alt=""
-          />
+          >
           地
         </div>
         <div class="item-right">
@@ -54,7 +54,7 @@
           <img
             src="@/assets/image/dataView/summary-left-icon3.png"
             alt=""
-          />
+          >
           事
         </div>
         <div class="item-right">
@@ -72,7 +72,7 @@
           <img
             src="@/assets/image/dataView/summary-left-icon4.png"
             alt=""
-          />
+          >
           物
         </div>
         <div class="item-right">
@@ -90,7 +90,7 @@
           <img
             src="@/assets/image/dataView/summary-left-icon5.png"
             alt=""
-          />
+          >
           网
         </div>
         <div class="item-right">
@@ -108,7 +108,7 @@
           <img
             src="@/assets/image/dataView/summary-left-icon6.png"
             alt=""
-          />
+          >
           组织
         </div>
         <div class="item-right">
@@ -139,22 +139,22 @@
     </div>
     <div class="summary-center">
       <img
-        src="@/assets/image/dataView/summary-center2.gif"
         v-if="isStartGif"
-      />
+        src="@/assets/image/dataView/summary-center2.gif"
+      >
     </div>
     <div
-      class="summary-right"
       v-loading="loading"
+      class="summary-right"
       element-loading-text="加载中"
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba( 0, 0, 0, 0.3)"
     >
       <el-scrollbar style="height: 100%;">
         <div
-          class="summary-line"
           v-for="(item, index) in mesList"
           :key="index"
+          class="summary-line"
         >
           <svg-icon
             :icon-class="item.icon"
@@ -179,6 +179,9 @@ import {
   faceSnapCount
 } from '@/api/smartData/dataView'
 import CountTop from '@/components/CountTop'
+// import pandect from './module/pandect'
+import commonMixin from '../commonMixin'
+import socialGovernment from '@/views/socialGovernment/index'
 const initBg = require('@/assets/image/dataView/map.png')
 const initTotalData = {
   name: '南昌市',
@@ -188,43 +191,14 @@ const initTotalData = {
   totalThing: 560,
   endThing: 500
 }
-// import pandect from './module/pandect'
-import commonMixin from '../commonMixin'
-import socialGovernment from '@/views/socialGovernment/index'
 export default {
   components: {
     // pandect,
     socialGovernment,
     CountTop
   },
-  beforeDestroy() {
-    this.$EventBus.$off('update:socialGovernmentVisible')
-    this.$EventBus.$off('update:showGif')
-    clearTimeout(this.setTimeOutId)
-  },
-  mounted() {
-    if (this.$route.query.socialGovernment) {
-      this.$EventBus.$on('update:showGif', (res) => {
-        this.isStartGif = true
-      })
-    } else {
-      this.isStartGif = true
-    }
-
-    this.$EventBus.$on('update:socialGovernmentVisible', (res) => {
-      this.socialGovernmentVisible = res
-    })
-    this.socialGovernmentVisible = this.$route.query.socialGovernment
-    this.getDeptData()
-    this.getQueryDataGeneral()
-    this.getFaceSnapCount()
-    this.getNewCount()
-    this.$nextTick(() => {
-      this.getThemeLibrary()
-    })
-  },
   mixins: [commonMixin],
-  data() {
+  data () {
     return {
       isStartGif: false,
       setTimeOutId: null,
@@ -458,14 +432,40 @@ export default {
     }
   },
   watch: {
-    active() {
+    active () {
       if (this.active !== 1) {
         this.$router.push(`/smartData/dataView/part?active=${this.active}`)
       }
     }
   },
+  beforeDestroy () {
+    this.$EventBus.$off('update:socialGovernmentVisible')
+    this.$EventBus.$off('update:showGif')
+    clearTimeout(this.setTimeOutId)
+  },
+  mounted () {
+    if (this.$route.query.socialGovernment) {
+      this.$EventBus.$on('update:showGif', (res) => {
+        this.isStartGif = true
+      })
+    } else {
+      this.isStartGif = true
+    }
+
+    this.$EventBus.$on('update:socialGovernmentVisible', (res) => {
+      this.socialGovernmentVisible = res
+    })
+    this.socialGovernmentVisible = this.$route.query.socialGovernment
+    this.getDeptData()
+    this.getQueryDataGeneral()
+    this.getFaceSnapCount()
+    this.getNewCount()
+    this.$nextTick(() => {
+      this.getThemeLibrary()
+    })
+  },
   methods: {
-    getQueryDataGeneral() {
+    getQueryDataGeneral () {
       queryDataGeneral().then((res) => {
         if (res.status === 200) {
           this.totalNum.total = res.data.total
@@ -473,7 +473,7 @@ export default {
         }
       })
     },
-    getFaceSnapCount() {
+    getFaceSnapCount () {
       const day = new Date().toLocaleDateString().split('/').join('-')
       faceSnapCount({
         beginTime: day + ' 00:00:00',
@@ -486,12 +486,12 @@ export default {
         }
       })
     },
-    getNewCount() {
+    getNewCount () {
       this.setTimeOutId = setInterval(() => {
         this.getFaceSnapCount()
       }, 5000)
     },
-    getDeptData() {
+    getDeptData () {
       this.loading = true
       getDeptData().then((res) => {
         if (res.status === 200) {
@@ -547,7 +547,7 @@ export default {
         }
       })
     },
-    getThemeLibrary() {
+    getThemeLibrary () {
       getThemeLibrary().then((res) => {
         if (res.status === 200) {
           if (!this.totalNum.total) {
@@ -589,7 +589,7 @@ export default {
         }
       })
     },
-    changeData(item) {
+    changeData (item) {
       if (item.name === '进贤县' && this.tabName !== '进贤县') {
         this.tabName = item.name
       } else {
@@ -606,14 +606,14 @@ export default {
 
       this.$EventBus.$emit('update:dataViewSeleItem', this.selectedItem)
     },
-    compare(property) {
-      return function(a, b) {
+    compare (property) {
+      return function (a, b) {
         var value1 = a[property]
         var value2 = b[property]
         return value2 - value1
       }
     },
-    toThousands(num) {
+    toThousands (num) {
       const result = []
       var counter = 0
       num = (num || 0).toString().split('')

@@ -26,19 +26,19 @@ export default {
     PublicSafety,
     BuildModal
   },
-  beforeDestroy() {
+  data () {
+    return {
+      buildModalVisible: false
+    }
+  },
+  beforeDestroy () {
     this.$EventBus.$off('update:buildModalVisible')
   },
-  mounted() {
+  mounted () {
     this.$EventBus.$on(
       'update:buildModalVisible',
       visible => (this.buildModalVisible = visible)
     )
-  },
-  data() {
-    return {
-      buildModalVisible: false
-    }
   }
 }
 </script>

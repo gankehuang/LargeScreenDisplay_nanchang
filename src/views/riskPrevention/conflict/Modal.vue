@@ -1,37 +1,59 @@
 <template>
-  <div class="mask-container" v-if="visible">
-    <div class="mask"></div>
+  <div
+    v-if="visible"
+    class="mask-container"
+  >
+    <div class="mask" />
     <div class="conflict-modal-container">
-      <div class="close" @click="close"></div>
+      <div
+        class="close"
+        @click="close"
+      />
       <div v-if="modalType === 'zhq'">
         <div class="left-top">
-          <div class="title">群体事件简介</div>
+          <div class="title">
+            群体事件简介
+          </div>
           <p>
             2020年4月17日，南昌市公安局新建分局发布警方通告：中华情老年公寓法人代表章国兴因涉嫌非法吸收公众存款，2020年4月16日被南昌市公安局新建分局立案侦查，目前公安机关已经成立专案组，全面开展案件侦查。
           </p>
         </div>
         <div class="left-bottom">
-          <div class="title">人员信息</div>
+          <div class="title">
+            人员信息
+          </div>
           <PeopleInfo />
         </div>
         <div class="center">
-          <h1 class="center-title">中华情</h1>
+          <h1 class="center-title">
+            中华情
+          </h1>
         </div>
         <div class="right-top">
-          <div class="title">群体活跃度</div>
+          <div class="title">
+            群体活跃度
+          </div>
           <v-chart :options="option" />
         </div>
         <div class="right-bottom">
-          <div class="title">信访事件</div>
+          <div class="title">
+            信访事件
+          </div>
           <div class="list">
             <el-scrollbar style="height:85%;">
-              <div class="item" v-for="(item, index) in list" :key="index">
+              <div
+                v-for="(item, index) in list"
+                :key="index"
+                class="item"
+              >
                 <span class="orgName">
-                  <svg-icon icon-class="build"></svg-icon>
+                  <svg-icon icon-class="build" />
                   {{ item.name }}
                 </span>
                 <span class="time">{{ item.time }}</span>
-                <div class="info">{{ item.content }}</div>
+                <div class="info">
+                  {{ item.content }}
+                </div>
               </div>
             </el-scrollbar>
           </div>
@@ -41,7 +63,7 @@
         v-else
         :src="modalValue"
         style="width:1300px;height:780px;margin:20px 25px 0;"
-      ></iframe>
+      />
     </div>
   </div>
 </template>
@@ -49,6 +71,9 @@
 <script>
 import PeopleInfo from './PeopleInfo'
 export default {
+  components: {
+    PeopleInfo
+  },
   props: {
     visible: {
       type: Boolean,
@@ -63,111 +88,7 @@ export default {
       dafault: ''
     }
   },
-  computed: {
-    option() {
-      return {
-        color: ['#14ACFF', '#E6B00E'],
-        name: '模拟数据',
-        type: 'line',
-        sampling: 'average',
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-          }
-        },
-        xAxis: {
-          type: 'category',
-          axisLabel: {
-            color: '#458CDD'
-          },
-          splitLine: {
-            show: false,
-            lineStyle: {
-              color: ['rgba(0, 73, 104, 0.5)']
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#004968'
-            }
-          },
-          axisTick: {
-            show: false
-          },
-          data: [
-            '1月',
-            '2月',
-            '3月',
-            '4月',
-            '5月',
-            '6月',
-            '7月',
-            '8月',
-            '9月',
-            '10月',
-            '11月'
-          ]
-        },
-        yAxis: {
-          type: 'value',
-          max: 100,
-          axisLabel: {
-            color: '#458CDD'
-          },
-          splitLine: {
-            show: true,
-            lineStyle: {
-              color: ['rgba(0, 73, 104, 0.5)']
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#004968'
-            }
-          },
-          axisTick: {
-            show: false
-          }
-        },
-        series: [
-          {
-            name: '群众活跃度',
-            data: [0, 0, 3, 65, 70, 40, 35, 27, 55, 30, 8],
-            type: 'line',
-            smooth: true,
-            // symbol: 'none',
-            symbolSize: 5,
-            lineStyle: {
-              color: '#14ACFF'
-            },
-            areaStyle: {
-              color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: '#14ACFF4d'
-                  },
-                  {
-                    offset: 1,
-                    color: '#14ACFF00'
-                  }
-                ],
-                global: false
-              }
-            }
-          }
-        ]
-      }
-    }
-  },
-  data() {
+  data () {
     return {
       list: [
         {
@@ -325,12 +246,113 @@ export default {
       ]
     }
   },
-  components: {
-    PeopleInfo
+  computed: {
+    option () {
+      return {
+        color: ['#14ACFF', '#E6B00E'],
+        name: '模拟数据',
+        type: 'line',
+        sampling: 'average',
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+          }
+        },
+        xAxis: {
+          type: 'category',
+          axisLabel: {
+            color: '#458CDD'
+          },
+          splitLine: {
+            show: false,
+            lineStyle: {
+              color: ['rgba(0, 73, 104, 0.5)']
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#004968'
+            }
+          },
+          axisTick: {
+            show: false
+          },
+          data: [
+            '1月',
+            '2月',
+            '3月',
+            '4月',
+            '5月',
+            '6月',
+            '7月',
+            '8月',
+            '9月',
+            '10月',
+            '11月'
+          ]
+        },
+        yAxis: {
+          type: 'value',
+          max: 100,
+          axisLabel: {
+            color: '#458CDD'
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: ['rgba(0, 73, 104, 0.5)']
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#004968'
+            }
+          },
+          axisTick: {
+            show: false
+          }
+        },
+        series: [
+          {
+            name: '群众活跃度',
+            data: [0, 0, 3, 65, 70, 40, 35, 27, 55, 30, 8],
+            type: 'line',
+            smooth: true,
+            // symbol: 'none',
+            symbolSize: 5,
+            lineStyle: {
+              color: '#14ACFF'
+            },
+            areaStyle: {
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: '#14ACFF4d'
+                  },
+                  {
+                    offset: 1,
+                    color: '#14ACFF00'
+                  }
+                ],
+                global: false
+              }
+            }
+          }
+        ]
+      }
+    }
   },
-  created() {},
+  created () {},
   methods: {
-    close() {
+    close () {
       this.$emit('update:visible', false)
     }
   }

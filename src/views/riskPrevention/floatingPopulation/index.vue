@@ -1,6 +1,10 @@
 <template>
   <div class="page-container">
-    <Tabs :tab-list="tabList" width="600px" :cur-index="1" />
+    <Tabs
+      :tab-list="tabList"
+      width="600px"
+      :cur-index="1"
+    />
 
     <TopStatistics />
 
@@ -9,11 +13,19 @@
     <PointView v-if="isShowPointView" />
     <MapView v-else />
 
-    <transition name="ani-left" mode="out-in" appear>
+    <transition
+      name="ani-left"
+      mode="out-in"
+      appear
+    >
       <Left />
     </transition>
 
-    <transition name="ani-right" mode="out-in" appear>
+    <transition
+      name="ani-right"
+      mode="out-in"
+      appear
+    >
       <Right />
     </transition>
   </div>
@@ -38,16 +50,16 @@ export default {
     MapView
   },
   mixins: [commonMixin],
-  data() {
+  data () {
     return {
       isShowPointView: false
     }
   },
-  created() {},
-  mounted() {},
   computed: {},
+  created () {},
+  mounted () {},
   methods: {
-    updateView(isShowPointView) {
+    updateView (isShowPointView) {
       this.isShowPointView = isShowPointView
     }
   }

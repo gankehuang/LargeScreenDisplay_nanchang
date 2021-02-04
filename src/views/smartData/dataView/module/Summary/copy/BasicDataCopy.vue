@@ -3,12 +3,10 @@
     <h1>基础数据</h1>
     <ul>
       <li>
-        <span class="title">实有人口</span><strong class="num">560.06</strong
-        ><span class="unit">万人</span>
+        <span class="title">实有人口</span><strong class="num">560.06</strong><span class="unit">万人</span>
       </li>
       <li>
-        <span class="title">户籍人口</span><strong class="num">531.88</strong
-        ><span class="unit">万人</span>
+        <span class="title">户籍人口</span><strong class="num">531.88</strong><span class="unit">万人</span>
       </li>
     </ul>
   </div>

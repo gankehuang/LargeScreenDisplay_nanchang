@@ -1,206 +1,60 @@
 <template>
-  <div
-    class="page-container"
-    v-loading="loading"
-    element-loading-text="加载中"
-    element-loading-spinner="el-icon-loading"
-    element-loading-background="rgba( 0, 0, 0, 0.7)"
-  >
-    <Tabs :tab-list="tabList" width="600px" :cur-index="1" />
+  <Container :is-custom-page="true">
+    <Tabs
+      :tab-list="tabList"
+      width="600px"
+      :cur-index="1"
+    />
 
-    <AMap @mapInit="mapInit">
-      <el-amap-marker
-        v-if="eventInfo"
-        :vid="eventInfo.id"
-        :position="[eventInfo.longitude, eventInfo.latitude]"
-        :offset="[-27, -40]"
-        :topWhenClick="true"
-      >
-        <div
-          v-if="eventInfo.typeText === '政治安全'"
-          class="zz-text-twinkle"
-          @click="showEventDetail(eventInfo)"
-        >
-          <p>{{ eventInfo.typeText }}</p>
-          <div class="zz-twinkle"></div>
-        </div>
+    <!--搜索人员名称-->
+    <Search
+      v-if="curPageType !== 'frustrated'"
+      :cur-page-type="curPageType"
+      @searchPersonMarker="onSearchPersonMarker"
+    />
 
-        <div
-          v-if="eventInfo.typeText === '社会治安'"
-          class="sh-text-twinkle"
-          @click="showEventDetail(eventInfo)"
-        >
-          <p>{{ eventInfo.typeText }}</p>
-          <div class="sh-twinkle"></div>
-        </div>
+    <!--地图-->
+    <Map
+      ref="map"
+      :cur-page-type="curPageType"
+    />
 
-        <div
-          v-if="eventInfo.typeText === '矛盾纠纷'"
-          class="md-text-twinkle"
-          @click="showEventDetail(eventInfo)"
-        >
-          <p>{{ eventInfo.typeText }}</p>
-          <div class="md-twinkle"></div>
-        </div>
-
-        <div
-          v-if="eventInfo.typeText === '公共安全'"
-          class="gg-text-twinkle"
-          @click="showEventDetail(eventInfo)"
-        >
-          <p>{{ eventInfo.typeText }}</p>
-          <div class="gg-twinkle"></div>
-        </div>
-
-        <div
-          v-if="eventInfo.typeText === '网络安全'"
-          class="wl-text-twinkle"
-          @click="showEventDetail(eventInfo)"
-        >
-          <p>{{ eventInfo.typeText }}</p>
-          <div class="wl-twinkle"></div>
-        </div>
-      </el-amap-marker>
-
-      <el-amap-info-window
-        v-if="infoWindowData"
-        :autoMove="true"
-        :showShadow="true"
-        :position="[infoWindowData.lon, infoWindowData.lat]"
-        :events="infoWindowEvents"
-        :is-custom="true"
-      >
-        <div class="modal-content">
-          <img
-            class="close-btn"
-            @click="infoWindowData = null"
-            src="@/assets/image/KeyThrong/close.png"
-          />
-
-          <div class="content-left">
-            <div class="item-p">
-              <span>网格归属：</span>
-              <span class="value-text">{{
-                infoWindowData.gridSubPath || '暂无'
-              }}</span>
-            </div>
-            <div class="item-p" style="display: flex">
-              <span style="align-self: center">姓名：</span>
-              <span class="value-text">{{ infoWindowData.faceName }}</span>
-            </div>
-            <div class="item-p">
-              <span>抓拍时间：</span>
-              <span class="value-text">{{ infoWindowData.alarmTime }}</span>
-            </div>
-            <div class="item-p">
-              <span>抓拍地点：</span>
-              <span class="value-text">{{
-                infoWindowData.snapLocation || '暂无'
-              }}</span>
-            </div>
-          </div>
-          <div class="content-right">
-            <el-image
-              style="width:100px;height:100px"
-              :z-index="9999"
-              fit="contain"
-              :src="infoWindowData.bkgUrl"
-              :preview-src-list="[infoWindowData.bkgUrl]"
-            />
-            <div class="look-trajectory" @click="lookVideo(infoWindowData)">
-              查看视频
-            </div>
-          </div>
-        </div>
-      </el-amap-info-window>
-    </AMap>
-
-    <!-- <div class="gj-btns" @click="toTrajectory">
-      轨迹查询
-    </div> -->
-    <div v-if="showCloseButton" class="closeTrajectory" @click="closeTrajectory">
-      <i class="iconfont el-icon-close"></i>
-      关闭轨迹
-    </div>
-    <div v-if="curPageType != '失意人员'" class="search-btn">
-      <el-input v-model="searchKey" placeholder="请搜索人员名称" />
-      <div class="searchIcon" @click="toSearch"></div>
-    </div>
-
-    <transition name="ani-left" mode="out-in" appear>
-      <keep-alive>
-        <component :is="curLeftComponent"></component>
-      </keep-alive>
-    </transition>
-    <transition name="ani-right" mode="out-in" appear>
-      <keep-alive>
-        <component :is="curRightComponent"></component>
-      </keep-alive>
-    </transition>
-
+    <!--切换页面-->
     <PageSwitch @switchPage="switchPage" />
 
-    <!--人员信息-->
-    <PeronInfoModal
-      :visible.sync="personModal.visible"
-      :info="personModal.info"
-      @showPath="showPath"
-    />
-
-    <!--标记点视频弹框-->
-    <PersonVideoModal
-      :visible.sync="personVideoModal.visible"
-      :info="personVideoModal.info"
-    />
-
     <!-- 失意人员弹框 -->
-    <MessTable :visible.sync="messTableVisible" />
-
-    <!--事件详情弹框-->
-    <EventModal
-      v-if="modal === 'event'"
-      :info="eventInfo"
-      @onEventModal="onEventModal"
-      @bindBtnClose="modal = ''"
+    <MessTable
+      ref="messTableModal"
+      :info="messTableInfo"
     />
 
-    <!--事件指派或上报弹框-->
-    <EventCirculationModal
-      v-if="modal === 'report'"
-      :modal-title="dealModalTitle"
-      :event-id="needEventId"
-      :grid-code="gridCode"
-      :people-label="peopleLabel"
-      @onDealModal="onDealModal"
-      @bindBtnClose="modal = 'event'"
-    />
+    <transition
+      name="ani-left"
+      mode="out-in"
+      appear
+    >
+      <keep-alive>
+        <component :is="curLeftComponent" />
+      </keep-alive>
+    </transition>
 
-    <!--事件处置弹框-->
-    <EventHandleModal
-      v-if="modal === 'deal'"
-      :event-id="needEventId"
-      @onShowToast="onShowToast"
-      @closeModal="modal = 'event'"
-    />
-
-    <!--事件具体详情弹框-->
-    <EventDetailModal
-      :visible.sync="eventDetailModal.visible"
-      :info="eventDetailModal.info"
-      @update:visible="modal = 'event'"
-    />
-  </div>
+    <transition
+      name="ani-right"
+      mode="out-in"
+      appear
+    >
+      <keep-alive>
+        <component :is="curRightComponent" />
+      </keep-alive>
+    </transition>
+  </Container>
 </template>
-
 <script>
 import commonMixin from '../commonMixin'
-import eventMixin from './evenModule/eventMixin'
-import massivePointMixin from './mixin/massivePointMixin'
-import trajectoryMixin from './mixin/trajectoryMixin'
-
-import AMap from '@/components/SimpleMap'
-import MessTable from './MessTable/index'
+import Map from './map'
 import PageSwitch from './PageSwitch'
+import Search from './Search'
+import MessTable from './messTable'
 
 import MentalDiseaseLeft from './mentalDisease/Left/index'
 import MentalDiseaseRight from './mentalDisease/Right/index'
@@ -212,17 +66,46 @@ import CorrectLeft from './correct/Left/index'
 import CorrectRight from './correct/Right/index'
 import ReleasedLeft from './released/Left/index'
 import ReleasedRight from './released/Right/index'
-// import { hideName } from '@/plugins/filters'
-import PeronInfoModal from './PeronInfoModal'
-import PersonVideoModal from './PersonVideoModal'
+
+const enumPersonType = {
+  mentalDisease: {
+    key: 'mentalDisease',
+    type: 3,
+    curLeftComponent: 'MentalDiseaseLeft',
+    curRightComponent: 'MentalDiseaseRight'
+  },
+  petitionLetter: {
+    key: 'petitionLetter',
+    type: 4,
+    curLeftComponent: 'PetitionLetterLeft',
+    curRightComponent: 'PetitionLetterRight'
+  },
+  retire: {
+    key: 'retire',
+    type: 5,
+    curLeftComponent: 'RetireLeft',
+    curRightComponent: 'RetireRight'
+  },
+  released: {
+    key: 'released',
+    type: 1,
+    curLeftComponent: 'ReleasedLeft',
+    curRightComponent: 'ReleasedRight'
+  },
+  correct: {
+    key: 'correct',
+    type: 2,
+    curLeftComponent: 'CorrectLeft',
+    curRightComponent: 'CorrectRight'
+  }
+}
 
 export default {
   components: {
-    AMap,
-    MessTable,
-    PeronInfoModal,
-    PersonVideoModal,
+    Map,
     PageSwitch,
+    Search,
+    MessTable,
     MentalDiseaseLeft,
     MentalDiseaseRight,
     PetitionLetterLeft,
@@ -234,289 +117,37 @@ export default {
     ReleasedLeft,
     ReleasedRight
   },
-  mixins: [commonMixin, eventMixin, massivePointMixin, trajectoryMixin],
-  data() {
+  mixins: [commonMixin],
+  data () {
     return {
-      loading: false,
-      map: null,
       curLeftComponent: 'MentalDiseaseLeft',
       curRightComponent: 'MentalDiseaseRight',
-      messTableVisible: false,
-      personModal: {
-        visible: false,
-        info: null
-      },
-      personVideoModal: {
-        visible: false,
-        info: null
-      },
-      infoWindowData: null,
-      infoWindowEvents: {
-        close: () => {
-          this.infoWindowData = null
-        }
-      },
-      searchKey: '',
-      curPageType: '精神障碍患者',
-      showCloseButton: false
+      curPageType: 'mentalDisease',
+      messTableInfo: null
     }
   },
-  beforeDestroy() {
-    window.clusterer = null
-    window.pathSimplifierIns = null
-  },
   methods: {
-    mapInit(map) {
-      this.map = map
-      this._focusMap([115.79799, 28.633771], 13)
-      this.getKeyPopulationGps(3, 'mentalDisease')
-    },
-    // 聚焦地图
-    _focusMap(pos, zoom) {
-      this.map.setCenter(pos)
-      this.map.setZoom(zoom)
-    },
-    // 跳转人员轨迹
-    toTrajectory() {
-      this.$router.push('/riskPrevention/trajectory')
-    },
-    // 查看视频
-    lookVideo(data) {
-      this.personVideoModal.visible = true
-      this.personVideoModal.info = data
-      this.infoWindowData = null
-    },
-    // 重置地图标记
-    _resetMap() {
-      this.searchMarkerList.length
-        ? this.map.remove(this.searchMarkerList)
-        : null
-      this.searchMarkerList = []
-      window.clusterer ? window.clusterer.setMarkers([]) : null
-      window.pathSimplifierIns ? window.pathSimplifierIns.setData([]) : null
-      window.navg ? window.navg.destroy() : null
-    },
     // 切换页面
-    switchPage(item) {
-      this.searchKey = ''
-      this._resetMap()
-      this.curPageType = item.title
-      switch (item.title) {
-        case '精神障碍患者':
-          this.getKeyPopulationGps(3, 'mentalDisease')
-          this.curLeftComponent = 'MentalDiseaseLeft'
-          this.curRightComponent = 'MentalDiseaseRight'
-          break
-
-        case '重点信访人员':
-          this.getKeyPopulationGps(4, 'petitionLetter')
-          this.curLeftComponent = 'PetitionLetterLeft'
-          this.curRightComponent = 'PetitionLetterRight'
-          break
-
-        case '退役重点人员':
-          this.getKeyPopulationGps(5, 'retire')
-          this.curLeftComponent = 'RetireLeft'
-          this.curRightComponent = 'RetireRight'
-          break
-
-        case '刑释解戒人员':
-          this.getKeyPopulationGps(1, 'released')
-          this.curLeftComponent = 'ReleasedLeft'
-          this.curRightComponent = 'ReleasedRight'
-          break
-
-        case '社区矫正人员':
-          this.getKeyPopulationGps(2, 'correct')
-          this.curLeftComponent = 'CorrectLeft'
-          this.curRightComponent = 'CorrectRight'
-          break
-
-        case '失意人员':
-          this.messTableVisible = true
+    switchPage (pageTitle) {
+      this.curPageType = pageTitle.title
+      if (this.curPageType === 'frustrated') {
+        // 失意人员
+        this.$refs.messTableModal.openModal()
+      } else {
+        // 更新地图标记
+        this.$refs.map.updateKeyPersonnelMarker(enumPersonType[this.curPageType].type, enumPersonType[this.curPageType].key)
+        // 切换不同页面相应的组件
+        this.curLeftComponent = enumPersonType[this.curPageType].curLeftComponent
+        this.curRightComponent = enumPersonType[this.curPageType].curRightComponent
       }
     },
-    // 关闭轨迹
-    closeTrajectory() {
-      this.showCloseButton = false
-      window.pathSimplifierIns ? window.pathSimplifierIns.setData([]) : null
-      window.navg ? window.navg.destroy() : null
+    // 监听搜索标记功能
+    onSearchPersonMarker (list) {
+      this.$refs.map.showSearchMakerList(list, enumPersonType[this.curPageType].key)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-/deep/ .mentalDisease {
-  .icon {
-    background: url('~@/assets/image/importPeople/jingshen.png') no-repeat;
-    background-size: 100% 100%;
-  }
-}
 
-/deep/ .petitionLetter {
-  .icon {
-    background: url('~@/assets/image/importPeople/xinfang.png') no-repeat;
-    background-size: 100% 100%;
-  }
-}
-
-/deep/ .retire {
-  .icon {
-    background: url('~@/assets/image/importPeople/tuiyijunren.png') no-repeat;
-    background-size: 100% 100%;
-  }
-}
-
-/deep/ .released {
-  .icon {
-    background: url('~@/assets/image/importPeople/xingshijiejie.png') no-repeat;
-    background-size: 100% 100%;
-  }
-}
-
-/deep/ .correct {
-  .icon {
-    background: url('~@/assets/image/importPeople/jiaozheng.png') no-repeat;
-    background-size: 100% 100%;
-  }
-}
-
-.look-trajectory {
-  width: 110px;
-  height: 28px;
-  line-height: 28px;
-  background: rgba(3, 35, 63, 0.2);
-  border: 1px solid rgba(1, 170, 229, 1);
-  border-radius: 20px;
-  text-align: center;
-  color: #17cbf8;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.modal-content {
-  position: relative;
-  width: 600px !important;
-  height: 180px !important;
-  padding: 10px 20px;
-  background: url('~@/assets/image/importPeople/search-modal-bg.png') no-repeat
-    100% 100%;
-  background-size: 100% 100%;
-  display: flex;
-  .close-btn {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    cursor: pointer;
-  }
-  .item-p {
-    color: #fff;
-    padding-bottom: 10px;
-    .value-text {
-      color: #01aae5;
-    }
-  }
-
-  .content-left {
-    flex: 0 0 70%;
-    padding-right: 25px;
-  }
-
-  .content-right {
-    flex: 0 0 30%;
-  }
-}
-
-/deep/.gj-btns {
-  position: absolute;
-  width: 84px;
-  height: 36px;
-  background: url('~@/assets/image/importPeople/gj-btn.png');
-  background-size: 100% 100%;
-  top: 150px;
-  left: 450px;
-  font-size: 16px;
-  font-weight: 400;
-  color: #a9daff;
-  text-align: center;
-  line-height: 36px;
-  cursor: pointer;
-}
-
-/deep/.search-btn {
-  position: absolute;
-  width: 252px;
-  height: 36px;
-  background: url('~@/assets/image/common/组 106.png');
-  background-size: 100% 100%;
-  top: 150px;
-  left: 460px;
-  display: inline-flex;
-  .el-input {
-    width: calc(100% - 30px);
-    height: 36px;
-  }
-  .el-input__inner {
-    height: 36px;
-    display: inline-block;
-    border: none;
-    &::placeholder {
-      color: #2971c2;
-      font-size: 16px;
-      font-weight: 400;
-    }
-
-    &::-webkit-input-placeholder {
-      /* WebKit browsers 适配谷歌 */
-      color: #2971c2;
-      font-size: 16px;
-      font-family: Microsoft YaHei;
-      font-weight: 400;
-    }
-
-    &:-moz-placeholder {
-      /* Mozilla Firefox 4 to 18 适配火狐 */
-      color: #2971c2;
-      font-size: 16px;
-      font-family: Microsoft YaHei;
-      font-weight: 400;
-    }
-
-    &::-moz-placeholder {
-      /* Mozilla Firefox 19+ 适配火狐 */
-      color: #2971c2;
-      font-size: 16px;
-      font-family: Microsoft YaHei;
-      font-weight: 400;
-    }
-
-    &:-ms-input-placeholder {
-      /* Internet Explorer 10+  适配ie*/
-      color: #2971c2;
-      font-size: 16px;
-      font-family: Microsoft YaHei;
-      font-weight: 400;
-    }
-  }
-  .searchIcon {
-    width: 18px;
-    height: 36px;
-    background-color: red;
-    background: url('~@/assets/image/common/搜索 (1).png') no-repeat;
-    background-position: 0 8px;
-  }
-}
-.closeTrajectory {
-  position: absolute;
-  top: 14%;
-  right: 25%;
-  width: 120px;
-  line-height: 40px;
-  font-size: 16px;
-  color: #A9DAFF;
-  cursor: pointer;
-  text-align: center;
-  background-size: 100% 100%;
-  background: url('~@/assets/image/importPeople/close-button-bg.png')no-repeat center;
-}
 </style>

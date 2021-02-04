@@ -1,6 +1,8 @@
 <template>
   <div class="eventType">
-    <div class="title">事件类型分析</div>
+    <div class="title">
+      事件类型分析
+    </div>
     <div class="contain">
       <v-chart :options="options" />
     </div>
@@ -9,7 +11,7 @@
 <script>
 import { countEventByType } from '@/api/intelligentCommand/warning'
 export default {
-  data() {
+  data () {
     return {
       eventTypeObj: {
         conflict: 0,
@@ -21,7 +23,7 @@ export default {
     }
   },
   computed: {
-    options() {
+    options () {
       return {
         color: ['#0054FF', '#3B9AFE', '#0DE0A7', '#ADD14D', '#E6B00E'],
         tooltip: {
@@ -69,25 +71,30 @@ export default {
               show: true
             },
             data: [
-              {
-                value: this.eventTypeObj['politicalSecurity'],
-                name: '政治安全'
-              },
-              { value: this.eventTypeObj['socialSecurity'], name: '社会治安' },
-              { value: this.eventTypeObj['conflict'], name: '矛盾纠纷' },
-              { value: this.eventTypeObj['publicSafety'], name: '公共安全' },
-              {
-                value: this.eventTypeObj['internetPublicOpinion'],
-                name: '网络安全'
-              }
+              { value: this.eventTypeObj.conflict, name: '矛盾纠纷' },
+              { value: this.eventTypeObj.socialSecurity, name: '社会治安' },
+              { value: this.eventTypeObj.internetPublicOpinion, name: '网络安全' },
+              { value: this.eventTypeObj.publicSafety, name: '公共安全' },
+              { value: this.eventTypeObj.politicalSecurity, name: '政治安全' }
             ]
+            // 判断数据量是否达到一定的基数，否则不显示
+            // data: [
+            //   this.eventTypeObj.conflict > 2000 ? { value: this.eventTypeObj.conflict, name: '矛盾纠纷' } : null,
+            //   this.eventTypeObj.socialSecurity > 2000 ? { value: this.eventTypeObj.socialSecurity, name: '社会治安' } : null,
+            //   this.eventTypeObj.internetPublicOpinion > 2000 ? { value: this.eventTypeObj.internetPublicOpinion, name: '网络安全' } : null,
+            //   this.eventTypeObj.publicSafety > 2000 ? { value: this.eventTypeObj.publicSafety, name: '公共安全' } : null,
+            //   this.eventTypeObj.politicalSecurity > 2000 ? { value: this.eventTypeObj.politicalSecurity, name: '政治安全' } : null
+            // ]
           }
         ]
       }
     }
   },
+  mounted () {
+    this.countEventByType()
+  },
   methods: {
-    countEventByType() {
+    countEventByType () {
       countEventByType().then(res => {
         const { status, data } = res
         if (status === 200) {
@@ -101,9 +108,6 @@ export default {
         }
       })
     }
-  },
-  mounted() {
-    this.countEventByType()
   }
 }
 </script>

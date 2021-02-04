@@ -8,7 +8,7 @@
  * @param pointClick 轨迹节点点击事件
  */
 
-function renderPath(map, points, config, pointClick) {
+function renderPath (map, points, config, pointClick) {
   const {
     autoSetFitView = true, // 轨迹路径是否自适应
     width = 30, // 巡航器图片宽度
@@ -18,14 +18,20 @@ function renderPath(map, points, config, pointClick) {
     speed = 1000, // 巡航速度，单位千米/小时
     loop = true //  是否循环播放巡航器
   } = config
-  window.pathSimplifierIns ? window.pathSimplifierIns.setData([]) : null
-  window.navg ? window.navg.destroy() : null
+
+  if (window.pathSimplifierIns) {
+    window.pathSimplifierIns.setData([])
+  }
+
+  if (window.navg) {
+    window.navg.destroy()
+  }
 
   if (!points || !points.length) {
     return
   }
 
-  window.AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function(
+  window.AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function (
     PathSimplifier,
     $
   ) {
@@ -38,7 +44,7 @@ function renderPath(map, points, config, pointClick) {
       zIndex: 100,
       autoSetFitView: autoSetFitView,
       map: map, // 所属的地图实例
-      getPath: function(pathData, pathIndex) {
+      getPath: function (pathData, pathIndex) {
         const points = pathData.points
         return points.map(item => {
           return item.lnglat
@@ -118,11 +124,11 @@ function renderPath(map, points, config, pointClick) {
       }
     ])
 
-    function onload() {
+    function onload () {
       pathSimplifierIns.renderLater()
     }
 
-    function onerror(e) {
+    function onerror (e) {
       alert('图片加载失败！')
     }
 
@@ -158,7 +164,7 @@ function renderPath(map, points, config, pointClick) {
     window.navg.start()
 
     if (pointClick) {
-      pathSimplifierIns.on('pointClick', function(e, info) {
+      pathSimplifierIns.on('pointClick', function (e, info) {
         pointClick(e, info)
       })
     }
@@ -174,7 +180,7 @@ function renderPath(map, points, config, pointClick) {
  * @param config 轨迹和巡航器配置参数
  * @param pointClick 轨迹节点点击事件
  */
-function expandRenderPath(map, points, config, pointClick) {
+function expandRenderPath (map, points, config, pointClick) {
   const {
     width = 30, // 巡航器图片宽度
     height = 30, // 巡航器图片高度
@@ -190,12 +196,20 @@ function expandRenderPath(map, points, config, pointClick) {
       points: points.slice(0, 1)
     }
   ]
-  window.trajectoryTimer ? clearTimeout(window.trajectoryTimer) : null
-  window.navg ? window.navg.destroy() : null
-  window.carNavg ? window.carNavg.destroy() : null
-  window.pathSimplifierIns ? window.pathSimplifierIns.setData([]) : null
+  if (window.trajectoryTimer) {
+    clearTimeout(window.trajectoryTimer)
+  }
+  if (window.navg) {
+    window.navg.destroy()
+  }
+  if (window.carNavg) {
+    window.carNavg.destroy()
+  }
+  if (window.pathSimplifierIns) {
+    window.pathSimplifierIns.setData([])
+  }
 
-  window.AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function(
+  window.AMapUI.load(['ui/misc/PathSimplifier', 'lib/$'], function (
     PathSimplifier,
     $
   ) {
@@ -208,7 +222,7 @@ function expandRenderPath(map, points, config, pointClick) {
       zIndex: 100,
       autoSetFitView: false,
       map: map, // 所属的地图实例
-      getPath: function(pathData, pathIndex) {
+      getPath: function (pathData, pathIndex) {
         const points = pathData.points
         return points.map(item => {
           return item.lnglat
@@ -293,8 +307,8 @@ function expandRenderPath(map, points, config, pointClick) {
 
     // 动态延展路径
     let endIdx = 0
-    function expandPath() {
-      function doExpand() {
+    function expandPath () {
+      function doExpand () {
         endIdx++
 
         if (endIdx >= points.length) {
@@ -335,12 +349,12 @@ function expandRenderPath(map, points, config, pointClick) {
     }
 
     // 车子巡航
-    function carRun() {
-      function onload() {
+    function carRun () {
+      function onload () {
         window.pathSimplifierIns.renderLater()
       }
 
-      function onerror(e) {
+      function onerror (e) {
         alert('图片加载失败！')
       }
       window.carNavg = window.pathSimplifierIns.createPathNavigator(0, {
@@ -376,7 +390,7 @@ function expandRenderPath(map, points, config, pointClick) {
     expandPath()
 
     if (pointClick) {
-      pathSimplifierIns.on('pointClick', function(e, info) {
+      pathSimplifierIns.on('pointClick', function (e, info) {
         pointClick(e, info)
       })
     }

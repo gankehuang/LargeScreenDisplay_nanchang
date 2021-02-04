@@ -1,108 +1,129 @@
 <template>
   <div class="page-nav">
-    <div class="province-btns" @click="changeProvince"></div>
+    <div
+      class="province-btns"
+      @click="changeProvince"
+    />
     <div class="nav-bg">
       <span class="nav-title">南昌市域社会治理应用平台</span>
     </div>
     <div class="nav-left">
       <a
         class="link"
-        @click="nativeTo('/smartData/dataView')"
         :class="{
           active: $route.path.includes('/smartData')
         }"
-        >智汇数据</a
-      >
+        @click="nativeTo('/smartData/dataView')"
+      >智汇数据</a>
       <a
         class="link"
-        @click="nativeTo('/riskPrevention/warning')"
         :class="{ active: $route.path.includes('riskPrevention') }"
-        >智防风险</a
-      >
+        @click="nativeTo('/riskPrevention/warning')"
+      >智防风险</a>
 
       <a
         class="link"
-        @click="nativeTo('/intelligentCommand/command')"
         :class="{ active: $route.path.includes('intelligentCommand') }"
-        >智能指挥</a
-      >
+        @click="nativeTo('/intelligentCommand/command')"
+      >智能指挥</a>
     </div>
 
     <div class="nav-right">
       <a
         class="link"
-        @click="nativeTo('/adminIntelligentService/socialGovernance')"
         :class="{ active: $route.path.includes('adminIntelligentService') }"
-        >智惠服务</a
-      >
+        @click="nativeTo('/adminIntelligentService/socialGovernance')"
+      >智惠服务</a>
       <a
         class="link"
-        @click="nativeTo('/intelligentDecisionMaking/dataCockpit')"
         :class="{ active: $route.path.includes('intelligentDecisionMaking') }"
-        >智辅决策</a
-      >
+        @click="nativeTo('/intelligentDecisionMaking/dataCockpit')"
+      >智辅决策</a>
 
       <a
         class="link"
-        @click="nativeTo('/intelligentOffice/officePortal')"
         :class="{ active: $route.path.includes('/intelligentOffice') }"
-        >智效办公</a
-      >
+        @click="nativeTo('/intelligentOffice/officePortal')"
+      >智效办公</a>
     </div>
 
     <div class="control-right-btns">
-      <div class="btn" @click="nativeTo('/search')">
+      <div
+        class="btn"
+        @click="nativeTo('/search')"
+      >
         <img
           src="@/assets/image/layout/search.png"
           style="width: 37px;height: 37px;"
-        />
+        >
       </div>
 
-      <div class="btn menu-box" v-clickoutside="handleClose">
+      <div
+        v-clickoutside="handleClose"
+        class="btn menu-box"
+      >
         <img
-          @click="toggleMenu"
           style="width: 37px;height: 37px;"
           src="@/assets/image/layout/menu.png"
-        />
-        <div class="down-menu" v-if="isShowMenu">
+          @click="toggleMenu"
+        >
+        <div
+          v-if="isShowMenu"
+          class="down-menu"
+        >
           <div
             class="menu-item"
-            @click="handleMenuItem('昌治九安')"
             :class="{ active: currentMenu === '昌治九安' }"
+            @click="handleMenuItem('昌治九安')"
           >
-            <svg-icon icon-class="home" class="svg-icon" />
+            <svg-icon
+              icon-class="home"
+              class="svg-icon"
+            />
             昌治久安
           </div>
           <div
             class="menu-item"
-            @click="handleMenuItem('VR地图')"
             :class="{ active: currentMenu === 'VR地图' }"
+            @click="handleMenuItem('VR地图')"
           >
-            <svg-icon icon-class="map" class="svg-icon" />
+            <svg-icon
+              icon-class="map"
+              class="svg-icon"
+            />
             VR地图
           </div>
           <div
             class="menu-item"
-            @click="handleMenuItem('修改密码')"
             :class="{ active: currentMenu === '修改密码' }"
+            @click="handleMenuItem('修改密码')"
           >
-            <svg-icon icon-class="editpas" class="svg-icon" />
+            <svg-icon
+              icon-class="editpas"
+              class="svg-icon"
+            />
             修改密码
           </div>
           <div
             class="menu-item"
-            @click="showAuthority"
             :class="{ active: currentMenu === '系统设置' }"
+            @click="showAuthority"
           >
-            <svg-icon icon-class="set" class="svg-icon" />
+            <svg-icon
+              icon-class="set"
+              class="svg-icon"
+            />
             权限设置
           </div>
           <div
             class="menu-item"
-            @click="handleMenuItem('退出')"
             :class="{ active: currentMenu === '退出' }"
+            @click="handleMenuItem('退出')"
           >
-            <svg-icon icon-class="close-btn" class="svg-icon" />
+            <svg-icon
+              icon-class="close-btn"
+              class="svg-icon"
+            />
             退出
           </div>
         </div>
@@ -113,7 +134,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       isShowMenu: false,
       currentMenu: '',
@@ -122,13 +143,13 @@ export default {
   },
   computed: {},
   methods: {
-    changeProvince() {
+    changeProvince () {
       window.open(
         'http://172.11.2.6/module.jsp#workBench?isLogin=true',
         '_blank'
       )
     },
-    nativeTo(path, query) {
+    nativeTo (path, query) {
       if (path.indexOf('admin') > -1) {
         if (path.indexOf('adminIntelligentService') > -1) {
           this.$store.commit(
@@ -153,14 +174,14 @@ export default {
       }
     },
     // 退出登录
-    logout() {
+    logout () {
       this.$store.dispatch('user/logout')
       this.$router.push('/login')
     },
-    toggleMenu() {
+    toggleMenu () {
       this.isShowMenu = !this.isShowMenu
     },
-    handleMenuItem(item) {
+    handleMenuItem (item) {
       this.currentMenu = item
       if (item === '退出') {
         this.logout()
@@ -170,10 +191,10 @@ export default {
         this.$router.push('/VRHome')
       }
     },
-    showAuthority() {
+    showAuthority () {
       this.$emit('showAuthority', true)
     },
-    handleClose() {
+    handleClose () {
       this.isShowMenu = false
     }
   }

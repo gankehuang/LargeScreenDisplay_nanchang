@@ -1,9 +1,9 @@
 <template>
   <div class="select-list">
     <div
-      class="select-item"
       v-for="(item, index) in menuList"
       :key="index"
+      class="select-item"
       :class="{ active: curIndex === index }"
       @click="handleMap(item, index)"
     >
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       curIndex: -1,
       menuList: [
@@ -39,16 +39,24 @@ export default {
           name: '视联网'
         }
       ],
-      handleMap(item, index) {
+      handleMap (item, index) {
         this.curIndex = index
+        // 重置所有菜单，除当前点击项
         this.menuList.forEach((item, index) => {
           if (this.curIndex !== index) {
             item.active = false
           }
         })
+
+        // 当前点击项切换状态
         this.menuList[index].active = !this.menuList[index].active
-        !this.menuList[index].active ? (this.curIndex = -1) : null
-        this.$emit('updateMapMarker', item)
+
+        // 如果当前点击项没有选中，则将 curIndex 重置
+        if (!this.menuList[index].active) {
+          (this.curIndex = -1)
+        }
+
+        this.$emit('menuUpdate', item)
         if (item.name === '可视化调度') {
           window.open(
             'https://120.76.189.28:18281/possecu_cs/97db7/login.htm',
@@ -70,8 +78,7 @@ export default {
   bottom: 30px;
   transform: translateX(-50%);
   display: flex;
-  background: url("~@/assets/image/command/map-operate-bg.png") no-repeat;
-  background-position: bottom;
+  background: url("~@/assets/image/command/map-operate-bg.png") no-repeat bottom;
   padding: 20px 45px;
 }
 .select-item {

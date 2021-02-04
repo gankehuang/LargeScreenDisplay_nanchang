@@ -1,6 +1,8 @@
 <template>
   <div class="logistics-container">
-    <div class="title">寄递物流</div>
+    <div class="title">
+      寄递物流
+    </div>
     <div class="total">
       <span>总数：</span>
       <span>{{ expressTotal }}</span>
@@ -8,21 +10,32 @@
     </div>
     <ul>
       <el-scrollbar
-        style="height:200px"
         ref="list"
+        style="height:200px"
         @handleScroll="handleQueryExpressInfo"
       >
-        <li v-for="(item, index) in dataList" :key="index">
-          <div class="company-name">{{ item.name }}</div>
+        <li
+          v-for="(item, index) in dataList"
+          :key="index"
+        >
+          <div class="company-name">
+            {{ item.name }}
+          </div>
           <div class="info">
-            <span class="text-overflow" :title="item.addr">
-              <svg-icon icon-class="location" class="icon" />
+            <span
+              class="text-overflow"
+              :title="item.addr"
+            >
+              <svg-icon
+                icon-class="location"
+                class="icon"
+              />
               <span>{{ item.addr }}</span>
             </span>
-            <span class="text-overflow"
-:title="item.type ? item.type : '其它'"
-              >快递类型：{{ item.type ? item.type : "其它" }}</span
-            >
+            <span
+              class="text-overflow"
+              :title="item.type ? item.type : '其它'"
+            >快递类型：{{ item.type ? item.type : "其它" }}</span>
           </div>
         </li>
       </el-scrollbar>
@@ -33,17 +46,17 @@
 <script>
 import { queryExpressInfo } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       expressTotal: 0,
       dataList: [],
       code: '3601'
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  mounted() {
+  mounted () {
     this.handleQueryExpressInfo()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -51,7 +64,7 @@ export default {
     })
   },
   methods: {
-    async handleQueryExpressInfo() {
+    async handleQueryExpressInfo () {
       try {
         const { status, data } = await queryExpressInfo(1, 100, {
           gridCode: this.code

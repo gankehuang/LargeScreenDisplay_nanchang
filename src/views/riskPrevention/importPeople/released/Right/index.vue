@@ -1,22 +1,22 @@
 <template>
   <div class="page-right">
-    <QuestionInfo />
-    <LineInfo />
-    <ListInfo />
+    <EmploymentSituation />
+    <EarlyWarningTrend />
+    <DynamicEarlyWarning />
   </div>
 </template>
 
 <script>
-import QuestionInfo from './QuestionInfo'
-import LineInfo from './LineInfo'
-import ListInfo from './ListInfo'
+import EmploymentSituation from './EmploymentSituation'
+import EarlyWarningTrend from './EarlyWarningTrend'
+import DynamicEarlyWarning from './DynamicEarlyWarning'
 export default {
   components: {
-    QuestionInfo,
-    LineInfo,
-    ListInfo
+    EmploymentSituation,
+    EarlyWarningTrend,
+    DynamicEarlyWarning
   },
-  data() {
+  data () {
     return {}
   }
 }

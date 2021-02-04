@@ -7,19 +7,19 @@
       <div class="content">
         <div class="legand">
           <div class="item">
-            <span></span>
+            <span />
             已处理
           </div>
           <div class="item">
-            <span style="background: #fff;"></span>
+            <span style="background: #fff;" />
             总数
           </div>
         </div>
 
         <div
-          class="list-item"
           v-for="(item, index) in this.nameList"
           :key="index"
+          class="list-item"
         >
           <span class="item-name">{{ item.name }}</span>
           <div style="flex: 0 0 calc(100% - 70px);display:flex;">
@@ -30,7 +30,7 @@
               :title="getPercentage(item) + '%'"
               :percentage="getPercentage(item)"
               color="#3B9AFE"
-            ></el-progress>
+            />
             <span class="item-total">{{ item.all }}</span>
           </div>
         </div>
@@ -42,7 +42,11 @@
       </span>
       <div class="content">
         <div class="item-box">
-          <div class="item-list" v-for="(item, index) in listArr" :key="index">
+          <div
+            v-for="(item, index) in listArr"
+            :key="index"
+            class="item-list"
+          >
             <p class="item-title">
               {{ item.happenedTime }}
             </p>
@@ -51,8 +55,8 @@
               <div class="item-con">
                 <div class="imgs">
                   <CustomImage
-                    lazy
                     v-if="item.snapImageUrl"
+                    lazy
                     fit="cover"
                     :src="item.snapImageUrl"
                     :preview-src-list="
@@ -68,19 +72,28 @@
                   <!--                    "-->
                   <!--                  />-->
                 </div>
-                <div class="things" @click="showDialog(item)">
+                <div
+                  class="things"
+                  @click="showDialog(item)"
+                >
                   <div class="p">
                     中华情动态预警<span>{{ item.statusText }}</span>
                   </div>
                   <div class="p">
                     {{ item.peopleName }}
                   </div>
-                  <div class="p text-overflows" :title="item.location">
+                  <div
+                    class="p text-overflows"
+                    :title="item.location"
+                  >
                     {{ item.location }}
                   </div>
                 </div>
-                <div class="position" @click.stop="handleItem(item)">
-                  <img src="@/assets/image/importPeople/position.png" />
+                <div
+                  class="position"
+                  @click.stop="handleItem(item)"
+                >
+                  <img src="@/assets/image/importPeople/position.png">
                 </div>
               </div>
             </div>
@@ -94,7 +107,7 @@
 <script>
 import { queryEventList } from '@/api/riskPrevention/conflict.js'
 export default {
-  data() {
+  data () {
     return {
       nameList: [
         {
@@ -165,17 +178,17 @@ export default {
       listArr: []
     }
   },
-  mounted() {
+  mounted () {
     this.getEventList()
   },
   methods: {
-    getPercentage(item) {
+    getPercentage (item) {
       return Number(((item.isProcess / item.all) * 100).toFixed(2))
     },
-    getwidthList(item) {
+    getwidthList (item) {
       return parseInt((item.all / 76715) * 10 * 100)
     },
-    getEventList() {
+    getEventList () {
       const form = {
         eventName: '',
         type: '',
@@ -192,10 +205,10 @@ export default {
         }
       })
     },
-    handleItem(item) {
+    handleItem (item) {
       this.$emit('focusEvent', item)
     },
-    showDialog(item) {
+    showDialog (item) {
       this.$emit('detailsEvent', item)
     }
   }

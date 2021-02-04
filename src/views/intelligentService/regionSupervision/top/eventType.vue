@@ -1,6 +1,8 @@
 <template>
   <div class="eventType">
-    <div class="title">督导事件分析</div>
+    <div class="title">
+      督导事件分析
+    </div>
     <div class="contain">
       <v-chart :options="options" />
     </div>
@@ -12,16 +14,13 @@ export default {
   props: {
     num: Number
   },
-  data() {
+  data () {
     return {
       series: []
     }
   },
-  mounted() {
-    this.getList()
-  },
   computed: {
-    options() {
+    options () {
       return {
         color: ['#0054FF', '#5aa3df'],
         tooltip: {
@@ -74,8 +73,11 @@ export default {
       }
     }
   },
+  mounted () {
+    this.getList()
+  },
   methods: {
-    getList() {
+    getList () {
       countSuperviseEventStatus().then(res => {
         if (res.status == 200) {
           this.series = [

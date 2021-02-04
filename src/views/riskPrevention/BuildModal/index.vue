@@ -1,11 +1,20 @@
 <template>
   <transition name="fade">
-    <div class="mask-container" v-if="visible">
-      <div class="mask"></div>
+    <div
+      v-if="visible"
+      class="mask-container"
+    >
+      <div class="mask" />
       <div class="modal-container">
-        <PopModal :visible.sync="popModalVisible" :id.sync="popId" />
+        <PopModal
+          :id.sync="popId"
+          :visible.sync="popModalVisible"
+        />
         <el-row class="page-box">
-          <el-col :span="6" class="tree-container">
+          <el-col
+            :span="6"
+            class="tree-container"
+          >
             <div class="tree-border rect">
               <Tree
                 class="left-aside left-tree"
@@ -20,61 +29,83 @@
               class="modal-close"
               src="@/assets/image/dataView/pop-modal-close.png"
               @click="closeModal"
-            />
-            <div class="build-title" v-if="activeName === 'frist'">
+            >
+            <div
+              v-if="activeName === 'frist'"
+              class="build-title"
+            >
               {{ title }}
             </div>
-            <div class="modal-first-content" v-if="activeName === 'frist'">
+            <div
+              v-if="activeName === 'frist'"
+              class="modal-first-content"
+            >
               <div class="frist-flex-container">
                 <div class="left">
                   <div class="left-list-item-container">
                     <div
-                      class="left-list-item"
                       v-for="(item, index) in buildInfo"
                       :key="index"
+                      class="left-list-item"
                     >
-                      <div class="label">{{ item.label }}</div>
-                      <div class="data">{{ item.num }}<span>套</span></div>
+                      <div class="label">
+                        {{ item.label }}
+                      </div>
+                      <div class="data">
+                        {{ item.num }}<span>套</span>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="right">
                   <div class="right-list-item-container">
                     <div
-                      class="right-list-item"
                       v-for="(item, index) in peopleInfo"
                       :key="index"
+                      class="right-list-item"
                     >
-                      <div class="label">{{ item.label }}</div>
-                      <div class="data">{{ item.num }}<span>人</span></div>
+                      <div class="label">
+                        {{ item.label }}
+                      </div>
+                      <div class="data">
+                        {{ item.num }}<span>人</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="build-title" v-if="activeName === 'second'">
+            <div
+              v-if="activeName === 'second'"
+              class="build-title"
+            >
               {{ title }}
             </div>
-            <div class="modal-second-content" v-if="activeName === 'second'">
+            <div
+              v-if="activeName === 'second'"
+              class="modal-second-content"
+            >
               <div class="left-box">
                 <el-scrollbar class="second-scrollbar">
                   <div
-                    class="build-item"
                     v-for="(item, index) in computedBuildLayerList"
                     :key="index + 'buildLayerList'"
+                    class="build-item"
                   >
-                    <div class="item-name">{{ item.layerName }}</div>
+                    <div class="item-name">
+                      {{ item.layerName }}
+                    </div>
                     <el-scrollbar class="second-inside-scrollbar">
                       <div
-                        class="item-term"
-                        @click="handlePopModal(item1)"
                         v-for="(item1, index1) in item.roomList"
                         :key="index1 + 'roomList'"
+                        class="item-term"
                         :style="{
                           'background-color': item1.isSelected
                             ? selectorList[item1.type].color
                             : '#efefef'
                         }"
+                        @click="handlePopModal(item1)"
                       >
                         <div>{{ item1.unitName }}</div>
                         <div>
@@ -88,9 +119,9 @@
               </div>
               <div class="select-box">
                 <div
-                  class="item"
                   v-for="(value, key, index) in selectorList"
                   :key="index"
+                  class="item"
                   @click="toggleSelect(key)"
                 >
                   <span
@@ -100,7 +131,7 @@
                         ? value.color
                         : '#eee'
                     }"
-                  ></span>
+                  />
                   <span class="type-text">{{ key }}</span>
                 </div>
               </div>
@@ -116,6 +147,10 @@
 import Tree from '@/components/Tree'
 import PopModal from './PopModal'
 export default {
+  components: {
+    Tree,
+    PopModal
+  },
   props: {
     visible: {
       type: Boolean,
@@ -125,16 +160,7 @@ export default {
       type: Object
     }
   },
-  components: {
-    Tree,
-    PopModal
-  },
-  watch: {
-    visible(val) {
-      if (!val) this.activeName = 'frist'
-    }
-  },
-  data() {
+  data () {
     return {
       title: '南昌市',
       activeName: 'frist',
@@ -190,16 +216,21 @@ export default {
     }
   },
   computed: {
-    computedBuildLayerList() {
+    computedBuildLayerList () {
       const list = [...this.buildLayerList]
       return list.reverse()
     }
   },
-  beforeDestroy() {
+  watch: {
+    visible (val) {
+      if (!val) this.activeName = 'frist'
+    }
+  },
+  beforeDestroy () {
     this.$EventBus.$off('update:buildLayerList')
     this.$EventBus.$off('update:countInfo')
   },
-  mounted() {
+  mounted () {
     this.$EventBus.$on('update:buildLayerList', res => {
       this.buildLayerList = res.list
       this.title = res.title
@@ -213,11 +244,11 @@ export default {
     })
   },
   methods: {
-    closeModal() {
+    closeModal () {
       this.$emit('update:visible', false)
       this.buildLayerList = []
     },
-    toggleSelect(key) {
+    toggleSelect (key) {
       this.selectorList[key].isSelected = !this.selectorList[key].isSelected
       if (key === '全部') {
         for (const i in this.selectorList) {
@@ -249,10 +280,10 @@ export default {
         })
       })
     },
-    handleClick({ name }) {
+    handleClick ({ name }) {
       this.activeName = name
     },
-    handlePopModal({ id }) {
+    handlePopModal ({ id }) {
       this.popModalVisible = true
       this.popId = id
     }

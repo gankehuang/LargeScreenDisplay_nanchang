@@ -1,8 +1,14 @@
 <template>
   <div class="win-info">
-    <div class="title">动态预警</div>
+    <div class="title">
+      动态预警
+    </div>
     <div class="item-box">
-      <div class="item-list" v-for="(item, index) in listArr" :key="index">
+      <div
+        v-for="(item, index) in listArr"
+        :key="index"
+        class="item-list"
+      >
         <p class="item-title">
           {{ item.time }}
         </p>
@@ -23,10 +29,18 @@
                 }}<span>{{ item.warningLevel }}</span>
               </div>
               <!-- <div class="p">{{ item.taskName }}</div> -->
-              <div class="p">{{ item.snapLocation }}出现</div>
+              <div class="p">
+                {{ item.snapLocation }}出现
+              </div>
             </div>
-            <div class="position" @click="focusEvent(item)">
-              <img src="@/assets/image/importPeople/position.png" alt="" />
+            <div
+              class="position"
+              @click="focusEvent(item)"
+            >
+              <img
+                src="@/assets/image/importPeople/position.png"
+                alt=""
+              >
             </div>
           </div>
         </div>
@@ -38,7 +52,7 @@
 import { queryAlarmRecord } from '@/api/riskPrevention/importPeople'
 
 export default {
-  data() {
+  data () {
     return {
       listArr: [
         {
@@ -71,11 +85,11 @@ export default {
       ]
     }
   },
-  mounted() {
+  mounted () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       const fd = {
         beginTime: '2020-01-01 00:00:00',
         endTime: '2020-10-25 00:00:00',
@@ -94,7 +108,7 @@ export default {
         }
       })
     },
-    focusEvent(item) {
+    focusEvent (item) {
       this.$EventBus.$emit('focusEvent', {
         ...item.eventInfo,
         position: [item.longitude, item.latitude]

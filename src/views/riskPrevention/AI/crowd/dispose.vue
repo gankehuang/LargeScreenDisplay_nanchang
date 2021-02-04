@@ -1,26 +1,36 @@
 <template>
   <div class="model">
     <div class="model-box">
-      <el-form ref="form" :rules="rules" :model="form" label-width="120px">
+      <el-form
+        ref="form"
+        :rules="rules"
+        :model="form"
+        label-width="120px"
+      >
         <el-row :gutter="20">
           <el-col :span="24">
-            <el-form-item label="规则名称:" prop="name">
+            <el-form-item
+              label="规则名称:"
+              prop="name"
+            >
               <el-input
                 v-model="form.name"
                 placeholder="请输入规则名称"
-              ></el-input>
+              />
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="风险等级:">
-              <el-select v-model="form.grade" placeholder="请选择风险等级">
+              <el-select
+                v-model="form.grade"
+                placeholder="请选择风险等级"
+              >
                 <el-option
                   v-for="item in options"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
@@ -36,34 +46,37 @@
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="处置措施:">
-              <el-select v-model="form.measure" placeholder="请选择处置措施">
+              <el-select
+                v-model="form.measure"
+                placeholder="请选择处置措施"
+              >
                 <el-option
                   v-for="item in measureOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="超时期限:">
-              <el-select v-model="form.overtime" placeholder="请选择超时期限">
+              <el-select
+                v-model="form.overtime"
+                placeholder="请选择超时期限"
+              >
                 <el-option
                   v-for="item in overtimeOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
-                >
-                </el-option>
+                />
               </el-select>
             </el-form-item>
           </el-col>
@@ -71,14 +84,19 @@
       </el-form>
     </div>
     <div class="model-footer">
-      <el-button type="primary" @click="submitClick">提交</el-button>
+      <el-button
+        type="primary"
+        @click="submitClick"
+      >
+        提交
+      </el-button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       form: {
         name: '',
@@ -182,7 +200,7 @@ export default {
     }
   },
   methods: {
-    submitClick() {
+    submitClick () {
       this.$refs.form.validate(valid => {
         if (valid) {
           this.getRandomInt(10)
@@ -190,7 +208,7 @@ export default {
         }
       })
     },
-    getRandomInt(data) {
+    getRandomInt (data) {
       let number = ''
       for (let i = 0; i < data; i++) {
         number += Math.floor(Math.random() * 10)

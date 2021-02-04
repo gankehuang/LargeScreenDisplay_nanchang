@@ -1,6 +1,10 @@
 <template>
   <div class="page-box">
-    <Tabs :tab-list="tabList" width="600px" :cur-index="2" />
+    <Tabs
+      :tab-list="tabList"
+      width="600px"
+      :cur-index="2"
+    />
   </div>
 </template>
 
@@ -8,7 +12,7 @@
 import commonMixin from '../commonMixin'
 export default {
   mixins: [commonMixin],
-  data() {
+  data () {
     return {}
   }
 }

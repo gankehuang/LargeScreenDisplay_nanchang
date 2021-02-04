@@ -7,8 +7,12 @@
       <v-chart :options="topOptions" />
     </div>
     <div class="bottom">
-      <div class="title">涉渔事件县区分布</div>
-      <p class="pieces">单位:件</p>
+      <div class="title">
+        涉渔事件县区分布
+      </div>
+      <p class="pieces">
+        单位:件
+      </p>
       <v-chart :options="bottomOptions" />
     </div>
   </div>
@@ -16,7 +20,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       topOptions: {
         color: ['#2089d6', '#A9DAFF', '#E6B00E', '#3B9AFE', '#08b1b1'],

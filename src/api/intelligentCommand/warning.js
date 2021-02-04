@@ -2,7 +2,7 @@ import request from '@/utils/request'
 import { network, webPlatform } from '@/config/gateway'
 
 // 查询所有事件
-export const getEventArr = function(params) {
+export const getEventArr = function (params) {
   return request({
     url: `${network}/${webPlatform}/event/selectAll`,
     method: 'get',
@@ -11,7 +11,7 @@ export const getEventArr = function(params) {
 }
 
 // 生成事件
-export const createEvent = function(data) {
+export const createEvent = function (data) {
   return request({
     url: '/event/gen',
     method: 'post',
@@ -20,7 +20,7 @@ export const createEvent = function(data) {
 }
 
 // 生成事件1
-export const newCreateEvent = function(data) {
+export const newCreateEvent = function (data) {
   return request({
     url: `${network}/${webPlatform}/event/autoGen`,
     method: 'post',
@@ -29,7 +29,7 @@ export const newCreateEvent = function(data) {
 }
 
 // 获取群防力量
-export const getGroupForce = function(params) {
+export const getGroupForce = function (params) {
   return request({
     url: `${network}/${webPlatform}/event/getGroupForce`,
     method: 'get',
@@ -38,7 +38,7 @@ export const getGroupForce = function(params) {
 }
 
 // 事件指派
-export const eventAssign = function(data) {
+export const eventAssign = function (data) {
   return request({
     url: `${network}/${webPlatform}/event/assign`,
     method: 'post',
@@ -47,7 +47,7 @@ export const eventAssign = function(data) {
 }
 
 // 分页查询组织成员
-export const queryOrgMember = function(params) {
+export const queryOrgMember = function (params) {
   return request({
     url: `${network}/${webPlatform}/orgMember/queryOrgMember/1/50`,
     method: 'get',
@@ -56,7 +56,7 @@ export const queryOrgMember = function(params) {
 }
 
 // 事件处理
-export const handleEvent = function(data) {
+export const handleEvent = function (data) {
   return request({
     url: `${network}/${webPlatform}/event/handle`,
     method: 'post',
@@ -65,7 +65,7 @@ export const handleEvent = function(data) {
 }
 
 // 根据id查询事件
-export function getEventById(params) {
+export function getEventById (params) {
   return request({
     url: `${network}/${webPlatform}/event/selectById`,
     method: 'get',
@@ -74,7 +74,7 @@ export function getEventById(params) {
 }
 
 // 事件类型环比统计
-export function countEventChainRatio(params) {
+export function countEventChainRatio (params) {
   return request({
     url: `${network}/${webPlatform}/preventRisk/countEventChainRatio`,
     method: 'get',
@@ -83,7 +83,7 @@ export function countEventChainRatio(params) {
 }
 
 // 事件状态统计
-export function countEventByStatus(params) {
+export function countEventByStatus (params) {
   return request({
     url: `${network}/${webPlatform}/preventRisk/countEventByStatus`,
     method: 'get',
@@ -92,7 +92,7 @@ export function countEventByStatus(params) {
 }
 
 // 事件五大类型统计
-export function countEventByType(params) {
+export function countEventByType (params) {
   return request({
     url: `${network}/${webPlatform}/preventRisk/countEventByType`,
     method: 'get',
@@ -101,7 +101,7 @@ export function countEventByType(params) {
 }
 
 // 各区县事件统计（事件分布情况）
-export function countEventByRegion(params) {
+export function countEventByRegion (params) {
   return request({
     url: `${network}/${webPlatform}/preventRisk/countEventByRegion`,
     method: 'get',

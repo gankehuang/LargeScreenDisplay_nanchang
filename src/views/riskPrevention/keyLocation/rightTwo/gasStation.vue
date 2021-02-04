@@ -1,13 +1,18 @@
 <template>
   <div class="info-block">
-    <div class="title">危险事件分析</div>
-    <v-chart :options="useTypeOptions" class="echart" />
+    <div class="title">
+      危险事件分析
+    </div>
+    <v-chart
+      :options="useTypeOptions"
+      class="echart"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       useTypeOptions: {
         // color: ['#3398DB'],

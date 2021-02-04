@@ -1,23 +1,33 @@
 <template>
   <div class="page-left">
     <div class="left-top">
-      <div class="title">流动人口县区分布图</div>
-      <v-chart style="width:100%;height:100%" :options="rkfbOptions" />
+      <div class="title">
+        流动人口县区分布图
+      </div>
+      <v-chart
+        style="width:100%;height:100%"
+        :options="rkfbOptions"
+      />
     </div>
     <div class="left-bottom">
-      <div class="title">流动人口流入趋势分析</div>
-      <v-chart style="width:100%;height:100%" :options="rklrfxOptions" />
+      <div class="title">
+        流动人口流入趋势分析
+      </div>
+      <v-chart
+        style="width:100%;height:100%"
+        :options="rklrfxOptions"
+      />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {}
   },
   computed: {
-    rkfbOptions() {
+    rkfbOptions () {
       return {
         color: ['#3288E4', '#02FBFF'],
         tooltip: {
@@ -38,7 +48,8 @@ export default {
           }
         },
         grid: {
-          left: '3%',
+          width: '90%',
+          left: '2%',
           right: '4%',
           bottom: '3%',
           containLabel: true
@@ -98,19 +109,6 @@ export default {
           }
         },
         series: [
-          // {
-          //   name: '登记流动人口',
-          //   type: 'bar',
-          //   label: {
-          //     show: true,
-          //     position: 'right'
-          //   },
-          //   itemStyle: {
-          //     // 柱形图圆角，初始化效果
-          //     barBorderRadius: [10, 10, 10, 10]
-          //   },
-          //   data: [320, 302, 301, 334, 390, 330, 320, 280, 330]
-          // },
           {
             name: '流入人口',
             type: 'bar',
@@ -162,7 +160,7 @@ export default {
         ]
       }
     },
-    rklrfxOptions() {
+    rklrfxOptions () {
       return {
         color: ['#14ACFF', '#E6B00E'],
         name: '模拟数据',

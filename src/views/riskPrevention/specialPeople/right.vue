@@ -1,8 +1,8 @@
 <template>
   <div class="page-right">
-    <ActiveInfo></ActiveInfo>
+    <ActiveInfo />
     <VisitsEvent />
-    <AlarmInfo></AlarmInfo>
+    <AlarmInfo />
   </div>
 </template>
 

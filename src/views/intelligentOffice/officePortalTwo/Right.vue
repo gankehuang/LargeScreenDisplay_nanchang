@@ -2,49 +2,85 @@
   <div class="page-right">
     <!-- 文件归档 -->
     <div class="fwgd-container block-bg-container">
-      <div class="title">文件归档</div>
-      <svg-icon class="refresh-icon" icon-class="refresh" />
+      <div class="title">
+        文件归档
+      </div>
+      <svg-icon
+        class="refresh-icon"
+        icon-class="refresh"
+      />
       <div class="content">
         <div class="info-list">
           <div
-            class="info-item"
             v-for="(item, index) in tzggInfoList"
             :key="index"
+            class="info-item"
           >
             <span>{{ item.label }}</span>
             <span>{{ item.number }}</span>
           </div>
         </div>
-        <div class="pic"></div>
-        <v-chart :options="tzggOption" class="chart" />
+        <div class="pic" />
+        <v-chart
+          :options="tzggOption"
+          class="chart"
+        />
       </div>
     </div>
     <!-- 公文列表 -->
     <div class="gwlb-container block-bg-container">
-      <div class="title">公文列表</div>
-      <svg-icon class="refresh-icon" icon-class="refresh" />
+      <div class="title">
+        公文列表
+      </div>
+      <svg-icon
+        class="refresh-icon"
+        icon-class="refresh"
+      />
       <el-scrollbar class="list">
-        <div class="list-item" v-for="(item, index) in zdjsList" :key="index">
-          <svg-icon class="list-icon" icon-class="list" />
-          <div class="list-content text-overflow" :title="item.title">
+        <div
+          v-for="(item, index) in zdjsList"
+          :key="index"
+          class="list-item"
+        >
+          <svg-icon
+            class="list-icon"
+            icon-class="list"
+          />
+          <div
+            class="list-content text-overflow"
+            :title="item.title"
+          >
             {{ item.title }}
           </div>
-          <div class="list-time">{{ item.time }}</div>
+          <div class="list-time">
+            {{ item.time }}
+          </div>
         </div>
       </el-scrollbar>
     </div>
     <!-- 材料报送 -->
     <div class="clbs-container block-bg-container">
-      <div class="title">材料报送</div>
-      <svg-icon class="refresh-icon" icon-class="refresh" />
+      <div class="title">
+        材料报送
+      </div>
+      <svg-icon
+        class="refresh-icon"
+        icon-class="refresh"
+      />
       <div class="content">
         <div class="content-left">
-          <div class="info"></div>
-          <v-chart :options="clbsLeftOption" class="chart" />
+          <div class="info" />
+          <v-chart
+            :options="clbsLeftOption"
+            class="chart"
+          />
         </div>
         <div class="content-right">
-          <div class="info"></div>
-          <v-chart :options="clbsRightOption" class="chart" />
+          <div class="info" />
+          <v-chart
+            :options="clbsRightOption"
+            class="chart"
+          />
         </div>
       </div>
     </div>
@@ -53,7 +89,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       tzggInfoList: [
         { label: '普通', number: 75 },
@@ -97,7 +133,7 @@ export default {
     }
   },
   computed: {
-    tzggOption() {
+    tzggOption () {
       return {
         color: ['#3B9AFE', '#E6B00E', '#A9DAFF', '#02C439', '#0055FF'],
         tooltip: {
@@ -167,7 +203,7 @@ export default {
         ]
       }
     },
-    clbsLeftOption() {
+    clbsLeftOption () {
       return {
         color: ['#3B9AFE', '#E6B00E'],
         title: {
@@ -233,7 +269,7 @@ export default {
         ]
       }
     },
-    clbsRightOption() {
+    clbsRightOption () {
       return {
         color: ['#0055FF', '#00FFFF'],
         tooltip: {

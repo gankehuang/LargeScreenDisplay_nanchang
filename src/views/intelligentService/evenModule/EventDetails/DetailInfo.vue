@@ -1,216 +1,366 @@
 <template>
   <div class="detail-info-container">
     <el-row class="title-contianer">
-      <el-col class="title">基本信息</el-col>
+      <el-col class="title">
+        基本信息
+      </el-col>
     </el-row>
-    <el-form :label-width="labelWidth" class="base-info">
+    <el-form
+      :label-width="labelWidth"
+      class="base-info"
+    >
       <el-form-item label="事件名称：">
-        <el-input readonly v-model="baseInfo.eventName" />
+        <el-input
+          v-model="baseInfo.eventName"
+          readonly
+        />
       </el-form-item>
       <el-row>
         <el-col :span="12">
           <el-form-item label="事件类型：">
-            <el-input readonly v-model="baseInfo.typeText" />
+            <el-input
+              v-model="baseInfo.typeText"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="事件大类：">
-            <el-input readonly v-model="baseInfo.subTypeText" />
+            <el-input
+              v-model="baseInfo.subTypeText"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="事件子类：">
-            <el-input readonly v-model="baseInfo.zilei" />
+            <el-input
+              v-model="baseInfo.zilei"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="事件来源：">
-            <el-input readonly v-model="baseInfo.sourceText" />
+            <el-input
+              v-model="baseInfo.sourceText"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="上报平台：">
-            <el-input readonly v-model="baseInfo.reportPlatform" />
+            <el-input
+              v-model="baseInfo.reportPlatform"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="事件等级：">
-            <el-input readonly v-model="baseInfo.emergencyLevelText" />
+            <el-input
+              v-model="baseInfo.emergencyLevelText"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="所属网格：">
-            <el-input readonly v-model="baseInfo.gridName" />
+            <el-input
+              v-model="baseInfo.gridName"
+              readonly
+            />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="发生时间：">
-            <el-input readonly v-model="baseInfo.happenedTime" />
+            <el-input
+              v-model="baseInfo.happenedTime"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="发生地址：">
-            <el-input readonly v-model="baseInfo.location" />
+            <el-input
+              v-model="baseInfo.location"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="发生设备：">
-            <el-input readonly v-model="baseInfo.deviceName" />
+            <el-input
+              v-model="baseInfo.deviceName"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="事件状态：">
-            <el-input readonly v-model="baseInfo.statusText" />
+            <el-input
+              v-model="baseInfo.statusText"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="超时状态：">
-            <el-input readonly v-model="baseInfo.timeOverStatus" />
+            <el-input
+              v-model="baseInfo.timeOverStatus"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="办结时间：">
-            <el-input readonly v-model="baseInfo.processingTime" />
+            <el-input
+              v-model="baseInfo.processingTime"
+              readonly
+            />
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="事件详情：" class="event-detail">
+      <el-form-item
+        label="事件详情："
+        class="event-detail"
+      >
         <el-input
+          v-model="baseInfo.processingDesc"
           readonly
           type="textarea"
           :rows="5"
           resize="none"
-          v-model="baseInfo.processingDesc"
         />
       </el-form-item>
     </el-form>
     <el-row class="title-contianer">
-      <el-col class="title">上报信息</el-col>
+      <el-col class="title">
+        上报信息
+      </el-col>
     </el-row>
-    <el-form :label-width="labelWidth" class="report-info">
+    <el-form
+      :label-width="labelWidth"
+      class="report-info"
+    >
       <el-row>
         <el-col :span="12">
           <el-form-item label="上报人：">
-            <el-input readonly value="监控设备" />
+            <el-input
+              readonly
+              value="监控设备"
+            />
           </el-form-item>
           <el-form-item label="性别：">
-            <el-input readonly value="-" />
+            <el-input
+              readonly
+              value="-"
+            />
           </el-form-item>
           <el-form-item label="证件号：">
-            <el-input readonly v-model="reportInfo.idNumber" />
+            <el-input
+              v-model="reportInfo.idNumber"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="联系电话：">
-            <el-input readonly value="-" />
+            <el-input
+              readonly
+              value="-"
+            />
           </el-form-item>
           <el-form-item label="上报地址：">
-            <el-input readonly v-model="baseInfo.location" />
+            <el-input
+              v-model="baseInfo.location"
+              readonly
+            />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="反映人：">
-            <el-input readonly v-model="reportInfo.reflectorName" />
+            <el-input
+              v-model="reportInfo.reflectorName"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="电子邮箱：">
-            <el-input readonly v-model="reportInfo.email" />
+            <el-input
+              v-model="reportInfo.email"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="工作单位：">
-            <el-input readonly v-model="reportInfo.workUnit" />
+            <el-input
+              v-model="reportInfo.workUnit"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="来电电话：">
-            <el-input readonly value="-" />
+            <el-input
+              readonly
+              value="-"
+            />
           </el-form-item>
           <el-form-item label="上报时间：">
-            <el-input readonly v-model="baseInfo.happenedTime" />
+            <el-input
+              v-model="baseInfo.happenedTime"
+              readonly
+            />
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
     <el-row class="title-contianer">
-      <el-col class="title">权责清单</el-col>
+      <el-col class="title">
+        权责清单
+      </el-col>
     </el-row>
-    <el-form :label-width="labelWidth" class="accrual-info">
+    <el-form
+      :label-width="labelWidth"
+      class="accrual-info"
+    >
       <el-form-item label="立案规范：">
-        <el-input readonly v-model="accrualInfo.lian" />
+        <el-input
+          v-model="accrualInfo.lian"
+          readonly
+        />
       </el-form-item>
       <el-form-item label="结案规范：">
-        <el-input readonly v-model="accrualInfo.jiean" />
+        <el-input
+          v-model="accrualInfo.jiean"
+          readonly
+        />
       </el-form-item>
       <el-form-item label="责任单位：">
-        <el-input readonly v-model="accrualInfo.unit" />
+        <el-input
+          v-model="accrualInfo.unit"
+          readonly
+        />
       </el-form-item>
       <el-form-item label="市级时限：">
-        <el-input readonly v-model="accrualInfo.city" />
+        <el-input
+          v-model="accrualInfo.city"
+          readonly
+        />
       </el-form-item>
       <el-form-item label="区级时限：">
-        <el-input readonly v-model="accrualInfo.countryside" />
+        <el-input
+          v-model="accrualInfo.countryside"
+          readonly
+        />
       </el-form-item>
     </el-form>
     <el-row class="title-contianer">
-      <el-col class="title">当前责任人</el-col>
+      <el-col class="title">
+        当前责任人
+      </el-col>
     </el-row>
-    <el-form :label-width="labelWidth" class="current-owner-info">
+    <el-form
+      :label-width="labelWidth"
+      class="current-owner-info"
+    >
       <el-row>
         <el-col :span="12">
           <el-form-item label="当前责任人：">
-            <el-input readonly v-model="currentOwnerInfo.name" />
+            <el-input
+              v-model="currentOwnerInfo.name"
+              readonly
+            />
           </el-form-item>
           <el-form-item label="处理状态：">
-            <el-input readonly v-model="currentOwnerInfo.status" />
+            <el-input
+              v-model="currentOwnerInfo.status"
+              readonly
+            />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="处理部门：">
-            <el-input readonly value="专职网格员" />
+            <el-input
+              readonly
+              value="专职网格员"
+            />
           </el-form-item>
           <el-form-item label="联系电话：">
-            <el-input readonly :value="currentOwnerInfo.phone | hidePhone" />
+            <el-input
+              readonly
+              :value="currentOwnerInfo.phone | hidePhone"
+            />
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
 
     <el-row class="title-contianer">
-      <el-col class="title">事件图片</el-col>
+      <el-col class="title">
+        事件图片
+      </el-col>
     </el-row>
     <el-row class="event-image-info">
-      <el-col :span="4" class="status-section">
+      <el-col
+        :span="4"
+        class="status-section"
+      >
         <div>
-          <div class="status">处理前</div>
-          <div class="circular"></div>
-          <div class="line"></div>
+          <div class="status">
+            处理前
+          </div>
+          <div class="circular" />
+          <div class="line" />
         </div>
         <div>
-          <div class="status">处理中</div>
-          <div class="circular"></div>
-          <div class="line"></div>
+          <div class="status">
+            处理中
+          </div>
+          <div class="circular" />
+          <div class="line" />
         </div>
         <div>
-          <div class="status">处理后</div>
-          <div class="circular"></div>
+          <div class="status">
+            处理后
+          </div>
+          <div class="circular" />
         </div>
       </el-col>
       <el-col :span="20">
-        <div class="image-before-list" v-if="baseInfo.snapImageUrl">
+        <div
+          v-if="baseInfo.snapImageUrl"
+          class="image-before-list"
+        >
           <el-image
-            style="width: 128px; height: 128px;margin-right: 20px;"
             v-for="(item, index) in baseInfo.snapImageUrl"
             :key="index"
+            style="width: 128px; height: 128px;margin-right: 20px;"
             :src="item"
             :preview-src-list="[item]"
             fit="fit"
-          ></el-image>
+          />
         </div>
         <div
+          v-else
           class="image-before-list"
           style="margin-top: 20px;height:128px;line-height:128px;"
-          v-else
         >
           暂无图片
         </div>
-        <div class="image-ing-list" style="height:128px;line-height:128px;">
+        <div
+          class="image-ing-list"
+          style="height:128px;line-height:128px;"
+        >
           暂无图片
         </div>
-        <div class="image-after-list" v-if="baseInfo.processingImageUrl">
+        <div
+          v-if="baseInfo.processingImageUrl"
+          class="image-after-list"
+        >
           <el-image
-            style="width: 128px; height: 128px;margin-right: 20px;"
             v-for="(item, index) in baseInfo.processingImageUrl"
             :key="index"
+            style="width: 128px; height: 128px;margin-right: 20px;"
             :src="item"
             :preview-src-list="[item]"
             fit="fit"
-          ></el-image>
+          />
         </div>
         <div
+          v-else
           class="image-after-list"
           style="margin-top: 20px;height:128px;line-height:128px;"
-          v-else
         >
           暂无图片
         </div>
       </el-col>
     </el-row>
-    <el-row v-if="baseInfo.status === '6'" class="title-contianer">
-      <el-col class="title">评价信息</el-col>
+    <el-row
+      v-if="baseInfo.status === '6'"
+      class="title-contianer"
+    >
+      <el-col class="title">
+        评价信息
+      </el-col>
     </el-row>
-    <el-row v-if="baseInfo.status === '6'" class="evaluate-info">
+    <el-row
+      v-if="baseInfo.status === '6'"
+      class="evaluate-info"
+    >
       <el-col :span="4">
         <el-avatar
           :size="58"
@@ -225,33 +375,49 @@
       </el-col>
 
       <el-col :span="8">
-        <el-rate v-model="rate" :texts="texts" show-text> </el-rate>
+        <el-rate
+          v-model="rate"
+          :texts="texts"
+          show-text
+        />
       </el-col>
     </el-row>
 
-    <el-row v-if="baseInfo.status === '6'" class="title-contianer">
-      <el-col class="title">核查信息</el-col>
+    <el-row
+      v-if="baseInfo.status === '6'"
+      class="title-contianer"
+    >
+      <el-col class="title">
+        核查信息
+      </el-col>
     </el-row>
     <el-row>
-      <el-col :span="8" style="color:#fff;padding-left:25px;">{{
-        baseInfo.verifyDesc
-      }}</el-col>
+      <el-col
+        :span="8"
+        style="color:#fff;padding-left:25px;"
+      >
+        {{
+          baseInfo.verifyDesc
+        }}
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+import { hideName, hidePhone } from '@/plugins/filters'
 export default {
   props: {
-    data: Object
-  },
-  watch: {
-    data() {
-      // console.log('data11',val)
-      this.getMes()
+    data: {
+      type: Object,
+      default: () => {}
+    },
+    info: {
+      type: Object,
+      default: () => {}
     }
   },
-  data() {
+  data () {
     return {
       rate: 5,
       labelWidth: '140px',
@@ -306,15 +472,21 @@ export default {
         countryside: '24小时内'
       },
       currentOwnerInfo: {
-        name: '**三',
-        status: '已处理',
-        unit: '工程部',
-        phone: '18769786501'
+        name: this.info.personItem && this.info.personItem.name ? hideName(this.info.personItem.name) : '*三',
+        status: '已派发',
+        unit: '网格员',
+        phone: this.info.personItem && this.info.personItem.phone ? hidePhone(this.info.personItem.phone) : hidePhone('18797816501')
       }
     }
   },
+  watch: {
+    data () {
+      // console.log('data11',val)
+      this.getMes()
+    }
+  },
   methods: {
-    getMes() {
+    getMes () {
       this.baseInfo = this.data
       this.baseInfo.statusText === '超时'
         ? (this.baseInfo.timeOverStatus = '超时')

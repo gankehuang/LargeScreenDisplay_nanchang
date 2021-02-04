@@ -1,14 +1,20 @@
 <template>
   <transition name="fade">
-    <div class="modal-container" v-if="visible">
+    <div
+      v-if="visible"
+      class="modal-container"
+    >
       <img
         class="modal-close"
         src="@/assets/image/KeyThrong/close.png"
         @click="closeModal"
-      />
+      >
       <div class="modal-content">
         <!--人脸设备-->
-        <div v-if="info && info.typeName === 'face'" class="left-content">
+        <div
+          v-if="info && info.typeName === 'face'"
+          class="left-content"
+        >
           <div class="item">
             <span class="label-text">设备名称：</span>
             <span class="value-text">{{ info.deviceName }}</span>
@@ -35,15 +41,21 @@
           </div>
         </div>
 
-        <div class="right-content" v-if="info && info.typeName === 'face'">
+        <div
+          v-if="info && info.typeName === 'face'"
+          class="right-content"
+        >
           <img
             :src="needImg(info.photoUrl)"
             style="height:138px;width:110px;"
-          />
+          >
         </div>
 
         <!--重要路线-->
-        <div v-if="info && info.typeName === 'connection'" class="left-content">
+        <div
+          v-if="info && info.typeName === 'connection'"
+          class="left-content"
+        >
           <div class="item">
             <span class="label-text">设备名称：</span>
             <span class="value-text">{{ info.name | hideName }}</span>
@@ -79,21 +91,27 @@
         </div>
 
         <div
-          class="right-content"
           v-if="info && info.typeName === 'connection'"
+          class="right-content"
         >
           <img
             :src="needImg(info.photoUrl)"
             style="height:138px;width:110px;"
-          />
+          >
 
-          <div class="look-trajectory" @click="openVideo(info.deviceId)">
+          <div
+            class="look-trajectory"
+            @click="openVideo(info.deviceId)"
+          >
             查看视频
           </div>
         </div>
 
         <!--重点路口，城市易涝点、交通拥堵点、应急避难场所、危险源-->
-        <div v-if="info && info.typeName === 'safe'" class="left-content">
+        <div
+          v-if="info && info.typeName === 'safe'"
+          class="left-content"
+        >
           <div class="item">
             <span class="label-text">名称：</span>
             <span class="value-text">{{ info.name | hideName }}</span>
@@ -116,12 +134,18 @@
           </div>
         </div>
 
-        <div class="right-content" v-if="info && info.typeName === 'safe'">
+        <div
+          v-if="info && info.typeName === 'safe'"
+          class="right-content"
+        >
           <img
             :src="needImg(info.photoUrl)"
             style="height:138px;width:110px;"
-          />
-          <div class="look-trajectory" @click="openVideo(info.deviceId)">
+          >
+          <div
+            class="look-trajectory"
+            @click="openVideo(info.deviceId)"
+          >
             查看视频
           </div>
         </div>
@@ -166,14 +190,17 @@
         </div>
 
         <div
-          class="right-content"
           v-if="info && info.typeName === 'protectionUnit'"
+          class="right-content"
         >
           <img
             :src="needImg(info.photoUrl)"
             style="height:138px;width:110px;"
-          />
-          <div class="look-trajectory" @click="openVideo(info.deviceId)">
+          >
+          <div
+            class="look-trajectory"
+            @click="openVideo(info.deviceId)"
+          >
             查看视频
           </div>
         </div>
@@ -214,14 +241,17 @@
         </div>
 
         <div
-          class="right-content"
           v-if="info && info.typeName === 'fireControl'"
+          class="right-content"
         >
           <img
             :src="needImg(info.photoUrl)"
             style="height:138px;width:110px;"
-          />
-          <div class="look-trajectory" @click="openVideo(info.deviceId)">
+          >
+          <div
+            class="look-trajectory"
+            @click="openVideo(info.deviceId)"
+          >
             查看视频
           </div>
         </div>
@@ -262,14 +292,17 @@
         </div>
 
         <div
-          class="right-content"
           v-if="info && info.typeName === 'keyProjects'"
+          class="right-content"
         >
           <img
             :src="needImg(info.photoUrl)"
             style="height:138px;width:110px;"
-          />
-          <div class="look-trajectory" @click="openVideo(info.deviceId)">
+          >
+          <div
+            class="look-trajectory"
+            @click="openVideo(info.deviceId)"
+          >
             查看视频
           </div>
         </div>
@@ -306,20 +339,26 @@
         </div>
 
         <div
-          class="right-content"
           v-if="info && info.typeName === 'onDutyPerson'"
+          class="right-content"
         >
           <img
             :src="needImg(info.photoUrl)"
             style="height:138px;width:110px;"
-          />
-          <div class="look-trajectory" @click="openVideo(info.deviceId)">
+          >
+          <div
+            class="look-trajectory"
+            @click="openVideo(info.deviceId)"
+          >
             查看视频
           </div>
         </div>
 
         <!--警员-->
-        <div v-if="info && info.typeName === 'policeman'" class="left-content">
+        <div
+          v-if="info && info.typeName === 'policeman'"
+          class="left-content"
+        >
           <div class="item">
             <span class="label-text">姓名：</span>
             <span class="value-text">{{ info.name | hideName }}</span>
@@ -346,12 +385,18 @@
           </div>
         </div>
 
-        <div class="right-content" v-if="info && info.typeName === 'policeman'">
+        <div
+          v-if="info && info.typeName === 'policeman'"
+          class="right-content"
+        >
           <img
             :src="needImg(info.photoUrl)"
             style="height:138px;width:110px;"
-          />
-          <div class="look-trajectory" @click="openVideo(info.deviceId)">
+          >
+          <div
+            class="look-trajectory"
+            @click="openVideo(info.deviceId)"
+          >
             查看视频
           </div>
         </div>
@@ -382,14 +427,17 @@
         </div>
 
         <div
-          class="right-content"
           v-if="info && info.typeName === 'emergencyExpert'"
+          class="right-content"
         >
           <img
             :src="needImg(info.photoUrl)"
             style="height:138px;width:110px;"
-          />
-          <div class="look-trajectory" @click="openVideo(info.deviceId)">
+          >
+          <div
+            class="look-trajectory"
+            @click="openVideo(info.deviceId)"
+          >
             查看视频
           </div>
         </div>
@@ -426,14 +474,17 @@
         </div>
 
         <div
-          class="right-content"
           v-if="info && info.typeName === 'emergencySupplies'"
+          class="right-content"
         >
           <img
             :src="needImg(info.photoUrl)"
             style="height:138px;width:110px;"
-          />
-          <div class="look-trajectory" @click="openVideo(info.deviceId)">
+          >
+          <div
+            class="look-trajectory"
+            @click="openVideo(info.deviceId)"
+          >
             查看视频
           </div>
         </div>
@@ -461,14 +512,17 @@
           </div>
         </div>
         <div
-          class="right-content"
           v-if="info && info.typeName === 'emergencyVehicles'"
+          class="right-content"
         >
           <img
             :src="needImg(info.photoUrl)"
             style="height:138px;width:110px;"
-          />
-          <div class="look-trajectory" @click="openVideo(info.deviceId)">
+          >
+          <div
+            class="look-trajectory"
+            @click="openVideo(info.deviceId)"
+          >
             查看视频
           </div>
         </div>
@@ -501,14 +555,17 @@
         </div>
 
         <div
-          class="right-content"
           v-if="info && info.typeName === 'meetAnEmergency'"
+          class="right-content"
         >
           <img
             :src="needImg(info.photoUrl)"
             style="height:138px;width:110px;"
-          />
-          <div class="look-trajectory" @click="openVideo(info.deviceId)">
+          >
+          <div
+            class="look-trajectory"
+            @click="openVideo(info.deviceId)"
+          >
             查看视频
           </div>
         </div>
@@ -517,7 +574,7 @@
       <BatchVideoPlay
         :visible.sync="videoModal.visible"
         :info="videoModal.info"
-      ></BatchVideoPlay>
+      />
     </div>
   </transition>
 </template>
@@ -525,6 +582,9 @@
 <script>
 import BatchVideoPlay from '@/components/BatchVideoPlay'
 export default {
+  components: {
+    BatchVideoPlay
+  },
   props: {
     visible: {
       type: Boolean,
@@ -534,10 +594,7 @@ export default {
       type: Object
     }
   },
-  components: {
-    BatchVideoPlay
-  },
-  data() {
+  data () {
     return {
       videoModal: {
         visible: false,
@@ -546,17 +603,17 @@ export default {
     }
   },
   methods: {
-    closeModal() {
+    closeModal () {
       this.$emit('update:visible', false)
     },
-    needImg(photoUrl) {
+    needImg (photoUrl) {
       if (photoUrl) {
         return photoUrl
       } else {
         return require('@/assets/image/KeyThrong/no-avatar.png')
       }
     },
-    openVideo(deviceIds) {
+    openVideo (deviceIds) {
       if (!deviceIds) {
         this.$message.warning('暂无关联的视频资源')
         return

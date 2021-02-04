@@ -1,12 +1,17 @@
 <template>
   <div class="info-block">
-    <div class="block-title">车流分析</div>
-    <v-chart :options="expChaOption" class="exp-cha-chart" />
+    <div class="block-title">
+      车流分析
+    </div>
+    <v-chart
+      :options="expChaOption"
+      class="exp-cha-chart"
+    />
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       expChaOption: {
         tooltip: {

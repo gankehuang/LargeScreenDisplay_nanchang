@@ -1,10 +1,15 @@
 <template>
   <div class="gov-organization-container">
-    <div class="title">综合组织</div>
+    <div class="title">
+      综合组织
+    </div>
     <ul>
       <li>
         <div class="label">
-          <svg-icon icon-class="gov-organization-center" class="icon" />
+          <svg-icon
+            icon-class="gov-organization-center"
+            class="icon"
+          />
           <span>综治中心</span>
         </div>
         <div class="data">
@@ -14,7 +19,10 @@
       </li>
       <li>
         <div class="label">
-          <svg-icon icon-class="key-place-building" class="icon" />
+          <svg-icon
+            icon-class="key-place-building"
+            class="icon"
+          />
           <span>综治责任单位</span>
         </div>
         <div class="data">
@@ -24,7 +32,10 @@
       </li>
       <li>
         <div class="label">
-          <svg-icon icon-class="gov-organization-yjdw" class="icon" />
+          <svg-icon
+            icon-class="gov-organization-yjdw"
+            class="icon"
+          />
           <span>群防群治单位</span>
         </div>
         <div class="data">
@@ -55,7 +66,10 @@
       </li>
       <li>
         <div class="label">
-          <svg-icon icon-class="gov-organization-yjdw" class="icon" />
+          <svg-icon
+            icon-class="gov-organization-yjdw"
+            class="icon"
+          />
           <span>社会组织</span>
         </div>
         <div class="data">

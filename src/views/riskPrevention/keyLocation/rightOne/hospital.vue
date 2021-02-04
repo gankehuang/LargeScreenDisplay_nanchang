@@ -1,12 +1,17 @@
 <template>
   <div class="info-block">
-    <div class="block-title">拥堵指数趋势</div>
-    <v-chart :options="expChaOption" class="exp-cha-chart" />
+    <div class="block-title">
+      拥堵指数趋势
+    </div>
+    <v-chart
+      :options="expChaOption"
+      class="exp-cha-chart"
+    />
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       expChaOption: {
         tooltip: {

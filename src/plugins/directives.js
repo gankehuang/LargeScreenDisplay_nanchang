@@ -1,7 +1,7 @@
 export const clickoutside = {
   // 初始化指令
-  bind(el, binding, vnode) {
-    function documentHandler(e) {
+  bind (el, binding, vnode) {
+    function documentHandler (e) {
       // 这里判断点击的元素是否是本身，是本身，则返回
       if (el.contains(e.target)) {
         return false
@@ -16,8 +16,8 @@ export const clickoutside = {
     el.__vueClickOutside__ = documentHandler
     document.addEventListener('click', documentHandler)
   },
-  update() {},
-  unbind(el, binding) {
+  update () {},
+  unbind (el, binding) {
     // 解除事件监听
     document.removeEventListener('click', el.__vueClickOutside__)
     delete el.__vueClickOutside__

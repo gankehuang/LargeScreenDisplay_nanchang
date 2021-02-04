@@ -1,0 +1,46 @@
+.vpm-father-box {
+  background: url('~@/assets/image/video-play-modal-bg.png') no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  cursor: move;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.vpm-title-box {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vpm-title {
+  max-width: 250px;
+  padding: 0 0 0 30px;
+  color: #3b9afe;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: text;
+}
+
+.vpm-close-box {
+  width: 15px;
+  height: 15px;
+  margin: 0 15px;
+  background: url('~@/assets/image/common/close-btn.png');
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+
+.vpm-centent-box {
+  width: 100%;
+  height: 100%;
+  padding: 0 10px 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}

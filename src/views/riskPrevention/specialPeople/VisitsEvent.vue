@@ -5,13 +5,19 @@
     </div>
     <div class="content">
       <el-scrollbar style="height:100%;">
-        <div class="event-item" v-for="(item, index) in eventList" :key="index">
+        <div
+          v-for="(item, index) in eventList"
+          :key="index"
+          class="event-item"
+        >
           <div class="item-top">
             <span class="event-name">
-              <svg-icon icon-class="item-dot" class="icon" />{{
+              <svg-icon
+                icon-class="item-dot"
+                class="icon"
+              />{{
                 item.name
-              }}</span
-            >
+              }}</span>
             <span class="event-time">{{ item.time }}</span>
           </div>
           <div class="item-bottom">
@@ -25,7 +31,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       eventList: [
         {

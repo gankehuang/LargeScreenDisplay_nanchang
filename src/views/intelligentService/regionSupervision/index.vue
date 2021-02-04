@@ -1,6 +1,10 @@
 <template>
   <div class="earlyWarningDisposal">
-    <Tabs :tab-list="tabList" width="500px" :cur-index="3" />
+    <Tabs
+      :tab-list="tabList"
+      width="500px"
+      :cur-index="3"
+    />
     <div class="con-top">
       <eventNum :num="num" />
       <eventType :num="num" />
@@ -25,13 +29,13 @@ export default {
     bottomForm
   },
   mixins: [commonMixin],
-  data() {
+  data () {
     return {
       num: null
     }
   },
   methods: {
-    mapInit(data) {
+    mapInit (data) {
       this.num = data
     }
   }

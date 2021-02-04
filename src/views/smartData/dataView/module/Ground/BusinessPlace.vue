@@ -1,10 +1,18 @@
 <template>
   <div class="business-place-container">
-    <div class="title">经营场所</div>
+    <div class="title">
+      经营场所
+    </div>
     <ul>
-      <li v-for="(item, index) in dataList" :key="index">
+      <li
+        v-for="(item, index) in dataList"
+        :key="index"
+      >
         <div class="label-container">
-          <svg-icon :icon-class="item.icon" class="icon" />
+          <svg-icon
+            :icon-class="item.icon"
+            class="icon"
+          />
           <span class="label">{{ item.label }}</span>
         </div>
         <div class="data">
@@ -20,7 +28,7 @@
 // import { queryKeyPlaceCount } from '@/api/smartData/dataView'
 import { queryPayPlace } from '@/api/smartData/dataView'
 export default {
-  data() {
+  data () {
     return {
       code: '3601',
       dataList: [
@@ -41,10 +49,10 @@ export default {
       ]
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     this.$EventBus.$off('update:dataViewSeleItem')
   },
-  async mounted() {
+  async mounted () {
     await this.handleQueryOperatingPlaceCount()
     this.$EventBus.$on('update:dataViewSeleItem', ({ code }) => {
       this.code = code
@@ -52,7 +60,7 @@ export default {
     })
   },
   methods: {
-    async handleQueryOperatingPlaceCount() {
+    async handleQueryOperatingPlaceCount () {
       try {
         // const { status, data } = await queryKeyPlaceCount({
         //   gridCode: this.code
@@ -69,10 +77,10 @@ export default {
         })
         // console.log('`````````````````````', data)
         if (status === 200) {
-          this.dataList[0].number = data['bg']
-          this.dataList[1].number = data['wb']
-          this.dataList[2].number = data['ktv']
-          this.dataList[3].number = data['jx']
+          this.dataList[0].number = data.bg
+          this.dataList[1].number = data.wb
+          this.dataList[2].number = data.ktv
+          this.dataList[3].number = data.jx
         }
       } catch (error) {}
     }

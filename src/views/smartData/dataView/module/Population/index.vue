@@ -26,19 +26,19 @@ export default {
     ImportantPerson,
     PopModal
   },
-  beforeDestroy() {
+  data () {
+    return {
+      popModalVisible: false
+    }
+  },
+  beforeDestroy () {
     this.$EventBus.$off('update:popModalVisible')
   },
-  mounted() {
+  mounted () {
     this.$EventBus.$on(
       'update:popModalVisible',
       visible => (this.popModalVisible = visible)
     )
-  },
-  data() {
-    return {
-      popModalVisible: false
-    }
   }
 }
 </script>

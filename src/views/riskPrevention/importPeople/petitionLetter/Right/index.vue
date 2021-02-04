@@ -1,19 +1,19 @@
 <template>
   <div class="page-right">
     <SpreadInfo />
-    <ListInfo />
+    <EarlyWarningList />
   </div>
 </template>
 
 <script>
 import SpreadInfo from './SpreadInfo'
-import ListInfo from './ListInfo'
+import EarlyWarningList from './EarlyWarningList'
 export default {
   components: {
     SpreadInfo,
-    ListInfo
+    EarlyWarningList
   },
-  data() {
+  data () {
     return {}
   }
 }

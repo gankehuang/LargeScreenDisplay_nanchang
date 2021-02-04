@@ -1,10 +1,14 @@
 <template>
   <div class="eventNum">
-    <div class="title">事件数量分析</div>
+    <div class="title">
+      事件数量分析
+    </div>
     <div class="contain">
-      <div class="lefts"></div>
+      <div class="lefts" />
       <div class="middles">
-        <p class="alls">{{ total }}</p>
+        <p class="alls">
+          {{ total }}
+        </p>
         <p>事件总数</p>
       </div>
       <div class="rights">
@@ -24,7 +28,7 @@
 import { queryEventList } from '@/api/intelligentService/earlyWarningDisposal'
 export default {
   inject: ['injectData'],
-  data() {
+  data () {
     return {
       total: null,
       isTotal: null,
@@ -39,16 +43,16 @@ export default {
   },
   watch: {
     'injectData.eventData.list': {
-      handler(val) {
+      handler (val) {
         console.log(val)
       }
     }
   },
-  created() {
+  created () {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       queryEventList(1, 1000, this.advancedForm).then(res => {
         const { status, data } = res
         if (status === 200) {
